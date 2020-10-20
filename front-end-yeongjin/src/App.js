@@ -1,75 +1,46 @@
-import React, { Component } from 'react';
-import styled from "styled-components";
+// import React,from 'react';
+import React, {useState} from 'react';
 import './App.css';
+import Header from './components/Header/Header';
+import LoginForm from './components/LoginForm/LoginForm';
+import RegistrationForm from './components/RegistrationForm/RegistrationForm';
+import Home from './components/Home/Home';
+import PrivateRoute from './utils/PrivateRoute';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from "react-router-dom";
+import AlertComponent from './components/AlertComponent/AlertComponent'; 
 
-class App extends Component {
-  render() {
+function App() {
+  const [title, updateTitle] = useState(null);
+  const [errorMessage, updateErrorMessage] = useState(null);
+  // render() {
     return (
-      <AppContainer>
-          <HeaderContainer><h1>China</h1></HeaderContainer>
-            <ListWrapper>
-              <ul>
-                <ol>The Flight</ol>
-                <ol>The City</ol>
-                <ol>The Island</ol>
-                <ol>The Food</ol>
-              </ul>
-            </ListWrapper>
-          <Main>
-            <h1>The City</h1>
-            <p>china is the capital of China region on the island of Create. The city can be
-                  divided in two parts, the old town and the mordern city.<br></br><br></br>
-                  Resize the browser window to see how the content respond to the resizing.
-              </p>
-          </Main>
-          <Aside>
-            <h1>what</h1>
-            <p>안녕하세요 반갑습니다.</p>
-          </Aside>
-      </AppContainer>
+      <Router>
+      <div className="App">
+        <Header title={title}/>
+          <div className="container d-flex align-items-center flex-column">
+            <Switch>
+              <Route path="/" exact={true}>
+                <RegistrationForm showError={updateErrorMessage} updateTitle={updateTitle}/>
+              </Route>
+              <Route path="/register">
+                <RegistrationForm showError={updateErrorMessage} updateTitle={updateTitle}/>
+              </Route>
+              <Route path="/login">
+                <LoginForm showError={updateErrorMessage} updateTitle={updateTitle}/>
+              </Route>
+              <PrivateRoute path="/home">
+                <Home/>
+              </PrivateRoute>
+            </Switch>
+            <AlertComponent errorMessage={errorMessage} hideError={updateErrorMessage}/>
+          </div>
+      </div>
+      </Router>
     );
-  }
+  // }
 }
-
-const AppContainer = styled.div`
-&,
-& * {
-  box-sizing: border-box;
-}
-`;
-
-// Header 컴포넌트
-const HeaderContainer = styled.header`
-  padding: 1rem;
-  border: 1px solid red;
-`;
-
-// Menu 컴포넌트
-const ListWrapper = styled.div`
-  width: 25%;
-  float: left;
-  padding: 15px;
-  border: 1px solid red;
-`;
-
-
-// Main 컴포넌트
-const Main = styled.div`
-  width: 75%;
-  float: left;
-  padding: 15px;
-  border: 1px solid red;
-`;
-
-
-// Aside 컴포넌트
-const Aside = styled.div`
-  width: 100%;
-  float: left;
-  padding: 15px;
-  border: 1px solid red;
-`;
-
-
-
 export default App;
