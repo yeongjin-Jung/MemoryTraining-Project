@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import './App.css';
+import React, { Component } from "react";
+import { BrowserRouter, Route } from "react-router-dom";
+import { Login, Home } from "./pages";
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header>
-            안녕하세요
-        </header>
-      </div>
+      <BrowserRouter>
+        <Route path="/login" component={Login} />
+        <Route exact path="/" component={Home} />
+      </BrowserRouter>
     );
   }
 }
