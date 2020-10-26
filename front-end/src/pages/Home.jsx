@@ -4,10 +4,17 @@
 
 // 무성 작성 예정.
 
-import React from "react";
+import React from 'react';
+import { MyCarousel, RecentSets } from '../components';
+import { Route } from 'react-router-dom';
 
 const Home = () => {
-  return <div>홈 화면입니다.</div>;
+  return (
+    <div style={{ position: 'relative' }}>
+      <MyCarousel />
+      <RecentSets />
+    </div>
+  );
 };
 
 export default Home;
