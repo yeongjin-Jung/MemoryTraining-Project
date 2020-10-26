@@ -5,17 +5,55 @@
 // 로그인에 관한 컴포넌트로 작성해주세요.
 
 // 영진 작성 예정.
+import React, { useState } from "react";
+import "../LoginPage/Login.css";
+import "../../../assets/css/util.css";
+import { withRouter } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { loginUser } from "../../../_actions/userAction";
 
-import React from "react";
-import "./Login.css";
-import "../assets/css/util.css";
+const Login = (props) => {
+  const [Email, setEmail] = useState("");
+  const [Password, setPassword] = useState("");
+  const dispatch = useDispatch();
 
-const Login = () => {
+  const onEmailHandler = (e) => {
+    setEmail(e.currentTarget.value);
+  };
+  const onPasswordHanlder = (e) => {
+    setPassword(e.currentTarget.value);
+  };
+
+  const onSubmitHandler = (e) => {
+    e.preventDefault();
+    //로그인을 진행하기위해서
+    //첫번째 useDispatch(액션) 을 활용해서 액션을 dispatch해준다
+    const body = {
+      email: Email,
+      password: Password,
+    };
+    dispatch(loginUser(body))
+      .then((res) => {
+        console.log(res);
+        if (res.payload.loginSuccess) {
+          props.history.push("/");
+        } else {
+          alert(res.payload.message);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <div className="limiter">
       <div className="container-login100">
+        <div className="wrap-login"></div>
         <div className="wrap-login100">
-          <form className="login100-form validate-form">
+          <form
+            className="login100-form validate-form"
+            onSubmit={onSubmitHandler}
+          >
             {/* <span className="login100-form-logo">
               <i className="zmdi zmdi-landscape"></i>
             </span> */}
@@ -30,9 +68,11 @@ const Login = () => {
             >
               <input
                 className="input100"
-                type="text"
-                name="username"
-                placeholder="Username"
+                type="email"
+                name="Email"
+                placeholder="Email"
+                value={Email}
+                onChange={onEmailHandler}
               />
               <span
                 className="focus-input100"
@@ -47,8 +87,10 @@ const Login = () => {
               <input
                 className="input100"
                 type="password"
-                name="pass"
+                name="password"
+                value={Password}
                 placeholder="Password"
+                onChange={onPasswordHanlder}
               />
               <span
                 className="focus-input100"
@@ -57,7 +99,9 @@ const Login = () => {
             </div>
 
             <div className="container-login100-form-btn">
-              <button className="login100-form-btn m-r-20">로그인</button>
+              <button className="login100-form-btn m-r-20" type="submit">
+                로그인
+              </button>
               <button className="login100-form-btn m-l-20">회원가입</button>
             </div>
             {/* <div className="text-center p-t-30">
@@ -72,4 +116,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default withRouter(Login);
