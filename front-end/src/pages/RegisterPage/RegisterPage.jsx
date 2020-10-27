@@ -1,10 +1,10 @@
 /* eslint-disable */
 import React, { useState } from "react";
 import "./Register.css";
-import "../../../assets/css/util.css";
+import "../../assets/css/util.css";
 import { withRouter } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { registerUser } from "../../../_actions/userAction";
+import { registerUser } from "../../_actions/userAction";
 
 function RegisterPage(props) {
   const [Email, setEmail] = useState("");

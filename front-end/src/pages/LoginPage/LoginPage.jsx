@@ -7,10 +7,10 @@
 // 영진 작성 예정.
 import React, { useState } from "react";
 import "../LoginPage/Login.css";
-import "../../../assets/css/util.css";
+import "../../assets/css/util.css";
 import { withRouter } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { loginUser } from "../../../_actions/userAction";
+import { loginUser } from "../../_actions/userAction";
 
 const LoginPage = (props) => {
   const [Email, setEmail] = useState("");

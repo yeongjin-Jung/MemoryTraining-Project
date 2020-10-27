@@ -1,7 +1,7 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { logoutUser } from "../../../_actions/userAction";
+import { logoutUser } from "../../_actions/userAction";
 
 const LandingPage = (props) => {
   const dispatch = useDispatch();
