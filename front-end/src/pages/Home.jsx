@@ -10,10 +10,10 @@ import { Route } from 'react-router-dom';
 
 const Home = () => {
   return (
-    <div style={{ position: 'relative' }}>
+    <>
       <MyCarousel />
       <RecentSets />
-    </div>
+    </>
   );
 };
 
