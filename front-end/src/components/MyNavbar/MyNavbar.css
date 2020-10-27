@@ -12,3 +12,7 @@
   border: 0 !important;
   box-shadow: none !important;
 }
+
+.my-navbar {
+  background-color: yellow !important;
+}
