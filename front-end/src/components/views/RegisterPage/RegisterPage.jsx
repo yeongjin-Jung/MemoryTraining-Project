@@ -11,6 +11,7 @@ function RegisterPage(props) {
   const [Password, setPassword] = useState("");
   const [Name, setName] = useState("");
   const [ConfirmPasword, setConfirmPasword] = useState("");
+  const [passwordError, setPasswordError] = useState(false);
   const dispatch = useDispatch();
 
   const onEmailHandler = (e) => {
@@ -18,19 +19,43 @@ function RegisterPage(props) {
   };
 
   const onNameHandler = (e) => {
-    setName(e.currentTarget.value);
+    setName(e.target.value);
   };
 
   const onPasswordHanlder = (e) => {
-    setPassword(e.currentTarget.value);
+    setPassword(e.target.value);
+    if (e.target.value == "" && Password == "") {
+      setPasswordError(false);
+    }
   };
 
   const onConfirmPasswordHandler = (e) => {
     setConfirmPasword(e.currentTarget.value);
+    setPasswordError(e.target.value !== Password);
+    if (e.currentTarget.value == "" && Password == "") {
+      setPasswordError(false);
+    }
   };
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
+    if (Email == "") {
+      alert("이메일을 입력해 주세요");
+      return;
+    }
+    if (Name == "") {
+      alert("이름을 입력해 주세요");
+      return;
+    }
+    if (Password == "") {
+      alert("비밀번호를 입력해 주세요");
+      return;
+    }
+    if (ConfirmPasword == "") {
+      alert("확인 비밀번호를 입력해 주세요");
+      return;
+    }
+
     if (Password === ConfirmPasword) {
       console.log(Name);
       console.log(Email);
@@ -45,26 +70,19 @@ function RegisterPage(props) {
         props.history.push("/login");
       });
     } else {
+      setPasswordError(true);
       alert("비밀번호가 일치하지 않습니다");
     }
   };
   return (
     <div className="background">
-      <div className="container-login100">
-        <div className="wrap-login"></div>
-        <div className="wrap-login100">
+      <div className="container-register100">
+        <div className="wrap-register"></div>
+        <div className="wrap-register100">
           <form
-            className="login100-form validate-form"
+            className="register100-form validate-form"
             onSubmit={onSubmitHandler}
           >
-            {/* <span className="login100-form-logo">
-            <i className="zmdi zmdi-landscape"></i>
-          </span> */}
-
-            {/* <span className="login100-form-title p-b-40 p-t-20">
-            암기의 정석
-          </span> */}
-
             <div
               className="wrap-input100 validate-input"
               data-validate="Enter useremail"
@@ -130,10 +148,16 @@ function RegisterPage(props) {
                 placeholder="Confirm Password"
                 onChange={onConfirmPasswordHandler}
               />
+
               <span
                 className="focus-input100"
                 data-placeholder="&#xf191;"
               ></span>
+              {passwordError && (
+                <div style={{ color: "red" }}>
+                  비밀번호가 일치하지 않습니다.
+                </div>
+              )}
             </div>
 
             <div className="container-login100-form-btn">

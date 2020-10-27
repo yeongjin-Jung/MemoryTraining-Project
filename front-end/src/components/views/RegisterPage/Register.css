@@ -1,15 +1,14 @@
-.wrap-login {
+.wrap-register {
   background-image: url("../../../assets/images/bg-01.png");
 }
 
 .background {
-  background: linear-gradient(-45deg, #ddee9f, #fffedc, #63bfe0, #c6f5ea);
-  background-size: 400% 400%;
-  animation: gradient 15s ease infinite;
   width: 100%;
   margin: 0 auto;
   height: 100vh;
   position: relative;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 /*//////////////////////////////////////////////////////////////////
@@ -203,7 +202,7 @@ iframe {
   position: relative;
 } */
 
-.wrap-login {
+.wrap-register {
   width: 100%;
   min-height: 40vh;
   display: -webkit-box;
@@ -223,7 +222,7 @@ iframe {
   z-index: 1;
 }
 
-.container-login100 {
+.container-register100 {
   width: 100%;
   min-height: 80vh;
   display: -webkit-box;
@@ -243,7 +242,10 @@ iframe {
   z-index: 1;
 }
 
-.container-login100::before {
+.container-register100::before {
+  background: linear-gradient(-45deg, #ddee9f, #fffedc, #63bfe0, #c6f5ea);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
   content: "";
   display: block;
   position: absolute;
@@ -255,7 +257,7 @@ iframe {
   background-color: rgba(255, 255, 255, 0);
 }
 
-.wrap-login100 {
+.wrap-register100 {
   width: 600px;
   border-radius: 10px;
   overflow: hidden;
@@ -271,11 +273,11 @@ iframe {
 /*------------------------------------------------------------------
   [ Form ]*/
 
-.login100-form {
+.register100-form {
   width: 100%;
 }
 
-.login100-form-logo {
+.register100-form-logo {
   font-size: 60px;
   color: #333333;
 
@@ -293,7 +295,7 @@ iframe {
   margin: 0 auto;
 }
 
-.login100-form-title {
+.register100-form-title {
   font-family: Poppins-Medium;
   font-size: 30px;
   color: #fff;
