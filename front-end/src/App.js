@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Home, LandingPage, RegisterPage, LoginPage } from './pages';
 // import Auth from "./hoc/auth";
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { Login, Search, Sets } from './pages';
+import { Login, SearchPage, SetsPage } from './pages';
 import { MyNavbar } from './components';
 
 // import 'bootstrap/dist/css/bootstrap.min.css';
@@ -32,8 +32,8 @@ class App extends Component {
           <Route path="/" exact component={Home} />
           <Route exact path="/login" component={LoginPage} />
           <Route exact path="/register" component={RegisterPage} />
-          <Route path="/search" component={Search} />
-          <Route path="/sets" component={Sets} />
+          <Route path="/search" component={SearchPage} />
+          <Route path="/sets" component={SetsPage} />
         </Switch>
       </BrowserRouter>
     );

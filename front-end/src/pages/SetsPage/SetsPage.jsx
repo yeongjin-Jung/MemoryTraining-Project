@@ -1,7 +1,7 @@
 import React from 'react';
 
-const Sets = () => {
+const SetsPage = () => {
   return <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'content' }}>Sets</div>;
 };
 
-export default Sets;
+export default SetsPage;
