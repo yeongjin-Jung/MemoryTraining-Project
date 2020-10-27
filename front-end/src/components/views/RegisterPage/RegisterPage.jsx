@@ -1,6 +1,6 @@
 /* eslint-disable */
 import React, { useState } from "react";
-import "../LoginPage/Login.css";
+import "./Register.css";
 import "../../../assets/css/util.css";
 import { withRouter } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -32,6 +32,9 @@ function RegisterPage(props) {
   const onSubmitHandler = (e) => {
     e.preventDefault();
     if (Password === ConfirmPasword) {
+      console.log(Name);
+      console.log(Email);
+
       let body = {
         email: Email,
         name: Name,
@@ -46,40 +49,7 @@ function RegisterPage(props) {
     }
   };
   return (
-    // <div
-    //   style={{
-    //     display: "flex",
-    //     justifyContent: "center",
-    //     alignItems: "center",
-    //     width: "100%",
-    //     height: "100vh",
-    //   }}
-    // >
-    //   <form
-    //     onSubmit={onSubmitHandler}
-    //     style={{ display: "flex", flexDirection: "column" }}
-    //   >
-    //     <label>Email</label>
-    //     <input type="email" value={Email} onChange={onEmailHandler} />
-
-    //     <label>Name</label>
-    //     <input type="test" value={Name} onChange={onNameHandler} />
-
-    //     <label>Password</label>
-    //     <input type="password" value={Password} onChange={onPasswordHanlder} />
-
-    //     <label>ConfirmPasword</label>
-    //     <input
-    //       type="password"
-    //       value={ConfirmPasword}
-    //       onChange={onConfirmPasswordHandler}
-    //     />
-    //     <br />
-    //     <button type="submit">회원 가입</button>
-    //   </form>
-    // </div>
-
-    <div className="limiter">
+    <div className="background">
       <div className="container-login100">
         <div className="wrap-login"></div>
         <div className="wrap-login100">
@@ -97,7 +67,7 @@ function RegisterPage(props) {
 
             <div
               className="wrap-input100 validate-input"
-              data-validate="Enter username"
+              data-validate="Enter useremail"
             >
               <input
                 className="input100"
@@ -106,6 +76,23 @@ function RegisterPage(props) {
                 placeholder="Email"
                 value={Email}
                 onChange={onEmailHandler}
+              />
+              <span
+                className="focus-input100"
+                data-placeholder="&#xf15a;"
+              ></span>
+            </div>
+            <div
+              className="wrap-input100 validate-input"
+              data-validate="Enter username"
+            >
+              <input
+                className="input100"
+                type="name"
+                name="name"
+                placeholder="Name"
+                value={Name}
+                onChange={onNameHandler}
               />
               <span
                 className="focus-input100"
@@ -121,13 +108,13 @@ function RegisterPage(props) {
                 className="input100"
                 type="password"
                 name="password"
-                placeholder="password"
+                placeholder="Password"
                 value={Password}
                 onChange={onPasswordHanlder}
               />
               <span
                 className="focus-input100"
-                data-placeholder="&#xf191;"
+                data-placeholder="&#xf190;"
               ></span>
             </div>
 
@@ -140,7 +127,7 @@ function RegisterPage(props) {
                 type="password"
                 name="password"
                 value={ConfirmPasword}
-                placeholder="password"
+                placeholder="Confirm Password"
                 onChange={onConfirmPasswordHandler}
               />
               <span

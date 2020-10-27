@@ -50,7 +50,7 @@ const LoginPage = (props) => {
   };
 
   return (
-    <div className="limiter">
+    <div className="background" role="group" aria-label="actionButtons">
       <div className="container-login100">
         <div className="wrap-login"></div>
         <div className="wrap-login100">

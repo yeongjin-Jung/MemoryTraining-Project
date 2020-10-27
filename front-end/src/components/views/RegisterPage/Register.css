@@ -1,23 +1,15 @@
 .wrap-login {
   background-image: url("../../../assets/images/bg-01.png");
 }
+
 .background {
-  height: 100vh;
   background: linear-gradient(-45deg, #ddee9f, #fffedc, #63bfe0, #c6f5ea);
   background-size: 400% 400%;
   animation: gradient 15s ease infinite;
-}
-
-@keyframes gradient {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+  width: 100%;
+  margin: 0 auto;
+  height: 100vh;
+  position: relative;
 }
 
 /*//////////////////////////////////////////////////////////////////
@@ -204,12 +196,12 @@ iframe {
 /*//////////////////////////////////////////////////////////////////
   [ login ]*/
 
-.limiter {
+/* .limiter {
   width: 100%;
   margin: 0 auto;
   height: 100vh;
   position: relative;
-}
+} */
 
 .wrap-login {
   width: 100%;
@@ -267,7 +259,7 @@ iframe {
   width: 600px;
   border-radius: 10px;
   overflow: hidden;
-  padding: 40px 55px 37px 55px;
+  padding: 35px 45px 25px 45px;
 
   background: #358ff5;
   background: -webkit-linear-gradient(top, #7579ff, #b224ef);
