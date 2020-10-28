@@ -1,9 +1,8 @@
 /* eslint-disable */
 import React, { Component } from 'react';
-import { Home, LandingPage, RegisterPage, LoginPage } from './pages';
+import { Home, RegisterPage, LoginPage, Search, Sets, StudyPage } from './pages';
 // import Auth from "./hoc/auth";
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { Login, Search, Sets } from './pages';
 import { MyNavbar } from './components';
 
 // import 'bootstrap/dist/css/bootstrap.min.css';
@@ -34,6 +33,7 @@ class App extends Component {
           <Route exact path="/register" component={RegisterPage} />
           <Route path="/search" component={Search} />
           <Route path="/sets" component={Sets} />
+          <Route path="/studypage" component={StudyPage} />
         </Switch>
       </BrowserRouter>
     );

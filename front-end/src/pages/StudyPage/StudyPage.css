@@ -1,0 +1,57 @@
+.StudyPageContainer {
+  display: flex;
+  width: 100%;
+  height: 90%;
+  /* position: relative; */
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+.studyBackground {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  text-align: center;
+}
+.FlippyContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 80%;
+  height: 80%;
+}
+
+.flippy-container {
+  position: relative;
+  width: 55%;
+  height: 100%;
+  display: inline-block;
+  flex: 1;
+  border: 1px solid #efefef;
+}
+
+.awssld__content {
+  background-color: rgb(255, 255, 255);
+}
+.StudyprogressContainer {
+  flex: 1;
+  align-items: center;
+  max-height: 50px;
+  width: 60%;
+}
+.Studyprogress {
+  height: 50px;
+  width: 50%;
+  margin: auto;
+}
+.react-sweet-progress-line {
+  height: 20px;
+}
+.react-sweet-progress-line-inner {
+  height: 20px;
+}
+
+.awssld__wrapper {
+  align-items: center;
+  display: flex;
+}
