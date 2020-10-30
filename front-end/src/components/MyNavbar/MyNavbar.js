@@ -17,7 +17,7 @@ const MyNavbar = () => {
   return (
     <Navbar className="my-navbar" bg="dark" expand="lg">
       <Navbar.Brand>
-        <Link to="/" style={{ textDecoration: 'none', color: 'white', fontWeight: 'bold', fontSize: '20px' }} onClick={resetSearch}>
+        <Link to="/" style={{ textDecoration: 'none', color: 'white', fontWeight: 'bold', fontSize: '1.3rem' }} onClick={resetSearch}>
           암기의 정석
         </Link>
       </Navbar.Brand>
