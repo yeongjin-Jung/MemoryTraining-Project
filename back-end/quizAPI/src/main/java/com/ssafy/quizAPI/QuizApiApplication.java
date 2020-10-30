@@ -1,14 +1,13 @@
-package com.ssafy.myapp;
+package com.ssafy.quizAPI;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class RoteLearningApplication {
+public class QuizApiApplication {
 
 	public static void main(String[] args) {
-		SpringApplication app = new SpringApplication(RoteLearningApplication.class);
-		app.run(args);
+		SpringApplication.run(QuizApiApplication.class, args);
 	}
 
 }
