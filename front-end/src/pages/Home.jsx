@@ -5,14 +5,15 @@
 // 무성 작성 예정.
 
 import React from 'react';
-import { MyCarousel, RecentSets } from '../components';
+import { MyCarousel, RecentSets, HomeTitle } from '../components';
 import { Route } from 'react-router-dom';
 
 const Home = () => {
   return (
     <>
-      <MyCarousel />
-      <RecentSets />
+      {/* <MyCarousel /> */}
+      <HomeTitle />
+      <RecentSets className="RecentSets" />
     </>
   );
 };

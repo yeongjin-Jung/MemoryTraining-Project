@@ -1,10 +1,51 @@
 import React from 'react';
+import 'animate.css';
+import './RecentSets.css';
 
 const RecentSets = () => {
   return (
-    <div className="recent-sets" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '25vh' }}>
-      <h2>RecentSets</h2>
-    </div>
+    <section class="bg">
+      <h1 class="title">최근 학습한 세트</h1>
+      <div className="card-container">
+        {/* <div className="card-background">
+          <div className="card"></div>
+        </div>
+        <div className="card-background">
+          <div className="card"></div>
+        </div>
+        <div className="card-background">
+          <div className="card"></div>
+        </div>
+        <div className="card-background">
+          <div className="card"></div>
+        </div> */}
+        <div class="cards-list">
+          <div class="card 1">
+            <div class="card_title title-white">
+              <p>Card Title</p>
+            </div>
+          </div>
+
+          <div class="card 1">
+            <div class="card_title title-white">
+              <p>Card Title</p>
+            </div>
+          </div>
+
+          <div class="card 1">
+            <div class="card_title title-white">
+              <p>Card Title</p>
+            </div>
+          </div>
+
+          <div class="card 1">
+            <div class="card_title title-white">
+              <p>Card Title</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 };
 
