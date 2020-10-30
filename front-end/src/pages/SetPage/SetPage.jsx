@@ -53,7 +53,56 @@ const SetPage = () => {
     meaning.current.style.height = meaning.current.scrollHeight + 'px';
   };
 
-  useEffect(() => {});
+  const getDragAfterElement = (container, y) => {
+    const draggableElements = [...container.querySelectorAll('.draggable:not(.dragging)')];
+
+    return draggableElements.reduce(
+      (closest, child) => {
+        const box = child.getBoundingClientRect();
+        const offset = y - box.top - box.height / 2;
+        if (offset < 0 && offset > closest.offset) {
+          return { offset: offset, element: child };
+        } else {
+          return closest;
+        }
+      },
+      { offset: Number.NEGATIVE_INFINITY },
+    ).element;
+  };
+
+  useEffect(() => {
+    let draggables = document.querySelectorAll('.draggable');
+    draggables.forEach((draggable) => {
+      draggable.addEventListener('dragstart', () => {
+        draggable.classList.add('dragging');
+      });
+
+      draggable.addEventListener('dragend', () => {
+        draggable.classList.remove('dragging');
+      });
+    });
+
+    let containers = document.querySelectorAll('.set-content');
+    containers.forEach((container) => {
+      container.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        const afterElement = getDragAfterElement(container, e.clientY);
+        console.log('afterElement : ', afterElement);
+        // console.log('afterElement.childNodes : ', afterElement.childNodes);
+        // console.log('typeof afterElement : ', typeof afterElement);
+        // let idx = afterElement.getElementByTagName('H2');
+        // console.log('afterElements idx : ', idx);
+        const draggable = document.querySelector('.dragging');
+        console.log('draggable : ', draggable);
+        if (afterElement == null) {
+          // container.appendChild(draggable);
+        } else {
+          console.log('afterElement.getElementsByTagName(H2)[0] : ', afterElement.getElementsByTagName('H2')[0]);
+          // container.insertBefore(draggable, afterElement);
+        }
+      });
+    });
+  });
 
   return (
     <div className="container" style={{ display: 'flex', flexDirection: 'column' }}>
@@ -121,7 +170,7 @@ const SetPage = () => {
 
 const Card = ({ card, onDelete }) => {
   return (
-    <div className="added-card" style={{ marginBottom: '10px' }}>
+    <div className="added-card draggable" style={{ marginBottom: '10px' }}>
       <div stlye={{ display: 'flex', backgroundColor: 'white' }}>
         <div className="div-card-index" style={{ display: 'flex', borderBottom: '1px solid lightgrey', marginBottom: '1rem' }}>
           <h2>{card.idx + 1}</h2>

@@ -35,6 +35,7 @@ textarea {
 .added-card {
   opacity: 0;
   animation: new-item-animation 0.3s linear forwards;
+  -webkit-user-drag: element;
 }
 
 @keyframes new-item-animation {
@@ -47,4 +48,15 @@ textarea {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+.draggable {
+  padding: 1rem;
+  background-color: white;
+  /* border: 1px solid black; */
+  cursor: move;
+}
+
+.draggable.dragging {
+  opacity: 0.5;
 }
