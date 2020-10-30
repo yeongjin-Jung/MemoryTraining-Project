@@ -7,7 +7,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class RoteLearningApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(RoteLearningApplication.class, args);
+		SpringApplication app = new SpringApplication(RoteLearningApplication.class);
+		app.run(args);
 	}
 
 }
