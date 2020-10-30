@@ -6,3 +6,4 @@ export { default as LoginPage } from './LoginPage/LoginPage';
 export { default as RegisterPage } from './RegisterPage/RegisterPage';
 export { default as SearchPage } from './SearchPage/SearchPage';
 export { default as SetsPage } from './SetsPage/SetsPage';
+export { default as SetPage } from './SetPage/SetPage';
