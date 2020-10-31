@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './HomeTitle.css';
-import '../assets/css/util.css';
+import '../../assets/css/util.css';
 import { withRouter } from 'react-router-dom';
 
 const HomeTitle = (props) => {
