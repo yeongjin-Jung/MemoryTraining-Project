@@ -4,4 +4,4 @@
 export { default as HomeTitle } from './HomeTitle';
 export { default as MyNavbar } from './MyNavbar/MyNavbar';
 
-export { default as RecentSets } from './RecentSets/RecentSets';
+export { default as RecentSets } from './RecentSetsYeongjin/RecentSets';

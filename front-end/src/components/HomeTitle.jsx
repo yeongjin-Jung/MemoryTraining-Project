@@ -8,7 +8,7 @@ const HomeTitle = (props) => {
     <div className="title-background" role="group" aria-label="actionButtons">
       <div className="container-title">
         <div className="wrap-title"></div>
-        <p>암기의 정석이 어려분의 암기를 도와드립니다</p>
+        <p className="title-comment">암기의 정석이 어려분의 암기를 도와드립니다</p>
       </div>
     </div>
   );
