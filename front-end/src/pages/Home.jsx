@@ -7,11 +7,13 @@
 import React from 'react';
 import { MyCarousel, RecentSets, HomeTitle } from '../components';
 import { Route } from 'react-router-dom';
+import './Home.css';
 
 const Home = () => {
   return (
     <>
       {/* <MyCarousel /> */}
+      <div className="Home-BackgroundColor"></div>
       <HomeTitle />
       <RecentSets className="RecentSets" />
     </>
