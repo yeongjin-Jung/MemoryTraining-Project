@@ -9,10 +9,10 @@ import * as _ from 'lodash';
 
 const SetPage = () => {
   const [cards, setCards] = useState([]);
-  let orderedCards = [];
 
   var testRef = useRef(null);
   var contentRef = useRef(null);
+  var term = useRef(null);
   var meaning = useRef(null);
   var divAddCardForm = useRef(null);
 
@@ -68,6 +68,10 @@ const SetPage = () => {
     };
 
     setCards([...cards, newObj]);
+
+    term.current.value = '';
+    meaning.current.value = '';
+    meaning.current.style.height = '38px';
   };
 
   const handleKeyUp = (e) => {
@@ -161,7 +165,7 @@ const SetPage = () => {
         </span>
         {/* <form id="input-form"> */}
         <div style={{ display: 'flex' }}>
-          <Form.Control className="inputbox mx-3" type="text" placeholder="단어" style={{ width: '50%' }} />
+          <Form.Control className="inputbox mx-3" type="text" placeholder="단어" style={{ width: '50%', height: '38px' }} ref={term} />
           <Form.Control className="inputbox mx-3" as="textarea" placeholder="뜻" style={{ width: '50%', height: '38px' }} onKeyUp={handleKeyUp} ref={meaning} />
           <div>
             <Button type="submit" value="Add" onClick={addCard}>
@@ -170,21 +174,20 @@ const SetPage = () => {
           </div>
         </div>
         {/* </form> */}
-      </div>
+        <div style={{ width: '100%', position: 'relative', marginTop: '2rem' }}>
+          <div style={{ marginBottom: '2rem' }}>
+            <span className="CreateSetHeader-title">카드 목록</span>
+          </div>
 
-      <div style={{ width: '80%' }}>
-        <div style={{ marginBottom: '2rem' }}>
-          <span className="CreateSetHeader-title">카드 목록</span>
-        </div>
-
-        <div className="set-content" ref={contentRef}>
-          {cards
-            .sort((a, b) => {
-              return b.idx - a.idx;
-            })
-            .map((card) => (
-              <Card card={card} key={card.idx} onDelete={onDelete} onEdit={onEdit} onSave={onSave} />
-            ))}
+          <div className="set-content" ref={contentRef}>
+            {cards
+              .sort((a, b) => {
+                return b.idx - a.idx;
+              })
+              .map((card) => (
+                <Card card={card} key={card.idx} onDelete={onDelete} onEdit={onEdit} onSave={onSave} />
+              ))}
+          </div>
         </div>
       </div>
     </div>
@@ -194,6 +197,17 @@ const SetPage = () => {
 const Card = ({ card, onDelete, onEdit, onSave }) => {
   var modifyterm = useRef(null);
   var modifymeaning = useRef(null);
+
+  useEffect(() => {
+    console.log('useEffect() called.');
+    console.log(modifyterm);
+
+    if (modifymeaning.current != null) {
+      console.log(modifymeaning.current.value);
+      modifymeaning.current.style.height = '5px';
+      modifymeaning.current.style.height = modifymeaning.current.scrollHeight + 'px';
+    }
+  });
 
   return (
     <div className="added-card draggable" style={{ marginBottom: '10px' }}>
@@ -217,6 +231,7 @@ const Card = ({ card, onDelete, onEdit, onSave }) => {
             {!card.isEditing && (
               <Button
                 onClick={() => {
+                  console.log('edit button clicked.');
                   onEdit(card.idx);
                 }}
               >
@@ -236,13 +251,13 @@ const Card = ({ card, onDelete, onEdit, onSave }) => {
 
         <div style={{ display: 'flex', flexDirection: 'row', marginBottom: '2rem' }}>
           <div className="mx-3" style={{ width: '40%' }}>
-            {card.isEditing && <Form.Control className="inputbox" type="text" placeholder={card.term} ref={modifyterm} />}
-            {!card.isEditing && <h2 style={{ borderBottom: '5px solid black' }}>{card.term}</h2>}
+            {card.isEditing && <Form.Control className="inputbox" type="text" placeholder={card.term} ref={modifyterm} defaultValue={card.term} />}
+            {!card.isEditing && <p style={{ borderBottom: '5px solid black', wordBreak: 'break-all' }}>{card.term}</p>}
             <span className="term">단어</span>
           </div>
           <div className="mx-3" style={{ width: '40%' }}>
-            {card.isEditing && <Form.Control className="inputbox" type="text" placeholder={card.meaning} ref={modifymeaning} />}
-            {!card.isEditing && <h2 style={{ borderBottom: '5px solid black' }}>{card.meaning}</h2>}
+            {card.isEditing && <Form.Control className="inputbox" as="textarea" placeholder={card.meaning} ref={modifymeaning} defaultValue={card.meaning} />}
+            {!card.isEditing && <p style={{ borderBottom: '5px solid black', wordBreak: 'break-all' }}>{card.meaning}</p>}
             <span className="descpription">뜻</span>
           </div>
         </div>
