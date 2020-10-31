@@ -105,7 +105,7 @@ const SetPage = () => {
   });
 
   return (
-    <div className="container" style={{ display: 'flex', flexDirection: 'column' }}>
+    <div className="container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       <div className="set-header" ref={testRef} style={{ width: '80%', height: '250px' }}>
         <div className="" style={{ paddingTop: '1rem' }}>
           <div style={{ display: 'flex' }}>
@@ -121,10 +121,10 @@ const SetPage = () => {
               </div>
               <div style={{ marginTop: '2rem' }}>
                 <Form.Control className="inputbox" type="text" placeholder="제목을 입력하세요." />
-                <span className="title">제목</span>
+                <span className="card-title">제목</span>
                 <br />
                 <Form.Control className="inputbox" type="text" placeholder="설명을 입력하세요." />
-                <span className="description">설명</span>
+                <span className="card-description">설명</span>
               </div>
             </div>
             {/* <div style={{ display: 'flex', justifyContent: 'flex-end', width: '10%' }}></div> */}
