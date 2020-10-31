@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import './SetPage.css';
 
-import { FiPlus, FiTrash2, FiAlignJustify } from 'react-icons/fi';
+import { FiPlus, FiTrash2, FiEdit2, FiSave } from 'react-icons/fi';
 
 import * as _ from 'lodash';
 
@@ -30,6 +30,28 @@ const SetPage = () => {
     setCards(tmpCards);
   };
 
+  const onEdit = (idx) => {
+    console.log(`onEdit button clicked. idx is ${idx}`);
+
+    let tmpCards = [...cards];
+    var index = cards.findIndex((i) => i.idx == idx);
+    tmpCards[index].isEditing = true;
+
+    setCards(tmpCards);
+  };
+
+  const onSave = (card) => {
+    console.log(`onSave button clicked. idx is ${card.idx}`);
+    let tmpCards = [...cards];
+    var index = cards.findIndex((i) => i.idx == card.idx);
+
+    tmpCards[index].term = card.term;
+    tmpCards[index].meaning = card.meaning;
+    tmpCards[index].isEditing = false;
+
+    setCards(tmpCards);
+  };
+
   const addCard = () => {
     console.log('ADD button clicked.');
 
@@ -42,6 +64,7 @@ const SetPage = () => {
       idx: cards.length,
       term: newTerm,
       meaning: newMeaning,
+      isEditing: false,
     };
 
     setCards([...cards, newObj]);
@@ -160,7 +183,7 @@ const SetPage = () => {
               return b.idx - a.idx;
             })
             .map((card) => (
-              <Card card={card} key={card.idx} onDelete={onDelete} />
+              <Card card={card} key={card.idx} onDelete={onDelete} onEdit={onEdit} onSave={onSave} />
             ))}
         </div>
       </div>
@@ -168,14 +191,38 @@ const SetPage = () => {
   );
 };
 
-const Card = ({ card, onDelete }) => {
+const Card = ({ card, onDelete, onEdit, onSave }) => {
+  var modifyterm = useRef(null);
+  var modifymeaning = useRef(null);
+
   return (
     <div className="added-card draggable" style={{ marginBottom: '10px' }}>
       <div stlye={{ display: 'flex', backgroundColor: 'white' }}>
         <div className="div-card-index" style={{ display: 'flex', borderBottom: '1px solid lightgrey', marginBottom: '1rem' }}>
           <h2>{card.idx + 1}</h2>
           <div style={{ width: '100%', display: 'flex', justifyContent: 'flex-end' }}>
-            <FiAlignJustify size="32" />
+            {card.isEditing && (
+              <Button
+                onClick={() => {
+                  console.log(modifyterm.current.value);
+                  console.log(modifymeaning.current.value);
+                  card.term = modifyterm.current.value;
+                  card.meaning = modifymeaning.current.value;
+                  onSave(card);
+                }}
+              >
+                <FiSave size="32" />
+              </Button>
+            )}
+            {!card.isEditing && (
+              <Button
+                onClick={() => {
+                  onEdit(card.idx);
+                }}
+              >
+                <FiEdit2 size="32" />
+              </Button>
+            )}
             <Button
               variant="danger"
               onClick={() => {
@@ -189,11 +236,13 @@ const Card = ({ card, onDelete }) => {
 
         <div style={{ display: 'flex', flexDirection: 'row', marginBottom: '2rem' }}>
           <div className="mx-3" style={{ width: '40%' }}>
-            <h2 style={{ borderBottom: '5px solid black' }}>{card.term}</h2>
+            {card.isEditing && <Form.Control className="inputbox" type="text" placeholder={card.term} ref={modifyterm} />}
+            {!card.isEditing && <h2 style={{ borderBottom: '5px solid black' }}>{card.term}</h2>}
             <span className="term">단어</span>
           </div>
           <div className="mx-3" style={{ width: '40%' }}>
-            <h2 style={{ borderBottom: '5px solid black' }}>{card.meaning}</h2>
+            {card.isEditing && <Form.Control className="inputbox" type="text" placeholder={card.meaning} ref={modifymeaning} />}
+            {!card.isEditing && <h2 style={{ borderBottom: '5px solid black' }}>{card.meaning}</h2>}
             <span className="descpription">뜻</span>
           </div>
         </div>
