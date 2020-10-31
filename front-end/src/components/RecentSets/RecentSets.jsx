@@ -1,61 +1,48 @@
 import React from 'react';
-
-import './RecentSets.scss';
+import 'animate.css';
+import './RecentSets.css';
 
 const RecentSets = () => {
   return (
-    // <div className="recent-sets" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '25vh' }}>
-    //   <h2>RecentSets</h2>
-    // </div>
-    <div className="container" style={{ width: '100%', flexDirection: 'column' }}>
-      <h2 style={{ fontSize: '2em' }}>최근 학습한 세트</h2>
-
-      <div className="flex-items" style={{ display: 'flex', flexDirection: 'row' }}>
-        <div>
-          <a className="card4" href="#">
-            <h3 style={{ textDecoration: 'underline' }}>정보처리기사</h3>
-            <p className="small">Card description with lots of great facts and interesting details.</p>
-            <div className="dimmer"></div>
-            <div className="go-corner" href="#">
-              <div className="go-arrow">→</div>
+    <section className="bg">
+      <h1 className="title">최근 학습한 세트</h1>
+      <div className="card-container">
+        <div className="cards-list">
+          <div className="card-overflow">
+            <div className="card 1 animate__animated animate__fadeInLeft">
+              <div className="card_content title-white">
+                <p>세트제목</p>
+                <p>세트 작성자</p>
+              </div>
             </div>
-          </a>
-        </div>
-
-        <div>
-          <a className="card4" href="#">
-            <h3 style={{ textDecoration: 'underline' }}>한국사</h3>
-            <p className="small">Card description with lots of great facts and interesting details.</p>
-            <div className="dimmer"></div>
-            <div className="go-corner" href="#">
-              <div className="go-arrow">→</div>
+          </div>
+          <div className="card-overflow">
+            <div className="card 1 animate__animated animate__fadeInUp">
+              <div className="card_content title-white">
+                <p>세트제목</p>
+                <p>세트 작성자</p>
+              </div>
             </div>
-          </a>
-        </div>
-
-        <div>
-          <a className="card4" href="#">
-            <h3 style={{ textDecoration: 'underline' }}>GSAT</h3>
-            <p className="small">Card description with lots of great facts and interesting details.</p>
-            <div className="dimmer"></div>
-            <div className="go-corner" href="#">
-              <div className="go-arrow">→</div>
+          </div>
+          <div className="card-overflow">
+            <div className="card 1 animate__animated animate__fadeInDown">
+              <div className="card_content title-white">
+                <p> 세트제목</p>
+                <p>세트 작성자</p>
+              </div>
             </div>
-          </a>
-        </div>
-
-        <div>
-          <a className="card4" href="#">
-            <h3 style={{ textDecoration: 'underline' }}>토익</h3>
-            <p className="small">Card description with lots of great facts and interesting details.</p>
-            <div className="dimmer"></div>
-            <div className="go-corner" href="#">
-              <div className="go-arrow">→</div>
+          </div>
+          <div className="card-overflow">
+            <div className="card 1 animate__animated animate__fadeInRight">
+              <div className="card_content title-white">
+                <p>세트제목</p>
+                <p>세트 작성자</p>
+              </div>
             </div>
-          </a>
+          </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
