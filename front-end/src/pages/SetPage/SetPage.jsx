@@ -198,6 +198,17 @@ const Card = ({ card, onDelete, onEdit, onSave }) => {
   var modifyterm = useRef(null);
   var modifymeaning = useRef(null);
 
+  useEffect(() => {
+    console.log('useEffect() called.');
+    console.log(modifyterm);
+
+    if (modifymeaning.current != null) {
+      console.log(modifymeaning.current.value);
+      modifymeaning.current.style.height = '5px';
+      modifymeaning.current.style.height = modifymeaning.current.scrollHeight + 'px';
+    }
+  });
+
   return (
     <div className="added-card draggable" style={{ marginBottom: '10px' }}>
       <div stlye={{ display: 'flex', backgroundColor: 'white' }}>
@@ -220,6 +231,7 @@ const Card = ({ card, onDelete, onEdit, onSave }) => {
             {!card.isEditing && (
               <Button
                 onClick={() => {
+                  console.log('edit button clicked.');
                   onEdit(card.idx);
                 }}
               >
