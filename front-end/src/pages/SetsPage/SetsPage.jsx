@@ -1,11 +1,9 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import { DropDown } from '../../components';
 import './SetsPage.css';
 import 'animate.css';
-
-const numbers = [1, 2, 3, 4, 5];
 
 const SetsPage = () => {
   const users = [
@@ -24,11 +22,31 @@ const SetsPage = () => {
       username: 'liz',
       title: '전기기사',
     },
+    {
+      id: 4,
+      username: 'liz',
+      title: '전기기사',
+    },
+    {
+      id: 5,
+      username: 'liz',
+      title: '전기기사',
+    },
+    {
+      id: 6,
+      username: 'liz',
+      title: '전기기사',
+    },
+    {
+      id: 7,
+      username: 'liz',
+      title: '전기기사',
+    },
   ];
 
   function User({ user }) {
     return (
-      <a className="card4 animate__animated animate__fadeInLeft" href="#">
+      <a className="card4 " href="#">
         <h3>{user.title}</h3>
         <p>({user.username})</p>
         <p className="small"></p>
@@ -39,21 +57,36 @@ const SetsPage = () => {
       </a>
     );
   }
-  return (
-    <div className="" style={{ display: 'flex', flexDirection: 'column' }}>
-      <div>
-        <Button>
-          <Link to="/create-set">세트 만들기</Link>
-        </Button>
+  const scrollToTop = (e) => {
+    window.scrollTo(0, 1000);
+  };
+  const refToTop = useRef();
 
-        <div className="Sets-container">
-          <p style={{ fontSize: '2.4em', fontWeight: '600', marginBottom: '1em' }}>세트 목록</p>
-          <DropDown />
-          {users.map((user) => (
-            <User user={user} key={user.id} />
-          ))}
+  return (
+    <div className="Sets-root" ref={refToTop}>
+      <div className="Sets-container">
+        <p style={{ fontSize: '2.4em', fontWeight: '600' }}>세트 목록</p>
+        <div className="ButtonContainer">
+          <DropDown className="SetsDropDown" />
+          <Button variant="outline-dark">
+            <Link to="/create-set">
+              <span style={{ fontWeight: '800' }}>세트 만들기</span>
+            </Link>
+          </Button>
         </div>
+        {users.map((user) => (
+          <User user={user} key={user.id} />
+        ))}
       </div>
+      <a
+        onClick={() => {
+          setTimeout(() => {
+            refToTop.current.scrollIntoView({ behavior: 'smooth' });
+          }, 50);
+        }}
+      >
+        <button className="to-top">Top</button>
+      </a>
     </div>
   );
 };
