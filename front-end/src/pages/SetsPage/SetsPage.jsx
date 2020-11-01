@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import { DropDown } from '../../components';
@@ -6,6 +6,7 @@ import './SetsPage.css';
 import 'animate.css';
 
 const SetsPage = () => {
+  const [DropDownValue, setDropDownValue] = useState('all');
   const users = [
     {
       id: 1,
@@ -61,22 +62,27 @@ const SetsPage = () => {
     window.scrollTo(0, 1000);
   };
   const refToTop = useRef();
+  const onChaneHandler = (Value) => {
+    setDropDownValue(Value);
+  };
 
   return (
     <div className="Sets-root" ref={refToTop}>
+      <div className="Home-BackgroundColor"></div>
       <div className="Sets-container">
-        <p style={{ fontSize: '2.4em', fontWeight: '600' }}>세트 목록</p>
+        <p style={{ fontSize: '2.7em', fontWeight: '600' }}>세트 목록</p>
         <div className="ButtonContainer">
-          <DropDown className="SetsDropDown" />
-          <Button variant="outline-dark">
-            <Link to="/create-set">
+          <DropDown className="SetsDropDown" onChaneHandler={onChaneHandler} />
+          <Link to="/create-set">
+            <Button variant="outline-dark">
               <span style={{ fontWeight: '800' }}>세트 만들기</span>
-            </Link>
-          </Button>
+            </Button>
+          </Link>
         </div>
-        {users.map((user) => (
-          <User user={user} key={user.id} />
-        ))}
+
+        {DropDownValue == 'all' && users.map((user) => <User user={user} key={user.id} />)}
+        {DropDownValue == 'MySet' && users.filter((sets) => sets.username == 'liz').map((user) => <User user={user} key={user.id} />)}
+        {DropDownValue == 'Scrap' && users.filter((sets) => sets.username != 'liz').map((user) => <User user={user} key={user.id} />)}
       </div>
       <a
         onClick={() => {
