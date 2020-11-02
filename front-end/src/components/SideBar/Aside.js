@@ -4,12 +4,16 @@ import { ProSidebar, Menu, MenuItem, SubMenu, SidebarHeader, SidebarFooter, Side
 import { FaTachometerAlt, FaRegLaughWink, FaHeart } from 'react-icons/fa';
 import sidebarBg from '../../assets/bg1.jpg';
 
+import iconMemorize from '../../assets/images/memorize.png';
+import iconTest from '../../assets/images/test.png';
+import iconSetting from '../../assets/images/setting.png';
+
 const Aside = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) => {
   const intl = useIntl();
   return (
     <ProSidebar image={image ? sidebarBg : false} rtl={rtl} collapsed={collapsed} toggled={toggled} breakPoint="md" onToggle={handleToggleSidebar}>
       <SidebarHeader>
-        <div
+        {/* <div
           style={{
             padding: '24px',
             textTransform: 'uppercase',
@@ -22,7 +26,8 @@ const Aside = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) => {
           }}
         >
           {intl.formatMessage({ id: 'sidebarTitle' })}
-        </div>
+        </div> */}
+        <div style={{ height: '2rem' }}></div>
       </SidebarHeader>
 
       <SidebarContent>
@@ -31,9 +36,11 @@ const Aside = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) => {
             icon={<FaTachometerAlt />}
             suffix={<span className="badge red">{intl.formatMessage({ id: 'new' })}</span>}
           > */}
-          <MenuItem icon={<FaTachometerAlt />}>{intl.formatMessage({ id: 'dashboard' })}</MenuItem>
+          <MenuItem icon={<img src={iconMemorize} style={{ width: '40px', backgroundColor: 'white', borderRadius: '50%' }} />}>암기하기</MenuItem>
+          <MenuItem icon={<img src={iconTest} style={{ width: '40px', backgroundColor: 'white', borderRadius: '50%' }} />}>테스트</MenuItem>
+          <MenuItem icon={<img src={iconSetting} style={{ width: '40px', backgroundColor: 'white', borderRadius: '50%' }} />}>세트 수정</MenuItem>
         </Menu>
-        <Menu iconShape="circle">
+        {/* <Menu iconShape="circle">
           <SubMenu
             // suffix={<span className="badge yellow">3</span>}
             title={intl.formatMessage({ id: 'withSuffix' })}
@@ -48,7 +55,7 @@ const Aside = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) => {
             <MenuItem>{intl.formatMessage({ id: 'submenu' })} 2</MenuItem>
             <MenuItem>{intl.formatMessage({ id: 'submenu' })} 3</MenuItem>
           </SubMenu>
-        </Menu>
+        </Menu> */}
       </SidebarContent>
 
       {/* <SidebarFooter style={{ textAlign: 'center' }}>
