@@ -1,10 +1,10 @@
-import { REGISTER_USER, LOGIN_USER, LOGOUT_USER, AUTH_USER } from "./types";
-import { request } from "../utils/axios";
+import { REGISTER_USER, LOGIN_USER, LOGOUT_USER, AUTH_USER } from './types';
+import { request } from '../utils/axios';
 
-const USER_URL = "/api/user";
+const USER_URL = '/api/user';
 
 export function registerUser(dataToSubmit) {
-  const data = request("post", USER_URL + "/register", dataToSubmit);
+  const data = request('post', USER_URL + '/register', dataToSubmit);
 
   return {
     type: REGISTER_USER,
@@ -13,7 +13,7 @@ export function registerUser(dataToSubmit) {
 }
 
 export function loginUser(dataToSubmit) {
-  const data = request("post", USER_URL + "/login", dataToSubmit);
+  const data = request('post', USER_URL + '/login', dataToSubmit);
   return {
     type: LOGIN_USER,
     payload: data,
@@ -21,7 +21,7 @@ export function loginUser(dataToSubmit) {
 }
 
 export function logoutUser() {
-  const data = request("post", USER_URL + "/logout");
+  const data = request('post', USER_URL + '/logout');
 
   return {
     type: LOGOUT_USER,
@@ -30,7 +30,7 @@ export function logoutUser() {
 }
 
 export function authUser() {
-  const data = request("get", USER_URL + "/auth");
+  const data = request('get', USER_URL + '/auth');
   return {
     type: AUTH_USER,
     payload: data,
