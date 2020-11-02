@@ -1,9 +1,10 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import { DropDown } from '../../components';
 import './SetsPage.css';
 import 'animate.css';
+import FadeIn from 'react-fade-in';
 
 const SetsPage = () => {
   const [DropDownValue, setDropDownValue] = useState('all');
@@ -47,20 +48,20 @@ const SetsPage = () => {
 
   function User({ user }) {
     return (
-      <a className="card4 " href="#">
-        <h3>{user.title}</h3>
-        <p>({user.username})</p>
-        <p className="small"></p>
-        <div className="dimmer"></div>
-        <div className="go-corner" href="#">
-          <div className="go-arrow">→</div>
-        </div>
-      </a>
+      <div className="card-container">
+        <a className="card4 " href="#">
+          <h3>{user.title}</h3>
+          <p>({user.username})</p>
+          <p className="small"></p>
+          <div className="dimmer"></div>
+          <div className="go-corner" href="#">
+            <div className="go-arrow">→</div>
+          </div>
+        </a>
+      </div>
     );
   }
-  const scrollToTop = (e) => {
-    window.scrollTo(0, 1000);
-  };
+
   const refToTop = useRef();
   const onChaneHandler = (Value) => {
     setDropDownValue(Value);
@@ -79,10 +80,11 @@ const SetsPage = () => {
             </Button>
           </Link>
         </div>
-
-        {DropDownValue == 'all' && users.map((user) => <User user={user} key={user.id} />)}
-        {DropDownValue == 'MySet' && users.filter((sets) => sets.username == 'liz').map((user) => <User user={user} key={user.id} />)}
-        {DropDownValue == 'Scrap' && users.filter((sets) => sets.username != 'liz').map((user) => <User user={user} key={user.id} />)}
+        <FadeIn delay={250} className="FadeIn-container">
+          {DropDownValue == 'all' && users.map((user) => <User user={user} key={user.id} />)}
+          {DropDownValue == 'MySet' && users.filter((sets) => sets.username == 'liz').map((user) => <User user={user} key={user.id} />)}
+          {DropDownValue == 'Scrap' && users.filter((sets) => sets.username != 'liz').map((user) => <User user={user} key={user.id} />)}
+        </FadeIn>
       </div>
       <a
         onClick={() => {

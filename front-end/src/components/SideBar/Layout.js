@@ -22,7 +22,6 @@ function Layout({ setLocale }) {
 
   const handleToggleSidebar = (value) => {
     setToggled(value);
-    console.log('안녕');
   };
 
   return (
