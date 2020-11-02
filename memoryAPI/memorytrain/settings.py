@@ -62,7 +62,6 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     # CORS
     'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.common.CommonMiddleware',
 
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -158,6 +157,9 @@ SITE_ID = 1
 
 CORS_ORIGIN_ALLOW_ALL = True
 
+CORS_ORIGIN_WHITELIST = (
+    'http://localhost:3000',
+)
 
 
 #DRF auth settings

@@ -36,4 +36,6 @@ urlpatterns = [
     path("api/changepassword/", ChangePasswordView.as_view()),
     path("api/idDuplicateCheck/", IdDuplicateCheckView.as_view()),
 
+    # books
+    path("api/books/", include('books.urls')),
 ]
