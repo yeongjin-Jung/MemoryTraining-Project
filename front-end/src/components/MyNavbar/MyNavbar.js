@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Navbar, Nav, NavDropdown, Form, FormControl, Button, InputGroup } from 'react-bootstrap';
 import { Link, useHistory } from 'react-router-dom';
 
@@ -7,9 +7,12 @@ import './MyNavbar.css';
 
 const MyNavbar = () => {
   const [showSearch, setShowSearch] = useState(false);
+
   const toggleSearch = () => {
+    console.log('toggleSearch called.');
     setShowSearch(!showSearch);
   };
+
   const resetSearch = () => {
     setShowSearch(false);
   };
@@ -23,7 +26,7 @@ const MyNavbar = () => {
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="mr-auto">
+        <Nav className="container-fluid">
           {showSearch ? <Search toggleSearch={toggleSearch} /> : <Menu toggleSearch={toggleSearch} />}
 
           {/* <NavDropdown title="Dropdown" id="basic-nav-dropdown">
@@ -60,28 +63,58 @@ const Menu = ({ toggleSearch }) => {
 
 const Search = ({ toggleSearch }) => {
   const history = useHistory();
+  const buttonRef = useRef(null);
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    /**
+     * Alert if clicked on outside of element
+     */
+    function handleClickOutside(event) {
+      if (buttonRef.current && !buttonRef.current.contains(event.target) && !inputRef.current.contains(event.target)) {
+        // alert('You clicked outside of me!');
+        toggleSearch();
+      }
+    }
+    // Bind the event listener
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      // Unbind the event listener on clean up
+    };
+  }, [buttonRef]);
 
   return (
     <>
-      <InputGroup className="" style={{ width: '1350px', background: 'transparent' }}>
-        <FormControl
-          className="input-search"
-          placeholder="검색하기"
-          aria-label="Recipient's username"
-          aria-describedby="basic-addon2"
-          onKeyPress={(event) => {
-            if (event.key == 'Enter') {
-              alert('enter pressed.');
-              history.push('/search');
-            }
-          }}
-        />
-        <InputGroup.Append>
-          <Button variant="outline-secondary" onClick={toggleSearch} style={{ marginLeft: '1px' }}>
+      {/* <div className="col-sm-10" style={{ backgroundColor: 'red' }}>
+        red
+      </div>
+      <div className="col-sm-2" style={{ backgroundColor: 'yellow' }}>
+        yellow
+      </div> */}
+      <div className="container-fluid search">
+        <InputGroup className="col-11" style={{ background: 'transparent' }}>
+          <FormControl
+            ref={inputRef}
+            className="input-search"
+            placeholder="검색하기"
+            aria-label="Recipient's username"
+            aria-describedby="basic-addon2"
+            onKeyPress={(event) => {
+              if (event.key == 'Enter') {
+                inputRef.current.value = '';
+                toggleSearch();
+                history.push('/search');
+              }
+            }}
+          />
+        </InputGroup>
+        <InputGroup.Append className="col-1">
+          <Button variant="outline-secondary" onClick={toggleSearch} style={{ marginLeft: '1px' }} ref={buttonRef}>
             <MdClose />
           </Button>
         </InputGroup.Append>
-      </InputGroup>
+      </div>
     </>
   );
 };
