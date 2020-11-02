@@ -12,3 +12,11 @@
   border: 0 !important;
   box-shadow: none !important;
 }
+.my-navbar {
+  display: flex;
+}
+
+.basic-navbar-nav {
+  flex: 1;
+  width: 20;
+}
