@@ -1,7 +1,12 @@
-import React, { useState } from 'react';
-import DarkModeToggle from 'react-dark-mode-toggle';
-const TestPage = () => {
-  return <div></div>;
-};
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { createStore } from 'redux';
+import reducers from './reducers';
 
-export default TestPage;
+const store = createStore(reducers);
+
+const render = () => {
+  ReactDOM.render(<App store={store} />, document.getElementById('root'));
+};
+store.subscribe(render);
+render();

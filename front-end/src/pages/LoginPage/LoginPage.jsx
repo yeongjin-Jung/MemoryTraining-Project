@@ -5,16 +5,18 @@
 // 로그인에 관한 컴포넌트로 작성해주세요.
 
 // 영진 작성 예정.
-import React, { useState } from "react";
-import "../LoginPage/Login.css";
-import "../../assets/css/util.css";
-import { withRouter } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { loginUser } from "../../_actions/userAction";
+import React, { useState } from 'react';
+import '../LoginPage/Login.css';
+import '../../assets/css/util.css';
+import { withRouter } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { loginUser } from '../../_actions/userAction';
+import axios from 'axios';
 
 const LoginPage = (props) => {
-  const [Email, setEmail] = useState("");
-  const [Password, setPassword] = useState("");
+  console.log(props);
+  const [Email, setEmail] = useState('');
+  const [Password, setPassword] = useState('');
   const dispatch = useDispatch();
 
   const onEmailHandler = (e) => {
@@ -35,8 +37,9 @@ const LoginPage = (props) => {
     dispatch(loginUser(body))
       .then((res) => {
         console.log(res);
-        if (res.payload.loginSuccess) {
-          props.history.push("/");
+        if (res.type == 'LOGIN_USER') {
+          localStorage.setItem('Authorization', 'JWT ' + res.payload.token);
+          props.history.push('/');
         } else {
           alert(res.payload.message);
         }
@@ -44,9 +47,26 @@ const LoginPage = (props) => {
       .catch((err) => {
         console.log(err);
       });
+    // axios
+    //   .post(
+    //     'http://127.0.0.1:8000/api/rest-auth/login/',
+    //     {
+    //       email: Email,
+    //       password: Password,
+    //     },
+    //     { withCredentials: true },
+    //   )
+    //   .then(function (response) {
+    //     console.log(response);
+    //     alert('로그인이 정상적으로 완료되었습니다');
+    //     props.history.push('/');
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error);
+    //   });
   };
   const redirectToRegister = () => {
-    props.history.push("/register");
+    props.history.push('/register');
   };
 
   return (
@@ -54,10 +74,7 @@ const LoginPage = (props) => {
       <div className="container-login100">
         <div className="wrap-login"></div>
         <div className="wrap-login100">
-          <form
-            className="login100-form validate-form"
-            onSubmit={onSubmitHandler}
-          >
+          <form className="login100-form " onSubmit={onSubmitHandler}>
             {/* <span className="login100-form-logo">
               <i className="zmdi zmdi-landscape"></i>
             </span> */}
@@ -66,50 +83,21 @@ const LoginPage = (props) => {
               암기의 정석
             </span> */}
 
-            <div
-              className="wrap-input100 validate-input"
-              data-validate="Enter username"
-            >
-              <input
-                className="input100"
-                type="email"
-                name="Email"
-                placeholder="Email"
-                value={Email}
-                onChange={onEmailHandler}
-              />
-              <span
-                className="focus-input100"
-                data-placeholder="&#xf207;"
-              ></span>
+            <div className="wrap-input100 " data-validate="Enter username">
+              <input className="input100" type="email" name="Email" placeholder="Email" value={Email} onChange={onEmailHandler} />
+              <span className="focus-input100" data-placeholder="&#xf207;"></span>
             </div>
 
-            <div
-              className="wrap-input100 validate-input"
-              data-validate="Enter password"
-            >
-              <input
-                className="input100"
-                type="password"
-                name="password"
-                value={Password}
-                placeholder="Password"
-                onChange={onPasswordHanlder}
-              />
-              <span
-                className="focus-input100"
-                data-placeholder="&#xf191;"
-              ></span>
+            <div className="wrap-input100 " data-validate="Enter password">
+              <input className="input100" type="password" name="password" value={Password} placeholder="Password" onChange={onPasswordHanlder} />
+              <span className="focus-input100" data-placeholder="&#xf191;"></span>
             </div>
 
             <div className="container-login100-form-btn">
               <button className="login100-form-btn m-r-20" type="submit">
                 로그인
               </button>
-              <button
-                className="login100-form-btn m-l-20"
-                onClick={() => redirectToRegister()}
-              >
+              <button className="login100-form-btn m-l-20" onClick={() => redirectToRegister()}>
                 회원가입
               </button>
             </div>

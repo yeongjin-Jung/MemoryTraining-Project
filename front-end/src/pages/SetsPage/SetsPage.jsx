@@ -63,7 +63,7 @@ const SetsPage = () => {
   }
 
   const refToTop = useRef();
-  const onChaneHandler = (Value) => {
+  const onChanegeHandler = (Value) => {
     setDropDownValue(Value);
   };
 
@@ -73,7 +73,8 @@ const SetsPage = () => {
       <div className="Sets-container">
         <p style={{ fontSize: '2.7em', fontWeight: '600' }}>세트 목록</p>
         <div className="ButtonContainer">
-          <DropDown className="SetsDropDown" onChaneHandler={onChaneHandler} />
+          <DropDown className="SetsDropDown" onChanegeHandler={onChanegeHandler} />
+
           <Link to="/create-set">
             <Button variant="outline-dark">
               <span style={{ fontWeight: '800' }}>세트 만들기</span>
