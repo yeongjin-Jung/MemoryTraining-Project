@@ -5,6 +5,7 @@ class Book(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_book')
     title = models.CharField(max_length=20, blank=False)
     description = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
 class Card(models.Model):
