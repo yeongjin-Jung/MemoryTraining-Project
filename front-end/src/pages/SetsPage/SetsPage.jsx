@@ -45,15 +45,6 @@ const SetsPage = (props) => {
       title: '전기기사',
     },
   ];
-<<<<<<< HEAD
-
-  function User({ set }) {
-    return (
-      <div className="card-container">
-        <a className="card4 " href="#">
-          <h3>{set.title}</h3>
-          <p>({set.username})</p>
-=======
   useEffect(() => {
     console.log('SetsPage useEffect called.');
     console.log(props);
@@ -72,7 +63,6 @@ const SetsPage = (props) => {
         <a className="card4 ">
           <h3>{user.title}</h3>
           <p>({user.username})</p>
->>>>>>> ce733ae987e340468894c6a16e8d0e30623d9950
           <p className="small"></p>
           <div className="dimmer"></div>
           <div className="go-corner">
@@ -103,15 +93,9 @@ const SetsPage = (props) => {
           </Link>
         </div>
         <FadeIn delay={250} className="FadeIn-container">
-<<<<<<< HEAD
-          {DropDownValue == 'all' && sets.map((sets) => <User set={sets} key={sets.id} />)}
-          {DropDownValue == 'MySet' && sets.filter((sets) => sets.username == 'liz').map((set) => <User set={set} key={set.id} />)}
-          {DropDownValue == 'Scrap' && sets.filter((sets) => sets.username != 'liz').map((set) => <User set={set} key={set.id} />)}
-=======
-          {DropDownValue == 'all' && users.map((user) => <User user={user} key={user.id} history={props.history} />)}
-          {DropDownValue == 'MySet' && users.filter((sets) => sets.username == 'liz').map((user) => <User user={user} key={user.id} history={props.history} />)}
-          {DropDownValue == 'Scrap' && users.filter((sets) => sets.username != 'liz').map((user) => <User user={user} key={user.id} history={props.history} />)}
->>>>>>> ce733ae987e340468894c6a16e8d0e30623d9950
+          {DropDownValue == 'all' && sets.map((user) => <User user={user} key={user.id} history={props.history} />)}
+          {DropDownValue == 'MySet' && sets.filter((sets) => sets.username == 'liz').map((user) => <User user={user} key={user.id} history={props.history} />)}
+          {DropDownValue == 'Scrap' && sets.filter((sets) => sets.username != 'liz').map((user) => <User user={user} key={user.id} history={props.history} />)}
         </FadeIn>
       </div>
       <a

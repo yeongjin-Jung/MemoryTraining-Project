@@ -4,6 +4,7 @@ import { request } from '../utils/axios';
 const USER_URL = '/api/rest-auth';
 
 export function registerUser(dataToSubmit) {
+  console.log(dataToSubmit);
   const data = request('post', USER_URL + '/signup/', dataToSubmit).data;
   console.log(data);
   return {
