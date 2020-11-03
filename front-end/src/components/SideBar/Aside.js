@@ -13,7 +13,7 @@ const Aside = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) => {
   return (
     <ProSidebar image={image ? sidebarBg : false} rtl={rtl} collapsed={collapsed} toggled={toggled} breakPoint="md" onToggle={handleToggleSidebar}>
       <SidebarHeader>
-        {/* <div
+        <div
           style={{
             padding: '24px',
             textTransform: 'uppercase',
@@ -25,9 +25,9 @@ const Aside = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) => {
             whiteSpace: 'nowrap',
           }}
         >
-          {intl.formatMessage({ id: 'sidebarTitle' })}
-        </div> */}
-        <div style={{ height: '2rem' }}></div>
+          내 세트
+        </div>
+        {/* <div style={{ height: '2rem' }}></div> */}
       </SidebarHeader>
 
       <SidebarContent>

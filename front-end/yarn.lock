@@ -2776,6 +2776,11 @@ babel-runtime@6.x, babel-runtime@^6.26.0:
     core-js "^2.4.0"
     regenerator-runtime "^0.11.0"
 
+babel@^6.23.0:
+  version "6.23.0"
+  resolved "https://registry.yarnpkg.com/babel/-/babel-6.23.0.tgz#d0d1e7d803e974765beea3232d4e153c0efb90f4"
+  integrity sha1-0NHn2APpdHZb7qMjLU4VPA77kPQ=
+
 babylon@^6.18.0:
   version "6.18.0"
   resolved "https://registry.yarnpkg.com/babylon/-/babylon-6.18.0.tgz#af2f3b88fa6f5c1e4c634d1a0f8eac4f55b395e3"
@@ -9540,6 +9545,14 @@ rc-pagination@^1.20.1:
     prop-types "^15.5.7"
     react-lifecycles-compat "^3.0.4"
 
+react-alphabet-sorter@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/react-alphabet-sorter/-/react-alphabet-sorter-1.0.2.tgz#8b34b205cdace160bf145157eabe3369179fcfc6"
+  integrity sha1-izSyBc2s4WC/FFFX6r4zaRefz8Y=
+  dependencies:
+    classnames "^2.2.5"
+    prop-types "^15.6.0"
+
 react-app-polyfill@^1.0.6:
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/react-app-polyfill/-/react-app-polyfill-1.0.6.tgz#890f8d7f2842ce6073f030b117de9130a5f385f0"
@@ -9649,6 +9662,11 @@ react-error-overlay@^6.0.7:
   version "6.0.7"
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-6.0.7.tgz#1dcfb459ab671d53f660a991513cb2f0a0553108"
   integrity sha512-TAv1KJFh3RhqxNvhzxj6LeT5NWklP6rDr2a0jaTfsZ5wSZWHOGeqQyejUp3xxLfPt2UpyJEcVQB/zyPcmonNFA==
+
+react-fade-in@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/react-fade-in/-/react-fade-in-1.1.1.tgz#826570835bf2bc5362390df49d98a795f3d1e9fb"
+  integrity sha512-HQjLCQbpPg7sR1INtArpKfTvB6U7197nG9JvmsCExkZnjvAgOdJY2gW4x0ggu5uH2WRNOgfB4TS0ATe2fwnoEg==
 
 react-flippy@^0.1.5:
   version "0.1.5"
@@ -10364,6 +10382,13 @@ ripemd160@^2.0.0, ripemd160@^2.0.1:
   dependencies:
     hash-base "^3.0.0"
     inherits "^2.0.1"
+
+rodal@^1.8.1:
+  version "1.8.1"
+  resolved "https://registry.yarnpkg.com/rodal/-/rodal-1.8.1.tgz#b34b97f00fb4e957184083f84c0e49ace33b3160"
+  integrity sha512-3BpwZrLpaWSDHu8Atzz/S83MkpqpnXL9uGjNPZy1N6V7p4eWWsBSP8er5t+1xV+fZmbGEjLTNo01pUzYHqc7vg==
+  dependencies:
+    classnames "^2.2.6"
 
 rollup@^2.26.0:
   version "2.32.1"
