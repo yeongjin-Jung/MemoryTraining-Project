@@ -8,7 +8,7 @@ import FadeIn from 'react-fade-in';
 
 const SetsPage = () => {
   const [DropDownValue, setDropDownValue] = useState('all');
-  const users = [
+  const sets = [
     {
       id: 1,
       username: 'velopert',
@@ -46,12 +46,12 @@ const SetsPage = () => {
     },
   ];
 
-  function User({ user }) {
+  function User({ set }) {
     return (
       <div className="card-container">
         <a className="card4 " href="#">
-          <h3>{user.title}</h3>
-          <p>({user.username})</p>
+          <h3>{set.title}</h3>
+          <p>({set.username})</p>
           <p className="small"></p>
           <div className="dimmer"></div>
           <div className="go-corner" href="#">
@@ -82,9 +82,9 @@ const SetsPage = () => {
           </Link>
         </div>
         <FadeIn delay={250} className="FadeIn-container">
-          {DropDownValue == 'all' && users.map((user) => <User user={user} key={user.id} />)}
-          {DropDownValue == 'MySet' && users.filter((sets) => sets.username == 'liz').map((user) => <User user={user} key={user.id} />)}
-          {DropDownValue == 'Scrap' && users.filter((sets) => sets.username != 'liz').map((user) => <User user={user} key={user.id} />)}
+          {DropDownValue == 'all' && sets.map((sets) => <User set={sets} key={sets.id} />)}
+          {DropDownValue == 'MySet' && sets.filter((sets) => sets.username == 'liz').map((set) => <User set={set} key={set.id} />)}
+          {DropDownValue == 'Scrap' && sets.filter((sets) => sets.username != 'liz').map((set) => <User set={set} key={set.id} />)}
         </FadeIn>
       </div>
       <a
