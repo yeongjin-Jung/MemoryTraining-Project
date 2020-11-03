@@ -148,10 +148,10 @@ const SetPage = () => {
               </div>
               <div style={{ marginTop: '2rem' }}>
                 <Form.Control className="inputbox" type="text" placeholder="제목을 입력하세요." />
-                <span className="card-title">제목</span>
+                <span className="set-title">제목</span>
                 <br />
                 <Form.Control className="inputbox" type="text" placeholder="설명을 입력하세요." />
-                <span className="card-description">설명</span>
+                <span className="set-description">설명</span>
               </div>
             </div>
             {/* <div style={{ display: 'flex', justifyContent: 'flex-end', width: '10%' }}></div> */}

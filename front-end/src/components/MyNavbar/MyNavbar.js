@@ -1,11 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Navbar, Nav, NavDropdown, Form, FormControl, Button, InputGroup } from 'react-bootstrap';
 import { Link, useHistory } from 'react-router-dom';
-
+import { withRouter } from 'react-router-dom';
 import { MdClose } from 'react-icons/md';
 import './MyNavbar.css';
 
-const MyNavbar = () => {
+import { useDispatch } from 'react-redux';
+import { logoutUser } from '../../_actions/userAction';
+
+const MyNavbar = (props) => {
+  console.log('네브', props);
   const [showSearch, setShowSearch] = useState(false);
 
   const toggleSearch = () => {
@@ -15,6 +19,27 @@ const MyNavbar = () => {
 
   const resetSearch = () => {
     setShowSearch(false);
+  };
+
+  const dispatch = useDispatch();
+  const onClickHandler = () => {
+    //useDispatch를 사용해서 로그아웃 액션을 실행한다
+    //useDispatch와 logout 액션이 두가지 필요하다
+    dispatch(logoutUser())
+      .then((res) => {
+        console.log(res);
+        if (res.payload.status == 200) {
+          localStorage.removeItem('Authorization');
+          props.history.push('/login');
+        } else {
+          alert(res.payload.detail);
+        }
+        // if (res.) {
+        // } else {
+        //   alert('로그아웃에 실패하였습니다');
+        // }
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -40,7 +65,9 @@ const MyNavbar = () => {
         {showSearch ? null : (
           <Form inline>
             {/* <FormControl type="text" placeholder="Search" className="mr-sm-2" /> */}
-            <Button variant="outline-success">로그아웃</Button>
+            <Button variant="outline-success" onClick={onClickHandler}>
+              로그아웃
+            </Button>
           </Form>
         )}
       </Navbar.Collapse>
@@ -118,4 +145,4 @@ const Search = ({ toggleSearch }) => {
     </>
   );
 };
-export default MyNavbar;
+export default withRouter(MyNavbar);

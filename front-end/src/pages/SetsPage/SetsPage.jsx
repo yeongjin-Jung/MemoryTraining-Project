@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import { DropDown } from '../../components';
@@ -6,7 +6,7 @@ import './SetsPage.css';
 import 'animate.css';
 import FadeIn from 'react-fade-in';
 
-const SetsPage = () => {
+const SetsPage = (props) => {
   const [DropDownValue, setDropDownValue] = useState('all');
   const users = [
     {
@@ -45,16 +45,27 @@ const SetsPage = () => {
       title: '전기기사',
     },
   ];
-
-  function User({ user }) {
+  useEffect(() => {
+    console.log('SetsPage useEffect called.');
+    console.log(props);
+  });
+  function User({ user, history }) {
     return (
-      <div className="card-container">
-        <a className="card4 " href="#">
+      <div
+        className="card-container"
+        onClick={() => {
+          console.log(`${user.id} clicked.`);
+          // console.log('history : ', history);
+          console.log('user : ', user);
+          history.push({ pathname: '/set-detail', state: { user: user } });
+        }}
+      >
+        <a className="card4 ">
           <h3>{user.title}</h3>
           <p>({user.username})</p>
           <p className="small"></p>
           <div className="dimmer"></div>
-          <div className="go-corner" href="#">
+          <div className="go-corner">
             <div className="go-arrow">→</div>
           </div>
         </a>
@@ -63,7 +74,7 @@ const SetsPage = () => {
   }
 
   const refToTop = useRef();
-  const onChaneHandler = (Value) => {
+  const onChanegeHandler = (Value) => {
     setDropDownValue(Value);
   };
 
@@ -73,7 +84,8 @@ const SetsPage = () => {
       <div className="Sets-container">
         <p style={{ fontSize: '2.7em', fontWeight: '600' }}>세트 목록</p>
         <div className="ButtonContainer">
-          <DropDown className="SetsDropDown" onChaneHandler={onChaneHandler} />
+          <DropDown className="SetsDropDown" onChanegeHandler={onChanegeHandler} />
+
           <Link to="/create-set">
             <Button variant="outline-dark">
               <span style={{ fontWeight: '800' }}>세트 만들기</span>
@@ -81,9 +93,9 @@ const SetsPage = () => {
           </Link>
         </div>
         <FadeIn delay={250} className="FadeIn-container">
-          {DropDownValue == 'all' && users.map((user) => <User user={user} key={user.id} />)}
-          {DropDownValue == 'MySet' && users.filter((sets) => sets.username == 'liz').map((user) => <User user={user} key={user.id} />)}
-          {DropDownValue == 'Scrap' && users.filter((sets) => sets.username != 'liz').map((user) => <User user={user} key={user.id} />)}
+          {DropDownValue == 'all' && users.map((user) => <User user={user} key={user.id} history={props.history} />)}
+          {DropDownValue == 'MySet' && users.filter((sets) => sets.username == 'liz').map((user) => <User user={user} key={user.id} history={props.history} />)}
+          {DropDownValue == 'Scrap' && users.filter((sets) => sets.username != 'liz').map((user) => <User user={user} key={user.id} history={props.history} />)}
         </FadeIn>
       </div>
       <a

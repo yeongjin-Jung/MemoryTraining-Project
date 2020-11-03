@@ -8,6 +8,7 @@ import { registerUser } from '../../_actions/userAction';
 import axios from 'axios';
 
 function RegisterPage(props) {
+  console.log(props);
   const [Email, setEmail] = useState('');
   const [Password, setPassword] = useState('');
   const [Name, setName] = useState('');
@@ -61,34 +62,35 @@ function RegisterPage(props) {
       console.log(Name);
       console.log(Email);
 
-      // let body = {
-      //   email: Email,
-      //   name: Name,
-      //   password: Password,
-      // };
-      // dispatch(registerUser(body)).then((res) => {
-      //   alert('가입이 정상적으로 완료되었습니다');
-      //   props.history.push('/login');
-      // });
-      axios
-        .post(
-          'http://127.0.0.1:8000/api/rest-auth/signup/',
-          {
-            email: Email,
-            password: Password,
-            confirm_password: ConfirmPasword,
-            name: Name,
-          },
-          { withCredentials: true },
-        )
-        .then(function (response) {
-          console.log(response);
-          alert('가입이 정상적으로 완료되었습니다');
-          props.history.push('/login');
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+      let body = {
+        email: Email,
+        name: Name,
+        confirm_password: ConfirmPasword,
+        password: Password,
+      };
+      dispatch(registerUser(body)).then((res) => {
+        alert('가입이 정상적으로 완료되었습니다');
+        props.history.push('/login');
+      });
+      // axios
+      //   .post(
+      //     'http://127.0.0.1:8000/api/rest-auth/signup/',
+      //     {
+      //       email: Email,
+      //       password: Password,
+      //       confirm_password: ConfirmPasword,
+      //       name: Name,
+      //     },
+      //     { withCredentials: true },
+      //   )
+      //   .then(function (response) {
+      //     console.log(response);
+      //     alert('가입이 정상적으로 완료되었습니다');
+      //     props.history.push('/login');
+      //   })
+      //   .catch(function (error) {
+      //     console.log(error);
+      //   });
     } else {
       setPasswordError(true);
       alert('비밀번호가 일치하지 않습니다');

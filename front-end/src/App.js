@@ -22,8 +22,8 @@ class App extends Component {
           <Route path="/studypage" component={StudyPage} />
           <Route path="/search" component={SearchPage} />
           <Route path="/sets" component={SetsPage} />
-          <Route path="/create-set" component={SetPage} />
-          <Route path="/setdetail" component={SetDetailPage} />
+          <Route path="/set-create" component={SetPage} />
+          <Route path="/set-detail" component={SetDetailPage} />
         </Switch>
       </BrowserRouter>
     );

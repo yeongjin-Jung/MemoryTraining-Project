@@ -24,6 +24,12 @@
   width: 50%;
   height: 100%;
 }
+@media (max-width: 576px) {
+  .FlippyContainer {
+    width: 80%;
+    height: 70%;
+  }
+}
 
 .flippy-container {
   position: relative;
@@ -32,6 +38,13 @@
   display: inline-block;
   flex: 1;
   border: 1px solid #efefef;
+}
+
+@media (max-width: 576px) {
+  .flippy-container {
+    width: 80%;
+    height: 50vh;
+  }
 }
 
 .awssld__content {
