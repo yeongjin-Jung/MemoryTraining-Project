@@ -261,3 +261,163 @@ h3 {
 .SetsDropDown {
   margin-left: auto;
 }
+
+.rodal-dialog {
+  padding: 0 !important;
+  border-radius: 10px !important;
+}
+
+@media (max-width: 767px) {
+  .rodal-dialog {
+    width: 90vw !important;
+    /* transition: width 0.5s, height 2s; */
+    overflow-y: scroll;
+    border-radius: 10px;
+  }
+  .rodal-dialog::-webkit-scrollbar {
+    /* display: none; */
+  }
+}
+
+@media (min-width: 768px) {
+  .rodal-dialog {
+    width: 75vw !important;
+    /* transition: width 0.5s, height 2s; */
+    overflow-y: scroll;
+    border-radius: 10px;
+  }
+  .rodal-dialog::-webkit-scrollbar {
+    /* display: none; */
+  }
+}
+
+@media (min-width: 992px) {
+  .rodal-dialog {
+    width: 60vw !important;
+    /* transition: width 0.5s, height 2s; */
+    overflow-y: scroll;
+    border-radius: 10px;
+  }
+  .rodal-dialog::-webkit-scrollbar {
+    /* display: none; */
+  }
+}
+
+.rodal-header {
+  width: 100%;
+  height: 50px;
+  /* background-color: red; */
+}
+
+.rodal-cardlist {
+  margin: 5px;
+}
+
+.rodal-close {
+  top: 20px !important;
+}
+
+.courses-container {
+  display: flex;
+  justify-content: center;
+}
+
+.course {
+  display: block;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+  /* display: flex; */
+  /* max-width: 100%; */
+  /* margin: 20px; */
+  overflow: hidden;
+  width: 100%;
+}
+
+.course h6 {
+  opacity: 0.6;
+  margin: 0;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.course h2 {
+  letter-spacing: 1px;
+  margin: 10px 0;
+}
+
+.course-preview {
+  /* 	background-color: #2A265F; */
+  background-color: #325c46;
+  color: #fff;
+  padding: 30px;
+  max-width: 100px;
+}
+
+.course-preview a {
+  color: #fff;
+  display: inline-block;
+  font-size: 12px;
+  opacity: 0.6;
+  margin-top: 30px;
+  text-decoration: none;
+}
+
+.course-info {
+  padding: 30px;
+  position: relative;
+  width: 100%;
+}
+
+.courses-container {
+}
+
+.course {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  max-width: 100%;
+  margin: 20px;
+  overflow: hidden;
+  width: 700px;
+}
+
+.course h6 {
+  opacity: 0.6;
+  margin: 0;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.course h2 {
+  letter-spacing: 1px;
+  margin: 10px 0;
+}
+
+.course-preview {
+  /* 	background-color: #2A265F; */
+  background-color: #325c46;
+  color: #fff;
+  padding: 30px;
+  max-width: 100px;
+}
+
+.course-preview a {
+  color: #fff;
+  display: inline-block;
+  font-size: 12px;
+  opacity: 0.6;
+  margin-top: 30px;
+  text-decoration: none;
+}
+
+.course-info {
+  padding: 30px;
+  position: relative;
+  width: 100%;
+}
+
+.card-title {
+  background: linear-gradient(45deg, #ff5370, #ff869a);
+}
