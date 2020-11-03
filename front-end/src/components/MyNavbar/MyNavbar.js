@@ -4,12 +4,11 @@ import { Link, useHistory } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 import { MdClose } from 'react-icons/md';
 import './MyNavbar.css';
-
+import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { logoutUser } from '../../_actions/userAction';
 
 const MyNavbar = (props) => {
-  console.log('네브', props);
   const [showSearch, setShowSearch] = useState(false);
 
   const toggleSearch = () => {
@@ -25,21 +24,39 @@ const MyNavbar = (props) => {
   const onClickHandler = () => {
     //useDispatch를 사용해서 로그아웃 액션을 실행한다
     //useDispatch와 logout 액션이 두가지 필요하다
-    dispatch(logoutUser())
-      .then((res) => {
-        console.log(res);
-        if (res.payload.status == 200) {
+    // dispatch(logoutUser())
+    //   .then((res) => {
+    //     console.log(res);
+    //     if (res.payload.status == 200) {
+    //       localStorage.removeItem('Authorization');
+    //       props.history.push('/login');
+    //     } else {
+    //       alert(res.payload.detail);
+    //     }
+    // if (res.) {
+    // } else {
+    //   alert('로그아웃에 실패하였습니다');
+    // }
+    // })
+    // .catch((err) => console.log(err));
+    const token = localStorage.getItem('Authorization');
+    const config = {
+      Authorization: token,
+    };
+    axios
+      .post('http://127.0.0.1:8000/api/rest-auth/logout/', null, config, { withCredentials: true })
+      .then(function (response) {
+        console.log(response);
+        if (response.status == 200) {
           localStorage.removeItem('Authorization');
           props.history.push('/login');
         } else {
-          alert(res.payload.detail);
+          console.log(response.statusText);
         }
-        // if (res.) {
-        // } else {
-        //   alert('로그아웃에 실패하였습니다');
-        // }
       })
-      .catch((err) => console.log(err));
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 
   return (

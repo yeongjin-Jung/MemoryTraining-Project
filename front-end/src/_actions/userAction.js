@@ -4,9 +4,9 @@ import { request } from '../utils/axios';
 const USER_URL = '/api/rest-auth';
 
 export function registerUser(dataToSubmit) {
-  console.log(dataToSubmit);
-  const data = request('post', USER_URL + '/signup/', dataToSubmit).data;
-  console.log(data);
+  console.log('dataToSubmit :', dataToSubmit);
+  const data = request('post', USER_URL + '/signup/', dataToSubmit);
+  console.log('data:', data);
   return {
     type: REGISTER_USER,
     payload: data,
@@ -14,7 +14,7 @@ export function registerUser(dataToSubmit) {
 }
 
 export function loginUser(dataToSubmit) {
-  const data = request('post', USER_URL + '/login/', dataToSubmit).data;
+  const data = request('post', USER_URL + '/login/', dataToSubmit);
   return {
     type: LOGIN_USER,
     payload: data,
@@ -36,7 +36,7 @@ export function logoutUser() {
 }
 
 export function authUser() {
-  const data = request('get', USER_URL + '/auth/').data;
+  const data = request('get', USER_URL + '/auth/');
   return {
     type: AUTH_USER,
     payload: data,

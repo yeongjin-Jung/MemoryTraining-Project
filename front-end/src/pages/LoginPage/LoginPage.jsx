@@ -14,7 +14,6 @@ import { loginUser } from '../../_actions/userAction';
 import axios from 'axios';
 
 const LoginPage = (props) => {
-  console.log(props);
   const [Email, setEmail] = useState('');
   const [Password, setPassword] = useState('');
   const dispatch = useDispatch();
@@ -34,36 +33,39 @@ const LoginPage = (props) => {
       email: Email,
       password: Password,
     };
-    dispatch(loginUser(body))
-      .then((res) => {
-        console.log(res);
-        if (res.type == 'LOGIN_USER') {
-          localStorage.setItem('Authorization', 'JWT ' + res.payload.token);
-          props.history.push('/');
-        } else {
-          alert(res.payload.message);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    // axios
-    //   .post(
-    //     'http://127.0.0.1:8000/api/rest-auth/login/',
-    //     {
-    //       email: Email,
-    //       password: Password,
-    //     },
-    //     { withCredentials: true },
-    //   )
-    //   .then(function (response) {
-    //     console.log(response);
-    //     alert('로그인이 정상적으로 완료되었습니다');
-    //     props.history.push('/');
+    // dispatch(loginUser(body))
+    //   .then((res) => {
+    //     console.log(res);
+    //     if (res.type == 'LOGIN_USER') {
+    //       localStorage.setItem('Authorization', 'JWT ' + res.payload.token);
+    //       props.history.push('/');
+    //     } else {
+    //       alert(res.payload.message);
+    //     }
     //   })
-    //   .catch(function (error) {
-    //     console.log(error);
+    //   .catch((err) => {
+    //     console.log(err);
     //   });
+    axios
+      .post(
+        'http://127.0.0.1:8000/api/rest-auth/login/',
+        {
+          email: Email,
+          password: Password,
+        },
+        { withCredentials: true },
+      )
+      .then(function (response) {
+        console.log(response);
+        alert('로그인이 정상적으로 완료되었습니다');
+        if (response.status == 200) {
+          localStorage.setItem('Authorization', 'JWT ' + response.data.token);
+        }
+        props.history.push('/');
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
   const redirectToRegister = () => {
     props.history.push('/register');
