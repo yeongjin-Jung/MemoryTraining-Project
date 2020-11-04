@@ -85,12 +85,19 @@ const SearchPage = (props) => {
             </Button>
           </Link>
         </div>
-        <FadeIn className="FadeIn-container">
-          {!isLoading && bookList.map((book) => <Book book={book} key={book.id} />)}
-          {/* {DropDownValue == 'date' && bookList.map((user) => <User user={user} key={user.id} />)} */}
-          {/* {DropDownValue == 'date' && bookList.filter((bookList) => bookList.title == 'liz').map((user) => <User user={user} key={user.id} />)} */}
-          {/* {DropDownValue == 'Scrap' && bookList.filter((bookList) => bookList.title != 'liz').map((user) => <User user={user} key={user.id} />)} */}
-        </FadeIn>
+        {/* <div> */}
+
+        {!isLoading && (
+          <FadeIn className="FadeIn-container" duration={1000} delay={250} transitionDuration={1000}>
+            {bookList.map((book) => (
+              <Book book={book} key={book.id} />
+            ))}
+            {/* {DropDownValue == 'date' && bookList.map((user) => <User user={user} key={user.id} />)} */}
+            {/* {DropDownValue == 'date' && bookList.filter((bookList) => bookList.title == 'liz').map((user) => <User user={user} key={user.id} />)} */}
+            {/* {DropDownValue == 'Scrap' && bookList.filter((bookList) => bookList.title != 'liz').map((user) => <User user={user} key={user.id} />)} */}
+            {/* </div> */}
+          </FadeIn>
+        )}
       </div>
       <a
         onClick={() => {
