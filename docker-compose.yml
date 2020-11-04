@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_DATABASE: memorytraining
+      MYSQL_ROOT_PASSWORD: fishbreadbun4
+      TZ: Asia/Seoul
+    volumes:
+      - mysqldb-data:/var/lib/mysql
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - 80:80
+#    volumes:
+#      - .:/code
+#      - ./nginx:/etc/nginx/conf.d
+#      - ./staticfiles:/static
+#    depends_on:
+#      - web
+
+  django:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: uwsgi --http 0.0.0.0:8000 --chdir /home/s03p31b301/memoryAPI/ --module memorytrain.wsgi
+    expose:
+      - 8000
+#    volumes:
+#      - .:/code
+#      - ./staticfiles:/staticfiles
+
+volumes:
+    mysqldb-data:
