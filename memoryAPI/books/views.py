@@ -7,7 +7,6 @@ from .serializers import BookSerializer, CardSerializer
 from rest_framework import generics
 from .models import Book, Card
 from rest_framework import filters
-from django.http import Http404
 
 class BookView(APIView):
     permission_calsses = [IsAuthenticated]
@@ -17,6 +16,11 @@ class BookView(APIView):
         if serializer.is_valid(raise_exception=True):
             serializer.save(user=self.request.user)
         return Response(serializer.data)
+
+    def get(self, request, pk, format=None):
+        cards = Card.objects.filter(book_id=pk)
+        cardSerializer = CardSerializer(cards, many=True)
+        return Response(cardSerializer.data)
 
 class BookListView(generics.ListAPIView):
     serializer_class = BookSerializer
@@ -32,10 +36,13 @@ class BookListView(generics.ListAPIView):
             return Book.objects.filter(title__icontains=keyword, user_id=user_id).order_by('-updated_at')
         return Book.objects.filter(title__icontains=keyword).order_by('-updated_at')
 
-class BookDetail(APIView):
-    permission_calsses = [IsAuthenticated]
+# class CardListView(APIView):
+#     permission_calsses = [IsAuthenticated]
 
-    def get(self, request, pk, format=None):
-        cards = Card.objects.filter(book_id=pk)
-        serializer = CardSerializer(cards, many=True)
-        return Response(serializer.data)
+#     def get(self, request, pk, format=None):
+#         cards = Card.objects.filter(book_id=pk)
+#         cardSerializer = CardSerializer(cards, many=True)
+#         book = Book.objects.filter(pk=pk)
+#         bookSerializer = BookSerializer(book)
+#         print(bookSerializer)
+#         return Response()

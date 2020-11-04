@@ -3,10 +3,10 @@ from .models import Book, Card
 from accounts.serializers import UserSerializer
  
 class CardSerializer(serializers.ModelSerializer):
-    book = serializers.IntegerField(required=False)
+    book_id = serializers.IntegerField(required=False)
     class Meta:
         model = Card
-        fields = ['word', 'meaning', 'book']
+        fields = ['id', 'word', 'meaning', 'book_id']
 
 class BookSerializer(serializers.ModelSerializer):
     cards = CardSerializer(many=True, required=False)
