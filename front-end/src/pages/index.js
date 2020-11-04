@@ -5,7 +5,6 @@ import { components } from 'react-select';
 export { default as DropDown } from '../components/DropDown/DropDown';
 
 export { default as Home } from './HomePage/Home';
-export { default as LandingPage } from './LandingPage/LandingPage';
 export { default as LoginPage } from './LoginPage/LoginPage';
 export { default as RegisterPage } from './RegisterPage/RegisterPage';
 export { default as StudyPage } from './StudyPage/StudyPage';
