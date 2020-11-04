@@ -3,11 +3,9 @@ import AwesomeSlider from 'react-awesome-slider';
 import CoreStyles from '../StudyPage/styles.scss';
 import AwesomeSliderStyles from 'react-awesome-slider/src/styled/open-animation/open-animation.scss';
 import Flippy, { FrontSide, BackSide } from 'react-flippy';
-import { Progress } from 'react-sweet-progress';
 import 'react-sweet-progress/lib/style.css';
-import Switch from 'react-input-switch';
 import './StudyPage.css';
-import DarkModeToggle from 'react-dark-mode-toggle';
+import Speech from 'react-speech';
 
 const StudyPage = () => {
   const cards = [
@@ -27,6 +25,10 @@ const StudyPage = () => {
       meaning: '뜻',
     },
   ];
+  const aaa = (e) => {
+    e.stopPropagation();
+    console.log('아아아');
+  };
 
   function Card({ data }) {
     return (
@@ -39,25 +41,24 @@ const StudyPage = () => {
           flipDirection="vertical" // horizontal or vertical
         >
           <FrontSide className="FrontSide">
+            <div className="speech-button" onClick={aaa}>
+              <Speech text={data.word} />
+            </div>
             <p>{data.word}</p>
           </FrontSide>
           <BackSide className="BackSide">
+            <div className="speech-button" onClick={aaa}>
+              <Speech text={data.meaning}></Speech>
+            </div>
             <p>{data.meaning}</p>
           </BackSide>
         </Flippy>
       </div>
     );
   }
-  const [flippy, setflippy] = useState('');
-  const [value, setValue] = useState('yes');
-  // const [isDarkMode, setIsDarkMode] = useState(() => false);
+
   return (
     <div className="StudyPageContainer">
-      {/* <p>진행률</p>
-      <div className="StudyprogressContainer">
-        <Progress className="Studyprogress" percent={88} />
-        <Switch className="switch" on="yes" off="no" value={value} onChange={setValue} />
-      </div> */}
       <AwesomeSlider className="slider" infinite={false} bullets={false} animation="openAnimation" cssModule={(CoreStyles, AwesomeSliderStyles)}>
         {cards.map((data, index) => (
           <div className="FlippyContainer-root" key={index}>
