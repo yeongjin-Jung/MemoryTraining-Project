@@ -30,19 +30,7 @@ class BookListView(generics.ListAPIView):
         user_id = self.request.user.pk
         keyword = self.request.query_params.get('keyword')
         if self.request.query_params.get('scrap_only'):
-            print(user_id)
             return Book.objects.exclude(user_id=user_id).filter(title__icontains=keyword).order_by('-updated_at')
         if self.request.query_params.get('my_set_only'):
             return Book.objects.filter(title__icontains=keyword, user_id=user_id).order_by('-updated_at')
         return Book.objects.filter(title__icontains=keyword).order_by('-updated_at')
-
-# class CardListView(APIView):
-#     permission_calsses = [IsAuthenticated]
-
-#     def get(self, request, pk, format=None):
-#         cards = Card.objects.filter(book_id=pk)
-#         cardSerializer = CardSerializer(cards, many=True)
-#         book = Book.objects.filter(pk=pk)
-#         bookSerializer = BookSerializer(book)
-#         print(bookSerializer)
-#         return Response()

@@ -17,12 +17,10 @@ class BookSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def create(self, validated_data):
-        print(validated_data)
         cards_data = validated_data.pop('cards')
         book = Book.objects.create(**validated_data)
         for card_data in cards_data:
             card_data['book'] = book
-            print(card_data)
             Card.objects.create(**card_data)
         return book
         
