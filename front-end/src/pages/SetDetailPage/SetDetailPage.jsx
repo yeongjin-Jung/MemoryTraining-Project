@@ -13,11 +13,12 @@ const SetDetailPage = (props) => {
   const location = useLocation();
   const [book, setBook] = useState({});
 
+  // set_id로 axios 요청합니다.
   useEffect(() => {
     console.log('SetDetailPage useEffect called.');
+    console.log('location : ', location);
     console.log('location.user : ', location.user);
-
-    setBook(location.state.user);
+    // setBook(location.state.user);
 
     console.log('after setBook called. : ', book);
   });

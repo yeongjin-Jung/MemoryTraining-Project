@@ -6,16 +6,20 @@ import './SetPage.css';
 import { FiPlus, FiTrash2, FiEdit2, FiSave } from 'react-icons/fi';
 
 import * as _ from 'lodash';
+import axios from 'axios';
 
-const SetPage = () => {
+import { useLocation } from 'react-router-dom';
+
+const SetPage = (props) => {
   const [cards, setCards] = useState([]);
 
   var testRef = useRef(null);
   var contentRef = useRef(null);
-  var term = useRef(null);
+  var word = useRef(null);
   var meaning = useRef(null);
   var divAddCardForm = useRef(null);
-
+  const createSetTitle = useRef(null);
+  const createSetDescription = useRef(null);
   const onDelete = (idx) => {
     console.log(`onDelete called. idx : ${idx}`);
     console.log('cards : ', cards);
@@ -45,7 +49,7 @@ const SetPage = () => {
     let tmpCards = [...cards];
     var index = cards.findIndex((i) => i.idx == card.idx);
 
-    tmpCards[index].term = card.term;
+    tmpCards[index].word = card.word;
     tmpCards[index].meaning = card.meaning;
     tmpCards[index].isEditing = false;
 
@@ -55,21 +59,21 @@ const SetPage = () => {
   const addCard = () => {
     console.log('ADD button clicked.');
 
-    let inputTerm = divAddCardForm.current.children[1].children[0];
+    let inputWord = divAddCardForm.current.children[1].children[0];
     let textareaMeaning = divAddCardForm.current.children[1].children[1];
-    let newTerm = inputTerm.value;
+    let newWord = inputWord.value;
     let newMeaning = textareaMeaning.value;
 
     let newObj = {
       idx: cards.length,
-      term: newTerm,
+      word: newWord,
       meaning: newMeaning,
       isEditing: false,
     };
 
     setCards([...cards, newObj]);
 
-    term.current.value = '';
+    word.current.value = '';
     meaning.current.value = '';
     meaning.current.style.height = '38px';
   };
@@ -143,15 +147,58 @@ const SetPage = () => {
                   {/* <span>학습 세트 만들기</span> */}
                 </div>
                 <div style={{ width: '100%', display: 'flex', justifyContent: 'flex-end' }}>
-                  <Button style={{ backgroundColor: 'skyblue', border: 'none' }}>저장</Button>
+                  <Button
+                    style={{ backgroundColor: 'skyblue', border: 'none' }}
+                    onClick={() => {
+                      console.log('save button clicked.');
+                      console.log('createSetTitle.current.value : ', createSetTitle.current.value);
+                      console.log('createSetDescription.current.value : ', createSetDescription.current.value);
+
+                      if (createSetTitle.current.value == '') {
+                        alert('제목을 입력해주세요.');
+                      } else if (createSetDescription.current.value == '') {
+                        alert('설명을 입력해주세요.');
+                      } else if (cards.length == 0) {
+                        alert('최소 1개의 카드를 추가해주세요.');
+                      } else {
+                        console.log('cards : ', cards);
+                        const book = {
+                          title: createSetTitle.current.value,
+                          description: createSetDescription.current.value,
+                        };
+                        console.log('book : ', book);
+                        axios
+                          .post(
+                            'http://127.0.0.1:8000/api/books/create/',
+                            {
+                              title: createSetTitle.current.value,
+                              description: createSetDescription.current.value,
+                              cards: cards,
+                            },
+                            {
+                              headers: {
+                                Authorization: localStorage.getItem('Authorization'),
+                              },
+                            },
+                          )
+                          .then((res) => {
+                            console.log(res);
+                            console.log('props.history : ', props.history);
+                            props.history.push({ pathname: '/set-detail', state: res.data.id });
+                          });
+                      }
+                    }}
+                  >
+                    저장
+                  </Button>
                 </div>
               </div>
               <div style={{ marginTop: '2rem' }}>
-                <Form.Control className="inputbox" type="text" placeholder="제목을 입력하세요." />
-                <span className="set-title">제목</span>
+                <Form.Control className="inputbox create-set-title" type="text" placeholder="제목을 입력하세요." ref={createSetTitle} />
+                <span className="">제목</span>
                 <br />
-                <Form.Control className="inputbox" type="text" placeholder="설명을 입력하세요." />
-                <span className="set-description">설명</span>
+                <Form.Control className="inputbox create-set-description" type="text" placeholder="설명을 입력하세요." ref={createSetDescription} />
+                <span className="">설명</span>
               </div>
             </div>
             {/* <div style={{ display: 'flex', justifyContent: 'flex-end', width: '10%' }}></div> */}
@@ -165,7 +212,7 @@ const SetPage = () => {
         </span>
         {/* <form id="input-form"> */}
         <div style={{ display: 'flex' }}>
-          <Form.Control className="inputbox mx-3" type="text" placeholder="단어" style={{ width: '50%', height: '38px' }} ref={term} />
+          <Form.Control className="inputbox mx-3" type="text" placeholder="단어" style={{ width: '50%', height: '38px' }} ref={word} />
           <Form.Control className="inputbox mx-3" as="textarea" placeholder="뜻" style={{ width: '50%', height: '38px' }} onKeyUp={handleKeyUp} ref={meaning} />
           <div>
             <Button type="submit" value="Add" onClick={addCard}>
@@ -195,12 +242,12 @@ const SetPage = () => {
 };
 
 const Card = ({ card, onDelete, onEdit, onSave }) => {
-  var modifyterm = useRef(null);
+  var modifyword = useRef(null);
   var modifymeaning = useRef(null);
 
   useEffect(() => {
     console.log('useEffect() called.');
-    console.log(modifyterm);
+    console.log(modifyword);
 
     if (modifymeaning.current != null) {
       console.log(modifymeaning.current.value);
@@ -218,9 +265,9 @@ const Card = ({ card, onDelete, onEdit, onSave }) => {
             {card.isEditing && (
               <Button
                 onClick={() => {
-                  console.log(modifyterm.current.value);
+                  console.log(modifyword.current.value);
                   console.log(modifymeaning.current.value);
-                  card.term = modifyterm.current.value;
+                  card.w0rd = modifyword.current.value;
                   card.meaning = modifymeaning.current.value;
                   onSave(card);
                 }}
@@ -251,9 +298,9 @@ const Card = ({ card, onDelete, onEdit, onSave }) => {
 
         <div style={{ display: 'flex', flexDirection: 'row', marginBottom: '2rem' }}>
           <div className="mx-3" style={{ width: '40%' }}>
-            {card.isEditing && <Form.Control className="inputbox" type="text" placeholder={card.term} ref={modifyterm} defaultValue={card.term} />}
-            {!card.isEditing && <p style={{ borderBottom: '5px solid black', wordBreak: 'break-all' }}>{card.term}</p>}
-            <span className="term">단어</span>
+            {card.isEditing && <Form.Control className="inputbox" type="text" placeholder={card.word} ref={modifyword} defaultValue={card.word} />}
+            {!card.isEditing && <p style={{ borderBottom: '5px solid black', wordBreak: 'break-all' }}>{card.word}</p>}
+            <span className="word">단어</span>
           </div>
           <div className="mx-3" style={{ width: '40%' }}>
             {card.isEditing && <Form.Control className="inputbox" as="textarea" placeholder={card.meaning} ref={modifymeaning} defaultValue={card.meaning} />}
