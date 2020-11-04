@@ -168,19 +168,11 @@ const SetPage = (props) => {
                         };
                         console.log('book : ', book);
                         axios
-                          .post(
-                            'http://127.0.0.1:8000/api/books/create/',
-                            {
-                              title: createSetTitle.current.value,
-                              description: createSetDescription.current.value,
-                              cards: cards,
-                            },
-                            {
-                              headers: {
-                                Authorization: localStorage.getItem('Authorization'),
-                              },
-                            },
-                          )
+                          .post('http://127.0.0.1:8000/api/books/create/', {
+                            title: createSetTitle.current.value,
+                            description: createSetDescription.current.value,
+                            cards: cards,
+                          })
                           .then((res) => {
                             console.log(res);
                             console.log('props.history : ', props.history);
