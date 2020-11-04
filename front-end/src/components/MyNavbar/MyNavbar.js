@@ -45,7 +45,7 @@ const MyNavbar = (props) => {
     };
 
     axios
-      .post('http://127.0.0.1:8000/api/rest-auth/logout/', null, config, { withCredentials: true })
+      .post('http://127.0.0.1:8000/api/rest-auth/logout/', null, { withCredentials: true })
       .then(function (response) {
         console.log(response);
         if (response.status == 200) {
