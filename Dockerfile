@@ -6,3 +6,4 @@ COPY memoryAPI /home/memoryAPI
 COPY run.sh run.sh
 
 ENTRYPOINT ["./run.sh"]
+#test
