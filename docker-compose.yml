@@ -28,7 +28,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    command: uwsgi --http 0.0.0.0:8000 --chdir /home/s03p31b301/memoryAPI/ --module memorytrain.wsgi
     expose:
       - 8000
 #    volumes:
