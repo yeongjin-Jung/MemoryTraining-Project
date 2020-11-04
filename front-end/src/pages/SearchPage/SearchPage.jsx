@@ -24,6 +24,7 @@ const SearchPage = (props) => {
   const [isLoading, setIsLoading] = useState(true);
 
   const getBookList = async () => {
+    console.log('getBookList called.');
     await axios.get(`http://127.0.0.1:8000/api/books/search/`, { params: { keyword: searchValue } }).then((res) => {
       console.log(res);
       let tmpBookList = [];
@@ -38,12 +39,9 @@ const SearchPage = (props) => {
     getBookList();
   }, []);
 
-  // useEffect(() => {
-  //   getBookList();
-  // }, [bookList]);
-
   useEffect(() => {
     console.log('searchValue 바뀜.');
+    console.log('searchValue : ', searchValue);
     getBookList();
   }, [searchValue]);
 
@@ -114,13 +112,15 @@ const SearchPage = (props) => {
 
 const Book = ({ book }) => {
   const [show, bookListhow] = useState(false);
-  console.log('book : ', book);
+  const [cardList, setCardList] = useState([]);
+
   const handleShow = () => {
     console.log('handleShow called.');
     console.log('before : ', show);
     bookListhow(true);
     console.log('after : ', show);
   };
+
   const handleClose = () => {
     console.log('handleClose called.');
     console.log('before : ', show);
@@ -128,9 +128,26 @@ const Book = ({ book }) => {
     console.log('after : ', show);
   };
 
+  const getCardList = async () => {
+    console.log('getBookList called.');
+    await axios.get(`http://127.0.0.1:8000/api/books/${book.id}`).then((res) => {
+      console.log(res);
+      let tmpCardList = [];
+      tmpCardList = [...res.data];
+      console.log('tmpCardList : ', tmpCardList);
+      setCardList(tmpCardList);
+    });
+  };
+
   useEffect(() => {
-    console.log('User component useEffect called.');
+    console.log('Book component useEffect called.');
   });
+
+  useEffect(() => {
+    if (show) {
+      getCardList();
+    }
+  }, [show]);
 
   return (
     <div className="card-container">
@@ -163,20 +180,16 @@ const Book = ({ book }) => {
       </Modal> */}
 
       <Rodal className="container-rodal" width={800} height={500} animation="door" visible={show} onClose={handleClose} duration={1000} closeOnEsc={true}>
-        {/* <div className="text-center">
-          <Button className="btn-danger" style={{ borderRadius: '50%' }} onClick={handleClose}>
-            X
-          </Button>
-        </div> */}
         <div className="h1 text-center card-title" style={{ paddingTop: '10px', color: 'white' }}>
           정보처리기사
         </div>
-        {/* <hr /> */}
-        {/* <div className="rodal-header container-fluid"></div> */}
 
-        <div className="courses-container">
+        {cardList.map((card) => (
+          <Card card={card} key={card.id} />
+        ))}
+
+        {/* <div className="courses-container">
           <div className="course">
-            {/* <div className="course-preview"></div> */}
             <div className="course-info row">
               <div>
                 <button className="">
@@ -192,13 +205,12 @@ const Book = ({ book }) => {
                   전사적으로 수립된 데이터 표준 원칙, 데이터 표준, 데이터 표준 준수 여부 관리 등의 역할이 있다.
                 </p>
               </div>
-              {/* <div style={{ height: '30px' }}></div> */}
             </div>
           </div>
-        </div>
-        <div className="courses-container">
+        </div> */}
+
+        {/* <div className="courses-container">
           <div className="course">
-            {/* <div className="course-preview"></div> */}
             <div className="course-info row">
               <div>
                 <button className="">
@@ -214,33 +226,32 @@ const Book = ({ book }) => {
                   전사적으로 수립된 데이터 표준 원칙, 데이터 표준, 데이터 표준 준수 여부 관리 등의 역할이 있다.
                 </p>
               </div>
-              {/* <div style={{ height: '30px' }}></div> */}
             </div>
           </div>
-        </div>
-        <div className="courses-container">
-          <div className="course">
-            {/* <div className="course-preview"></div> */}
-            <div className="course-info row">
-              <div>
-                <button className="">
-                  <FcBookmark size={32} />
-                </button>
-              </div>
-              <div className="">
-                <span stlye={{ fontSize: '30px' }}>데이터 관리자(DA, Data Administrator)</span>
-              </div>
-              <div className="row">
-                <p className="mx-3">
-                  하나의 기업 또는 조직 내에서 데이터를 정의, 체계화, 감독 및 보안 업무를 담당할 뿐만 아니라 데이터에 대한 관리를 총괄하고 정보 활용에 대한 중앙 집중적인 계획 수립 및 통제를 수행한다.
-                  전사적으로 수립된 데이터 표준 원칙, 데이터 표준, 데이터 표준 준수 여부 관리 등의 역할이 있다.
-                </p>
-              </div>
-              {/* <div style={{ height: '30px' }}></div> */}
-            </div>
-          </div>
-        </div>
+        </div> */}
       </Rodal>
+    </div>
+  );
+};
+
+const Card = ({ card }) => {
+  return (
+    <div className="courses-container">
+      <div className="course">
+        <div className="course-info row">
+          <div>
+            <button className="">
+              <FcBookmark size={32} />
+            </button>
+          </div>
+          <div className="">
+            <span stlye={{ fontSize: '30px' }}>{card.word}</span>
+          </div>
+          <div className="">
+            <p className="">{card.meaning}</p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
