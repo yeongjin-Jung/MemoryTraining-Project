@@ -43,6 +43,7 @@ const MyNavbar = (props) => {
     const config = {
       Authorization: token,
     };
+
     axios
       .post('http://127.0.0.1:8000/api/rest-auth/logout/', null, config, { withCredentials: true })
       .then(function (response) {
@@ -146,9 +147,10 @@ const Search = ({ toggleSearch }) => {
             aria-describedby="basic-addon2"
             onKeyPress={(event) => {
               if (event.key == 'Enter') {
+                const searchValue = inputRef.current.value;
                 inputRef.current.value = '';
                 toggleSearch();
-                history.push('/search');
+                history.push({ pathname: '/search', state: { searchValue } });
               }
             }}
           />

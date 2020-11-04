@@ -86,7 +86,7 @@ const SetsPage = (props) => {
         <div className="ButtonContainer">
           <DropDown className="SetsDropDown" onChanegeHandler={onChanegeHandler} />
 
-          <Link to="/create-set">
+          <Link to="/set-create">
             <Button variant="outline-dark">
               <span style={{ fontWeight: '800' }}>세트 만들기</span>
             </Button>

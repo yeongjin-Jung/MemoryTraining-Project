@@ -14,8 +14,9 @@ import { IconContext } from 'react-icons';
 import { FcBookmark } from 'react-icons/fc';
 import { FaBookmark } from 'react-icons/fa';
 import { BsBookmark } from 'react-icons/bs';
+import axios from 'axios';
 
-const SearchPage = () => {
+const SearchPage = (props) => {
   const [DropDownValue, setDropDownValue] = useState('name');
   const users = [
     {
@@ -64,6 +65,13 @@ const SearchPage = () => {
 
   useEffect(() => {
     console.log('SearchPage component useEffect called.');
+    const searchValue = props.location.state.searchValue;
+
+    console.log('SearchPage props : ', props);
+    console.log('SearchPage props.location.state : ', props.location.state);
+    console.log('SearchPage searchValue : ', searchValue);
+
+    // axios.post('http://127.0.0.1:8000/api/books/search/', {});
   });
 
   const refToTop = useRef();
