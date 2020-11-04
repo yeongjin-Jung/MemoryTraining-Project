@@ -22,7 +22,7 @@ class BookListView(generics.ListAPIView):
 
     def get_queryset(self):
         user_id = self.request.user.pk
-        keyword = self.kwargs['keyword']
+        keyword = self.request.query_params.get('keyword')
         if self.request.query_params.get('scrap_only'):
             print(user_id)
             return Book.objects.exclude(user_id=user_id).filter(title__icontains=keyword).order_by('-updated_at')
