@@ -18,83 +18,59 @@ import axios from 'axios';
 
 const SearchPage = (props) => {
   const [DropDownValue, setDropDownValue] = useState('name');
-  const users = [
-    {
-      id: 1,
-      username: 'velopert',
-      title: '정보처리기사',
-      date: '2018-05-11',
-    },
-    {
-      id: 2,
-      username: 'tester',
-      title: '토익영어',
-      date: '2018-05-16',
-    },
-    {
-      id: 3,
-      username: 'aiz',
-      title: '전기기사',
-      date: '2012-05-11',
-    },
-    {
-      id: 4,
-      username: 'ㄱiz',
-      title: '전기기사',
-      date: '2014-05-11',
-    },
-    {
-      id: 5,
-      username: 'liz',
-      title: '전기기사',
-      date: '2013-06-11',
-    },
-    {
-      id: 6,
-      username: 'liz',
-      title: '전기기사',
-      date: '2011-08-11',
-    },
-    {
-      id: 7,
-      username: 'liz',
-      title: '전기기사',
-      date: '2012-08-11',
-    },
-  ];
+  // const bookList = [];
+  const [bookList, setBookList] = useState([]);
+  const searchValue = props.location.state.searchValue;
+  const [isLoading, setIsLoading] = useState(true);
+
+  const getBookList = async () => {
+    await axios.get(`http://127.0.0.1:8000/api/books/search/`, { params: { keyword: searchValue } }).then((res) => {
+      console.log(res);
+      let tmpBookList = [];
+      tmpBookList = [...res.data];
+      // console.log('tmpBookList : ', tmpBookList);
+      setBookList(tmpBookList);
+      setIsLoading(false);
+    });
+  };
 
   useEffect(() => {
-    console.log('SearchPage component useEffect called.');
-    const searchValue = props.location.state.searchValue;
+    getBookList();
+  }, []);
 
-    console.log('SearchPage props : ', props);
-    console.log('SearchPage props.location.state : ', props.location.state);
-    console.log('SearchPage searchValue : ', searchValue);
+  // useEffect(() => {
+  //   getBookList();
+  // }, [bookList]);
 
-    // axios.post('http://127.0.0.1:8000/api/books/search/', {});
-  });
+  useEffect(() => {
+    console.log('searchValue 바뀜.');
+    getBookList();
+  }, [searchValue]);
 
   const refToTop = useRef();
   const onChaneHandler = (Value) => {
     setDropDownValue(Value);
   };
-  {
-    DropDownValue == 'name' &&
-      users.sort(function (a, b) {
-        // 오름차순
-        return a.username < b.username ? -1 : a.username > b.username ? 1 : 0;
-        // 광희, 명수, 재석, 형돈
-      });
-  }
-  const Moment = require('moment');
-  {
-    DropDownValue == 'date' &&
-      users.sort(function (a, b) {
-        // 내림차순
-        return new Moment(a.date).format('YYYYMMDD') - new Moment(b.date).format('YYYYMMDD');
-        // 광희, 명수, 재석, 형돈
-      });
-  }
+
+  // {
+  //   DropDownValue == 'name' &&
+  //     bookList.sort(function (a, b) {
+  //       // 오름차순
+  //       return a.title < b.title ? -1 : a.title > b.title ? 1 : 0;
+  //       // 광희, 명수, 재석, 형돈
+  //     });
+  // }
+
+  // const Moment = require('moment');
+
+  // {
+  //   DropDownValue == 'date' &&
+  //     bookList.sort(function (a, b) {
+  //       // 내림차순
+  //       return new Moment(a.date).format('YYYYMMDD') - new Moment(b.date).format('YYYYMMDD');
+  //       // 광희, 명수, 재석, 형돈
+  //     });
+  // }
 
   return (
     <div className="search-root" ref={refToTop}>
@@ -109,13 +85,11 @@ const SearchPage = (props) => {
             </Button>
           </Link>
         </div>
-        <FadeIn delay={250} className="FadeIn-container">
-          {users.map((user) => (
-            <User user={user} key={user.id} />
-          ))}
-          {/* {DropDownValue == 'date' && users.map((user) => <User user={user} key={user.id} />)} */}
-          {/* {DropDownValue == 'date' && users.filter((sets) => sets.username == 'liz').map((user) => <User user={user} key={user.id} />)} */}
-          {/* {DropDownValue == 'Scrap' && users.filter((sets) => sets.username != 'liz').map((user) => <User user={user} key={user.id} />)} */}
+        <FadeIn className="FadeIn-container">
+          {!isLoading && bookList.map((book) => <Book book={book} key={book.id} />)}
+          {/* {DropDownValue == 'date' && bookList.map((user) => <User user={user} key={user.id} />)} */}
+          {/* {DropDownValue == 'date' && bookList.filter((bookList) => bookList.title == 'liz').map((user) => <User user={user} key={user.id} />)} */}
+          {/* {DropDownValue == 'Scrap' && bookList.filter((bookList) => bookList.title != 'liz').map((user) => <User user={user} key={user.id} />)} */}
         </FadeIn>
       </div>
       <a
@@ -131,19 +105,19 @@ const SearchPage = (props) => {
   );
 };
 
-const User = ({ user }) => {
-  const [show, setShow] = useState(false);
-
+const Book = ({ book }) => {
+  const [show, bookListhow] = useState(false);
+  console.log('book : ', book);
   const handleShow = () => {
     console.log('handleShow called.');
     console.log('before : ', show);
-    setShow(true);
+    bookListhow(true);
     console.log('after : ', show);
   };
   const handleClose = () => {
     console.log('handleClose called.');
     console.log('before : ', show);
-    setShow(false);
+    bookListhow(false);
     console.log('after : ', show);
   };
 
@@ -154,9 +128,11 @@ const User = ({ user }) => {
   return (
     <div className="card-container">
       <div className="card4" onClick={handleShow}>
-        <h3>{user.title}</h3>
-        <p>({user.username})</p>
-        <p>{user.date}</p>
+        <h3>
+          {book.id} : {book.title}
+        </h3>
+        <p>{book.description}</p>
+        <p>{book.updated_at}</p>
         <p className="small"></p>
         <div className="dimmer"></div>
         <div className="go-corner">
@@ -200,10 +176,8 @@ const User = ({ user }) => {
                   <BsBookmark className="bookmark" size={32} />
                 </button>
               </div>
-              <div className="">
-                <span className stlye={{ fontSize: '30px' }}>
-                  데이터 관리자(DA, Data Administrator)
-                </span>
+              <div>
+                <span stlye={{ fontSize: '30px' }}>데이터 관리자(DA, Data Administrator)</span>
               </div>
               <div className="row">
                 <p className="mx-3">
@@ -225,9 +199,7 @@ const User = ({ user }) => {
                 </button>
               </div>
               <div className="">
-                <span className stlye={{ fontSize: '30px' }}>
-                  데이터 관리자(DA, Data Administrator)
-                </span>
+                <span stlye={{ fontSize: '30px' }}>데이터 관리자(DA, Data Administrator)</span>
               </div>
               <div className="row">
                 <p className="mx-3">
@@ -249,9 +221,7 @@ const User = ({ user }) => {
                 </button>
               </div>
               <div className="">
-                <span className stlye={{ fontSize: '30px' }}>
-                  데이터 관리자(DA, Data Administrator)
-                </span>
+                <span stlye={{ fontSize: '30px' }}>데이터 관리자(DA, Data Administrator)</span>
               </div>
               <div className="row">
                 <p className="mx-3">
