@@ -75,16 +75,16 @@ const SetsPage = (props) => {
 
 function Book({ book, history }) {
   return (
-    <div
-      className="card-container"
-      onClick={() => {
-        console.log(`${book.id} clicked.`);
-        // console.log('history : ', history);
-        console.log('book : ', book);
-        history.push({ pathname: '/set-detail', state: { book: book } });
-      }}
-    >
-      <a className="card4 ">
+    <div className="card-container">
+      <a
+        className="card4"
+        onClick={() => {
+          console.log(`${book.id} clicked.`);
+          // console.log('history : ', history);
+          console.log('book : ', book);
+          history.push({ pathname: '/set-detail', state: { book: book } });
+        }}
+      >
         <h3>{book.title}</h3>
         <p>{book.description}</p>
         <p className="small"></p>
