@@ -18,6 +18,9 @@ import { BsBoxArrowInDownLeft } from 'react-icons/bs';
 import axios from 'axios';
 import SERVER from '../../api/server';
 
+import SimpleBar from 'simplebar-react';
+import 'simplebar/dist/simplebar.min.css';
+
 const SearchPage = (props) => {
   const [DropDownValue, setDropDownValue] = useState('name');
   // const bookList = [];
@@ -200,13 +203,15 @@ const Book = ({ book }) => {
       </div>
 
       <Rodal className="container-rodal" width={800} height={700} animation="door" visible={show} onClose={handleClose} duration={1000} closeOnEsc={true}>
-        <div className="h1 text-center card-title" style={{ paddingTop: '10px', color: 'white' }}>
-          {book.title}
-        </div>
+        <SimpleBar style={{ height: '700px' }}>
+          <div className="h1 text-center card-title" style={{ paddingTop: '10px', color: 'white' }}>
+            {book.title}
+          </div>
 
-        {cardList.map((card) => (
-          <Card card={card} key={card.id} />
-        ))}
+          {cardList.map((card) => (
+            <Card card={card} key={card.id} />
+          ))}
+        </SimpleBar>
       </Rodal>
     </div>
   );
