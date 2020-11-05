@@ -14,7 +14,7 @@ const Main = ({ collapsed, rtl, image, handleToggleSidebar, handleCollapsedChang
   const [cardList, setCardList] = useState([]);
 
   const getCardList = async () => {
-    await axios.get(SERVER.BASE_URL + SERVER.ROUTES.getMySet + book.id).then((res) => {
+    await axios.get(SERVER.BASE_URL + SERVER.ROUTES.getbook + book.id).then((res) => {
       console.log(res);
       setCardList(res.data);
     });
@@ -38,7 +38,7 @@ const Main = ({ collapsed, rtl, image, handleToggleSidebar, handleCollapsedChang
       <div className="Sets-root">
         <div className="Sets-container">
           {cardList.map((card) => (
-            <Card card={card} />
+            <Card card={card} key={card.id} />
           ))}
         </div>
       </div>

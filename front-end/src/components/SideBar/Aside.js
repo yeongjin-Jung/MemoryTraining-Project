@@ -14,7 +14,7 @@ const Aside = ({ book, image, collapsed, rtl, toggled, handleToggleSidebar, hist
 
   const [cardList, setCardList] = useState([]);
   const getCardList = async () => {
-    await axios.get(SERVER.BASE_URL + SERVER.ROUTES.getMySet + book.id).then((res) => {
+    await axios.get(SERVER.BASE_URL + SERVER.ROUTES.getbook + book.id).then((res) => {
       console.log('res: ', res);
       setCardList(res.data);
     });
