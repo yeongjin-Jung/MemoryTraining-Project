@@ -7,6 +7,7 @@ import 'animate.css';
 import FadeIn from 'react-fade-in';
 
 import axios from 'axios';
+import SERVER from '../../api/server';
 
 const SetsPage = (props) => {
   const [DropDownValue, setDropDownValue] = useState('all');
@@ -20,8 +21,9 @@ const SetsPage = (props) => {
 
   const getBookList = async () => {
     console.log('getBookList called.');
-    await axios.get('http://127.0.0.1:8000/api/books/myset/').then((res) => {
-      console.log(res);
+
+    await axios.get(SERVER.BASE_URL + SERVER.ROUTES.myset).then((res) => {
+      console.log('myset 요청 후 : ', res);
       let tmpBookList = [];
       tmpBookList = [...res.data];
       // console.log('tmpBookList : ', tmpBookList);

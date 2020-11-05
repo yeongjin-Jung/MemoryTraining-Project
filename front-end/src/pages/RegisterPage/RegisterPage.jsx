@@ -6,6 +6,7 @@ import { withRouter } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { registerUser } from '../../_actions/userAction';
 import axios from 'axios';
+import SERVER from '../../api/server';
 
 function RegisterPage(props) {
   const [Email, setEmail] = useState('');
@@ -74,7 +75,7 @@ function RegisterPage(props) {
       // });
       axios
         .post(
-          'http://127.0.0.1:8000/api/rest-auth/signup/',
+          SERVER.BASE_URL + SERVER.ROUTES.signup,
           {
             email: Email,
             password: Password,

@@ -12,6 +12,7 @@ import { withRouter } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { loginUser } from '../../_actions/userAction';
 import axios from 'axios';
+import SERVER from '../../api/server';
 
 const LoginPage = (props) => {
   const [Email, setEmail] = useState('');
@@ -48,7 +49,7 @@ const LoginPage = (props) => {
     //   });
     axios
       .post(
-        'http://127.0.0.1:8000/api/rest-auth/login/',
+        SERVER.BASE_URL + SERVER.ROUTES.login,
         {
           email: Email,
           password: Password,
