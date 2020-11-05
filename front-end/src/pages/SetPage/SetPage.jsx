@@ -158,8 +158,8 @@ const SetPage = (props) => {
                         alert('제목을 입력해주세요.');
                       } else if (createSetDescription.current.value == '') {
                         alert('설명을 입력해주세요.');
-                      } else if (cards.length == 0) {
-                        alert('최소 1개의 카드를 추가해주세요.');
+                      } else if (cards.length < 4) {
+                        alert('최소 4개의 카드를 추가해주세요.');
                       } else {
                         console.log('cards : ', cards);
                         const book = {
@@ -167,6 +167,8 @@ const SetPage = (props) => {
                           description: createSetDescription.current.value,
                         };
                         console.log('book : ', book);
+                        console.log('cards : ', cards);
+
                         axios
                           .post('http://127.0.0.1:8000/api/books/create/', {
                             title: createSetTitle.current.value,
@@ -174,7 +176,7 @@ const SetPage = (props) => {
                             cards: cards,
                           })
                           .then((res) => {
-                            console.log(res);
+                            console.log('create axios res : ', res);
                             console.log('props.history : ', props.history);
                             props.history.push({ pathname: '/set-detail', state: res.data.id });
                           });

@@ -7,6 +7,7 @@ import './MyNavbar.css';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { logoutUser } from '../../_actions/userAction';
+import SERVER from '../../api/server';
 
 const MyNavbar = (props) => {
   const [showSearch, setShowSearch] = useState(false);
@@ -45,7 +46,7 @@ const MyNavbar = (props) => {
     };
 
     axios
-      .post('http://127.0.0.1:8000/api/rest-auth/logout/', null, { withCredentials: true })
+      .post(SERVER.BASE_URL + SERVER.ROUTES.logout, null, { withCredentials: true })
       .then(function (response) {
         console.log(response);
         if (response.status == 200) {
