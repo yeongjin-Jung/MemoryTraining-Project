@@ -1,15 +1,29 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useIntl } from 'react-intl';
 import { ProSidebar, Menu, MenuItem, SubMenu, SidebarHeader, SidebarFooter, SidebarContent } from 'react-pro-sidebar';
-import { FaTachometerAlt, FaRegLaughWink, FaHeart } from 'react-icons/fa';
 import sidebarBg from '../../assets/bg1.jpg';
-
+import { Link } from 'react-router-dom';
 import iconMemorize from '../../assets/images/memorize.png';
 import iconTest from '../../assets/images/test.png';
 import iconSetting from '../../assets/images/setting.png';
+import axios from 'axios';
+import SERVER from '../../api/server';
 
-const Aside = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) => {
+const Aside = ({ book, image, collapsed, rtl, toggled, handleToggleSidebar, history }) => {
   const intl = useIntl();
+
+  const [cardList, setCardList] = useState([]);
+  const getCardList = async () => {
+    await axios.get(SERVER.BASE_URL + SERVER.ROUTES.getMySet + book.id).then((res) => {
+      console.log('res: ', res);
+      setCardList(res.data);
+    });
+  };
+
+  useEffect(() => {
+    getCardList();
+  }, []);
+
   return (
     <ProSidebar image={image ? sidebarBg : false} rtl={rtl} collapsed={collapsed} toggled={toggled} breakPoint="md" onToggle={handleToggleSidebar}>
       <SidebarHeader>
@@ -36,7 +50,15 @@ const Aside = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) => {
             icon={<FaTachometerAlt />}
             suffix={<span className="badge red">{intl.formatMessage({ id: 'new' })}</span>}
           > */}
-          <MenuItem icon={<img src={iconMemorize} style={{ width: '40px', backgroundColor: 'white', borderRadius: '50%' }} />}>암기하기</MenuItem>
+
+          <MenuItem
+            onClick={() => {
+              history.history.push({ pathname: '/studypage', state: { book: cardList } });
+            }}
+            icon={<img src={iconMemorize} style={{ width: '40px', backgroundColor: 'white', borderRadius: '50%' }} />}
+          >
+            암기하기
+          </MenuItem>
           <MenuItem icon={<img src={iconTest} style={{ width: '40px', backgroundColor: 'white', borderRadius: '50%' }} />}>테스트</MenuItem>
           <MenuItem icon={<img src={iconSetting} style={{ width: '40px', backgroundColor: 'white', borderRadius: '50%' }} />}>세트 수정</MenuItem>
         </Menu>

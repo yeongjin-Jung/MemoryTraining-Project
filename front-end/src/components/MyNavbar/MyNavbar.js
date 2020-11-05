@@ -44,7 +44,6 @@ const MyNavbar = (props) => {
     const config = {
       Authorization: token,
     };
-
     axios
       .post(SERVER.BASE_URL + SERVER.ROUTES.logout, null, { withCredentials: true })
       .then(function (response) {
@@ -59,6 +58,7 @@ const MyNavbar = (props) => {
       .catch(function (error) {
         console.log(error);
       });
+    localStorage.removeItem('Authorization');
   };
 
   return (

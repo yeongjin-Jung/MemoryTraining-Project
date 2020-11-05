@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Aside from './Aside';
 import Main from './Main';
 
-function Layout({ setLocale, book }) {
+function Layout({ setLocale, book, history }) {
   const [rtl, setRtl] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
   const [image, setImage] = useState(true);
@@ -26,7 +26,7 @@ function Layout({ setLocale, book }) {
 
   return (
     <div className={`app ${rtl ? 'rtl' : ''} ${toggled ? 'toggled' : ''}`}>
-      <Aside collapsed={collapsed} rtl={rtl} toggled={toggled} handleToggleSidebar={handleToggleSidebar} />
+      <Aside book={book} collapsed={collapsed} rtl={rtl} toggled={toggled} handleToggleSidebar={handleToggleSidebar} history={history} />
       <Main
         toggled={toggled}
         collapsed={collapsed}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import AwesomeSlider from 'react-awesome-slider';
 import CoreStyles from '../StudyPage/styles.scss';
 import AwesomeSliderStyles from 'react-awesome-slider/src/styled/open-animation/open-animation.scss';
@@ -7,28 +7,16 @@ import 'react-sweet-progress/lib/style.css';
 import './StudyPage.css';
 import Speech from 'react-speech';
 
-const StudyPage = () => {
-  const cards = [
-    {
-      // id: 1,
-      word: '정보처리기사',
-      meaning: '뜻',
-    },
-    {
-      // id: 2,
-      word: '아하',
-      meaning: '뜻',
-    },
-    {
-      // id: 3,
-      word: '붹',
-      meaning: '뜻',
-    },
-  ];
-  const aaa = (e) => {
+const StudyPage = (props) => {
+  const cards = props.location.state.book;
+
+  const stopPropagation = (e) => {
     e.stopPropagation();
-    console.log('아아아');
   };
+
+  useEffect(() => {
+    console.log('cards : ', cards);
+  }, []);
 
   function Card({ data }) {
     return (
@@ -41,13 +29,15 @@ const StudyPage = () => {
           flipDirection="vertical" // horizontal or vertical
         >
           <FrontSide className="FrontSide">
-            <div className="speech-button" onClick={aaa}>
+            <div className="word-type">단어</div>
+            <div className="speech-button" onClick={stopPropagation}>
               <Speech text={data.word} />
             </div>
             <p>{data.word}</p>
           </FrontSide>
           <BackSide className="BackSide">
-            <div className="speech-button" onClick={aaa}>
+            <div className="word-type">뜻</div>
+            <div className="speech-button" onClick={stopPropagation}>
               <Speech text={data.meaning}></Speech>
             </div>
             <p>{data.meaning}</p>
