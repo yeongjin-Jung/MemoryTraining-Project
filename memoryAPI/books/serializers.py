@@ -12,6 +12,7 @@ class BookSerializer(serializers.ModelSerializer):
     cards = CardSerializer(many=True, required=False)
     user = UserSerializer(required=False)
     writer_flag = serializers.IntegerField(required=False)
+    scrap_flag = serializers.BooleanField(required=False)
 
     class Meta:
         model = Book
@@ -30,8 +31,11 @@ class MyBookSerializer(serializers.ModelSerializer):
         model = MyBook
         fields = '__all__'
         
-class BookMarkSerializer(serializers.ModelSerializer):
+class BookmarkSerializer(serializers.ModelSerializer):
     class Meta:
         model = Bookmark
         fields = '__all__'
-        
+
+    def create(self, validated_data):
+        bookmark_data = validated_data.pop('card_id')
+
