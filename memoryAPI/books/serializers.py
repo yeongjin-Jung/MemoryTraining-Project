@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Book, Card, MyBook
+from .models import Book, Card, MyBook, Bookmark
 from accounts.serializers import UserSerializer
  
 class CardSerializer(serializers.ModelSerializer):
@@ -28,5 +28,10 @@ class BookSerializer(serializers.ModelSerializer):
 class MyBookSerializer(serializers.ModelSerializer):
     class Meta:
         model = MyBook
+        fields = '__all__'
+        
+class BookMarkSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Bookmark
         fields = '__all__'
         

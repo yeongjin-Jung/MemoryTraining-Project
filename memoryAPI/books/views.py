@@ -7,6 +7,7 @@ from .serializers import BookSerializer, CardSerializer, MyBookSerializer
 from rest_framework import generics
 from .models import Book, Card, MyBook
 from rest_framework import filters
+from django.forms.models import model_to_dict
 
 class BookView(APIView):
     permission_calsses = [IsAuthenticated]
@@ -45,7 +46,14 @@ class MyBookView(generics.ListAPIView):
 
     def get_queryset(self):
         user_id = self.request.user.pk
-        my_books = MyBook.objects.filter(user_id=user_id).only('book')
+        print(user_id)
+        my_books = MyBook.objects.filter(user=user_id).values_list('book', flat=True)
+        print(my_books)
         return Book.objects.filter(id__in=my_books).order_by('-id')
 
+# class BookmarkView(APIView):
+#     permission_calsses = [IsAuthenticated]
+
+#     def post(self, request, format=None):
+#         serializer = BookmarkSerializer()
 
