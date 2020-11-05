@@ -13,7 +13,7 @@ import { IconContext } from 'react-icons';
 import { FcBookmark } from 'react-icons/fc';
 import { FaBookmark } from 'react-icons/fa';
 import { BsBookmark } from 'react-icons/bs';
-import { BsBoxArrowInDown } from 'react-icons/bs';
+import { BsBoxArrowInDownLeft } from 'react-icons/bs';
 
 import axios from 'axios';
 import SERVER from '../../api/server';
@@ -87,9 +87,9 @@ const SearchPage = (props) => {
           </Link>
         </div>
         {/* <div> */}
-
-        {!isLoading && (
+        {!isLoading && bookList.length != 0 && (
           <FadeIn className="FadeIn-container" duration={1000} delay={250} transitionDuration={1000}>
+            {/* {bookList.length != 0 && bookList.map((book) => <Book book={book} key={book.id} />)} */}
             {bookList.map((book) => (
               <Book book={book} key={book.id} />
             ))}
@@ -99,6 +99,7 @@ const SearchPage = (props) => {
             {/* </div> */}
           </FadeIn>
         )}
+        {!isLoading && bookList.length == 0 && <div>검색결과가 없습니다.</div>}
       </div>
       <a
         onClick={() => {
@@ -120,23 +121,23 @@ const Book = ({ book }) => {
   const [color, setColor] = useState('black');
 
   const handleShow = () => {
-    console.log('handleShow called.');
-    console.log('before : ', show);
+    // console.log('handleShow called.');
+    // console.log('before : ', show);
     bookListhow(true);
-    console.log('after : ', show);
+    // console.log('after : ', show);
   };
 
   const handleClose = () => {
-    console.log('handleClose called.');
-    console.log('before : ', show);
+    // console.log('handleClose called.');
+    // console.log('before : ', show);
     bookListhow(false);
-    console.log('after : ', show);
+    // console.log('after : ', show);
   };
 
   const getCardList = async () => {
     console.log('getBookList called.');
     // await axios.get(`http://127.0.0.1:8000/api/books/${book.id}`).then((res) => {
-    await axios.get(SERVER.BASE_URL + book.id).then((res) => {
+    await axios.get(SERVER.BASE_URL + SERVER.ROUTES.getbook + book.id).then((res) => {
       console.log(res);
       let tmpCardList = [];
       tmpCardList = [...res.data];
@@ -160,21 +161,7 @@ const Book = ({ book }) => {
       <div
         className="card4"
         onClick={(e) => {
-          console.log('e.target.tagName : ', e.target.tagName);
-          if (e.target.tagName == 'svg' || e.target.tagName == 'BUTTON') {
-            if (color == 'black') {
-              console.log('before : ', color);
-              setColor('red');
-              alert('스크랩되었습니다.');
-              console.log('after : ', color);
-            } else {
-              setColor('black');
-              alert('스크랩 해제되었습니다.');
-            }
-          } else {
-            console.log(e.target.tagName);
-            handleShow();
-          }
+          handleShow();
         }}
       >
         <div className="real-card">
@@ -192,8 +179,22 @@ const Book = ({ book }) => {
           </div>
         </div>
         <div>
-          <Button>
-            <BsBoxArrowInDown size={30} color={color} />
+          <Button
+            variant="light"
+            onClick={(e) => {
+              if (color == 'black') {
+                console.log('before : ', color);
+                setColor('red');
+                // alert('스크랩되었습니다.');
+                console.log('after : ', color);
+              } else {
+                setColor('black');
+                // alert('스크랩 해제되었습니다.');
+              }
+              e.stopPropagation();
+            }}
+          >
+            <BsBoxArrowInDownLeft size={30} color={color} />
           </Button>
         </div>
       </div>

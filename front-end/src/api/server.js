@@ -12,6 +12,6 @@ export default {
     create: 'books/create/',
     search: 'books/search/',
     myset: 'books/myset/',
-    getMySet: 'books/',
+    getbook: 'books/',
   },
 };
