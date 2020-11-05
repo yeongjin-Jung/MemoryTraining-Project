@@ -271,7 +271,7 @@ h3 {
   .rodal-dialog {
     width: 90vw !important;
     /* transition: width 0.5s, height 2s; */
-    overflow-y: scroll;
+    /* overflow-y: scroll; */
     border-radius: 10px;
   }
   .rodal-dialog::-webkit-scrollbar {
@@ -283,7 +283,7 @@ h3 {
   .rodal-dialog {
     width: 75vw !important;
     /* transition: width 0.5s, height 2s; */
-    overflow-y: scroll;
+    /* overflow-y: scroll; */
     border-radius: 10px;
   }
   .rodal-dialog::-webkit-scrollbar {
@@ -295,7 +295,7 @@ h3 {
   .rodal-dialog {
     width: 60vw !important;
     /* transition: width 0.5s, height 2s; */
-    overflow-y: scroll;
+    /* overflow-y: scroll; */
     border-radius: 10px;
   }
   .rodal-dialog::-webkit-scrollbar {
