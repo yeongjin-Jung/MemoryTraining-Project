@@ -9,11 +9,11 @@ import FadeIn from 'react-fade-in';
 
 import Rodal from 'rodal';
 import 'rodal/lib/rodal.css';
-
 import { IconContext } from 'react-icons';
 import { FcBookmark } from 'react-icons/fc';
 import { FaBookmark } from 'react-icons/fa';
 import { BsBookmark } from 'react-icons/bs';
+import { BsBoxArrowInDown } from 'react-icons/bs';
 
 import axios from 'axios';
 import SERVER from '../../api/server';
@@ -116,6 +116,8 @@ const SearchPage = (props) => {
 const Book = ({ book }) => {
   const [show, bookListhow] = useState(false);
   const [cardList, setCardList] = useState([]);
+  const buttonRef = useRef(null);
+  const [color, setColor] = useState('black');
 
   const handleShow = () => {
     console.log('handleShow called.');
@@ -155,35 +157,46 @@ const Book = ({ book }) => {
 
   return (
     <div className="card-container">
-      <div className="card4" onClick={handleShow}>
-        <h3>
-          {book.id} : {book.title}
-        </h3>
-        <p>{book.description}</p>
-        <p>수정 날짜 : {book.updated_at}</p>
-        <p>작성자 이메일: {book.user.email}</p>
-        <p>작성자 이름 : {book.user.name}</p>
-        <p className="small"></p>
-        <div className="dimmer"></div>
-        <div className="go-corner">
-          <div className="go-arrow">→</div>
+      <div
+        className="card4"
+        onClick={(e) => {
+          console.log('e.target.tagName : ', e.target.tagName);
+          if (e.target.tagName == 'svg' || e.target.tagName == 'BUTTON') {
+            if (color == 'black') {
+              console.log('before : ', color);
+              setColor('red');
+              alert('스크랩되었습니다.');
+              console.log('after : ', color);
+            } else {
+              setColor('black');
+              alert('스크랩 해제되었습니다.');
+            }
+          } else {
+            console.log(e.target.tagName);
+            handleShow();
+          }
+        }}
+      >
+        <div className="real-card">
+          <h3>
+            {book.id} : {book.title}
+          </h3>
+          <p>{book.description}</p>
+          <p>수정 날짜 : {book.updated_at}</p>
+          <p>작성자 이메일: {book.user.email}</p>
+          <p>작성자 이름 : {book.user.name}</p>
+          <p className="small"></p>
+          <div className="dimmer"></div>
+          <div className="go-corner">
+            <div className="go-arrow">→</div>
+          </div>
+        </div>
+        <div>
+          <Button>
+            <BsBoxArrowInDown size={30} color={color} />
+          </Button>
         </div>
       </div>
-
-      {/* <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
-          </Button>
-        </Modal.Footer>
-      </Modal> */}
 
       <Rodal className="container-rodal" width={800} height={700} animation="door" visible={show} onClose={handleClose} duration={1000} closeOnEsc={true}>
         <div className="h1 text-center card-title" style={{ paddingTop: '10px', color: 'white' }}>
@@ -203,18 +216,11 @@ const Card = ({ card }) => {
     <div className="courses-container">
       <div className="course">
         <div className="course-info row">
-          {/* <div>
-            <button className="">
-              <FcBookmark size={32} />
-            </button>
-          </div> */}
           <div>
             <span style={{ fontWeight: 'bold', fontSize: '1.5rem' }}>{card.word}</span>
           </div>
           <div>
-            <p className="" style={{}}>
-              {card.meaning}
-            </p>
+            <p>{card.meaning}</p>
           </div>
         </div>
       </div>
