@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd /home/memoryAPI
+cd /home/s03p31b301/memoryAPI
 pip install -r requirements.txt
 cd
 service nginx start
