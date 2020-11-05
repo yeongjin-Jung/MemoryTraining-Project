@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import AwesomeSlider from 'react-awesome-slider';
+import { Link } from 'react-router-dom';
 import CoreStyles from '../StudyPage/styles.scss';
 import AwesomeSliderStyles from 'react-awesome-slider/src/styled/open-animation/open-animation.scss';
 import Flippy, { FrontSide, BackSide } from 'react-flippy';
@@ -8,20 +9,23 @@ import './StudyPage.css';
 import Speech from 'react-speech';
 
 const StudyPage = (props) => {
-  const cards = props.location.state.book;
+  const cards = props.location.state.cardList;
+  const book = props.location.state.book;
 
   const stopPropagation = (e) => {
     e.stopPropagation();
   };
 
   useEffect(() => {
-    console.log('cards : ', cards);
+    console.log('props =>', props);
+    console.log('book : ', book);
   }, []);
 
   function Card({ data }) {
     return (
       <div className="FlippyContainer">
         <div className="Home-BackgroundColor"></div>
+
         <Flippy
           className="flippy"
           flipOnHover={false} // default false
@@ -49,6 +53,15 @@ const StudyPage = (props) => {
 
   return (
     <div className="StudyPageContainer">
+      <button
+        className="backbtn"
+        onClick={() => {
+          props.history.push({ pathname: '/set-detail', state: { book: book } });
+        }}
+      >
+        <p className="backbtn-text">뒤로가기</p>
+      </button>
+
       <AwesomeSlider className="slider" infinite={false} bullets={false} animation="openAnimation" cssModule={(CoreStyles, AwesomeSliderStyles)}>
         {cards.map((data, index) => (
           <div className="FlippyContainer-root" key={index}>

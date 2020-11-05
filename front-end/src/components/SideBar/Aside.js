@@ -14,7 +14,7 @@ const Aside = ({ book, image, collapsed, rtl, toggled, handleToggleSidebar, hist
 
   const [cardList, setCardList] = useState([]);
   const getCardList = async () => {
-    await axios.get(SERVER.BASE_URL + SERVER.ROUTES.getMySet + book.id).then((res) => {
+    await axios.get(SERVER.BASE_URL + SERVER.ROUTES.getbook + book.id).then((res) => {
       console.log('res: ', res);
       setCardList(res.data);
     });
@@ -32,11 +32,12 @@ const Aside = ({ book, image, collapsed, rtl, toggled, handleToggleSidebar, hist
             padding: '24px',
             textTransform: 'uppercase',
             fontWeight: 'bold',
-            fontSize: 14,
+            fontSize: '1.8em',
             letterSpacing: '1px',
             overflow: 'hidden',
             textOverflow: 'ellipsis',
             whiteSpace: 'nowrap',
+            color: 'white',
           }}
         >
           내 세트
@@ -53,7 +54,7 @@ const Aside = ({ book, image, collapsed, rtl, toggled, handleToggleSidebar, hist
 
           <MenuItem
             onClick={() => {
-              history.history.push({ pathname: '/studypage', state: { book: cardList } });
+              history.history.push({ pathname: '/studypage', state: { cardList: cardList, book: book } });
             }}
             icon={<img src={iconMemorize} style={{ width: '40px', backgroundColor: 'white', borderRadius: '50%' }} />}
           >

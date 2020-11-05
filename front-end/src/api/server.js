@@ -1,6 +1,7 @@
+/* eslint-disable */
 export default {
-  BASE_URL: 'http://localhost:8000/api/',
-  // BASE_URL: 'https://memorytraining.cf/api/',
+  // BASE_URL: 'http://localhost:8000/api/',
+  BASE_URL: 'https://memorytraining.cf/api/',
 
   ROUTES: {
     // Account
