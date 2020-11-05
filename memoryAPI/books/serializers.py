@@ -11,6 +11,7 @@ class CardSerializer(serializers.ModelSerializer):
 class BookSerializer(serializers.ModelSerializer):
     cards = CardSerializer(many=True, required=False)
     user = UserSerializer(required=False)
+    writer_flag = serializers.IntegerField(required=False)
 
     class Meta:
         model = Book

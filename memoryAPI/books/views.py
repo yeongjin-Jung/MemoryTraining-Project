@@ -38,3 +38,14 @@ class BookListView(generics.ListAPIView):
         if self.request.query_params.get('my_set_only'):
             return Book.objects.filter(title__icontains=keyword, user_id=user_id).order_by('-updated_at')
         return Book.objects.filter(title__icontains=keyword).order_by('-updated_at')
+
+class MyBookView(generics.ListAPIView):
+    serializer_class = BookSerializer
+    permission_calsses = [IsAuthenticated]
+
+    def get_queryset(self):
+        user_id = self.request.user.pk
+        my_books = MyBook.objects.filter(user_id=user_id).only('book')
+        return Book.objects.filter(id__in=my_books).order_by('-id')
+
+

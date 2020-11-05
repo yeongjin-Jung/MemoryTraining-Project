@@ -8,4 +8,5 @@ urlpatterns = [
     path('search/', views.BookListView.as_view(), name='search'),
     path('<int:pk>/', views.BookView.as_view(), name='detail'),
     # path('bookmark/',views.BookmarkView.as_view(), name='bookmark')
+    path('myset/', views.MyBookView.as_view(), name='myset')
 ]
