@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Aside from './Aside';
 import Main from './Main';
 
-function Layout({ setLocale }) {
+function Layout({ setLocale, book }) {
   const [rtl, setRtl] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
   const [image, setImage] = useState(true);
@@ -35,6 +35,7 @@ function Layout({ setLocale }) {
         handleCollapsedChange={handleCollapsedChange}
         handleRtlChange={handleRtlChange}
         handleImageChange={handleImageChange}
+        book={book}
       />
     </div>
   );

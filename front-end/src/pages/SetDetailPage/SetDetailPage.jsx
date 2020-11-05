@@ -26,7 +26,7 @@ const SetDetailPage = (props) => {
     <div className="SetDetail-root">
       <div className="Home-BackgroundColor"></div>
       <IntlProvider locale={locale} messages={messages[locale]}>
-        <Layout setLocale={setLocale} />
+        <Layout setLocale={setLocale} /*book={props.state.book}*/ />
       </IntlProvider>
     </div>
   );
