@@ -3,9 +3,9 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from accounts.serializers import UserSerializer
-from .serializers import BookSerializer, CardSerializer
+from .serializers import BookSerializer, CardSerializer, MyBookSerializer
 from rest_framework import generics
-from .models import Book, Card
+from .models import Book, Card, MyBook
 from rest_framework import filters
 
 class BookView(APIView):
@@ -14,7 +14,11 @@ class BookView(APIView):
     def post(self, request, format=None):
         serializer = BookSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
-            serializer.save(user=self.request.user)
+            book = serializer.save(user=self.request.user)
+            my_book_dict = {'book':book.id, 'write_flag':1, 'user':self.request.user.pk}
+            my_book_serializer = MyBookSerializer(data=my_book_dict)
+            if my_book_serializer.is_valid(raise_exception=True):
+                my_book_serializer.save()
         return Response(serializer.data)
 
     def get(self, request, pk, format=None):
