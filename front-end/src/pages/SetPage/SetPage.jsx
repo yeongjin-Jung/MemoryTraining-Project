@@ -60,6 +60,8 @@ const SetPage = (props) => {
   const addCard = () => {
     console.log('ADD button clicked.');
 
+    if (word.current.value == '' && meaning.current.value == '') return;
+
     let inputWord = divAddCardForm.current.children[1].children[0];
     let textareaMeaning = divAddCardForm.current.children[1].children[1];
     let newWord = inputWord.value;
