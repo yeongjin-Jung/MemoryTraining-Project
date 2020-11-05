@@ -184,15 +184,14 @@ const Book = ({ book }) => {
         <div>
           <Button
             variant="light"
+            color={book.scrap_flag ? 'red' : 'black'}
             onClick={(e) => {
               if (color == 'black') {
-                console.log('before : ', color);
+                console.log('color == black');
                 setColor('red');
-                // alert('스크랩되었습니다.');
-                console.log('after : ', color);
               } else {
+                console.log('color == red');
                 setColor('black');
-                // alert('스크랩 해제되었습니다.');
               }
               e.stopPropagation();
             }}

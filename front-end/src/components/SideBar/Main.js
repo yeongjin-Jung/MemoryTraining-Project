@@ -38,7 +38,7 @@ const Main = ({ collapsed, rtl, image, handleToggleSidebar, handleCollapsedChang
       <div className="Sets-root">
         <div className="Sets-container">
           {cardList.map((card) => (
-            <Card card={card} />
+            <Card card={card} key={card.id} />
           ))}
         </div>
       </div>
