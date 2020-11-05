@@ -11,7 +11,7 @@ class CardSerializer(serializers.ModelSerializer):
 class BookSerializer(serializers.ModelSerializer):
     cards = CardSerializer(many=True, required=False)
     user = UserSerializer(required=False)
-    writer_flag = serializers.IntegerField(required=False)
+    write_flag = serializers.IntegerField(required=False)
     scrap_flag = serializers.BooleanField(required=False)
 
     class Meta:
@@ -27,6 +27,7 @@ class BookSerializer(serializers.ModelSerializer):
         return book
 
 class MyBookSerializer(serializers.ModelSerializer):
+    write_flag = serializers.IntegerField(required=False)
     class Meta:
         model = MyBook
         fields = '__all__'

@@ -9,6 +9,7 @@ from .models import Book, Card, MyBook
 from rest_framework import filters
 from django.forms.models import model_to_dict
 from django.shortcuts import get_object_or_404
+from django.http import Http404
 
 class BookView(APIView):
     permission_calsses = [IsAuthenticated]
@@ -78,3 +79,19 @@ class BookmarkView(APIView):
             serializer.save(user=self.request.user)
             return Response(status=status.HTTP_201_CREATED)
         return Response(status=status.HTTP_400_BAD_REQUEST)
+
+class ScrapView(APIView):
+    serializer_class = MyBookSerializer
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, format=None):
+        my_book_dict = {'book':request.data['book_id'], 'user':self.request.user.pk}
+        my_book_serializer = MyBookSerializer(data=my_book_dict)
+        if my_book_serializer.is_valid(raise_exception=True):
+            my_book_serializer.save(write_flag=0)
+        return Response(my_book_serializer.data)
+
+    def delete(self, request, format=None):
+        my_book = MyBook.objects.get_object_or_404(book=request.data['book_id'], user=self.request.user.pk)
+        my_book.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
