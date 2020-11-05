@@ -3,11 +3,12 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from accounts.serializers import UserSerializer
-from .serializers import BookSerializer, CardSerializer, MyBookSerializer
-from rest_framework import generics
+from .serializers import BookSerializer, CardSerializer, MyBookSerializer, BookmarkSerializer
+from rest_framework import generics, status
 from .models import Book, Card, MyBook
 from rest_framework import filters
 from django.forms.models import model_to_dict
+from django.shortcuts import get_object_or_404
 
 class BookView(APIView):
     permission_calsses = [IsAuthenticated]
@@ -27,18 +28,29 @@ class BookView(APIView):
         cardSerializer = CardSerializer(cards, many=True)
         return Response(cardSerializer.data)
 
-class BookListView(generics.ListAPIView):
+class BookListView(APIView):
     serializer_class = BookSerializer
     permission_calsses = [IsAuthenticated]
 
-    def get_queryset(self):
+
+    def get(self, request, format=None):
         user_id = self.request.user.pk
         keyword = self.request.query_params.get('keyword')
         if self.request.query_params.get('scrap_only'):
             return Book.objects.exclude(user_id=user_id).filter(title__icontains=keyword).order_by('-updated_at')
         if self.request.query_params.get('my_set_only'):
             return Book.objects.filter(title__icontains=keyword, user_id=user_id).order_by('-updated_at')
-        return Book.objects.filter(title__icontains=keyword).order_by('-updated_at')
+        books = Book.objects.exclude(user_id=user_id).filter(title__icontains=keyword).order_by('-updated_at')
+        for book_info in books:
+            print(book_info.id)
+            if MyBook.objects.filter(book_id=book_info.id, user_id=user_id).exists():
+                setattr(book_info, "scrap_flag", 1)
+                # book_info['scrap_flag'] = 1
+            else:
+                setattr(book_info, "scrap_flag", 0)
+                # book_info['scrap_flag'] = 1
+        serializer = BookSerializer(books, many=True)
+        return Response(serializer.data)
 
 class MyBookView(generics.ListAPIView):
     serializer_class = BookSerializer
@@ -51,9 +63,18 @@ class MyBookView(generics.ListAPIView):
         print(my_books)
         return Book.objects.filter(id__in=my_books).order_by('-id')
 
-# class BookmarkView(APIView):
-#     permission_calsses = [IsAuthenticated]
+class BookmarkView(APIView):
+    serializer_class = BookmarkSerializer
+    permission_calsses = [IsAuthenticated]
 
-#     def post(self, request, format=None):
-#         serializer = BookmarkSerializer()
-
+    def post(self, request, format=None):
+        card = Card.objects.get(id=request.data['card_id'])
+        cardSerializer = CardSerializer(card)
+        book = Book.objects.get(id=request.data['book_id'])
+        bookSerializer = BookSerializer(book)
+        serializer = BookmarkSerializer(cardSerializer, bookSerializer)
+        print(serializer)
+        if(serializer.is_valid()):
+            serializer.save(user=self.request.user)
+            return Response(status=status.HTTP_201_CREATED)
+        return Response(status=status.HTTP_400_BAD_REQUEST)
