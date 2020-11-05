@@ -13,7 +13,6 @@ const SetDetailPage = (props) => {
   const location = useLocation();
   const [book, setBook] = useState({});
 
-  // set_id로 axios 요청합니다.
   useEffect(() => {
     console.log('SetDetailPage useEffect called.');
     console.log('location : ', location);
@@ -27,7 +26,7 @@ const SetDetailPage = (props) => {
     <div className="SetDetail-root">
       <div className="Home-BackgroundColor"></div>
       <IntlProvider locale={locale} messages={messages[locale]}>
-        <Layout setLocale={setLocale} />
+        <Layout setLocale={setLocale} /*book={props.state.book}*/ />
       </IntlProvider>
     </div>
   );

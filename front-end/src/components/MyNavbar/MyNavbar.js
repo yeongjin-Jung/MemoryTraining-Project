@@ -12,7 +12,7 @@ const MyNavbar = (props) => {
   const [showSearch, setShowSearch] = useState(false);
 
   const toggleSearch = () => {
-    console.log('toggleSearch called.');
+    // console.log('toggleSearch called.');
     setShowSearch(!showSearch);
   };
 
