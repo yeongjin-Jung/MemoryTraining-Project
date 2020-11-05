@@ -38,4 +38,7 @@ urlpatterns = [
 
     # books
     path("api/books/", include('books.urls')),
+
+    # quizs
+    path("api/quizs/", include('quizs.urls')),
 ]
