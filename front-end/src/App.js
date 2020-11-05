@@ -1,6 +1,6 @@
 /* eslint-disable */
 import React, { Component } from 'react';
-import { Home, RegisterPage, LoginPage, StudyPage, SearchPage, SetsPage, SetPage, SetDetailPage } from './pages';
+import { Home, RegisterPage, LoginPage, StudyPage, SearchPage, SetsPage, SetPage, SetDetailPage, CardTestPage } from './pages';
 // import Auth from "./hoc/auth";
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { MyNavbar } from './components';
@@ -30,6 +30,7 @@ class App extends Component {
           <PrivateRoute path="/set-create" component={SetPage} />
           <PrivateRoute path="/set-detail" component={SetDetailPage} />
           <PrivateRoute path="/studypage" component={StudyPage} />
+          <PrivateRoute path="/card-test" component={CardTestPage} />
         </Switch>
       </BrowserRouter>
     );

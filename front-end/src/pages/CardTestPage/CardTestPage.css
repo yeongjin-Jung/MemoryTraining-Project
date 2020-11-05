@@ -1,0 +1,132 @@
+.CardTest-root {
+  display: flex;
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+}
+
+.CardTest-background {
+  max-width: 100%;
+  max-height: 100%;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  overflow: auto;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: -1;
+
+  background-color: #ecf5ff;
+}
+
+.Quiz-container {
+  text-align: center;
+  border: solid;
+  border-width: thick;
+  border-color: violet;
+  width: 70%;
+  height: 80%;
+  font-family: Arial, Helvetica, sans-serif;
+  /* background-color: yellow; */
+  display: flex;
+  flex-direction: column;
+}
+
+.Quiz-problem {
+  padding: 3em;
+  width: 100%;
+  height: 50%;
+  /* background-color: turquoise; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.Quiz-problem p {
+  background-color: rgb(192, 243, 190);
+  font-family: Arial, Helvetica, sans-serif;
+}
+.Quiz-answer {
+  /* background-color: chartreuse; */
+  width: 100%;
+  height: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.Quiz-answer p {
+  background-color: rgb(169, 116, 255);
+}
+/* font-family: Arial,Helvetica,sans-serif; */
+
+.answer {
+  background-color: white;
+  border: 1px solid #fff;
+  padding: 5px 10px 5px 45px;
+  width: 90%;
+  text-align: left;
+  margin-top: 10px;
+  position: relative;
+  font-size: 22px;
+  cursor: pointer;
+  transition: ease-in-out, width 0.35s ease-in-out;
+}
+
+.answer.selected {
+  color: #4f4c4c;
+  background-color: #c8ffbb;
+}
+
+.answer:hover {
+  color: #4f4c4c;
+  background-color: #c8ffbb;
+}
+
+.answer:focus {
+  outline: none;
+}
+
+.results span.correct {
+  color: #c8ffbb;
+}
+
+.results span.failed {
+  color: #f27c7c;
+}
+
+.error {
+  color: #f27c7c;
+}
+
+.letter {
+  color: #4f4c4c;
+  width: 50px;
+  position: absolute;
+  left: 0;
+  text-align: center;
+  height: 28px;
+  top: 0;
+  padding: 5px;
+  text-transform: uppercase;
+}
+
+.btn {
+  color: #4f4c4c;
+  background-color: #f4f4f4;
+  padding: 10px 50px;
+  text-transform: uppercase;
+  font-size: 18px;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+.btn-primary {
+  color: #4f4c4c;
+  background-color: #ffc107;
+  font-weight: bold;
+}

@@ -83,7 +83,7 @@ const MyNavbar = (props) => {
         {showSearch ? null : (
           <Form inline>
             {/* <FormControl type="text" placeholder="Search" className="mr-sm-2" /> */}
-            <Button variant="outline-success" onClick={onClickHandler}>
+            <Button style={{ borderColor: 'DodgerBlue', backgroundColor: 'rgb(255,255,255,0)' }} onClick={onClickHandler}>
               로그아웃
             </Button>
           </Form>

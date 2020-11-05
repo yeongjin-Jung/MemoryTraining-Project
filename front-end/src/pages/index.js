@@ -13,3 +13,4 @@ export { default as SearchPage } from './SearchPage/SearchPage';
 export { default as SetsPage } from './SetsPage/SetsPage';
 export { default as SetPage } from './SetPage/SetPage';
 export { default as SetDetailPage } from './SetDetailPage/SetDetailPage';
+export { default as CardTestPage } from './CardTestPage/CardTestPage';
