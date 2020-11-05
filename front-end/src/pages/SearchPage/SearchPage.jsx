@@ -14,6 +14,7 @@ import { IconContext } from 'react-icons';
 import { FcBookmark } from 'react-icons/fc';
 import { FaBookmark } from 'react-icons/fa';
 import { BsBookmark } from 'react-icons/bs';
+
 import axios from 'axios';
 
 const SearchPage = (props) => {
@@ -74,7 +75,7 @@ const SearchPage = (props) => {
     <div className="search-root" ref={refToTop}>
       <div className="Home-BackgroundColor"></div>
       <div className="search-container">
-        <p className="search-title">검색한 세트의 이름</p>
+        <p className="search-title">검색어 : {searchValue}</p>
         <div className="ButtonContainer">
           <SortDropDown className="searchDropDown" onChaneHandler={onChaneHandler} />
           <Link to="/create-set">
@@ -179,9 +180,9 @@ const Book = ({ book }) => {
         </Modal.Footer>
       </Modal> */}
 
-      <Rodal className="container-rodal" width={800} height={500} animation="door" visible={show} onClose={handleClose} duration={1000} closeOnEsc={true}>
+      <Rodal className="container-rodal" width={800} height={700} animation="door" visible={show} onClose={handleClose} duration={1000} closeOnEsc={true}>
         <div className="h1 text-center card-title" style={{ paddingTop: '10px', color: 'white' }}>
-          정보처리기사
+          {book.title}
         </div>
 
         {cardList.map((card) => (
@@ -239,16 +240,18 @@ const Card = ({ card }) => {
     <div className="courses-container">
       <div className="course">
         <div className="course-info row">
-          <div>
+          {/* <div>
             <button className="">
               <FcBookmark size={32} />
             </button>
+          </div> */}
+          <div>
+            <span style={{ fontWeight: 'bold', fontSize: '1.5rem' }}>{card.word}</span>
           </div>
-          <div className="">
-            <span stlye={{ fontSize: '30px' }}>{card.word}</span>
-          </div>
-          <div className="">
-            <p className="">{card.meaning}</p>
+          <div>
+            <p className="" style={{}}>
+              {card.meaning}
+            </p>
           </div>
         </div>
       </div>

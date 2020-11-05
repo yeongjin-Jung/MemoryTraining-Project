@@ -6,77 +6,33 @@ import './SetsPage.css';
 import 'animate.css';
 import FadeIn from 'react-fade-in';
 
+import axios from 'axios';
+
 const SetsPage = (props) => {
   const [DropDownValue, setDropDownValue] = useState('all');
-  const sets = [
-    {
-      id: 1,
-      username: 'velopert',
-      title: '정보처리기사',
-    },
-    {
-      id: 2,
-      username: 'tester',
-      title: '토익영어',
-    },
-    {
-      id: 3,
-      username: 'liz',
-      title: '전기기사',
-    },
-    {
-      id: 4,
-      username: 'liz',
-      title: '전기기사',
-    },
-    {
-      id: 5,
-      username: 'liz',
-      title: '전기기사',
-    },
-    {
-      id: 6,
-      username: 'liz',
-      title: '전기기사',
-    },
-    {
-      id: 7,
-      username: 'liz',
-      title: '전기기사',
-    },
-  ];
-  useEffect(() => {
-    console.log('SetsPage useEffect called.');
-    console.log(props);
-  });
-  function User({ user, history }) {
-    return (
-      <div
-        className="card-container"
-        onClick={() => {
-          console.log(`${user.id} clicked.`);
-          // console.log('history : ', history);
-          console.log('user : ', user);
-          history.push({ pathname: '/set-detail', state: { user: user } });
-        }}
-      >
-        <a className="card4 ">
-          <h3>{user.title}</h3>
-          <p>({user.username})</p>
-          <p className="small"></p>
-          <div className="dimmer"></div>
-          <div className="go-corner">
-            <div className="go-arrow">→</div>
-          </div>
-        </a>
-      </div>
-    );
-  }
-
+  const [bookList, setBookList] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const refToTop = useRef();
+
   const onChanegeHandler = (Value) => {
     setDropDownValue(Value);
   };
+
+  const getBookList = async () => {
+    console.log('getBookList called.');
+    await axios.get('http://127.0.0.1:8000/api/books/myset/').then((res) => {
+      console.log(res);
+      let tmpBookList = [];
+      tmpBookList = [...res.data];
+      // console.log('tmpBookList : ', tmpBookList);
+      setBookList(tmpBookList);
+      setIsLoading(false);
+    });
+  };
+
+  useEffect(() => {
+    getBookList();
+  }, []);
 
   return (
     <div className="Sets-root" ref={refToTop}>
@@ -92,12 +48,16 @@ const SetsPage = (props) => {
             </Button>
           </Link>
         </div>
-        <FadeIn delay={250} className="FadeIn-container">
-          {DropDownValue == 'all' && sets.map((user) => <User user={user} key={user.id} history={props.history} />)}
-          {DropDownValue == 'MySet' && sets.filter((sets) => sets.username == 'liz').map((user) => <User user={user} key={user.id} history={props.history} />)}
-          {DropDownValue == 'Scrap' && sets.filter((sets) => sets.username != 'liz').map((user) => <User user={user} key={user.id} history={props.history} />)}
-        </FadeIn>
+
+        {!isLoading && (
+          <FadeIn delay={250} className="FadeIn-container">
+            {DropDownValue == 'all' && bookList.map((book) => <Book book={book} key={book.id} history={props.history} />)}
+            {DropDownValue == 'MySet' && bookList.filter((book) => bookList.username == localStorage.getItem('User name')).map((book) => <Book book={book} key={book.id} history={props.history} />)}
+            {/* {DropDownValue == 'Scrap' && bookList.filter((sets) => bookList.username != 'liz').map((book) => <User book={book} key={book.id} history={props.history} />)} */}
+          </FadeIn>
+        )}
       </div>
+
       <a
         onClick={() => {
           setTimeout(() => {
@@ -110,5 +70,29 @@ const SetsPage = (props) => {
     </div>
   );
 };
+
+function Book({ book, history }) {
+  return (
+    <div
+      className="card-container"
+      onClick={() => {
+        console.log(`${book.id} clicked.`);
+        // console.log('history : ', history);
+        console.log('book : ', book);
+        history.push({ pathname: '/set-detail', state: { book: book } });
+      }}
+    >
+      <a className="card4 ">
+        <h3>{book.title}</h3>
+        <p>작성자 : {book.user.name}</p>
+        <p className="small"></p>
+        <div className="dimmer"></div>
+        <div className="go-corner">
+          <div className="go-arrow">→</div>
+        </div>
+      </a>
+    </div>
+  );
+}
 
 export default SetsPage;
