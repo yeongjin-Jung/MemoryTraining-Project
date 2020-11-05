@@ -86,7 +86,7 @@ function Book({ book, history }) {
     >
       <a className="card4 ">
         <h3>{book.title}</h3>
-        <p>작성자 : {book.user.name}</p>
+        <p>{book.description}</p>
         <p className="small"></p>
         <div className="dimmer"></div>
         <div className="go-corner">

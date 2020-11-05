@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { Component, useEffect } from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { MyNavbar } from './components';

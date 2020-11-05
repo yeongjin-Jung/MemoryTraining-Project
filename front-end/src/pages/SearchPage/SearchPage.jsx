@@ -160,7 +160,9 @@ const Book = ({ book }) => {
           {book.id} : {book.title}
         </h3>
         <p>{book.description}</p>
-        <p>{book.updated_at}</p>
+        <p>수정 날짜 : {book.updated_at}</p>
+        <p>작성자 이메일: {book.user.email}</p>
+        <p>작성자 이름 : {book.user.name}</p>
         <p className="small"></p>
         <div className="dimmer"></div>
         <div className="go-corner">
@@ -191,48 +193,6 @@ const Book = ({ book }) => {
         {cardList.map((card) => (
           <Card card={card} key={card.id} />
         ))}
-
-        {/* <div className="courses-container">
-          <div className="course">
-            <div className="course-info row">
-              <div>
-                <button className="">
-                  <BsBookmark className="bookmark" size={32} />
-                </button>
-              </div>
-              <div>
-                <span stlye={{ fontSize: '30px' }}>데이터 관리자(DA, Data Administrator)</span>
-              </div>
-              <div className="row">
-                <p className="mx-3">
-                  하나의 기업 또는 조직 내에서 데이터를 정의, 체계화, 감독 및 보안 업무를 담당할 뿐만 아니라 데이터에 대한 관리를 총괄하고 정보 활용에 대한 중앙 집중적인 계획 수립 및 통제를 수행한다.
-                  전사적으로 수립된 데이터 표준 원칙, 데이터 표준, 데이터 표준 준수 여부 관리 등의 역할이 있다.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div> */}
-
-        {/* <div className="courses-container">
-          <div className="course">
-            <div className="course-info row">
-              <div>
-                <button className="">
-                  <BsBookmark className="bookmark" size={32} color="red" style={{ BackgroundColor: 'red' }} />
-                </button>
-              </div>
-              <div className="">
-                <span stlye={{ fontSize: '30px' }}>데이터 관리자(DA, Data Administrator)</span>
-              </div>
-              <div className="row">
-                <p className="mx-3">
-                  하나의 기업 또는 조직 내에서 데이터를 정의, 체계화, 감독 및 보안 업무를 담당할 뿐만 아니라 데이터에 대한 관리를 총괄하고 정보 활용에 대한 중앙 집중적인 계획 수립 및 통제를 수행한다.
-                  전사적으로 수립된 데이터 표준 원칙, 데이터 표준, 데이터 표준 준수 여부 관리 등의 역할이 있다.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div> */}
       </Rodal>
     </div>
   );

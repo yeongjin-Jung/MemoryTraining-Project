@@ -9,6 +9,7 @@ import * as _ from 'lodash';
 import axios from 'axios';
 
 import { useLocation } from 'react-router-dom';
+import SERVER from '../../api/server';
 
 const SetPage = (props) => {
   const [cards, setCards] = useState([]);
@@ -170,7 +171,8 @@ const SetPage = (props) => {
                         console.log('cards : ', cards);
 
                         axios
-                          .post('http://127.0.0.1:8000/api/books/create/', {
+                          // .post('http://127.0.0.1:8000/api/books/create/', {
+                          .post(SERVER.BASE_URL + SERVER.ROUTES.create, {
                             title: createSetTitle.current.value,
                             description: createSetDescription.current.value,
                             cards: cards,
@@ -178,7 +180,7 @@ const SetPage = (props) => {
                           .then((res) => {
                             console.log('create axios res : ', res);
                             console.log('props.history : ', props.history);
-                            props.history.push({ pathname: '/set-detail', state: res.data.id });
+                            props.history.push({ pathname: '/set-detail', state: { book: res.data } });
                           });
                       }
                     }}

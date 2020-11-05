@@ -15,18 +15,14 @@ const SetDetailPage = (props) => {
 
   useEffect(() => {
     console.log('SetDetailPage useEffect called.');
-    console.log('location : ', location);
-    console.log('location.user : ', location.user);
-    // setBook(location.state.user);
-
-    console.log('after setBook called. : ', book);
+    console.log('location.state : ', location.state);
   });
 
   return (
     <div className="SetDetail-root">
       <div className="Home-BackgroundColor"></div>
       <IntlProvider locale={locale} messages={messages[locale]}>
-        <Layout setLocale={setLocale} /*book={props.state.book}*/ />
+        <Layout setLocale={setLocale} book={location.state.book} />
       </IntlProvider>
     </div>
   );
