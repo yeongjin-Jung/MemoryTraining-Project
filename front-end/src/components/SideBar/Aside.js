@@ -4,10 +4,13 @@ import { ProSidebar, Menu, MenuItem, SubMenu, SidebarHeader, SidebarFooter, Side
 import sidebarBg from '../../assets/bg1.jpg';
 import { Link } from 'react-router-dom';
 import iconMemorize from '../../assets/images/memorize.png';
+import iconQuiz from '../../assets/images/quiz.png';
 import iconTest from '../../assets/images/test.png';
 import iconSetting from '../../assets/images/setting.png';
 import axios from 'axios';
 import SERVER from '../../api/server';
+
+import './Aside.css';
 
 const Aside = ({ book, image, collapsed, rtl, toggled, handleToggleSidebar, history }) => {
   const intl = useIntl();
@@ -32,7 +35,7 @@ const Aside = ({ book, image, collapsed, rtl, toggled, handleToggleSidebar, hist
             padding: '24px',
             textTransform: 'uppercase',
             fontWeight: 'bold',
-            fontSize: '1.8em',
+            fontSize: '2em',
             letterSpacing: '1px',
             overflow: 'hidden',
             textOverflow: 'ellipsis',
@@ -67,6 +70,14 @@ const Aside = ({ book, image, collapsed, rtl, toggled, handleToggleSidebar, hist
             icon={<img src={iconTest} style={{ width: '40px', backgroundColor: 'white', borderRadius: '50%' }} />}
           >
             테스트
+          </MenuItem>
+          <MenuItem
+            onClick={() => {
+              history.history.push({ pathname: '/test-paper', state: { cardList: cardList, book: book } });
+            }}
+            icon={<img src={iconQuiz} style={{ width: '40px', backgroundColor: 'white', borderRadius: '50%' }} />}
+          >
+            시험지
           </MenuItem>
           <MenuItem
             onClick={() => {

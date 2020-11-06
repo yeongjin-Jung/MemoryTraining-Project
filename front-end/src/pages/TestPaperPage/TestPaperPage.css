@@ -3,21 +3,37 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
+  justify-content: center;
   align-items: center;
 }
 
 .pdf-create-btn {
   position: relative;
-  margin-top: 2em;
+  margin-top: 3em;
+  margin-bottom: 0em;
+}
+.pdf-create-btn p {
+  font-size: 1.5em;
+  font-weight: 700;
+  color: white;
+  padding: 3px 8px;
+  border-radius: 15px;
+  background-color: cornflowerblue;
 }
 
 .testpaper-context {
   width: 60%;
-  padding: 15px;
   flex: 1;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.testpaper-context-main {
+  padding-top: 4px;
+  height: 90%;
+  width: 100%;
+  background-color: whitesmoke;
 }
 
 @media (max-width: 800px) {
@@ -44,7 +60,7 @@
 }
 
 .testpaper-qestion {
-  margin-top: 4em;
+  margin-top: 2em;
   width: 100%;
   display: flex;
 }
@@ -62,4 +78,57 @@
   .testpaper-qestion p {
     width: 100%;
   }
+}
+
+@media (max-width: 800px) {
+  .backbtn {
+    width: 20%;
+    top: 7.3em;
+    box-shadow: 0 3px 2px 0.5px #fcfcfc, 0 4px 6px #d6d7d9, 0 -2px 2px #cecfd1, 0 -4px 2px #fefefe, inset 0 0 1.5px 0 #cecfd1;
+  }
+}
+
+.testpaper-context-main,
+.testpaper-context-main:before,
+.testpaper-context-main:after {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.1), 1px 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.testpaper-context-main {
+  position: relative;
+  width: 100%;
+  padding: 2em;
+  padding-top: 0.7em;
+}
+
+.testpaper-context-main:before,
+.testpaper-context-main:after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-transform: rotateZ(2.5deg);
+  -o-transform: rotate(2.5deg);
+  transform: rotateZ(2.5deg);
+  z-index: -1;
+}
+
+.testpaper-context-main:after {
+  -webkit-transform: rotateZ(-2.5deg);
+  -o-transform: rotate(-2.5deg);
+  transform: rotateZ(-2.5deg);
+}
+
+.testpaper-context-main h1 {
+  font-size: 1.8em;
+  font-weight: normal;
+  text-align: center;
+  padding: 0.2em 0;
+  margin: 0;
+  border-top: 1px solid #ddd;
+  border-bottom: 2px solid #ddd;
 }
