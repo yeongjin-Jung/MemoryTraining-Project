@@ -16,5 +16,7 @@ export default {
     getbook: 'books/',
     scrap: 'books/scrap/',
     unscrap: 'books/scrap/',
+    bookmark: 'books/bookmark/',
+    unbookmark: 'books/bookmark/',
   },
 };

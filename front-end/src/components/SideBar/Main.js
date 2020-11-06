@@ -38,7 +38,7 @@ const Main = ({ collapsed, rtl, image, handleToggleSidebar, handleCollapsedChang
       <div className="Sets-root">
         <div className="Sets-container">
           {cardList.map((card) => (
-            <Card card={card} key={card.id} />
+            <Card book={book} card={card} key={card.id} />
           ))}
         </div>
       </div>
@@ -46,15 +46,36 @@ const Main = ({ collapsed, rtl, image, handleToggleSidebar, handleCollapsedChang
   );
 };
 
-const Card = ({ card }) => {
+const Card = ({ book, card }) => {
+  const [color, setColor] = useState(card.bookmark_flag ? 'red' : 'black');
+
+  useEffect(() => {
+    console.log('useEffect -> color : ', color);
+  });
+
   return (
     <div className="courses-container">
       <div className="course">
         <div className="course-info row">
           <div>
-            <button className="" onClick={() => {}}>
-              <FcBookmark size={33} />
-              <BsBookmark size={32} />
+            <button
+              className=""
+              onClick={() => {
+                if (color == 'black') {
+                  setColor('red');
+                  axios.post(SERVER.BASE_URL + SERVER.ROUTES.bookmark, { book_id: book.id, card_id: card.id }).then((res) => {
+                    console.log(res);
+                  });
+                } else {
+                  setColor('black');
+                  axios.delete(SERVER.BASE_URL + SERVER.ROUTES.unbookmark, { book_id: book.id, card_id: card.id }).then((res) => {
+                    console.log(res);
+                  });
+                }
+              }}
+            >
+              {color == 'red' && <FcBookmark size={32} />}
+              {color == 'black' && <BsBookmark size={32} />}
             </button>
           </div>
           <div className="">
