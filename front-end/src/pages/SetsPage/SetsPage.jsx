@@ -55,8 +55,8 @@ const SetsPage = (props) => {
         {!isLoading && (
           <FadeIn delay={250} className="FadeIn-container">
             {DropDownValue == 'all' && bookList.map((book) => <Book book={book} key={book.id} history={props.history} />)}
-            {DropDownValue == 'MySet' && bookList.filter((book) => bookList.username == localStorage.getItem('User name')).map((book) => <Book book={book} key={book.id} history={props.history} />)}
-            {/* {DropDownValue == 'Scrap' && bookList.filter((sets) => bookList.username != 'liz').map((book) => <User book={book} key={book.id} history={props.history} />)} */}
+            {DropDownValue == 'MySet' && bookList.filter((book) => book.write_flag == 1).map((book) => <Book book={book} key={book.id} history={props.history} />)}
+            {DropDownValue == 'Scrap' && bookList.filter((book) => book.write_flag == 0).map((book) => <Book book={book} key={book.id} history={props.history} />)}
           </FadeIn>
         )}
       </div>
@@ -88,6 +88,7 @@ function Book({ book, history }) {
       >
         <h3>{book.title}</h3>
         <p>{book.description}</p>
+        <p>작성자 : {book.user.email}</p>
         <p className="small"></p>
         <div className="dimmer"></div>
         <div className="go-corner">
