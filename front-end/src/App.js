@@ -29,7 +29,7 @@ class App extends Component {
           <PrivateRoute path="/sets" component={SetsPage} />
           <PrivateRoute path="/set-create" component={SetPage} />
           <PrivateRoute path="/set-detail" component={SetDetailPage} />
-          <PrivateRoute path="/studypage" component={StudyPage} />
+          <PrivateRoute path="/study" component={StudyPage} />
           <PrivateRoute path="/card-test" component={CardTestPage} />
         </Switch>
       </BrowserRouter>

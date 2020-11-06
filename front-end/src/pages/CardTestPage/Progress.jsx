@@ -2,9 +2,9 @@ import React from 'react';
 
 const Progress = (props) => {
   return (
-    <div>
+    <div className="progress-root">
       <h2>
-        Question {props.current} of {props.total}
+        문제 {props.current} of {props.total}
       </h2>
     </div>
   );

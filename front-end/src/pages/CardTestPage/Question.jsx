@@ -6,7 +6,7 @@ const Question = (props) => {
   const question = questions[currentQuestion];
   console.log(currentQuestion);
   console.log(questions);
-  return <h1>{question.question}</h1>;
+  return <p>{question.question}</p>;
 };
 
 export default Question;

@@ -133,7 +133,7 @@ const CardTestPage = () => {
               <Answers question={question} currentAnswer={currentAnswer} dispatch={dispatch} />
             </div>
             <button className="Quizbtn Quizbtn-primary" onClick={next}>
-              Confirm and Continue
+              <p>다음 문제</p>
             </button>
           </div>
         </div>
