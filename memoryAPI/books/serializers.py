@@ -33,10 +33,9 @@ class MyBookSerializer(serializers.ModelSerializer):
         fields = '__all__'
         
 class BookmarkSerializer(serializers.ModelSerializer):
+    user = UserSerializer(required=False)
     class Meta:
         model = Bookmark
         fields = '__all__'
 
-    def create(self, validated_data):
-        bookmark_data = validated_data.pop('card_id')
 

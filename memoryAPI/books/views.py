@@ -5,7 +5,7 @@ from rest_framework.views import APIView
 from accounts.serializers import UserSerializer
 from .serializers import BookSerializer, CardSerializer, MyBookSerializer, BookmarkSerializer
 from rest_framework import generics, status
-from .models import Book, Card, MyBook
+from .models import Book, Card, MyBook, Bookmark
 from rest_framework import filters
 from django.forms.models import model_to_dict
 from django.shortcuts import get_object_or_404
@@ -69,16 +69,26 @@ class BookmarkView(APIView):
     permission_calsses = [IsAuthenticated]
 
     def post(self, request, format=None):
-        card = Card.objects.get(id=request.data['card_id'])
-        cardSerializer = CardSerializer(card)
-        book = Book.objects.get(id=request.data['book_id'])
-        bookSerializer = BookSerializer(book)
-        serializer = BookmarkSerializer(cardSerializer, bookSerializer)
-        print(serializer)
-        if(serializer.is_valid()):
+        card_id = request.data['card_id']
+        book_id = request.data['book_id']
+        user_id = self.request.user.pk
+        my_book_id = MyBook.objects.get(book_id=book_id, user_id=user_id).pk
+        bookmark_dict = {'card':card_id, 'book':book_id, 'my_book':my_book_id, 'bookmark_flag':1}
+        serializer = BookmarkSerializer(data=bookmark_dict)
+        if Bookmark.objects.filter(card=card_id, book=book_id, my_book=my_book_id, bookmark_flag=1, user=user_id).exists():
+            return Response('Already Bookmarked', status=status.HTTP_400_BAD_REQUEST)
+        if(serializer.is_valid(raise_exception=True)):
             serializer.save(user=self.request.user)
             return Response(status=status.HTTP_201_CREATED)
         return Response(status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, format=None):
+        card_id = request.data['card_id']
+        book_id = request.data['book_id']
+        my_book_id = MyBook.objects.get(book_id=book_id, user_id=self.request.user.pk).pk
+        bookmark = Bookmark.objects.get(card=card_id, book=book_id, my_book=my_book_id, bookmark_flag=1)
+        bookmark.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 class ScrapView(APIView):
     serializer_class = MyBookSerializer
