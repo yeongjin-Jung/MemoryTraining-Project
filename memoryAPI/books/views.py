@@ -35,6 +35,12 @@ class BookView(APIView):
         cardSerializer = CardSerializer(cards, many=True)
         return Response(cardSerializer.data)
 
+    def delete(self, request, pk, format=None):
+        book = Book.objects.get(id=pk)
+        book.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
 class BookListView(APIView):
     serializer_class = BookSerializer
     permission_calsses = [IsAuthenticated]
