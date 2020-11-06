@@ -189,9 +189,15 @@ const Book = ({ book }) => {
               if (color == 'black') {
                 console.log('color == black');
                 setColor('red');
+                axios.post(SERVER.BASE_URL + SERVER.ROUTES.scrap, { book_id: book.id }).then((res) => {
+                  console.log('scrap axios res : ', res);
+                });
               } else {
                 console.log('color == red');
                 setColor('black');
+                axios.post(SERVER.BASE_URL + SERVER.ROUTES.unscrap, { book_id: book.id }).then((res) => {
+                  console.log('unscrap axios res : ', res);
+                });
               }
               e.stopPropagation();
             }}

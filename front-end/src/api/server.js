@@ -14,5 +14,7 @@ export default {
     search: 'books/search/',
     myset: 'books/myset/',
     getbook: 'books/',
+    scrap: 'books/scrap/',
+    unscrap: 'books/scrap/',
   },
 };
