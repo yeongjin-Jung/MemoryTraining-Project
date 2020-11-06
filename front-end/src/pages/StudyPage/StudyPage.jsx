@@ -8,6 +8,8 @@ import 'react-sweet-progress/lib/style.css';
 import './StudyPage.css';
 import Speech from 'react-speech';
 
+const ref = React.createRef();
+
 const StudyPage = (props) => {
   const cards = props.location.state.cardList;
   const book = props.location.state.book;

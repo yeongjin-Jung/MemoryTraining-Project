@@ -28,6 +28,11 @@ const LoginPage = (props) => {
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
+
+    if (localStorage.getItem('Authorization') != null) {
+      localStorage.removeItem('Authorization');
+    }
+
     //로그인을 진행하기위해서
     //첫번째 useDispatch(액션) 을 활용해서 액션을 dispatch해준다
     const body = {

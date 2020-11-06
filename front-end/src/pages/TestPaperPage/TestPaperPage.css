@@ -1,0 +1,65 @@
+.testpaper-root {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+}
+
+.pdf-create-btn {
+  position: relative;
+  margin-top: 2em;
+}
+
+.testpaper-context {
+  width: 60%;
+  padding: 15px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 800px) {
+  .testpaper-context {
+    width: 90%;
+  }
+}
+
+.testpaper-title {
+  display: flex;
+}
+
+.testpaper-title p {
+  padding-top: 10px;
+  font-size: 2.5em;
+  font-weight: 1000;
+  color: black;
+}
+
+.testpaper-qestion-container {
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+}
+
+.testpaper-qestion {
+  margin-top: 4em;
+  width: 100%;
+  display: flex;
+}
+@media (max-width: 1200px) {
+  .testpaper-qestion {
+    flex-direction: column;
+  }
+}
+.testpaper-qestion p {
+  flex: none;
+  width: 40%;
+}
+
+@media (max-width: 800px) {
+  .testpaper-qestion p {
+    width: 100%;
+  }
+}

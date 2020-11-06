@@ -1,5 +1,5 @@
 import React, { useReducer } from 'react';
-import './CardTestPage.css';
+import './QuizPage.css';
 import Progress from './Progress';
 import Question from './Question';
 import Answers from './Answers';
