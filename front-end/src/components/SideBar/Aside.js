@@ -68,7 +68,14 @@ const Aside = ({ book, image, collapsed, rtl, toggled, handleToggleSidebar, hist
           >
             테스트
           </MenuItem>
-          <MenuItem icon={<img src={iconSetting} style={{ width: '40px', backgroundColor: 'white', borderRadius: '50%' }} />}>세트 수정</MenuItem>
+          <MenuItem
+            onClick={() => {
+              history.history.push({ pathname: '/set-modify', state: { cardList: cardList, book: book } });
+            }}
+            icon={<img src={iconSetting} style={{ width: '40px', backgroundColor: 'white', borderRadius: '50%' }} />}
+          >
+            세트 수정
+          </MenuItem>
         </Menu>
         {/* <Menu iconShape="circle">
           <SubMenu
