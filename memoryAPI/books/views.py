@@ -10,6 +10,7 @@ from rest_framework import filters
 from django.forms.models import model_to_dict
 from django.shortcuts import get_object_or_404
 from django.http import Http404
+from django.db.models import IntegerField, Case, Value, When
 
 class BookView(APIView):
     permission_calsses = [IsAuthenticated]
@@ -74,7 +75,14 @@ class MyBookView(generics.ListAPIView):
         print(user_id)
         my_books = MyBook.objects.filter(user=user_id).values_list('book', flat=True)
         print(my_books)
-        return Book.objects.filter(id__in=my_books).order_by('-id')
+        # books = Book.objects.filter(id__in=my_books).order_by('-id').annotate(write_flag=Case(When(MyBook.objects.get(book=Book.pk, user_id=user_id).write_flag==1), then=Value(1)), default=Value(0), output_field=IntegerField())
+        books = Book.objects.filter(id__in=my_books).order_by('-id')
+        for book in books:
+            if MyBook.objects.get(book=book.pk, user_id=user_id).write_flag==1:
+                setattr(book, 'write_flag', 1)
+            else:
+                setattr(book, 'write_flag', 0)
+        return books
 
 class BookmarkView(APIView):
     serializer_class = BookmarkSerializer
