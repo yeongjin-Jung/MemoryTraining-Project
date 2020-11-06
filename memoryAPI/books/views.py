@@ -110,7 +110,8 @@ class ScrapView(APIView):
         my_book_dict = {'book':request.data['book_id'], 'user':self.request.user.pk}
         my_book_serializer = MyBookSerializer(data=my_book_dict)
         if my_book_serializer.is_valid(raise_exception=True):
-            my_book_serializer.save(write_flag=0)
+            if not MyBook.objects.filter(book_id=request.data['book_id'], user_id=self.request.user.pk).exists():
+                my_book_serializer.save(write_flag=0)
         return Response(my_book_serializer.data)
 
     def delete(self, request, format=None):
