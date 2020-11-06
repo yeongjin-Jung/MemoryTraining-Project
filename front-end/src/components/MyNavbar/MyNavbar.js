@@ -11,6 +11,8 @@ import SERVER from '../../api/server';
 
 const MyNavbar = (props) => {
   const [showSearch, setShowSearch] = useState(false);
+  const collapseRef = useRef(null);
+  const toggleButtonRef = useRef(null);
 
   const toggleSearch = () => {
     // console.log('toggleSearch called.');
@@ -68,10 +70,10 @@ const MyNavbar = (props) => {
           암기의 정석
         </Link>
       </Navbar.Brand>
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />
-      <Navbar.Collapse id="basic-navbar-nav">
+      <Navbar.Toggle aria-controls="basic-navbar-nav" id="toggle-button" ref={toggleButtonRef} />
+      <Navbar.Collapse id="basic-navbar-nav" ref={collapseRef}>
         <Nav className="container-fluid">
-          {showSearch ? <Search toggleSearch={toggleSearch} /> : <Menu toggleSearch={toggleSearch} />}
+          {showSearch ? <Search toggleSearch={toggleSearch} toggleButtonRef={toggleButtonRef} /> : <Menu toggleSearch={toggleSearch} toggleButtonRef={toggleButtonRef} />}
 
           {/* <NavDropdown title="Dropdown" id="basic-nav-dropdown">
             <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
@@ -94,20 +96,27 @@ const MyNavbar = (props) => {
   );
 };
 
-const Menu = ({ toggleSearch }) => {
+const Menu = ({ toggleSearch, toggleButtonRef }) => {
   return (
     <>
       <Nav.Link style={{ textDecoration: 'none', color: 'grey' }} onClick={toggleSearch}>
         검색
       </Nav.Link>
-      <Nav.Link as={Link} to="/sets" style={{ textDecoration: 'none', color: 'grey' }}>
+      <Nav.Link
+        as={Link}
+        to="/sets"
+        style={{ textDecoration: 'none', color: 'grey' }}
+        onClick={() => {
+          toggleButtonRef.current.click();
+        }}
+      >
         세트
       </Nav.Link>
     </>
   );
 };
 
-const Search = ({ toggleSearch }) => {
+const Search = ({ toggleSearch, toggleButtonRef }) => {
   const history = useHistory();
   const buttonRef = useRef(null);
   const inputRef = useRef(null);
@@ -148,16 +157,25 @@ const Search = ({ toggleSearch }) => {
             aria-describedby="basic-addon2"
             onKeyPress={(event) => {
               if (event.key == 'Enter') {
+                toggleButtonRef.current.click();
                 const searchValue = inputRef.current.value;
                 inputRef.current.value = '';
-                toggleSearch();
+                // toggleSearch();
                 history.push({ pathname: '/search', state: { searchValue } });
               }
             }}
           />
         </InputGroup>
         <InputGroup.Append className="col-1">
-          <Button variant="outline-secondary" onClick={toggleSearch} style={{ marginLeft: '1px' }} ref={buttonRef}>
+          <Button
+            variant="outline-secondary"
+            onClick={toggleSearch}
+            style={{ marginLeft: '1px' }}
+            ref={buttonRef}
+            onClick={() => {
+              toggleButtonRef.current.click();
+            }}
+          >
             <MdClose />
           </Button>
         </InputGroup.Append>
