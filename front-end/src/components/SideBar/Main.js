@@ -62,13 +62,19 @@ const Card = ({ book, card }) => {
               className=""
               onClick={() => {
                 if (color == 'black') {
+                  console.log('bookmark.');
                   setColor('red');
+                  console.log('book.id : ', book.id);
+                  console.log('card.id : ', card.id);
                   axios.post(SERVER.BASE_URL + SERVER.ROUTES.bookmark, { book_id: book.id, card_id: card.id }).then((res) => {
                     console.log(res);
                   });
                 } else {
+                  console.log('unbookmark.');
                   setColor('black');
-                  axios.delete(SERVER.BASE_URL + SERVER.ROUTES.unbookmark, { book_id: book.id, card_id: card.id }).then((res) => {
+                  console.log('book.id : ', book.id);
+                  console.log('card.id : ', card.id);
+                  axios.delete(SERVER.BASE_URL + SERVER.ROUTES.unbookmark, { data: { book_id: book.id, card_id: card.id } }).then((res) => {
                     console.log(res);
                   });
                 }
