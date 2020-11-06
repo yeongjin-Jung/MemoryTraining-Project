@@ -26,6 +26,12 @@ class BookView(APIView):
 
     def get(self, request, pk, format=None):
         cards = Card.objects.filter(book_id=pk)
+        user = self.request.user.pk
+        for card in cards:
+            if Bookmark.objects.filter(book=pk, card=card.id, user=user, bookmark_flag=1).exists():
+                setattr(card, "bookmark_flag", 1)
+            else:
+                setattr(card, "bookmark_flag", 0)
         cardSerializer = CardSerializer(cards, many=True)
         return Response(cardSerializer.data)
 
@@ -79,7 +85,7 @@ class BookmarkView(APIView):
             return Response('Already Bookmarked', status=status.HTTP_400_BAD_REQUEST)
         if(serializer.is_valid(raise_exception=True)):
             serializer.save(user=self.request.user)
-            return Response(status=status.HTTP_201_CREATED)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, format=None):

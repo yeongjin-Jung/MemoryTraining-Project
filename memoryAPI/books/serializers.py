@@ -4,9 +4,10 @@ from accounts.serializers import UserSerializer
  
 class CardSerializer(serializers.ModelSerializer):
     book_id = serializers.IntegerField(required=False)
+    bookmark_flag = serializers.BooleanField(required=False)
     class Meta:
         model = Card
-        fields = ['id', 'word', 'meaning', 'book_id']
+        fields = ['id', 'word', 'meaning', 'book_id', 'bookmark_flag']
 
 class BookSerializer(serializers.ModelSerializer):
     cards = CardSerializer(many=True, required=False)
