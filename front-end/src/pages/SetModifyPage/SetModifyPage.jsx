@@ -126,7 +126,6 @@ const SetModifyPage = (props) => {
               <div style={{ display: 'flex' }}>
                 <div style={{ width: '500px' }}>
                   <span className="CreateSetHeader-title">학습 세트 수정하기</span>
-                  {/* <span>학습 세트 만들기</span> */}
                 </div>
                 <div style={{ width: '100%', display: 'flex', justifyContent: 'flex-end' }}>
                   <Button
@@ -168,13 +167,31 @@ const SetModifyPage = (props) => {
                   >
                     저장
                   </Button>
+                  <Button
+                    variant="danger"
+                    onClick={() => {
+                      var result = window.confirm('정말 삭제하시겠습니까?');
+                      if (result) {
+                        alert(`[${props.location.state.book.title}] 세트가 삭제되었습니다.`);
+                      } else {
+                      }
+                    }}
+                  >
+                    삭제
+                  </Button>
                 </div>
               </div>
               <div style={{ marginTop: '2rem' }}>
-                <Form.Control className="inputbox create-set-title" type="text" placeholder="제목을 입력하세요." ref={createSetTitle} />
+                <Form.Control className="inputbox create-set-title" type="text" placeholder="제목을 입력하세요." ref={createSetTitle} defaultValue={props.location.state.book.title} />
                 <span className="">제목</span>
                 <br />
-                <Form.Control className="inputbox create-set-description" type="text" placeholder="설명을 입력하세요." ref={createSetDescription} />
+                <Form.Control
+                  className="inputbox create-set-description"
+                  type="text"
+                  placeholder="설명을 입력하세요."
+                  ref={createSetDescription}
+                  defaultValue={props.location.state.book.description}
+                />
                 <span className="">설명</span>
               </div>
             </div>
