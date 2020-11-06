@@ -107,7 +107,12 @@ const SetModifyPage = (props) => {
   useEffect(() => {
     console.log('SetModifyPage useEffect called.');
     console.log('SetModifyPage props : ', props);
-    console.log('SetModifyPage props.location.state : ', props.history.state);
+    console.log('SetModifyPage props.location.state : ', props.location.state);
+
+    for (var i = 0; i < props.location.state.cardList.length; i++) {
+      props.location.state.cardList[i].idx = i;
+    }
+    console.log('props.location.state.cardList : ', props.location.state.cardList);
 
     setCards(props.location.state.cardList);
   }, []);
