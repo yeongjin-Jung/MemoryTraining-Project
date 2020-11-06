@@ -11,6 +11,8 @@ export default {
 
     // Set
     create: 'books/create/',
+    update: 'books/',
+    delete: 'books/',
     search: 'books/search/',
     myset: 'books/myset/',
     getbook: 'books/',

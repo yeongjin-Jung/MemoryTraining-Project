@@ -152,7 +152,7 @@ const SetModifyPage = (props) => {
 
                         axios
                           // .post('http://127.0.0.1:8000/api/books/create/', {
-                          .post(SERVER.BASE_URL + SERVER.ROUTES.create, {
+                          .post(SERVER.BASE_URL + SERVER.ROUTES.update, {
                             title: createSetTitle.current.value,
                             description: createSetDescription.current.value,
                             cards: cards,
@@ -172,6 +172,11 @@ const SetModifyPage = (props) => {
                     onClick={() => {
                       var result = window.confirm('정말 삭제하시겠습니까?');
                       if (result) {
+                        axios.put(SERVER.BASE_URL + SERVER.ROUTES.delete, {
+                          data: {
+                            book_id: props.location.state.book.id,
+                          },
+                        });
                         alert(`[${props.location.state.book.title}] 세트가 삭제되었습니다.`);
                       } else {
                       }
