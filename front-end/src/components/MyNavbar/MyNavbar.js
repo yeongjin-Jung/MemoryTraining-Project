@@ -73,7 +73,11 @@ const MyNavbar = (props) => {
       <Navbar.Toggle aria-controls="basic-navbar-nav" id="toggle-button" ref={toggleButtonRef} />
       <Navbar.Collapse id="basic-navbar-nav" ref={collapseRef}>
         <Nav className="container-fluid">
-          {showSearch ? <Search toggleSearch={toggleSearch} toggleButtonRef={toggleButtonRef} /> : <Menu toggleSearch={toggleSearch} toggleButtonRef={toggleButtonRef} />}
+          {showSearch ? (
+            <Search collapseRef={collapseRef} toggleSearch={toggleSearch} toggleButtonRef={toggleButtonRef} />
+          ) : (
+            <Menu collapseRef={collapseRef} toggleSearch={toggleSearch} toggleButtonRef={toggleButtonRef} />
+          )}
 
           {/* <NavDropdown title="Dropdown" id="basic-nav-dropdown">
             <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
@@ -96,7 +100,7 @@ const MyNavbar = (props) => {
   );
 };
 
-const Menu = ({ toggleSearch, toggleButtonRef }) => {
+const Menu = ({ toggleSearch, toggleButtonRef, collapseRef }) => {
   return (
     <>
       <Nav.Link style={{ textDecoration: 'none', color: 'grey' }} onClick={toggleSearch}>
@@ -107,7 +111,10 @@ const Menu = ({ toggleSearch, toggleButtonRef }) => {
         to="/sets"
         style={{ textDecoration: 'none', color: 'grey' }}
         onClick={() => {
-          toggleButtonRef.current.click();
+          var cName = collapseRef.current.className;
+          if (cName.includes('show')) {
+            toggleButtonRef.current.click();
+          }
         }}
       >
         세트
@@ -116,7 +123,7 @@ const Menu = ({ toggleSearch, toggleButtonRef }) => {
   );
 };
 
-const Search = ({ toggleSearch, toggleButtonRef }) => {
+const Search = ({ toggleSearch, toggleButtonRef, collapseRef }) => {
   const history = useHistory();
   const buttonRef = useRef(null);
   const inputRef = useRef(null);
@@ -157,25 +164,23 @@ const Search = ({ toggleSearch, toggleButtonRef }) => {
             aria-describedby="basic-addon2"
             onKeyPress={(event) => {
               if (event.key == 'Enter') {
-                toggleButtonRef.current.click();
+                var cName = collapseRef.current.className;
+
+                if (cName.includes('show')) {
+                  toggleSearch();
+                  toggleButtonRef.current.click();
+                } else {
+                }
+
                 const searchValue = inputRef.current.value;
                 inputRef.current.value = '';
-                // toggleSearch();
                 history.push({ pathname: '/search', state: { searchValue } });
               }
             }}
           />
         </InputGroup>
         <InputGroup.Append className="col-1">
-          <Button
-            variant="outline-secondary"
-            onClick={toggleSearch}
-            style={{ marginLeft: '1px' }}
-            ref={buttonRef}
-            onClick={() => {
-              toggleButtonRef.current.click();
-            }}
-          >
+          <Button variant="outline-secondary" onClick={toggleSearch} style={{ marginLeft: '1px' }} ref={buttonRef}>
             <MdClose />
           </Button>
         </InputGroup.Append>
