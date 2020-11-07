@@ -27,12 +27,12 @@ class QuizView(APIView):
         for k, val in enumerate(list(quiz.items())):
             Q = val[0]
             A = val[1]
-            answers = random.sample(list(quiz.values()), 4)
+            answers = random.sample(list(quiz.values()), 4)  # 4개 랜덤뽑기
             # print('index:',k+1, '문제:',Q, '답:',A, '번호:',answers)
             if A not in answers:
                 answers.pop()
                 answers.append(A)
-                random.shuffle(answers)
+                random.shuffle(answers)  # 순서 랜덤바꾸기
                 quizbox.append([k+1, Q, A, answers])
             else:
                 quizbox.append([k+1, Q, A, answers])
@@ -53,20 +53,3 @@ class QuizView(APIView):
         # print(serializer.is_valid())
         # # if serializer.is_valid():
         return Response(quizbox)
-
-class BookmarkView(APIView):
-    permission_calsses = [IsAuthenticated]
-
-    def post(self, request, format=None):
-        card_id = request.data['card_id']
-        book_id = request.data['book_id']
-        user_id = self.request.user.pk
-        my_book_id = MyBook.objects.get(book_id=book_id, user_id=user_id).pk
-        bookmark_dict = {'card':card_id, 'book':book_id, 'my_book':my_book_id, 'bookmark_flag':1}
-        serializer = BookmarkSerializer(data=bookmark_dict)
-        if Bookmark.objects.filter(card=card_id, book=book_id, my_book=my_book_id, bookmark_flag=1, user=user_id).exists():
-            return Response('Already Bookmarked', status=status.HTTP_400_BAD_REQUEST)
-        if(serializer.is_valid(raise_exception=True)):
-            serializer.save(user=self.request.user)
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(status=status.HTTP_400_BAD_REQUEST)
