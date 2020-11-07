@@ -6,8 +6,37 @@
   justify-content: center;
   align-items: center;
 }
+
+.test-category {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  font-size: 30px;
+}
+@media (max-width: 800px) {
+  .test-category {
+    font-size: 35px;
+  }
+}
+.test-category .case1 {
+  text-align: center;
+  width: 50%;
+  background-color: yellow;
+}
+.case1 span {
+  font-weight: 900;
+}
+.test-category .case2 {
+  text-align: center;
+  width: 50%;
+  background-color: red;
+}
+.case2 span {
+  font-weight: 900;
+}
 iframe {
   height: inherit;
+  width: inherit;
 }
 .pdf-create-btn {
   position: relative;
