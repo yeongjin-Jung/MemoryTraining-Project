@@ -6,7 +6,9 @@
   justify-content: center;
   align-items: center;
 }
-
+iframe {
+  height: inherit;
+}
 .pdf-create-btn {
   position: relative;
   margin-top: 3em;
