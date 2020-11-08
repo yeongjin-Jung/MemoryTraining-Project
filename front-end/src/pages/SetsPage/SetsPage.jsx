@@ -95,20 +95,22 @@ function Book({ book, history, getBookList }) {
           <div className="go-arrow">→</div>
         </div>
         <div className="container-fluid" style={{ display: 'flex', justifyContent: 'flex-end' }}>
-          <Button
-            className="btn-unscrap btn-light"
-            style={{ zIndex: '1' }}
-            onClick={(e) => {
-              axios.delete(SERVER.BASE_URL + SERVER.ROUTES.unscrap, { data: { book_id: book.id } }).then((res) => {
-                console.log(res);
-                getBookList();
-              });
+          {book.write_flag == 0 && (
+            <Button
+              className="btn-unscrap btn-light"
+              style={{ zIndex: '1' }}
+              onClick={(e) => {
+                axios.delete(SERVER.BASE_URL + SERVER.ROUTES.unscrap, { data: { book_id: book.id } }).then((res) => {
+                  console.log(res);
+                  getBookList();
+                });
 
-              e.stopPropagation();
-            }}
-          >
-            스크랩 해제
-          </Button>
+                e.stopPropagation();
+              }}
+            >
+              스크랩 해제
+            </Button>
+          )}
         </div>
       </a>
     </div>
