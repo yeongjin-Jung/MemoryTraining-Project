@@ -37,7 +37,8 @@ class QuizView(APIView):
                 answers.pop()
                 answers.append(A)
                 random.shuffle(answers)  # 순서 랜덤바꾸기
-            quizbox.append({'no' : k+1, 'question':Q, 'answer':A, 'choice':answers})
+            quizbox.append({'question':Q, 'answer':A, 'choice':answers})
+        random.shuffle(quizbox)
         # print('=============================')
         # print(quizbox)
 
