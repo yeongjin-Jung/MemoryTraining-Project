@@ -172,12 +172,11 @@ const SetModifyPage = (props) => {
                     onClick={() => {
                       var result = window.confirm('정말 삭제하시겠습니까?');
                       if (result) {
-                        axios.put(SERVER.BASE_URL + SERVER.ROUTES.delete, {
-                          data: {
-                            book_id: props.location.state.book.id,
-                          },
+                        axios.delete(SERVER.BASE_URL + SERVER.ROUTES.delete + props.location.state.book.id).then((res) => {
+                          console.log(res);
+                          alert(`[${props.location.state.book.title}] 세트가 삭제되었습니다.`);
+                          props.history.push('/sets');
                         });
-                        alert(`[${props.location.state.book.title}] 세트가 삭제되었습니다.`);
                       } else {
                       }
                     }}
