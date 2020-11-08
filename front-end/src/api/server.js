@@ -16,6 +16,7 @@ export default {
     search: 'books/search/',
     myset: 'books/myset/',
     getbook: 'books/',
+    getquizs: 'quizs/',
     scrap: 'books/scrap/',
     unscrap: 'books/scrap/',
     bookmark: 'books/bookmark/',

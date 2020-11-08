@@ -5,8 +5,8 @@ import QuizContext from './QuizContext';
 
 const Answers = () => {
   const { state, dispatch } = useContext(QuizContext);
-  const { currentAnswer, currentQuestion, questions } = state;
-  const question = questions[currentQuestion];
+  const { currentAnswer, currentQuestion, quizs } = state;
+  const question = quizs[currentQuestion];
   return (
     <>
       <Answer letter="a" answer={question.a} dispatch={dispatch} selected={currentAnswer === 'a'} />

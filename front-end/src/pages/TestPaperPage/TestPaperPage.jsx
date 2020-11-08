@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
 import './TestPaperPage.css';
-import { Document, Page, Text, Font, StyleSheet } from '@react-pdf/renderer';
+import { Document, Page, Text, View, Font, StyleSheet } from '@react-pdf/renderer';
 import { PDFViewer } from '@react-pdf/renderer';
 
 import Nanum from './fonts/Nanum.ttf';
@@ -68,6 +68,7 @@ const styles = StyleSheet.create({
   QuizContent: {
     fontSize: 14,
     fontFamily: 'Nanum',
+    color: '#4f4c4c',
   },
 });
 
@@ -118,22 +119,19 @@ const TestPaperPage = (props) => {
       {defaultCase ? (
         <PDFViewer>
           <Document>
-            <Page style={styles.body} orientation="portrait" wrap>
+            <Page size="A4" style={styles.body} orientation="portrait" wrap>
               <Text style={styles.title}>{book.title + '\n\n'}</Text>
-              {/* <Text style={styles.author}>작성자</Text> */}
 
               {cards.map((data, index) => (
-                // <text className="testpaper-qestion-box" key={index}>
-                //   <Card data={data} index={index} />
-                // </div>
                 <>
                   <Text style={styles.QuizNum}>
                     {' '}
                     {'문제'}
                     {index + 1 + '' + '\n\n'}
                   </Text>
+
                   <Text style={styles.QuizContent} key={index}>
-                    {'단어 : ' + data.word + '\n\n'} {'뜻     :' + data.meaning} {'\n\n\n\n\n'}
+                    {'단어 : ' + data.word + '\n\n'} {'뜻     :  ' + data.meaning} {'\n\n\n\n\n'}
                   </Text>
                 </>
               ))}
@@ -147,12 +145,8 @@ const TestPaperPage = (props) => {
           <Document>
             <Page style={styles.body} orientation="portrait" wrap={true}>
               <Text style={styles.title}>{book.title + '\n\n'}</Text>
-              {/* <Text style={styles.author}>작성자</Text> */}
 
               {cards.map((data, index) => (
-                // <text className="testpaper-qestion-box" key={index}>
-                //   <Card data={data} index={index} />
-                // </div>
                 <>
                   <Text style={styles.QuizNum}>
                     {' '}

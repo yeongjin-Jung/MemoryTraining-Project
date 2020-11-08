@@ -16,6 +16,7 @@ const Aside = ({ book, image, collapsed, rtl, toggled, handleToggleSidebar, hist
   const intl = useIntl();
 
   const [cardList, setCardList] = useState([]);
+  const [quizList, setQuizList] = useState([]);
   const getCardList = async () => {
     await axios.get(SERVER.BASE_URL + SERVER.ROUTES.getbook + book.id).then((res) => {
       console.log('res: ', res);
@@ -23,8 +24,17 @@ const Aside = ({ book, image, collapsed, rtl, toggled, handleToggleSidebar, hist
     });
   };
 
+  const getQuizList = async () => {
+    await axios.get(SERVER.BASE_URL + SERVER.ROUTES.getquizs + book.id).then((res) => {
+      console.log('quiz: ', res);
+      setQuizList(res.data);
+    });
+  };
+
   useEffect(() => {
+    console.log('book.id : ', book.id);
     getCardList();
+    getQuizList();
   }, []);
 
   return (
@@ -65,7 +75,7 @@ const Aside = ({ book, image, collapsed, rtl, toggled, handleToggleSidebar, hist
           </MenuItem>
           <MenuItem
             onClick={() => {
-              history.history.push({ pathname: '/quiz', state: { book: book } });
+              history.history.push({ pathname: '/quiz', state: { quizList: quizList } });
             }}
             icon={<img src={iconTest} style={{ width: '40px', backgroundColor: 'white', borderRadius: '50%' }} />}
           >

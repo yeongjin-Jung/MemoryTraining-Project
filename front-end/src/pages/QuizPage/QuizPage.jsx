@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, useState, useEffect } from 'react';
 import './QuizPage.css';
 import Progress from './Progress';
 import Question from './Question';
@@ -8,41 +8,46 @@ import { SET_ANSWERS, SET_CURRENT_QUESTION, SET_CURRENT_ANSWER, SET_ERROR, SET_S
 import quizReducer from './QuizReducer';
 import QuizContext from './QuizContext';
 
-const CardTestPage = () => {
-  const questions = [
-    {
-      id: 1,
-      question: 'Which one is not a Hook?',
-      a: 'useState()',
-      b: 'useConst()',
-      c: 'useReducer()',
-      d: 'All of the above',
-      correct_answer: 'b',
-    },
-    {
-      id: 2,
-      question:
-        'Which one is not a Hook?()useStateuseStateuseStateuseStateuseStateuseStateuseStateuseSta()useStateuseStateuseStateuseStateuseStateuseStateuseStateuseSta()useStateuseStateuseStateuseStateuseStateuseStateuseStateuseSta()useStateuseStateuseStateuseStateuseStateuseStateuseStateuseSta()useStateuseStateuseStateuseStateuseStateuseStateuseStateuseSta',
-      a:
-        'useState()useStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseState',
-      b: 'useConst()',
-      c: 'useReducer()',
-      d: 'All of the above',
-      correct_answer: 'b',
-    },
-    {
-      id: 3,
-      question: 'What Hook should be used for data fetching?',
-      a: 'useDataFetching()',
-      b: 'useApi()',
-      c: 'useEffect()',
-      d: 'useRequest()',
-      correct_answer: 'c',
-    },
-  ];
+const CardTestPage = (props) => {
+  const quizs = props.history.location.state.quizList;
+
+  useEffect(() => {
+    console.log('quizs =>', quizs);
+  }, []);
+  // const questions = [
+  //   {
+  //     id: 3,
+  //     question: 'Which one is not a Hook?',
+  //     a: 'useState()',
+  //     b: 'useConst()',
+  //     c: 'useReducer()',
+  //     d: 'All of the above',
+  //     correct_answer: 'b',
+  //   },
+  //   {
+  //     id: 1,
+  //     question:
+  //       'Which one is not a Hook?()useStateuseStateuseStateuseStateuseStateuseStateuseStateuseSta()useStateuseStateuseStateuseStateuseStateuseStateuseStateuseSta()useStateuseStateuseStateuseStateuseStateuseStateuseStateuseSta()useStateuseStateuseStateuseStateuseStateuseStateuseStateuseSta()useStateuseStateuseStateuseStateuseStateuseStateuseStateuseSta',
+  //     a:
+  //       'useState()useStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseState',
+  //     b: 'useConst()',
+  //     c: 'useReducer()',
+  //     d: 'All of the above',
+  //     correct_answer: 'b',
+  //   },
+  //   {
+  //     id: 2,
+  //     question: 'What Hook should be used for data fetching?',
+  //     a: 'useDataFetching()',
+  //     b: 'useApi()',
+  //     c: 'useEffect()',
+  //     d: 'useRequest()',
+  //     correct_answer: 'c',
+  //   },
+  // ];
 
   const initialState = {
-    questions,
+    quizs,
     currentQuestion: 0,
     currentAnswer: '',
     correctAnswer: [],
@@ -54,7 +59,7 @@ const CardTestPage = () => {
   const [state, dispatch] = useReducer(quizReducer, initialState);
   const { currentQuestion, currentAnswer, answers, showResults, error } = state;
 
-  const question = questions[currentQuestion];
+  const question = quizs[currentQuestion];
 
   const renderError = () => {
     if (!error) {
@@ -64,7 +69,10 @@ const CardTestPage = () => {
   };
 
   const renderResultMark = (question, answer) => {
-    if (question.correct_answer === answer.answer) {
+    console.log('question', question);
+    console.log('answer', answer);
+
+    if (question.answer === answer.answer) {
       return (
         <>
           <span className="correct">정답</span>
@@ -76,11 +84,11 @@ const CardTestPage = () => {
 
   const renderResultData = () => {
     return answers.map((answer) => {
-      const question = questions.find((question) => question.id === answer.questionId);
+      const question = quizs.find((question) => question.no === answer.questionId);
       return (
-        <div className="result-content" key={question.id}>
-          <div>{question.question}</div>
-          <div>{renderResultMark(question, answer)}</div>
+        <div className="result-content" key={question.no}>
+          <div className="result-content-question">{question.question}</div>
+          <div className="result-content-result">{renderResultMark(question, answer)}</div>
         </div>
       );
     });
@@ -91,7 +99,7 @@ const CardTestPage = () => {
   };
 
   const next = () => {
-    const answer = { questionId: question.id, answer: currentAnswer };
+    const answer = { questionId: question.no, answer: currentAnswer };
     if (!currentAnswer) {
       dispatch({ type: SET_ERROR, error: '답안을 선택해 주세요.' });
 
@@ -101,7 +109,7 @@ const CardTestPage = () => {
     dispatch({ type: SET_ANSWERS, answers });
     dispatch({ type: SET_CURRENT_ANSWER, currentAnswer: '' });
 
-    if (currentQuestion + 1 < questions.length) {
+    if (currentQuestion + 1 < quizs.length) {
       dispatch({ type: SET_CURRENT_QUESTION, currentQuestion: currentQuestion + 1 });
       return;
     }
@@ -130,7 +138,7 @@ const CardTestPage = () => {
         <div className="CardTest-root">
           <div className="CardTest-background"></div>
           <div className="Quiz-container">
-            <Progress total={questions.length} current={currentQuestion + 1} />
+            <Progress total={quizs.length} current={currentQuestion + 1} />
             <div className="Quiz-problem">
               <Question question={question.question} />
               {renderError()}

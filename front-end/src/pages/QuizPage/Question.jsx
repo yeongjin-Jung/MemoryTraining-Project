@@ -2,10 +2,10 @@ import React, { useContext } from 'react';
 import QuizContext from './QuizContext';
 const Question = (props) => {
   const { state } = useContext(QuizContext);
-  const { currentQuestion, questions } = state;
-  const question = questions[currentQuestion];
-  console.log(currentQuestion);
-  console.log(questions);
+  const { currentQuestion, quizs } = state;
+  const question = quizs[currentQuestion];
+  // console.log(currentQuestion);
+  // console.log(quizs);
   return <p>{question.question}</p>;
 };
 
