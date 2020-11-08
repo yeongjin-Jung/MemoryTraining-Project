@@ -3,6 +3,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from books.models import Book, Card
+from rest_framework import status
 # from .serializers import QuizSerializer
 import random
 
@@ -13,6 +14,9 @@ class QuizView(APIView):
 
     def get(self, request, pk, format=None):
         cards = Card.objects.filter(book_id=pk)
+
+        if cards.count() < 4:
+            return Response('객관식 문제 풀기는 한 세트에 4개 이상의 카드가 있어야 가능합니다.', status=status.HTTP_400_BAD_REQUEST)
         
         quiz = {}
         for card in cards:
