@@ -14,8 +14,11 @@ const Answer = (props) => {
   }
   return (
     <button className={classes.join(' ')} value={props.letter} onClick={handleClick}>
-      <span className="letter">{props.letter} . </span>
-      <p>{props.answer}</p>
+      {props.letter} . {props.answer}
+      {/* <span className="letter" style={{ fontSize: '1.2em', color: 'blue', paddingTop: '0.4em' }}>
+        {props.letter} .{' '}
+      </span>
+      <span style={{ paddingLeft: '0.5em', fontSize: '1.5em', color: 'black' }}>{props.answer}</span> */}
     </button>
   );
 };

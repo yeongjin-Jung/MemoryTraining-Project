@@ -12,29 +12,31 @@ const CardTestPage = () => {
   const questions = [
     {
       id: 1,
-      question: 'Which statement about Hooks is not true?',
-      answer_a: 'Hooks are 100% backwards-compatible and can be used side by side with classes',
-      answer_b: 'Hooks are still in beta and not available yet',
-      answer_c: "Hooks are completely opt-in, there's no need to rewrite existing code",
-      answer_d: 'All of the above',
+      question: 'Which one is not a Hook?',
+      a: 'useState()',
+      b: 'useConst()',
+      c: 'useReducer()',
+      d: 'All of the above',
       correct_answer: 'b',
     },
     {
       id: 2,
-      question: 'Which one is not a Hook?',
-      answer_a: 'useState()',
-      answer_b: 'useConst()',
-      answer_c: 'useReducer()',
-      answer_d: 'All of the above',
+      question:
+        'Which one is not a Hook?()useStateuseStateuseStateuseStateuseStateuseStateuseStateuseSta()useStateuseStateuseStateuseStateuseStateuseStateuseStateuseSta()useStateuseStateuseStateuseStateuseStateuseStateuseStateuseSta()useStateuseStateuseStateuseStateuseStateuseStateuseStateuseSta()useStateuseStateuseStateuseStateuseStateuseStateuseStateuseSta',
+      a:
+        'useState()useStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseState',
+      b: 'useConst()',
+      c: 'useReducer()',
+      d: 'All of the above',
       correct_answer: 'b',
     },
     {
       id: 3,
       question: 'What Hook should be used for data fetching?',
-      answer_a: 'useDataFetching()',
-      answer_b: 'useApi()',
-      answer_c: 'useEffect()',
-      answer_d: 'useRequest()',
+      a: 'useDataFetching()',
+      b: 'useApi()',
+      c: 'useEffect()',
+      d: 'useRequest()',
       correct_answer: 'c',
     },
   ];
@@ -43,6 +45,7 @@ const CardTestPage = () => {
     questions,
     currentQuestion: 0,
     currentAnswer: '',
+    correctAnswer: [],
     answers: [],
     showResults: false,
     error: '',
@@ -62,17 +65,22 @@ const CardTestPage = () => {
 
   const renderResultMark = (question, answer) => {
     if (question.correct_answer === answer.answer) {
-      return <span className="correct">Corret</span>;
+      return (
+        <>
+          <span className="correct">정답</span>
+        </>
+      );
     }
-    return <span className="failed">Failed</span>;
+    return <span className="failed">오답</span>;
   };
 
   const renderResultData = () => {
     return answers.map((answer) => {
       const question = questions.find((question) => question.id === answer.questionId);
       return (
-        <div key={question.id}>
-          {question.question} - {renderResultMark(question, answer)}
+        <div className="result-content" key={question.id}>
+          <div>{question.question}</div>
+          <div>{renderResultMark(question, answer)}</div>
         </div>
       );
     });
@@ -84,9 +92,8 @@ const CardTestPage = () => {
 
   const next = () => {
     const answer = { questionId: question.id, answer: currentAnswer };
-
     if (!currentAnswer) {
-      dispatch({ type: SET_ERROR, error: 'please select an option' });
+      dispatch({ type: SET_ERROR, error: '답안을 선택해 주세요.' });
 
       return;
     }
@@ -108,10 +115,10 @@ const CardTestPage = () => {
         <div className="CardTest-background"></div>
         <div className="Quiz-container">
           <div className="container-result">
-            <h2>Results</h2>
+            <p>채점 결과</p>
             <ul>{renderResultData()}</ul>
-            <button className="btn btn-primary" onClick={restart}>
-              Restart
+            <button className="restart-btn" onClick={restart}>
+              다시 시작
             </button>
           </div>
         </div>

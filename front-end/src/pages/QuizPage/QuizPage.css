@@ -1,5 +1,5 @@
 .CardTest-root {
-  display: flex;
+  /* display: flex; */
   flex: 1;
   width: 100%;
   height: 100%;
@@ -20,18 +20,17 @@
   top: 0;
   z-index: -1;
 
-  background-color: #fafbfc;
+  background-color: #ffffff;
 }
 
 .Quiz-container {
+  /* display: flex; */
   flex: 1;
   align-items: center;
   justify-content: center;
   text-align: center;
-  width: 70%;
-  height: 80%;
+  width: 100%;
   font-family: Arial, Helvetica, sans-serif;
-  display: flex;
   flex-direction: column;
 }
 
@@ -39,45 +38,50 @@
   padding: 3em;
   width: 100%;
   height: 40%;
-  display: flex;
+  /* display: flex; */
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  word-wrap: break-word;
+}
+@media (max-width: 800px) {
+  .Quiz-problem {
+    padding: 1.5em;
+    height: 35%;
+  }
 }
 .Quiz-problem p {
   font-family: Arial, Helvetica, sans-serif;
 }
 .Quiz-answer {
-  width: 60%;
+  margin-top: 1em;
+  width: 100%;
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
 }
+
 .Quiz-answer p {
   background-color: rgb(169, 116, 255);
 }
 
 .answer {
-  display: flex;
+  word-wrap: break-word;
   background-color: white;
   border: 1px solid #fff;
-  padding: 5px 10px 5px 45px;
-  width: 100%;
+  padding: 5px 5px 5px 30px;
+  width: 70%;
   text-align: left;
   margin-bottom: 15px;
   position: relative;
-  font-size: 22px;
+  font-size: 2.5em;
   cursor: pointer;
   transition: ease-in-out, width 0.35s ease-in-out;
   box-shadow: 3px 3px 3px 3px gray;
-}
-
-.answer p {
-  font-size: 1em;
-  font-weight: 800;
-  background-color: rgb(255, 255, 255, 0);
+  z-index: 100;
+  font-weight: 200;
 }
 
 @media (max-width: 800px) {
@@ -94,28 +98,32 @@
 
 .answer.selected {
   color: #4f4c4c;
-  background-color: #c8ffbb;
+  background-color: #7cd5ff;
 }
 
 .answer:hover {
   color: #4f4c4c;
-  background-color: #c8ffbb;
+  background-color: #7cd5ff;
 }
 
 .answer:focus {
   outline: none;
 }
 
-.results span.correct {
-  color: #c8ffbb;
+.correct {
+  font-weight: 800;
+  color: rgb(9, 255, 0);
 }
 
-.results span.failed {
-  color: #f27c7c;
+.failed {
+  font-weight: 800;
+  color: red;
 }
 
 .error {
+  font-size: 2em;
   color: #f27c7c;
+  font-weight: 800;
 }
 
 .letter {
@@ -131,7 +139,7 @@
 }
 
 .Quizbtn {
-  display: flex;
+  /* display: flex; */
   align-items: center;
   justify-content: center;
   width: 25%;
@@ -142,6 +150,7 @@
   /* font-size: 18px; */
   margin-top: 20px;
   cursor: pointer;
+  margin-bottom: 2em;
 }
 @media (max-width: 600px) {
   .Quizbtn {
@@ -166,31 +175,96 @@
 }
 
 .container-result {
+  padding-top: 3em;
+  position: relative;
+  width: 100%;
+  height: 100%;
   display: flex;
   flex: 1;
   align-items: center;
-  justify-content: center;
+  /* justify-content: center; */
   flex-direction: column;
 }
-.container-result h2 {
+.container-result p {
   margin-bottom: 1em;
+  font-size: 5em;
+  color: red;
+  font-weight: 800;
+}
+
+@media (max-width: 800px) {
+  .container-result p {
+    font-size: 3em;
+  }
 }
 
 .container-result ul {
-  font-size: large;
+  padding-left: 0;
+  width: 70%;
   margin-bottom: 1em;
+  font-size: 3em;
+  display: flex;
+  flex-direction: column;
+}
+@media (max-width: 800px) {
+  .container-result ul {
+    width: 100%;
+    font-size: 1.5em;
+  }
 }
 
 .progress-root {
+  padding-top: 4em;
   position: relative;
 }
+.progress-root p {
+  color: rgb(0, 255, 42);
+  font-size: 3em;
+  font-weight: 700;
+}
+@media (max-width: 800px) {
+  .progress-root p {
+    font-size: 1.9em;
+  }
+}
+
 .Quiz-problem p {
-  font-size: 4em;
+  font-size: 3.5em;
   color: black;
   font-weight: 700;
 }
 @media (max-width: 800px) {
   .Quiz-problem p {
     font-size: 2em;
+  }
+}
+
+.result-content {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1em;
+}
+
+.result-content div {
+  display: flex;
+  width: 40%;
+  align-content: center;
+  justify-content: center;
+  word-break: break-word;
+  font-size: 0.8em;
+}
+
+.restart-btn {
+  font-weight: 800;
+  font-size: 3em;
+  padding: 7px 13px;
+  border-radius: 15px;
+  background-color: #ffc107;
+  margin-bottom: 1em;
+}
+
+@media (max-width: 800px) {
+  .restart-btn {
+    font-size: 1.7em;
   }
 }
