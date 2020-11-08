@@ -11,6 +11,7 @@ from django.forms.models import model_to_dict
 from django.shortcuts import get_object_or_404
 from django.http import Http404
 from django.db.models import IntegerField, Case, Value, When
+from random import shuffle
 
 class BookView(APIView):
     permission_calsses = [IsAuthenticated]
@@ -33,6 +34,9 @@ class BookView(APIView):
                 setattr(card, "bookmark_flag", 1)
             else:
                 setattr(card, "bookmark_flag", 0)
+        if self.request.query_params.get('random'):
+            cards = list(cards)
+            shuffle(cards)
         cardSerializer = CardSerializer(cards, many=True)
         return Response(cardSerializer.data)
 
