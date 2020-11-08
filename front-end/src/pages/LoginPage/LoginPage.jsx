@@ -66,9 +66,6 @@ const LoginPage = (props) => {
         alert('로그인이 정상적으로 완료되었습니다');
         if (response.status == 200) {
           localStorage.setItem('Authorization', 'JWT ' + response.data.token);
-          localStorage.setItem('User id', response.data.user.id);
-          localStorage.setItem('User email', response.data.user.email);
-          localStorage.setItem('User name', response.data.user.name);
         }
         props.history.push('/');
       })

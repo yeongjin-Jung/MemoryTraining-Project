@@ -167,11 +167,10 @@ const Search = ({ toggleSearch, toggleButtonRef, collapseRef }) => {
                 var cName = collapseRef.current.className;
 
                 if (cName.includes('show')) {
-                  toggleSearch();
                   toggleButtonRef.current.click();
-                } else {
                 }
 
+                toggleSearch();
                 const searchValue = inputRef.current.value;
                 inputRef.current.value = '';
                 history.push({ pathname: '/search', state: { searchValue } });
