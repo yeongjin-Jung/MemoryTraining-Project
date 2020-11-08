@@ -21,8 +21,8 @@ class App extends Component {
     return (
       <BrowserRouter>
         <Switch>
-          <PrivateRoute exact path="/login" component={LoginPage} />
-          <PrivateRoute exact path="/register" component={RegisterPage} />
+          <PrivateRoute path="/login" component={LoginPage} />
+          <PrivateRoute path="/register" component={RegisterPage} />
 
           <PrivateRoute path="/" exact component={Home} />
           <PrivateRoute path="/search" component={SearchPage} />

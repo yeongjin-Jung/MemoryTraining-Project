@@ -27,7 +27,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
         // )
         {
           if (localStorage.getItem('Authorization') == undefined) {
-            return <Redirect to={{ pathname: '/login' }} />;
+            return <Component pathname="/login" />;
           } else {
             console.log('ELSE -> props : ', props);
             if (props.location.pathname == '/login' || props.location.pathname == '/register') {
