@@ -54,9 +54,9 @@ const SetsPage = (props) => {
 
         {!isLoading && (
           <FadeIn delay={250} className="FadeIn-container">
-            {DropDownValue == 'all' && bookList.map((book) => <Book book={book} key={book.id} history={props.history} />)}
-            {DropDownValue == 'MySet' && bookList.filter((book) => book.write_flag == 1).map((book) => <Book book={book} key={book.id} history={props.history} />)}
-            {DropDownValue == 'Scrap' && bookList.filter((book) => book.write_flag == 0).map((book) => <Book book={book} key={book.id} history={props.history} />)}
+            {DropDownValue == 'all' && bookList.map((book) => <Book book={book} key={book.id} history={props.history} getBookList={getBookList} />)}
+            {DropDownValue == 'MySet' && bookList.filter((book) => book.write_flag == 1).map((book) => <Book book={book} key={book.id} history={props.history} getBookList={getBookList} />)}
+            {DropDownValue == 'Scrap' && bookList.filter((book) => book.write_flag == 0).map((book) => <Book book={book} key={book.id} history={props.history} getBookList={getBookList} />)}
           </FadeIn>
         )}
       </div>
@@ -74,7 +74,7 @@ const SetsPage = (props) => {
   );
 };
 
-function Book({ book, history }) {
+function Book({ book, history, getBookList }) {
   return (
     <div className="card-container">
       <a
@@ -93,6 +93,22 @@ function Book({ book, history }) {
         <div className="dimmer"></div>
         <div className="go-corner">
           <div className="go-arrow">→</div>
+        </div>
+        <div className="container-fluid" style={{ display: 'flex', justifyContent: 'flex-end' }}>
+          <Button
+            className="btn-unscrap btn-light"
+            style={{ zIndex: '1' }}
+            onClick={(e) => {
+              axios.delete(SERVER.BASE_URL + SERVER.ROUTES.unscrap, { data: { book_id: book.id } }).then((res) => {
+                console.log(res);
+                getBookList();
+              });
+
+              e.stopPropagation();
+            }}
+          >
+            스크랩 해제
+          </Button>
         </div>
       </a>
     </div>

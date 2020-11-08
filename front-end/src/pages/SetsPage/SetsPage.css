@@ -135,7 +135,7 @@ h3 {
 .card4 .go-corner {
   background-color: #00838d;
   height: 100%;
-  width: 10%;
+  width: 8%;
   padding-right: 9px;
   border-radius: 0;
   -webkit-transform: skew(6deg);
@@ -257,3 +257,15 @@ h3 {
 .SetsDropDown {
   margin-left: auto;
 }
+
+/* @media (min-width: 768px) {
+  .btn-unscrap {
+    margin-right: 1rem;
+  }
+}
+
+@media (min-width: 992px) {
+  .btn-unscrap {
+    margin-right: 1rem;
+  }
+} */
