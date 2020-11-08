@@ -73,7 +73,8 @@ const LoginPage = (props) => {
         props.history.push('/');
       })
       .catch(function (error) {
-        console.log(error);
+        alert('가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.');
+        // console.log(error);
       });
   };
   const redirectToRegister = () => {
