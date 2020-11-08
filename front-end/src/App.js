@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { Home, RegisterPage, LoginPage, StudyPage, SearchPage, SetsPage, SetPage, SetDetailPage, QuizPage, SetModifyPage, TestPaperPage } from './pages';
 // import Auth from "./hoc/auth";
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { MyNavbar } from './components';
 
 // import 'bootstrap/dist/css/bootstrap.min.css';
@@ -21,8 +21,26 @@ class App extends Component {
     return (
       <BrowserRouter>
         <Switch>
-          <PrivateRoute path="/login" component={LoginPage} />
-          <PrivateRoute path="/register" component={RegisterPage} />
+          <Route
+            path="/login"
+            component={() => {
+              if (localStorage.getItem('Authorization') == undefined) {
+                return <LoginPage />;
+              } else {
+                return <Redirect to={{ pathname: '/' }} />;
+              }
+            }}
+          />
+          <Route
+            path="/register"
+            component={() => {
+              if (localStorage.getItem('Authorization') == undefined) {
+                return <RegisterPage />;
+              } else {
+                return <Redirect to={{ pathname: '/' }} />;
+              }
+            }}
+          />
 
           <PrivateRoute path="/" exact component={Home} />
           <PrivateRoute path="/search" component={SearchPage} />
