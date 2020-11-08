@@ -24,7 +24,7 @@ const SetsPage = (props) => {
     console.log('getBookList called.');
 
     await axios.get(SERVER.BASE_URL + SERVER.ROUTES.myset).then((res) => {
-      console.log('myset 요청 후 : ', res);
+      console.log(res);
       let tmpBookList = [];
       tmpBookList = [...res.data];
       // console.log('tmpBookList : ', tmpBookList);
