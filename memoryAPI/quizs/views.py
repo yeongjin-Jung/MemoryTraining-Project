@@ -37,7 +37,11 @@ class QuizView(APIView):
                 answers.append(A)
                 random.shuffle(answers)  # 순서 랜덤바꾸기
             # quizbox.append({'question':Q, 'answer':A, 'choice':answers})
-            quizbox.append({'question':Q, 'a':answers[0], 'b':answers[1], 'c':answers[2], 'd':answers[3], 'answer':A})
+            for i in range(len(answers)):
+                if answers[i] == A:
+                    alphabet = chr(97+i)
+
+            quizbox.append({'question':Q, 'a':answers[0], 'b':answers[1], 'c':answers[2], 'd':answers[3], 'answer':alphabet})
 
         random.shuffle(quizbox)
 
