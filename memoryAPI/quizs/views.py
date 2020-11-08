@@ -39,6 +39,8 @@ class QuizView(APIView):
                 random.shuffle(answers)  # 순서 랜덤바꾸기
             quizbox.append({'question':Q, 'answer':A, 'choice':answers})
         random.shuffle(quizbox)
+        for i, q in enumerate(quizbox):
+            q['no'] = i+1
         # print('=============================')
         # print(quizbox)
 
