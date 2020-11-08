@@ -127,6 +127,6 @@ class ScrapView(APIView):
         return Response(my_book_serializer.data)
 
     def delete(self, request, format=None):
-        my_book = MyBook.objects.get_object_or_404(book=request.data['book_id'], user=self.request.user.pk)
+        my_book = MyBook.objects.get(book=request.data['book_id'], user=self.request.user.pk)
         my_book.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
