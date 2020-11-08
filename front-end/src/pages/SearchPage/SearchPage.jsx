@@ -121,7 +121,7 @@ const Book = ({ book }) => {
   const [show, bookListhow] = useState(false);
   const [cardList, setCardList] = useState([]);
   const buttonRef = useRef(null);
-  const [color, setColor] = useState('black');
+  const [color, setColor] = useState(book.scrap_flag ? 'red' : 'black');
 
   const handleShow = () => {
     // console.log('handleShow called.');
@@ -195,7 +195,7 @@ const Book = ({ book }) => {
               } else {
                 console.log('color == red');
                 setColor('black');
-                axios.post(SERVER.BASE_URL + SERVER.ROUTES.unscrap, { book_id: book.id }).then((res) => {
+                axios.delete(SERVER.BASE_URL + SERVER.ROUTES.unscrap, { data: { book_id: book.id } }).then((res) => {
                   console.log('unscrap axios res : ', res);
                 });
               }
