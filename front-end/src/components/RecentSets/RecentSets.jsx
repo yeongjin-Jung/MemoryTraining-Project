@@ -5,6 +5,8 @@ import axios from 'axios';
 import SERVER from '../../api/server';
 import Moment from 'react-moment';
 import backImg from '../../assets/images/logo_transparent.png';
+import { Link } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
 
 const RecentSets = () => {
   const [bookList, setBookList] = useState([]);
@@ -17,11 +19,17 @@ const RecentSets = () => {
     if (bookList.length == 0) {
       return (
         <div className="card-overflow">
-          <div className="card 1 animate__animated animate__fadeInLeft">
-            <div className="card_content title-white">
-              <p>스크랩한 세트가 없습니다.</p>
-            </div>
-          </div>
+          {/* <div className="card 1 animate__animated animate__fadeInLeft"> */}
+          {/* <div className="card_content title-white"> */}
+          <p className="none-recent-card">스크랩한 세트가 없습니다.</p>
+
+          <Link to="/set-create">
+            <Button style={{ backgroundColor: 'white' }}>
+              <span style={{ fontWeight: '800', color: 'black', borderColor: 'white' }}>세트 만들기</span>
+            </Button>
+          </Link>
+          {/* </div> */}
+          {/* </div> */}
         </div>
       );
     } else if (bookList.length == 1) {

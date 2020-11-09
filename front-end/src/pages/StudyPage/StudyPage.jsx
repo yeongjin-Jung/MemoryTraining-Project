@@ -56,26 +56,26 @@ const StudyPage = (props) => {
   }
 
   return (
-    <SimpleBar style={{ height: '100%' }}>
-      <div className="StudyPageContainer">
-        <button
-          className="backbtn"
-          onClick={() => {
-            props.history.push({ pathname: '/set-detail', state: { book: book } });
-          }}
-        >
-          <p className="backbtn-text">뒤로가기</p>
-        </button>
+    // <SimpleBar style={{ height: '100%' }}>
+    <div className="StudyPageContainer">
+      <button
+        className="backbtn"
+        onClick={() => {
+          props.history.push({ pathname: '/set-detail', state: { book: book } });
+        }}
+      >
+        <p className="backbtn-text">뒤로가기</p>
+      </button>
 
-        <AwesomeSlider className="slider" infinite={false} bullets={false} animation="openAnimation" cssModule={(CoreStyles, AwesomeSliderStyles)}>
-          {cards.map((data, index) => (
-            <div className="FlippyContainer-root" key={index}>
-              <Card data={data} />
-            </div>
-          ))}
-        </AwesomeSlider>
-      </div>
-    </SimpleBar>
+      <AwesomeSlider className="slider" infinite={false} bullets={false} animation="openAnimation" cssModule={(CoreStyles, AwesomeSliderStyles)}>
+        {cards.map((data, index) => (
+          <div className="FlippyContainer-root" key={index}>
+            <Card data={data} />
+          </div>
+        ))}
+      </AwesomeSlider>
+    </div>
+    // </SimpleBar>
   );
 };
 
