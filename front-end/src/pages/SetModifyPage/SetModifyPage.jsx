@@ -10,9 +10,13 @@ import axios from 'axios';
 
 import { useLocation } from 'react-router-dom';
 import SERVER from '../../api/server';
+import server from '../../api/server';
 
 const SetModifyPage = (props) => {
   const [cards, setCards] = useState([]);
+  const [deleteCardList, setDeleteCardList] = useState([]);
+  const [updateCardList, setUpdateCardList] = useState([]);
+  const [createCardList, setCreateCardList] = useState([]);
 
   var testRef = useRef(null);
   var contentRef = useRef(null);
@@ -21,10 +25,69 @@ const SetModifyPage = (props) => {
   var divAddCardForm = useRef(null);
   const createSetTitle = useRef(null);
   const createSetDescription = useRef(null);
+
+  useEffect(() => {
+    console.log('SetModifyPage useEffect called.');
+    console.log('SetModifyPage props : ', props);
+    console.log('SetModifyPage props.location.state : ', props.location.state);
+
+    for (var i = 0; i < props.location.state.cardList.length; i++) {
+      props.location.state.cardList[i].idx = i;
+    }
+
+    console.log('props.location.state.cardList : ', props.location.state.cardList);
+
+    setCards(props.location.state.cardList);
+  }, []);
+
+  useEffect(() => {
+    console.log('cards : ', cards);
+    console.log('deleteCardList : ', deleteCardList);
+    console.log('updateCardList : ', updateCardList);
+    console.log('createCardList : ', createCardList);
+  });
+
   const onDelete = (idx) => {
     console.log(`onDelete called. idx : ${idx}`);
     console.log('cards : ', cards);
+
     var index = cards.findIndex((i) => i.idx == idx);
+    console.log('index : ', index);
+    console.log('cards[index] : ', cards[index]);
+
+    let foundForUpdate = updateCardList.find((element) => element.id == cards[index].id);
+    console.log('foundForUpdate : ', foundForUpdate);
+
+    if (foundForUpdate != undefined) {
+      let idx = updateCardList.findIndex((i) => i.id == foundForUpdate.id);
+      console.log('idx : ', idx);
+
+      let tmpUpdateCardList = [...updateCardList];
+      tmpUpdateCardList.splice(idx, 1);
+      setUpdateCardList(tmpUpdateCardList);
+    }
+
+    let foundForCreate = createCardList.find((element) => element.idx == idx);
+    console.log('foundForCreate : ', foundForCreate);
+
+    if (foundForCreate != undefined) {
+      console.log('foundForCreate idx : ', idx);
+      let iidx = createCardList.findIndex((e) => e.idx == idx);
+      let tmpCreateCardList = [...createCardList];
+      tmpCreateCardList.splice(iidx, 1);
+      setCreateCardList(tmpCreateCardList);
+    } else {
+      let tmpCreateCardList = [...createCardList];
+      for (var x = 0; x < tmpCreateCardList.length; x++) {
+        if (tmpCreateCardList[x].idx > idx) {
+          tmpCreateCardList[x].idx--;
+        }
+      }
+      setCreateCardList(tmpCreateCardList);
+    }
+
+    setDeleteCardList([...deleteCardList, cards[index].id]);
+
     cards.splice(index, 1);
 
     let tmpCards = [...cards];
@@ -49,6 +112,31 @@ const SetModifyPage = (props) => {
     console.log(`onSave button clicked. idx is ${card.idx}`);
     let tmpCards = [...cards];
     var index = cards.findIndex((i) => i.idx == card.idx);
+
+    // console.log('index : ', index);
+    // console.log('cards[index] : ', cards[index]);
+
+    const found = updateCardList.find((element) => element.id == cards[index].id);
+    // console.log('found : ', found);
+
+    if (found == undefined) {
+      let newObj = {
+        id: cards[index].id,
+        word: cards[index].word,
+        meaning: cards[index].meaning,
+      };
+
+      // console.log('newObj : ', newObj);
+      setUpdateCardList([...updateCardList, newObj]);
+    } else {
+      let tmpUpdateCardList = [...updateCardList];
+      let changedObj = tmpUpdateCardList.find((element) => element.id == found.id);
+      // console.log('before changedObj : ', changedObj);
+      changedObj.word = cards[index].word;
+      changedObj.meaning = cards[index].meaning;
+
+      // console.log('after changedObj :', changedObj);
+    }
 
     tmpCards[index].word = card.word;
     tmpCards[index].meaning = card.meaning;
@@ -79,10 +167,18 @@ const SetModifyPage = (props) => {
     word.current.value = '';
     meaning.current.value = '';
     meaning.current.style.height = '38px';
+
+    let newObjForSetCreateCardList = {
+      idx: newObj.idx,
+      word: newObj.word,
+      meaning: newObj.meaning,
+    };
+
+    setCreateCardList([...createCardList, newObjForSetCreateCardList]);
   };
 
   const handleKeyUp = (e) => {
-    console.log(meaning.current.value);
+    // console.log(meaning.current.value);
     meaning.current.style.height = '5px';
     meaning.current.style.height = meaning.current.scrollHeight + 'px';
   };
@@ -103,19 +199,6 @@ const SetModifyPage = (props) => {
       { offset: Number.NEGATIVE_INFINITY },
     ).element;
   };
-
-  useEffect(() => {
-    console.log('SetModifyPage useEffect called.');
-    console.log('SetModifyPage props : ', props);
-    console.log('SetModifyPage props.location.state : ', props.location.state);
-
-    for (var i = 0; i < props.location.state.cardList.length; i++) {
-      props.location.state.cardList[i].idx = i;
-    }
-    console.log('props.location.state.cardList : ', props.location.state.cardList);
-
-    setCards(props.location.state.cardList);
-  }, []);
 
   return (
     <div className="container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -143,6 +226,7 @@ const SetModifyPage = (props) => {
                         alert('최소 4개의 카드를 추가해주세요.');
                       } else {
                         console.log('cards : ', cards);
+                        console.log('deleteCardList : ', deleteCardList);
                         const book = {
                           title: createSetTitle.current.value,
                           description: createSetDescription.current.value,
@@ -151,16 +235,19 @@ const SetModifyPage = (props) => {
                         console.log('cards : ', cards);
 
                         axios
-                          // .post('http://127.0.0.1:8000/api/books/create/', {
-                          .post(SERVER.BASE_URL + SERVER.ROUTES.update, {
-                            title: createSetTitle.current.value,
-                            description: createSetDescription.current.value,
-                            cards: cards,
+                          .delete(SERVER.BASE_URL + SERVER.ROUTES.deleteCard, {
+                            data: {
+                              card_id: deleteCardList,
+                            },
                           })
                           .then((res) => {
-                            console.log('create axios res : ', res);
-                            console.log('props.history : ', props.history);
-                            props.history.push({ pathname: '/set-detail', state: { book: res.data } });
+                            axios.patch(SERVER.BASE_URL + SERVER.ROUTES.updateCard, { card_list: updateCardList }).then((res) => {
+                              console.log(res);
+
+                              axios.post(SERVER.BASE_URL + SERVER.ROUTES.createCard, createCardList).then((res) => {
+                                console.log(res);
+                              });
+                            });
                           });
                       }
                     }}
@@ -244,11 +331,11 @@ const Card = ({ card, onDelete, onEdit, onSave }) => {
   var modifymeaning = useRef(null);
 
   useEffect(() => {
-    console.log('useEffect() called.');
-    console.log(modifyword);
+    // console.log('useEffect() called.');
+    // console.log(modifyword);
 
     if (modifymeaning.current != null) {
-      console.log(modifymeaning.current.value);
+      // console.log(modifymeaning.current.value);
       modifymeaning.current.style.height = '5px';
       modifymeaning.current.style.height = modifymeaning.current.scrollHeight + 'px';
     }
