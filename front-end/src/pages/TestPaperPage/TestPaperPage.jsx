@@ -76,34 +76,6 @@ const TestPaperPage = (props) => {
   const cards = props.location.state.cardList;
   const book = props.location.state.book;
 
-  // const [randomcard, setRandomcard] = useState([]);
-
-  // function shuffleArray(array) {
-  //   let i = array.length - 1;
-  //   for (; i > 0; i--) {
-  //     const j = Math.floor(Math.random() * (i + 1));
-  //     const temp = array[i];
-  //     array[i] = array[j];
-  //     array[j] = temp;
-  //   }
-  //   return array;
-  // }
-
-  // useEffect(() => {
-  //   console.log('book', book);
-  //   setRandomcard(shuffleArray(cards));
-  // }, []);
-
-  // function Card({ data, index }) {
-  //   return (
-  //     <div className="testpaper-qestion">
-  //       <Text className="qestion-problem">
-  //         {index}번 . {data.word}
-  //       </Text>
-  //       <Text className="qestion-answer">{data.meaning}</Text>
-  //     </div>
-  //   );
-  // }
   const [defaultCase, SetDefaultCase] = useState(true);
 
   return (

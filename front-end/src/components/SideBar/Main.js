@@ -8,6 +8,7 @@ import { FaBookmark } from 'react-icons/fa';
 import { BsBookmark } from 'react-icons/bs';
 import axios from 'axios';
 import SERVER from '../../api/server';
+import './Main.css';
 
 const Main = ({ collapsed, rtl, image, handleToggleSidebar, handleCollapsedChange, handleRtlChange, handleImageChange, book }) => {
   const intl = useIntl();
@@ -26,17 +27,17 @@ const Main = ({ collapsed, rtl, image, handleToggleSidebar, handleCollapsedChang
 
   return (
     <main>
-      <div>
+      <div className="sidebar-btn">
         <div className="btn-toggle" onClick={() => handleToggleSidebar(true)}>
           <FaBars />
         </div>
       </div>
-      <header>
-        <div className="h1 text-center">{book.title}</div>
+      <header className="header-div">
+        <div className="book-title text-center">{book.title}</div>
       </header>
 
-      <div className="Sets-root">
-        <div className="Sets-container">
+      <div className="CardList-root">
+        <div className="CardList-container">
           {cardList.map((card) => (
             <Card book={book} card={card} key={card.id} />
           ))}
@@ -56,7 +57,7 @@ const Card = ({ book, card }) => {
   return (
     <div className="courses-container">
       <div className="course">
-        <div className="course-info row">
+        <div className="course-info">
           <div>
             <button
               className=""
@@ -84,11 +85,17 @@ const Card = ({ book, card }) => {
               {color == 'black' && <BsBookmark size={32} />}
             </button>
           </div>
-          <div className="">
-            <span stlye={{ fontSize: '30px' }}>{card.word}</span>
+          <div className="Card-word">
+            <p>
+              <big style={{ fontWeight: 900 }}>단어 : </big>
+              {card.word}
+            </p>
           </div>
-          <div className="">
-            <p className="">{card.meaning}</p>
+          <div className="Card-meaning">
+            <p>
+              <big>뜻 : </big>
+              {card.meaning}
+            </p>
           </div>
         </div>
       </div>

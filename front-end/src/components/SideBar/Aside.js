@@ -66,6 +66,7 @@ const Aside = ({ book, image, collapsed, rtl, toggled, handleToggleSidebar, hist
           > */}
 
           <MenuItem
+            className="MenuItem"
             onClick={() => {
               history.history.push({ pathname: '/study', state: { cardList: cardList, book: book } });
             }}
@@ -74,6 +75,7 @@ const Aside = ({ book, image, collapsed, rtl, toggled, handleToggleSidebar, hist
             암기하기
           </MenuItem>
           <MenuItem
+            className="MenuItem"
             onClick={() => {
               history.history.push({ pathname: '/quiz', state: { quizList: quizList } });
             }}
@@ -82,6 +84,7 @@ const Aside = ({ book, image, collapsed, rtl, toggled, handleToggleSidebar, hist
             테스트
           </MenuItem>
           <MenuItem
+            className="MenuItem"
             onClick={() => {
               history.history.push({ pathname: '/test-paper', state: { cardList: cardList, book: book } });
             }}
@@ -91,6 +94,7 @@ const Aside = ({ book, image, collapsed, rtl, toggled, handleToggleSidebar, hist
           </MenuItem>
           {book.write_flag == 1 ? (
             <MenuItem
+              className="MenuItem"
               onClick={() => {
                 history.history.push({ pathname: '/set-modify', state: { cardList: cardList, book: book } });
               }}

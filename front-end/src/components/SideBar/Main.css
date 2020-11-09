@@ -1,0 +1,45 @@
+.course-info {
+  flex-direction: column;
+}
+.header-div {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.book-title {
+  width: 90%;
+  font-size: 3em;
+  font-weight: 900;
+  font-family: NanumBarunGothic;
+  white-space: nowrap;
+  -ms-text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  color: black;
+}
+@media (max-width: 700px) {
+  .book-title {
+    font-size: 2em;
+  }
+}
+
+.sidebar-btn {
+  margin-bottom: 1.2em;
+}
+
+.Card-word {
+  margin-top: 0.4em;
+}
+.Card-word p {
+  font-size: 1.4em;
+  color: black;
+}
+.Card-meaning {
+  margin-top: 1em;
+}
+
+.Card-meaning p {
+  font-size: 1em;
+  color: black;
+}

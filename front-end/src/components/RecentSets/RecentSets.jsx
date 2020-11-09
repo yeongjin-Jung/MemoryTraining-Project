@@ -7,12 +7,13 @@ import Moment from 'react-moment';
 import backImg from '../../assets/images/logo_transparent.png';
 import { Link } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
-
-const RecentSets = () => {
+import { withRouter } from 'react-router-dom';
+const RecentSets = (props) => {
   const [bookList, setBookList] = useState([]);
 
   useEffect(() => {
     console.log('bookList =>', bookList);
+    console.log('props =>', props);
   }, []);
 
   const renderComponent = () => {
@@ -29,7 +30,12 @@ const RecentSets = () => {
       );
     } else if (bookList.length == 1) {
       return (
-        <div className="skill-card ">
+        <div
+          className="skill-card "
+          onClick={() => {
+            props.history.push({ pathname: '/set-detail', state: { book: bookList[0] } });
+          }}
+        >
           <header className="skill-card__header">
             <img className="skill-card__icon" src={backImg} alt="HTML5 Logo" />
           </header>
@@ -46,7 +52,6 @@ const RecentSets = () => {
               <li>
                 생성된 날짜 : <Moment format="YYYY/MM/DD">{bookList[0].created_at}</Moment>
               </li>
-              {/* <li>{bookList[0].user.name}</li> */}
             </ul>
           </section>
         </div>
@@ -54,7 +59,12 @@ const RecentSets = () => {
     } else if (bookList.length == 2) {
       return (
         <>
-          <div className="skill-card">
+          <div
+            className="skill-card"
+            onClick={() => {
+              props.history.push({ pathname: '/set-detail', state: { book: bookList[0] } });
+            }}
+          >
             <header className="skill-card__header">
               <img className="skill-card__icon" src={backImg} alt="HTML5 Logo" />
             </header>
@@ -71,12 +81,16 @@ const RecentSets = () => {
                 <li>
                   생성된 날짜 : <Moment format="YYYY/MM/DD">{bookList[0].created_at}</Moment>
                 </li>
-                {/* <li>{bookList[0].user.name}</li> */}
               </ul>
             </section>
           </div>
 
-          <div className="skill-card">
+          <div
+            className="skill-card"
+            onClick={() => {
+              props.history.push({ pathname: '/set-detail', state: { book: bookList[1] } });
+            }}
+          >
             <header className="skill-card__header">
               <img className="skill-card__icon" src={backImg} alt="HTML5 Logo" />
             </header>
@@ -93,7 +107,6 @@ const RecentSets = () => {
                 <li>
                   생성된 날짜 : <Moment format="YYYY/MM/DD">{bookList[1].created_at}</Moment>
                 </li>
-                {/* <li>{bookList[0].user.name}</li> */}
               </ul>
             </section>
           </div>
@@ -102,7 +115,12 @@ const RecentSets = () => {
     } else if (bookList.length == 3) {
       return (
         <>
-          <div className="skill-card">
+          <div
+            className="skill-card"
+            onClick={() => {
+              props.history.push({ pathname: '/set-detail', state: { book: bookList[0] } });
+            }}
+          >
             <header className="skill-card__header">
               <img className="skill-card__icon" src={backImg} alt="HTML5 Logo" />
             </header>
@@ -119,12 +137,16 @@ const RecentSets = () => {
                 <li>
                   생성된 날짜 : <Moment format="YYYY/MM/DD">{bookList[0].created_at}</Moment>
                 </li>
-                {/* <li>{bookList[0].user.name}</li> */}
               </ul>
             </section>
           </div>
 
-          <div className="skill-card">
+          <div
+            className="skill-card"
+            onClick={() => {
+              props.history.push({ pathname: '/set-detail', state: { book: bookList[1] } });
+            }}
+          >
             <header className="skill-card__header">
               <img className="skill-card__icon" src={backImg} alt="HTML5 Logo" />
             </header>
@@ -141,12 +163,16 @@ const RecentSets = () => {
                 <li>
                   생성된 날짜 : <Moment format="YYYY/MM/DD">{bookList[1].created_at}</Moment>
                 </li>
-                {/* <li>{bookList[0].user.name}</li> */}
               </ul>
             </section>
           </div>
 
-          <div className="skill-card">
+          <div
+            className="skill-card"
+            onClick={() => {
+              props.history.push({ pathname: '/set-detail', state: { book: bookList[2] } });
+            }}
+          >
             <header className="skill-card__header">
               <img className="skill-card__icon" src={backImg} alt="HTML5 Logo" />
             </header>
@@ -163,7 +189,6 @@ const RecentSets = () => {
                 <li>
                   생성된 날짜 : <Moment format="YYYY/MM/DD">{bookList[2].created_at}</Moment>
                 </li>
-                {/* <li>{bookList[0].user.name}</li> */}
               </ul>
             </section>
           </div>
@@ -172,7 +197,12 @@ const RecentSets = () => {
     } else {
       return (
         <>
-          <div className="skill-card">
+          <div
+            className="skill-card"
+            onClick={() => {
+              props.history.push({ pathname: '/set-detail', state: { book: bookList[0] } });
+            }}
+          >
             <header className="skill-card__header">
               <img className="skill-card__icon" src={backImg} alt="HTML5 Logo" />
             </header>
@@ -189,14 +219,17 @@ const RecentSets = () => {
                 <li>
                   생성된 날짜 : <Moment format="YYYY/MM/DD">{bookList[0].created_at}</Moment>
                 </li>
-                {/* <li>{bookList[0].user.name}</li> */}
               </ul>
             </section>
           </div>
-          <div className="skill-card">
+          <div
+            className="skill-card"
+            onClick={() => {
+              props.history.push({ pathname: '/set-detail', state: { book: bookList[1] } });
+            }}
+          >
             <header className="skill-card__header">
               <img className="skill-card__icon" src={backImg} alt="HTML5 Logo" />
-              {/* <img class="skill-card__icon" src="https://upload.wikimedia.org/wikipedia/commons/3/38/HTML5_Badge.svg" alt="HTML5 Logo" /> */}
             </header>
             <section className="skill-card__body">
               <h2 className="skill-card__title" style={{ color: 'black' }}>
@@ -209,14 +242,17 @@ const RecentSets = () => {
                 <li>
                   생성된 날짜 : <Moment format="YYYY/MM/DD">{bookList[1].created_at}</Moment>
                 </li>
-                {/* <li>{bookList[0].user.name}</li> */}
               </ul>
             </section>
           </div>
-          <div className="skill-card">
+          <div
+            className="skill-card"
+            onClick={() => {
+              props.history.push({ pathname: '/set-detail', state: { book: bookList[2] } });
+            }}
+          >
             <header className="skill-card__header">
               <img className="skill-card__icon" src={backImg} alt="HTML5 Logo" />
-              {/* <img class="skill-card__icon" src="https://upload.wikimedia.org/wikipedia/commons/3/38/HTML5_Badge.svg" alt="HTML5 Logo" /> */}
             </header>
             <section className="skill-card__body">
               <h2 className="skill-card__title" style={{ color: 'black' }}>
@@ -229,14 +265,17 @@ const RecentSets = () => {
                 <li>
                   생성된 날짜 : <Moment format="YYYY/MM/DD">{bookList[2].created_at}</Moment>
                 </li>
-                {/* <li>{bookList[0].user.name}</li> */}
               </ul>
             </section>
           </div>
-          <div className="skill-card">
+          <div
+            className="skill-card"
+            onClick={() => {
+              props.history.push({ pathname: '/set-detail', state: { book: bookList[3] } });
+            }}
+          >
             <header className="skill-card__header">
               <img className="skill-card__icon" src={backImg} alt="HTML5 Logo" />
-              {/* <img class="skill-card__icon" src="https://upload.wikimedia.org/wikipedia/commons/3/38/HTML5_Badge.svg" alt="HTML5 Logo" /> */}
             </header>
             <section className="skill-card__body">
               <h2 className="skill-card__title" style={{ color: 'black' }}>
@@ -249,7 +288,6 @@ const RecentSets = () => {
                 <li>
                   생성된 날짜 : <Moment format="YYYY/MM/DD">{bookList[3].created_at}</Moment>
                 </li>
-                {/* <li>{bookList[0].user.name}</li> */}
               </ul>
             </section>
           </div>
@@ -260,7 +298,6 @@ const RecentSets = () => {
 
   useEffect(() => {
     axios.get(SERVER.BASE_URL + SERVER.ROUTES.myset).then((res) => {
-      console.log(res);
       setBookList(res.data);
     });
   }, []);
@@ -275,4 +312,4 @@ const RecentSets = () => {
   );
 };
 
-export default RecentSets;
+export default withRouter(RecentSets);

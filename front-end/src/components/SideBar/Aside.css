@@ -12,3 +12,7 @@
   color: white;
   font-weight: 800;
 }
+
+.MenuItem:hover {
+  background-color: orange;
+}

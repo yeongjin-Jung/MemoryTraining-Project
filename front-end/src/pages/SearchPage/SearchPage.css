@@ -379,9 +379,6 @@ h3 {
   width: 100%;
 }
 
-.courses-container {
-}
-
 .course {
   background-color: #fff;
   border-radius: 10px;
@@ -420,12 +417,6 @@ h3 {
   opacity: 0.6;
   margin-top: 30px;
   text-decoration: none;
-}
-
-.course-info {
-  padding: 30px;
-  position: relative;
-  width: 100%;
 }
 
 .card-title {

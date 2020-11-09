@@ -88,6 +88,7 @@ const SetPage = (props) => {
 
   return (
     <div className="container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <div className="set-create-BackgroundColor"></div>
       <div className="set-header" ref={testRef} style={{ width: '80%', height: '250px' }}>
         <div className="" style={{ paddingTop: '1rem' }}>
           <div style={{ display: 'flex' }}>

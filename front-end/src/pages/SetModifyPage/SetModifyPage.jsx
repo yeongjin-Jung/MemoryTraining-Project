@@ -11,6 +11,7 @@ import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 import SERVER from '../../api/server';
 import server from '../../api/server';
+import './SetModifyPage.css';
 
 const SetModifyPage = (props) => {
   const [cards, setCards] = useState([]);
@@ -220,6 +221,7 @@ const SetModifyPage = (props) => {
 
   return (
     <div className="container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <div className="set-modify-BackgroundColor"></div>
       <div className="set-header" ref={testRef} style={{ width: '80%', height: '250px' }}>
         <div className="" style={{ paddingTop: '1rem' }}>
           <div style={{ display: 'flex' }}>

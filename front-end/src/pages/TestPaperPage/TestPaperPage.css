@@ -31,6 +31,10 @@
   background: -webkit-linear-gradient(to right, #ffcc33, #ffb347); /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to right, #ffcc33, #ffb347); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
+.case1,
+.case2 {
+  background-color: gainsboro;
+}
 .case1 p {
   font-size: 1em;
   font-weight: 900;

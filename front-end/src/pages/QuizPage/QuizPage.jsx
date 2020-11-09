@@ -14,37 +14,6 @@ const CardTestPage = (props) => {
   useEffect(() => {
     console.log('quizs =>', quizs);
   }, []);
-  // const questions = [
-  //   {
-  //     id: 3,
-  //     question: 'Which one is not a Hook?',
-  //     a: 'useState()',
-  //     b: 'useConst()',
-  //     c: 'useReducer()',
-  //     d: 'All of the above',
-  //     correct_answer: 'b',
-  //   },
-  //   {
-  //     id: 1,
-  //     question:
-  //       'Which one is not a Hook?()useStateuseStateuseStateuseStateuseStateuseStateuseStateuseSta()useStateuseStateuseStateuseStateuseStateuseStateuseStateuseSta()useStateuseStateuseStateuseStateuseStateuseStateuseStateuseSta()useStateuseStateuseStateuseStateuseStateuseStateuseStateuseSta()useStateuseStateuseStateuseStateuseStateuseStateuseStateuseSta',
-  //     a:
-  //       'useState()useStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseStateuseState',
-  //     b: 'useConst()',
-  //     c: 'useReducer()',
-  //     d: 'All of the above',
-  //     correct_answer: 'b',
-  //   },
-  //   {
-  //     id: 2,
-  //     question: 'What Hook should be used for data fetching?',
-  //     a: 'useDataFetching()',
-  //     b: 'useApi()',
-  //     c: 'useEffect()',
-  //     d: 'useRequest()',
-  //     correct_answer: 'c',
-  //   },
-  // ];
 
   const initialState = {
     quizs,
