@@ -26,65 +26,143 @@ const RecentSets = () => {
       );
     } else if (bookList.length == 1) {
       return (
-        <div className="card-overflow">
-          <div className="card 1 animate__animated animate__fadeInLeft">
-            <div className="card_content title-white">
-              <p>{bookList[0].title}</p>
-              <p>{bookList[0].user.name}</p>
+        <div class="skill-card">
+          <header class="skill-card__header">
+            <img class="skill-card__icon" src={backImg} alt="HTML5 Logo" />
+          </header>
+          <section class="skill-card__body">
+            <div>
+              <h2 class="skill-card__title" style={{ color: 'black' }}>
+                {bookList[0].title}
+              </h2>
             </div>
-          </div>
+
+            <span class="skill-card__duration">작성자 : {bookList[0].user.name}</span>
+            <ul class="skill-card__knowledge">
+              <li className="book-description">설명 : {bookList[0].description}aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</li>
+              <li>
+                생성된 날짜 : <Moment format="YYYY/MM/DD">{bookList[0].created_at}</Moment>
+              </li>
+              {/* <li>{bookList[0].user.name}</li> */}
+            </ul>
+          </section>
         </div>
       );
     } else if (bookList.length == 2) {
       return (
         <>
-          <div className="card-overflow">
-            <div className="card 1 animate__animated animate__fadeInLeft">
-              <div className="card_content title-white">
-                <p>{bookList[0].title}</p>
-                <p>{bookList[0].user.name}</p>
+          <div class="skill-card">
+            <header class="skill-card__header">
+              <img class="skill-card__icon" src={backImg} alt="HTML5 Logo" />
+            </header>
+            <section class="skill-card__body">
+              <div>
+                <h2 class="skill-card__title" style={{ color: 'black' }}>
+                  {bookList[0].title}
+                </h2>
               </div>
-            </div>
+
+              <span class="skill-card__duration">작성자 : {bookList[0].user.name}</span>
+              <ul class="skill-card__knowledge">
+                <li className="book-description">설명 : {bookList[0].description}aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</li>
+                <li>
+                  생성된 날짜 : <Moment format="YYYY/MM/DD">{bookList[0].created_at}</Moment>
+                </li>
+                {/* <li>{bookList[0].user.name}</li> */}
+              </ul>
+            </section>
           </div>
 
-          <div className="card-overflow">
-            <div className="card 1 animate__animated animate__fadeInUp">
-              <div className="card_content title-white">
-                <p>{bookList[1].title}</p>
-                <p>{bookList[1].user.name}</p>
+          <div class="skill-card">
+            <header class="skill-card__header">
+              <img class="skill-card__icon" src={backImg} alt="HTML5 Logo" />
+            </header>
+            <section class="skill-card__body">
+              <div>
+                <h2 class="skill-card__title" style={{ color: 'black' }}>
+                  {bookList[1].title}
+                </h2>
               </div>
-            </div>
+
+              <span class="skill-card__duration">작성자 : {bookList[1].user.name}</span>
+              <ul class="skill-card__knowledge">
+                <li className="book-description">설명 : {bookList[1].description}aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</li>
+                <li>
+                  생성된 날짜 : <Moment format="YYYY/MM/DD">{bookList[1].created_at}</Moment>
+                </li>
+                {/* <li>{bookList[0].user.name}</li> */}
+              </ul>
+            </section>
           </div>
         </>
       );
     } else if (bookList.length == 3) {
       return (
         <>
-          <div className="card-overflow">
-            <div className="card 1 animate__animated animate__fadeInLeft">
-              <div className="card_content title-white">
-                <p>{bookList[0].title}</p>
-                <p>{bookList[0].user.name}</p>
+          <div class="skill-card">
+            <header class="skill-card__header">
+              <img class="skill-card__icon" src={backImg} alt="HTML5 Logo" />
+            </header>
+            <section class="skill-card__body">
+              <div>
+                <h2 class="skill-card__title" style={{ color: 'black' }}>
+                  {bookList[0].title}
+                </h2>
               </div>
-            </div>
+
+              <span class="skill-card__duration">작성자 : {bookList[0].user.name}</span>
+              <ul class="skill-card__knowledge">
+                <li className="book-description">설명 : {bookList[0].description}aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</li>
+                <li>
+                  생성된 날짜 : <Moment format="YYYY/MM/DD">{bookList[0].created_at}</Moment>
+                </li>
+                {/* <li>{bookList[0].user.name}</li> */}
+              </ul>
+            </section>
           </div>
 
-          <div className="card-overflow">
-            <div className="card 1 animate__animated animate__fadeInUp">
-              <div className="card_content title-white">
-                <p>{bookList[1].title}</p>
-                <p>{bookList[1].user.name}</p>
+          <div class="skill-card">
+            <header class="skill-card__header">
+              <img class="skill-card__icon" src={backImg} alt="HTML5 Logo" />
+            </header>
+            <section class="skill-card__body">
+              <div>
+                <h2 class="skill-card__title" style={{ color: 'black' }}>
+                  {bookList[1].title}
+                </h2>
               </div>
-            </div>
+
+              <span class="skill-card__duration">작성자 : {bookList[1].user.name}</span>
+              <ul class="skill-card__knowledge">
+                <li className="book-description">설명 : {bookList[1].description}aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</li>
+                <li>
+                  생성된 날짜 : <Moment format="YYYY/MM/DD">{bookList[1].created_at}</Moment>
+                </li>
+                {/* <li>{bookList[0].user.name}</li> */}
+              </ul>
+            </section>
           </div>
 
-          <div className="card-overflow">
-            <div className="card 1 animate__animated animate__fadeInDown">
-              <div className="card_content title-white">
-                <p>{bookList[2].title}</p>
-                <p>{bookList[2].user.name}</p>
+          <div class="skill-card">
+            <header class="skill-card__header">
+              <img class="skill-card__icon" src={backImg} alt="HTML5 Logo" />
+            </header>
+            <section class="skill-card__body">
+              <div>
+                <h2 class="skill-card__title" style={{ color: 'black' }}>
+                  {bookList[2].title}
+                </h2>
               </div>
-            </div>
+
+              <span class="skill-card__duration">작성자 : {bookList[2].user.name}</span>
+              <ul class="skill-card__knowledge">
+                <li className="book-description">설명 : {bookList[2].description}aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</li>
+                <li>
+                  생성된 날짜 : <Moment format="YYYY/MM/DD">{bookList[2].created_at}</Moment>
+                </li>
+                {/* <li>{bookList[0].user.name}</li> */}
+              </ul>
+            </section>
           </div>
         </>
       );
@@ -172,41 +250,6 @@ const RecentSets = () => {
               </ul>
             </section>
           </div>
-          {/* <div className="card-overflow">
-            <div className="card 1 animate__animated animate__fadeInLeft">
-              <div className="card_content title-white">
-                <p>{bookList[0].title}</p>
-                <p>{bookList[0].user.name}</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="card-overflow">
-            <div className="card 1 animate__animated animate__fadeInUp">
-              <div className="card_content title-white">
-                <p>{bookList[1].title}</p>
-                <p>{bookList[1].user.name}</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="card-overflow">
-            <div className="card 1 animate__animated animate__fadeInDown">
-              <div className="card_content title-white">
-                <p>{bookList[2].title}</p>
-                <p>{bookList[2].user.name}</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="card-overflow">
-            <div className="card 1 animate__animated animate__fadeInRight">
-              <div className="card_content title-white">
-                <p>{bookList[3].title}</p>
-                <p>{bookList[3].user.name}</p>
-              </div>
-            </div>
-          </div> */}
         </>
       );
     }
