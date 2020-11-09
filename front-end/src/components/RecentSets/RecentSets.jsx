@@ -4,6 +4,7 @@ import './RecentSets.css';
 import axios from 'axios';
 import SERVER from '../../api/server';
 import Moment from 'react-moment';
+import backImg from '../../assets/images/logo_transparent.png';
 
 const RecentSets = () => {
   const [bookList, setBookList] = useState([]);
@@ -92,7 +93,7 @@ const RecentSets = () => {
         <>
           <div class="skill-card">
             <header class="skill-card__header">
-              <img class="skill-card__icon" src="https://upload.wikimedia.org/wikipedia/commons/3/38/HTML5_Badge.svg" alt="HTML5 Logo" />
+              <img class="skill-card__icon" src={backImg} alt="HTML5 Logo" />
             </header>
             <section class="skill-card__body">
               <div>
@@ -113,7 +114,8 @@ const RecentSets = () => {
           </div>
           <div class="skill-card">
             <header class="skill-card__header">
-              <img class="skill-card__icon" src="https://upload.wikimedia.org/wikipedia/commons/3/38/HTML5_Badge.svg" alt="HTML5 Logo" />
+              <img class="skill-card__icon" src={backImg} alt="HTML5 Logo" />
+              {/* <img class="skill-card__icon" src="https://upload.wikimedia.org/wikipedia/commons/3/38/HTML5_Badge.svg" alt="HTML5 Logo" /> */}
             </header>
             <section class="skill-card__body">
               <h2 class="skill-card__title" style={{ color: 'black' }}>
@@ -132,7 +134,8 @@ const RecentSets = () => {
           </div>
           <div class="skill-card">
             <header class="skill-card__header">
-              <img class="skill-card__icon" src="https://upload.wikimedia.org/wikipedia/commons/3/38/HTML5_Badge.svg" alt="HTML5 Logo" />
+              <img class="skill-card__icon" src={backImg} alt="HTML5 Logo" />
+              {/* <img class="skill-card__icon" src="https://upload.wikimedia.org/wikipedia/commons/3/38/HTML5_Badge.svg" alt="HTML5 Logo" /> */}
             </header>
             <section class="skill-card__body">
               <h2 class="skill-card__title" style={{ color: 'black' }}>
@@ -151,7 +154,8 @@ const RecentSets = () => {
           </div>
           <div class="skill-card">
             <header class="skill-card__header">
-              <img class="skill-card__icon" src="https://upload.wikimedia.org/wikipedia/commons/3/38/HTML5_Badge.svg" alt="HTML5 Logo" />
+              <img class="skill-card__icon" src={backImg} alt="HTML5 Logo" />
+              {/* <img class="skill-card__icon" src="https://upload.wikimedia.org/wikipedia/commons/3/38/HTML5_Badge.svg" alt="HTML5 Logo" /> */}
             </header>
             <section class="skill-card__body">
               <h2 class="skill-card__title" style={{ color: 'black' }}>
