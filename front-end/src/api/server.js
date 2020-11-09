@@ -21,5 +21,8 @@ export default {
     unscrap: 'books/scrap/',
     bookmark: 'books/bookmark/',
     unbookmark: 'books/bookmark/',
+    deleteCard: 'books/card/',
+    updateCard: 'books/card/',
+    createCard: 'books/card/',
   },
 };
