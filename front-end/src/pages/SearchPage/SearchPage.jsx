@@ -13,7 +13,7 @@ import { IconContext } from 'react-icons';
 import { FcBookmark } from 'react-icons/fc';
 import { FaBookmark } from 'react-icons/fa';
 import { BsBookmark } from 'react-icons/bs';
-import { BsBoxArrowInDownLeft } from 'react-icons/bs';
+import { FiExternalLink, FiCheckSquare } from 'react-icons/fi';
 
 import axios from 'axios';
 import SERVER from '../../api/server';
@@ -121,7 +121,7 @@ const Book = ({ book }) => {
   const [show, bookListhow] = useState(false);
   const [cardList, setCardList] = useState([]);
   const buttonRef = useRef(null);
-  const [color, setColor] = useState(book.scrap_flag ? 'red' : 'black');
+  const [color, setColor] = useState(book.scrap_flag ? 'green' : 'black');
 
   const handleShow = () => {
     // console.log('handleShow called.');
@@ -184,16 +184,16 @@ const Book = ({ book }) => {
         <div>
           <Button
             variant="light"
-            color={book.scrap_flag ? 'red' : 'black'}
+            color={book.scrap_flag ? 'green' : 'black'}
             onClick={(e) => {
               if (color == 'black') {
                 console.log('color == black');
-                setColor('red');
+                setColor('green');
                 axios.post(SERVER.BASE_URL + SERVER.ROUTES.scrap, { book_id: book.id }).then((res) => {
                   console.log('scrap axios res : ', res);
                 });
               } else {
-                console.log('color == red');
+                console.log('color == green');
                 setColor('black');
                 axios.delete(SERVER.BASE_URL + SERVER.ROUTES.unscrap, { data: { book_id: book.id } }).then((res) => {
                   console.log('unscrap axios res : ', res);
@@ -202,20 +202,45 @@ const Book = ({ book }) => {
               e.stopPropagation();
             }}
           >
-            <BsBoxArrowInDownLeft size={30} color={color} />
+            {color == 'green' ? <FiCheckSquare size={30} color={color} /> : <FiExternalLink size={30} color={color} />}
           </Button>
         </div>
       </div>
 
-      <Rodal className="container-rodal" width={800} height={700} animation="door" visible={show} onClose={handleClose} duration={1000} closeOnEsc={true}>
-        <SimpleBar style={{ height: '700px' }}>
-          <div className="h1 text-center card-title" style={{ paddingTop: '10px', color: 'white' }}>
-            {book.title}
+      <Rodal className="container-rodal realative" width={800} height={600} animation="door" visible={show} onClose={handleClose} duration={1000} closeOnEsc={true}>
+        <SimpleBar style={{ height: '600px' }}>
+          <div className="text-center card-title sticky-top rounded m-0" style={{ padding: '0.5rem', color: 'white', fontSize: '2em', lineHeight: '3.5rem' }}>
+            {/* <div style={{ display: 'inline-block' }}> */}
+            {book.title}&nbsp;
+            {/* </div> */}
+            <Button
+              variant="light"
+              color={book.scrap_flag ? 'green' : 'black'}
+              onClick={(e) => {
+                if (color == 'black') {
+                  console.log('color == black');
+                  setColor('green');
+                  axios.post(SERVER.BASE_URL + SERVER.ROUTES.scrap, { book_id: book.id }).then((res) => {
+                    console.log('scrap axios res : ', res);
+                  });
+                } else {
+                  console.log('color == green');
+                  setColor('black');
+                  axios.delete(SERVER.BASE_URL + SERVER.ROUTES.unscrap, { data: { book_id: book.id } }).then((res) => {
+                    console.log('unscrap axios res : ', res);
+                  });
+                }
+                e.stopPropagation();
+              }}
+            >
+              {color == 'green' ? <FiCheckSquare size={30} color={color} /> : <FiExternalLink size={30} color={color} />}
+            </Button>
           </div>
 
           {cardList.map((card) => (
             <Card card={card} key={card.id} />
           ))}
+
         </SimpleBar>
       </Rodal>
     </div>
