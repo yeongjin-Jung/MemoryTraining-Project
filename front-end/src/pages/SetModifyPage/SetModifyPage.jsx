@@ -71,10 +71,15 @@ const SetModifyPage = (props) => {
     console.log('foundForCreate : ', foundForCreate);
 
     if (foundForCreate != undefined) {
-      console.log('foundForCreate idx : ', idx);
-      let iidx = createCardList.findIndex((e) => e.idx == idx);
+      console.log('foundForCreate idx : ', foundForCreate.idx);
+      let iidx = createCardList.findIndex((e) => e.idx == foundForCreate.idx);
       let tmpCreateCardList = [...createCardList];
       tmpCreateCardList.splice(iidx, 1);
+      for (var x = 0; x < tmpCreateCardList.length; x++) {
+        if (tmpCreateCardList[x].idx > idx) {
+          tmpCreateCardList[x].idx--;
+        }
+      }
       setCreateCardList(tmpCreateCardList);
     } else {
       let tmpCreateCardList = [...createCardList];
@@ -86,7 +91,7 @@ const SetModifyPage = (props) => {
       setCreateCardList(tmpCreateCardList);
     }
 
-    setDeleteCardList([...deleteCardList, cards[index].id]);
+    if (cards[index].id != undefined) setDeleteCardList([...deleteCardList, cards[index].id]);
 
     cards.splice(index, 1);
 
@@ -127,7 +132,20 @@ const SetModifyPage = (props) => {
       };
 
       // console.log('newObj : ', newObj);
-      setUpdateCardList([...updateCardList, newObj]);
+      // 원래 있던 카드면 수정.
+      if (newObj.id != undefined) setUpdateCardList([...updateCardList, newObj]);
+      // 원래 있던 카드가 아니면, createList를 index값으로 찾아가서 수정.
+      else {
+        console.log('원래 있던 카드가 아님!');
+        let iidx = cards[index].idx;
+        console.log(`바꾸려는 index는 ${iidx}임!`);
+        let tmpCreateCardList = [...createCardList];
+        let iiidx = createCardList.findIndex((e) => e.idx == iidx);
+
+        tmpCreateCardList[iiidx].word = newObj.word;
+        tmpCreateCardList[iiidx].meaning = newObj.meaning;
+        setCreateCardList(tmpCreateCardList);
+      }
     } else {
       let tmpUpdateCardList = [...updateCardList];
       let changedObj = tmpUpdateCardList.find((element) => element.id == found.id);
@@ -234,6 +252,7 @@ const SetModifyPage = (props) => {
                         console.log('book : ', book);
                         console.log('cards : ', cards);
 
+                        // 세트 수정 axios
                         axios
                           .delete(SERVER.BASE_URL + SERVER.ROUTES.deleteCard, {
                             data: {
@@ -241,11 +260,13 @@ const SetModifyPage = (props) => {
                             },
                           })
                           .then((res) => {
-                            axios.patch(SERVER.BASE_URL + SERVER.ROUTES.updateCard, { card_list: updateCardList }).then((res) => {
-                              console.log(res);
+                            console.log('delete 카드 리스트 삭제 res : ', res);
 
-                              axios.post(SERVER.BASE_URL + SERVER.ROUTES.createCard, createCardList).then((res) => {
-                                console.log(res);
+                            axios.patch(SERVER.BASE_URL + SERVER.ROUTES.updateCard, { card_list: updateCardList }).then((res) => {
+                              console.log('patch 카드 리스트 수정 res : ', res);
+
+                              axios.post(SERVER.BASE_URL + SERVER.ROUTES.createCard, { book_id: props.location.state.book.id, card_list: createCardList }).then((res) => {
+                                console.log('post 카드 리스트 추가 res : ', res);
                               });
                             });
                           });
@@ -352,7 +373,7 @@ const Card = ({ card, onDelete, onEdit, onSave }) => {
                 onClick={() => {
                   console.log(modifyword.current.value);
                   console.log(modifymeaning.current.value);
-                  card.w0rd = modifyword.current.value;
+                  card.word = modifyword.current.value;
                   card.meaning = modifymeaning.current.value;
                   onSave(card);
                 }}
