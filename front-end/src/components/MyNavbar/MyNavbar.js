@@ -64,13 +64,15 @@ const MyNavbar = (props) => {
   };
 
   return (
-    <Navbar className="my-navbar" bg="dark" expand="lg">
+    <Navbar className="my-navbar" expand="lg">
       <Navbar.Brand>
-        <Link to="/" style={{ textDecoration: 'none', color: 'white', fontWeight: 'bold', fontSize: '1.3rem' }} onClick={resetSearch}>
-          암기의 정석
+        <Link to="/" onClick={resetSearch}>
+          <p className="service-title">
+            암기<small style={{ fontFamily: 'ChosunKm' }}>의</small>정석
+          </p>
         </Link>
       </Navbar.Brand>
-      <Navbar.Toggle aria-controls="basic-navbar-nav" id="toggle-button" ref={toggleButtonRef} />
+      <Navbar.Toggle aria-controls="basic-navbar-nav" style={{ backgroundColor: 'rgba(255,255,255,1)' }} id="toggle-button" ref={toggleButtonRef} />
       <Navbar.Collapse id="basic-navbar-nav" ref={collapseRef}>
         <Nav className="container-fluid">
           {showSearch ? (
@@ -78,20 +80,16 @@ const MyNavbar = (props) => {
           ) : (
             <Menu collapseRef={collapseRef} toggleSearch={toggleSearch} toggleButtonRef={toggleButtonRef} />
           )}
-
-          {/* <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-            <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-            <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-            <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-            <NavDropdown.Divider />
-            <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
-          </NavDropdown> */}
         </Nav>
         {showSearch ? null : (
           <Form inline>
             {/* <FormControl type="text" placeholder="Search" className="mr-sm-2" /> */}
-            <Button style={{ borderColor: 'DodgerBlue', backgroundColor: 'rgb(255,255,255,0)' }} onClick={onClickHandler}>
-              로그아웃
+            {/* <button type="button" className="btn btn-warning" onClick={onClickHandler}>
+              <span style={{ fontWeight: '800' }}>로그아웃</span>
+            </button> */}
+
+            <Button className="nav-logout-btn" onClick={onClickHandler}>
+              <p style={{ fontWeight: '900', color: 'black', fontSize: '1em' }}>로그아웃</p>
             </Button>
           </Form>
         )}
@@ -103,13 +101,12 @@ const MyNavbar = (props) => {
 const Menu = ({ toggleSearch, toggleButtonRef, collapseRef }) => {
   return (
     <>
-      <Nav.Link style={{ textDecoration: 'none', color: 'grey' }} onClick={toggleSearch}>
-        검색
+      <Nav.Link onClick={toggleSearch}>
+        <o className="nav-search-btn">검색</o>
       </Nav.Link>
       <Nav.Link
         as={Link}
         to="/sets"
-        style={{ textDecoration: 'none', color: 'grey' }}
         onClick={() => {
           var cName = collapseRef.current.className;
           if (cName.includes('show')) {
@@ -117,7 +114,7 @@ const Menu = ({ toggleSearch, toggleButtonRef, collapseRef }) => {
           }
         }}
       >
-        세트
+        <o className="nav-set-btn">세트</o>
       </Nav.Link>
     </>
   );
@@ -148,12 +145,6 @@ const Search = ({ toggleSearch, toggleButtonRef, collapseRef }) => {
 
   return (
     <>
-      {/* <div className="col-sm-10" style={{ backgroundColor: 'red' }}>
-        red
-      </div>
-      <div className="col-sm-2" style={{ backgroundColor: 'yellow' }}>
-        yellow
-      </div> */}
       <div className="container-fluid search">
         <InputGroup className="col-11" style={{ background: 'transparent' }}>
           <FormControl
@@ -179,7 +170,11 @@ const Search = ({ toggleSearch, toggleButtonRef, collapseRef }) => {
           />
         </InputGroup>
         <InputGroup.Append className="col-1">
-          <Button variant="outline-secondary" onClick={toggleSearch} style={{ marginLeft: '1px' }} ref={buttonRef}>
+          {/* <Button variant="outline-secondary" onClick={toggleSearch} style={{ marginLeft: '1px' }} ref={buttonRef}>
+            <MdClose />
+          </Button> */}
+
+          <Button className="nav-search-close" onClick={toggleSearch} style={{ marginLeft: '1px' }} ref={buttonRef}>
             <MdClose />
           </Button>
         </InputGroup.Append>

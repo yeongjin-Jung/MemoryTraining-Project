@@ -21,18 +21,48 @@
 .test-category .case1 {
   text-align: center;
   width: 50%;
-  background-color: yellow;
+  background-color: rgb(255, 255, 255);
+  border-style: solid;
+  border-width: 2px;
+  border-right-width: 1px;
 }
-.case1 span {
+.case1:hover {
+  background: #ffb347; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #ffcc33, #ffb347); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #ffcc33, #ffb347); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+.case1 p {
+  font-size: 1em;
   font-weight: 900;
+  color: black;
+}
+@media (max-width: 1000px) {
+  .case1 p {
+    font-size: 0.5em;
+  }
 }
 .test-category .case2 {
   text-align: center;
   width: 50%;
-  background-color: red;
+  background-color: rgb(255, 255, 255);
+  border-style: solid;
+  border-width: 2px;
+  border-left-width: 1px;
 }
-.case2 span {
+.case2 p {
+  font-size: 1em;
   font-weight: 900;
+  color: black;
+}
+@media (max-width: 1000px) {
+  .case2 p {
+    font-size: 0.5em;
+  }
+}
+.case2:hover {
+  background: #56ccf2; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #2f80ed, #56ccf2); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #2f80ed, #56ccf2); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 iframe {
   height: inherit;

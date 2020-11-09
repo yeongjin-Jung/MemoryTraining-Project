@@ -8,32 +8,50 @@
   font-family: 'Lato', 'Helvetica Neue', Arial, sans-serif;
 }
 
+@font-face {
+  font-family: NanumBarunGothic;
+  src: url('../../assets/font/NanumBarunGothic.ttf');
+}
 .bg {
   color: rgba(255, 255, 255, 0.85);
   width: 100%;
   height: 100%;
   flex: 1;
   align-items: center;
-  /* justify-content: center; */
   flex-direction: column;
-
   display: flex;
-
-  /* background-size: 400% 400%; */
-  /* animation: gradient 15s ease infinite; */
 }
 
 .title {
   flex: none;
   margin-top: 1em;
-
   color: rgba(255, 255, 255, 1);
   font-family: 'Raleway', 'Lato', 'Helvetica Neue', Arial, sans-serif;
-  font-size: 2em;
+  font-size: 2.2em;
   font-weight: 800;
   text-align: center;
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
-  margin-bottom: 0.5em;
+  text-shadow: 1.4px 1.4px 3px rgba(0, 0, 0, 1);
+}
+
+.RecetPage-set-create-btn {
+  margin-top: 1em;
+  background-color: rgb(255, 255, 255);
+  border-style: solid;
+  border-color: rgb(255, 0, 0);
+  border-width: 2px;
+}
+.RecetPage-set-create-btn:hover {
+  background-color: rgb(255, 0, 0);
+  border-color: rgb(223, 223, 223);
+}
+.RecetPage-set-create-btn a:hover {
+  color: white;
+}
+.RecetPage-set-create-btn p {
+  color: black;
+  font-size: 1em;
+  font-weight: 900;
+  font-family: NanumBarunGothic;
 }
 
 .card-container {
@@ -57,12 +75,6 @@
   z-index: 0;
 }
 
-/* .card {
-  flex: 1;
-  width: 100%;
-  height: 100%;
-} */
-
 .cards-list {
   z-index: 0;
   width: 90%;
@@ -85,6 +97,9 @@
 .none-recent-card {
   font-size: 3em;
   text-align: center;
+  color: black;
+  font-weight: 500;
+  font-family: NanumBarunGothic;
 }
 
 @media (max-width: 767px) {
@@ -105,60 +120,26 @@
   justify-content: center;
   align-items: center;
   display: flex;
-  /* flex: 1;
-  padding: 10px;
-
-  height: 100%;
-  margin: 30px auto;
-  display: flex;
-  border-radius: 40px;
-  box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, 0.25), -5px -5px 20px 7px rgba(0, 0, 0, 0.22);
-  cursor: pointer;
-  transition: 0.4s;
-  justify-content: center; */
 }
 
 .card-overflow {
-  width: 80%;
-  height: 100%;
+  width: 50%;
+  height: 90%;
   overflow: hidden;
   border-radius: 40px;
-
-  /* display: flex; */
   justify-content: center;
   align-items: center;
   display: flex;
   flex-direction: column;
+  background-color: white;
+  box-shadow: 3px 3px 2px 2px rgb(110, 110, 110);
 }
 
-.card_content {
-  text-align: center;
-}
-.card_content p {
-  margin: auto 0;
-}
-
-.card .card_image {
-  width: inherit;
-  height: inherit;
-  border-radius: 40px;
-  margin: auto;
-  display: flex;
-  justify-content: center;
-}
-
-.card:hover {
-  transform: scale(0.85, 0.85);
-  box-shadow: 5px 5px 30x 15px rgba(0, 0, 0, 0.25), -5px -5px 30px 15px rgba(0, 0, 0, 0.22);
-  background-color: rgb(255, 249, 227);
-}
-
-.title-white {
-  color: white;
-}
-
-.title-black {
-  color: black;
+@media (max-width: 1100px) {
+  .card-overflow {
+    width: 90%;
+    height: 70%;
+  }
 }
 
 @media all and (max-width: 500px) {
@@ -166,34 +147,6 @@
     /* On small screens, we are no longer using row direction but column */
     flex-direction: column;
   }
-}
-
-.card {
-  width: 280px;
-  height: 80%;
-  border-radius: 10px;
-  background-color: white;
-  margin: 20px;
-  -webkit-transition: 0.3s all ease-in-out;
-  transition: 0.3s all ease-in-out;
-  position: relative;
-  box-shadow: 0px 0px 15px background;
-  /* Link */
-}
-
-.card:hover {
-  background: linear-gradient(130deg, #503bff 0%, #8293ff 100%);
-  box-shadow: none;
-}
-.card:hover .icon,
-.card:hover .title,
-.card:hover .desc {
-  color: white;
-  -webkit-transition: 0.3s all ease-in-out;
-  transition: 0.3s all ease-in-out;
-}
-.card:hover .card_content p {
-  color: white;
 }
 
 .skill-card {
@@ -206,6 +159,7 @@
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   cursor: pointer;
   margin-bottom: 20px;
+  overflow: hidden;
 }
 .skill-card:hover {
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
@@ -307,13 +261,14 @@
   margin-top: 5px;
   -webkit-transition-duration: 0;
   transition-duration: 0;
-  -webkit-transition-delay: 0.5s;
-  transition-delay: 0.5s;
+  -webkit-transition-delay: 0.2s;
+  transition-delay: 0.2s;
   -webkit-transform: translateX(-100%);
   transform: translateX(-100%);
 }
 
 .book-description {
+  width: 15em;
   overflow: hidden;
   white-space: nowrap;
   -ms-text-overflow: ellipsis;

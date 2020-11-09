@@ -3,7 +3,7 @@ import { useState } from 'react';
 import './TestPaperPage.css';
 import { Document, Page, Text, View, Font, StyleSheet } from '@react-pdf/renderer';
 import { PDFViewer } from '@react-pdf/renderer';
-
+import { Button } from 'react-bootstrap';
 import Nanum from './fonts/Nanum.ttf';
 
 Font.register({
@@ -110,10 +110,10 @@ const TestPaperPage = (props) => {
     <div className="testpaper-root">
       <div className="test-category">
         <button className="case1" onClick={() => SetDefaultCase(true)}>
-          <span>단어와 뜻 모두보기</span>
+          <p>단어와 뜻 모두보기</p>
         </button>
         <button className="case2" onClick={() => SetDefaultCase(false)}>
-          <span>단어만 보기</span>
+          <p>단어만 보기</p>
         </button>
       </div>
       {defaultCase ? (

@@ -28,8 +28,6 @@ const StudyPage = (props) => {
   function Card({ data }) {
     return (
       <div className="FlippyContainer">
-        <div className="Home-BackgroundColor"></div>
-
         <Flippy
           className="flippy"
           flipOnHover={false} // default false
@@ -58,6 +56,7 @@ const StudyPage = (props) => {
   return (
     // <SimpleBar style={{ height: '100%' }}>
     <div className="StudyPageContainer">
+      <div className="Study-BackgroundColor"></div>
       <button
         className="backbtn"
         onClick={() => {

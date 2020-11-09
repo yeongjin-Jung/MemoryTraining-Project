@@ -403,7 +403,7 @@
 
     &--animated {
       will-change: transform;
-      transition: transform var(--timer-delay) linear;
+      // transition: transform var(--timer-delay) linear;
     }
 
     &--run {
