@@ -80,7 +80,8 @@ class MyBookView(generics.ListAPIView):
         my_books = MyBook.objects.filter(user=user_id).values_list('book', flat=True)
         print(my_books)
         # books = Book.objects.filter(id__in=my_books).order_by('-id').annotate(write_flag=Case(When(MyBook.objects.get(book=Book.pk, user_id=user_id).write_flag==1), then=Value(1)), default=Value(0), output_field=IntegerField())
-        books = Book.objects.filter(id__in=my_books).order_by('-id')
+        
+        books = Book.objects.filter(id__in=my_books)
         for book in books:
             if MyBook.objects.get(book=book.pk, user_id=user_id).write_flag==1:
                 setattr(book, 'write_flag', 1)
@@ -129,4 +130,39 @@ class ScrapView(APIView):
     def delete(self, request, format=None):
         my_book = MyBook.objects.get(book=request.data['book_id'], user=self.request.user.pk)
         my_book.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+class CardView(APIView):
+    serializer_class = CardSerializer
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, format=None):
+        book_id = request.data['book_id']
+        if not Book.objects.filter(id=book_id, user_id=self.request.user.pk).exists():
+            return Response('직접 생성한 세트만 추가가 가능합니다', status=status.HTTP_400_BAD_REQUEST)
+        card_list = request.data['card_list']
+        for card in card_list:
+            card_dict = {'book_id':book_id, 'word':card['word'], 'meaning':card['meaning']}
+            cardSerializer = CardSerializer(data=card_dict)
+            if cardSerializer.is_valid(raise_exception=True):
+                cardSerializer.save()
+        return Response(status=status.HTTP_201_CREATED)
+
+    def delete(self, request, format=None):
+        card_id_list = request.data['card_id']
+        for card_id in card_id_list:
+            card = Card.objects.get(id=card_id)
+            book_id = card.book.pk
+            if not Book.objects.filter(id=book_id, user_id=self.request.user.pk).exists():
+                return Response('직접 생성한 카드만 삭제가 가능합니다', status=status.HTTP_400_BAD_REQUEST)
+            card.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+    def patch(self, request, format=None):
+        card_list = request.data['card_list']
+        for card in card_list:
+            book_id = Card.objects.get(id=card['id']).book.pk
+            if not Book.objects.filter(id=book_id, user_id=self.request.user.pk).exists():
+                return Response('직접 생성한 카드만 수정이 가능합니다', status=status.HTTP_400_BAD_REQUEST)
+            Card.objects.filter(id=card['id']).update(word=card['word'], meaning=card['meaning'])
         return Response(status=status.HTTP_204_NO_CONTENT)

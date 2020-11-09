@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from books.models import Book, Card
+from books.models import Book, Card, Bookmark
 from rest_framework import status
 # from .serializers import QuizSerializer
 import random
@@ -13,7 +13,13 @@ class QuizView(APIView):
     permission_calsses = [IsAuthenticated]
 
     def get(self, request, pk, format=None):
-        cards = Card.objects.filter(book_id=pk)
+        book_id = pk
+        if self.request.query_params.get('bookmark'):
+            card_id_list = Bookmark.objects.filter(book=book_id, bookmark_flag=True).values_list('card', flat=True)
+            print(card_id_list)
+            cards = Card.objects.filter(book_id=pk, id__in=card_id_list)
+        else:
+            cards = Card.objects.filter(book_id=pk)
 
         if cards.count() < 4:
             return Response('객관식 문제 풀기는 한 세트에 4개 이상의 카드가 있어야 가능합니다.', status=status.HTTP_400_BAD_REQUEST)
@@ -32,6 +38,7 @@ class QuizView(APIView):
             Q = val[0]
             A = val[1]
             answers = random.sample(list(quiz.values()), 4)  # 4개 랜덤뽑기
+            print(answers, A)
             # print('index:',k+1, '문제:',Q, '답:',A, '번호:',answers)
             if A not in answers:
                 answers.pop()

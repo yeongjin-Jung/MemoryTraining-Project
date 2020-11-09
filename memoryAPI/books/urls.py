@@ -10,5 +10,5 @@ urlpatterns = [
     path('bookmark/',views.BookmarkView.as_view(), name='bookmark'),
     path('myset/', views.MyBookView.as_view(), name='myset'),
     path('scrap/', views.ScrapView.as_view(), name='scrap'),
-    # path('card/<int:pk>/', views.CardView.as_view(), name='card'),
+    path('card/', views.CardView.as_view(), name='card'),
 ]
