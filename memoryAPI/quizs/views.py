@@ -13,8 +13,9 @@ class QuizView(APIView):
 
     def get(self, request, pk, format=None):
         book_id = pk
+        user = self.request.user.pk
         if self.request.query_params.get('bookmark'):
-            card_id_list = Bookmark.objects.filter(book=book_id, bookmark_flag=True).values_list('card', flat=True)
+            card_id_list = Bookmark.objects.filter(book=book_id, bookmark_flag=True, user=user).values_list('card', flat=True)
             print(card_id_list)
             cards = Card.objects.filter(book_id=pk, id__in=card_id_list)
         else:
