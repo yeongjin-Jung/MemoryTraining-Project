@@ -77,9 +77,13 @@ const styles = StyleSheet.create({
   },
 });
 
-const TestPaperPage = (props) => {
+const TestPaperPage2 = (props) => {
   const cards = props.location.state.cardList;
   const book = props.location.state.book;
+
+  useEffect(() => {
+    console.log(props);
+  });
 
   if (cards != null) {
     return (
@@ -88,7 +92,7 @@ const TestPaperPage = (props) => {
           <button
             className="case1"
             onClick={() => {
-              props.history.push({ pathname: '/test-paper', state: { cardList: cards, book: book, case: 'case1' } });
+              props.history.push({ pathname: '/test-paper', state: { cardList: cards, book: book } });
             }}
           >
             <p>단어와 뜻 모두보기</p>
@@ -112,7 +116,7 @@ const TestPaperPage = (props) => {
         </div>
         <PDFViewer>
           <Document>
-            <Page size="A4" style={styles.body} orientation="portrait" wrap>
+            <Page style={styles.body} orientation="portrait" wrap={true}>
               <Text style={styles.title}>{book.title + '\n\n'}</Text>
 
               {cards.map((data, index) => (
@@ -122,9 +126,8 @@ const TestPaperPage = (props) => {
                     {'문제 '}
                     {index + 1 + '' + '\n\n'}
                   </Text>
-
                   <Text style={styles.QuizContent}>
-                    {'단어 : ' + data.word + '\n\n'} {'뜻   : ' + data.meaning} {'\n\n\n\n\n'}
+                    {'단어 : ' + '\n\n'} {'뜻   : ' + data.meaning} {'\n\n\n\n\n'}
                   </Text>
                 </Text>
               ))}
@@ -140,4 +143,4 @@ const TestPaperPage = (props) => {
   }
 };
 
-export default TestPaperPage;
+export default TestPaperPage2;

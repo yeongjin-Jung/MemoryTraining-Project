@@ -1,6 +1,6 @@
 /* eslint-disable */
 import React, { Component } from 'react';
-import { Home, RegisterPage, LoginPage, StudyPage, SearchPage, SetsPage, SetPage, SetDetailPage, QuizPage, SetModifyPage, TestPaperPage } from './pages';
+import { Home, RegisterPage, LoginPage, StudyPage, SearchPage, SetsPage, SetPage, SetDetailPage, QuizPage, SetModifyPage, TestPaperPage, TestPaperPage_word, TestPaperPage_meaning } from './pages';
 // import Auth from "./hoc/auth";
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { MyNavbar } from './components';
@@ -51,6 +51,8 @@ class App extends Component {
           <PrivateRoute path="/quiz" component={QuizPage} />
           <PrivateRoute path="/set-modify" component={SetModifyPage} />
           <PrivateRoute path="/test-paper" component={TestPaperPage} />
+          <PrivateRoute path="/test-only-word" component={TestPaperPage_word} />
+          <PrivateRoute path="/test-only-meaning" component={TestPaperPage_meaning} />
         </Switch>
       </BrowserRouter>
     );
