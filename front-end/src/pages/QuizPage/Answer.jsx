@@ -5,13 +5,13 @@ const Answer = (props) => {
   let classes = ['answer'];
 
   const handleClick = (e) => {
-    console.log(e.target.value);
+    // console.log(e.target.value);
     props.dispatch({ type: SET_CURRENT_ANSWER, currentAnswer: e.target.value });
     props.dispatch({ type: SET_ERROR, error: '' });
   };
 
   if (props.selected) {
-    console.log('안녕');
+    // console.log('안녕');
     classes.push('selected');
   }
   return (

@@ -1,4 +1,5 @@
-import { SET_ANSWERS, SET_CURRENT_QUESTION, SET_CURRENT_ANSWER, SET_ERROR, SET_SHOW_RESULTS, RESET_QUIZ } from './types.js';
+import { SET_ANSWERS, SET_CURRENT_QUESTION, SET_CURRENT_ANSWER, SET_ERROR, SET_SHOW_RESULTS, RESET_QUIZ, SET_WRONG_ANSWER, TOGGLE_BOOKMARK_FLAG } from './types.js';
+
 function quizReducer(state, action) {
   switch (action.type) {
     case SET_CURRENT_ANSWER:
@@ -34,6 +35,26 @@ function quizReducer(state, action) {
         currentAnswer: '',
         showResults: false,
         error: '',
+      };
+
+    case SET_WRONG_ANSWER:
+      console.log('action.idx : ', action.idx);
+      return {
+        ...state,
+      };
+
+    case TOGGLE_BOOKMARK_FLAG:
+      console.log('TOGGLE_BOOKMARK_FLAG called.');
+      console.log('state의 quizs : ', state.quizs);
+      console.log('quizIdx : ', action.quizIdx);
+
+      let quizs = state.quizs;
+      let tmp = [...quizs];
+      tmp[action.quizIdx].card.bookmark_flag = !tmp[action.quizIdx].card.bookmark_flag;
+
+      return {
+        ...state,
+        quizs: tmp,
       };
     default:
       return state;
