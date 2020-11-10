@@ -12,30 +12,19 @@ import SERVER from '../../api/server';
 
 import './Aside.css';
 
-const Aside = ({ book, image, collapsed, rtl, toggled, handleToggleSidebar, history }) => {
+const Aside = ({ book, image, collapsed, rtl, toggled, handleToggleSidebar, history, entireCardList, bookmarkedCardList, entireQuizList, bookmarkedQuizList }) => {
   const intl = useIntl();
 
-  const [cardList, setCardList] = useState([]);
-  const [quizList, setQuizList] = useState([]);
-  const getCardList = async () => {
-    await axios.get(SERVER.BASE_URL + SERVER.ROUTES.getbook + book.id).then((res) => {
-      console.log('res: ', res);
-      setCardList(res.data);
-    });
-  };
-
-  const getQuizList = async () => {
-    await axios.get(SERVER.BASE_URL + SERVER.ROUTES.getquizs + book.id).then((res) => {
-      console.log('quiz: ', res);
-      setQuizList(res.data);
-    });
-  };
+  useEffect(() => {
+    // console.log('book.id : ', book.id);
+  }, []);
 
   useEffect(() => {
-    console.log('book.id : ', book.id);
-    getCardList();
-    getQuizList();
-  }, []);
+    // console.log('entireCardList : ', entireCardList);
+    // console.log('bookmarkedCardList : ', bookmarkedCardList);
+    // console.log('entireQuizList : ', entireQuizList);
+    // console.log('bookmarkedQuizList : ', bookmarkedQuizList);
+  });
 
   return (
     <ProSidebar image={image ? sidebarBg : false} rtl={rtl} collapsed={collapsed} toggled={toggled} breakPoint="md" onToggle={handleToggleSidebar}>
@@ -73,7 +62,7 @@ const Aside = ({ book, image, collapsed, rtl, toggled, handleToggleSidebar, hist
             <MenuItem
               className="MenuItem"
               onClick={() => {
-                history.history.push({ pathname: '/study', state: { cardList: cardList, book: book } });
+                history.history.push({ pathname: '/study', state: { cardList: entireCardList, book: book } });
               }}
             >
               전체 카드
@@ -81,7 +70,7 @@ const Aside = ({ book, image, collapsed, rtl, toggled, handleToggleSidebar, hist
             <MenuItem
               className="MenuItem"
               onClick={() => {
-                history.history.push({ pathname: '/study', state: { cardList: cardList, book: book } });
+                history.history.push({ pathname: '/study', state: { cardList: bookmarkedCardList, book: book } });
               }}
             >
               북마크 카드
@@ -96,7 +85,7 @@ const Aside = ({ book, image, collapsed, rtl, toggled, handleToggleSidebar, hist
             <MenuItem
               className="MenuItem"
               onClick={() => {
-                history.history.push({ pathname: '/quiz', state: { quizList: quizList } });
+                history.history.push({ pathname: '/quiz', state: { quizList: entireQuizList } });
               }}
             >
               전체 카드
@@ -104,7 +93,7 @@ const Aside = ({ book, image, collapsed, rtl, toggled, handleToggleSidebar, hist
             <MenuItem
               className="MenuItem"
               onClick={() => {
-                history.history.push({ pathname: '/quiz', state: { quizList: quizList } });
+                history.history.push({ pathname: '/quiz', state: { quizList: bookmarkedQuizList } });
               }}
             >
               북마크 카드
@@ -114,7 +103,7 @@ const Aside = ({ book, image, collapsed, rtl, toggled, handleToggleSidebar, hist
           <MenuItem
             className="MenuItem"
             onClick={() => {
-              history.history.push({ pathname: '/test-paper', state: { cardList: cardList, book: book } });
+              history.history.push({ pathname: '/test-paper', state: { cardList: entireCardList, book: book } });
             }}
             icon={<img src={iconQuiz} style={{ width: '40px', backgroundColor: 'white', borderRadius: '50%' }} />}
           >
@@ -124,7 +113,7 @@ const Aside = ({ book, image, collapsed, rtl, toggled, handleToggleSidebar, hist
             <MenuItem
               className="MenuItem"
               onClick={() => {
-                history.history.push({ pathname: '/set-modify', state: { cardList: cardList, book: book } });
+                history.history.push({ pathname: '/set-modify', state: { cardList: entireCardList, book: book } });
               }}
               icon={<img src={iconSetting} style={{ width: '40px', backgroundColor: 'white', borderRadius: '50%' }} />}
             >

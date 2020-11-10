@@ -26,7 +26,7 @@ function Layout({ setLocale, book, history }) {
 
   return (
     <div className={`app ${rtl ? 'rtl' : ''} ${toggled ? 'toggled' : ''}`}>
-      <Aside book={book} collapsed={collapsed} rtl={rtl} toggled={toggled} handleToggleSidebar={handleToggleSidebar} history={history} />
+      {/* <Aside book={book} collapsed={collapsed} rtl={rtl} toggled={toggled} handleToggleSidebar={handleToggleSidebar} history={history} /> */}
       <Main
         toggled={toggled}
         collapsed={collapsed}
@@ -36,6 +36,7 @@ function Layout({ setLocale, book, history }) {
         handleRtlChange={handleRtlChange}
         handleImageChange={handleImageChange}
         book={book}
+        history={history}
       />
     </div>
   );

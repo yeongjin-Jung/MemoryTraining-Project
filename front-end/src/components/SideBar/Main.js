@@ -10,54 +10,111 @@ import axios from 'axios';
 import SERVER from '../../api/server';
 import './Main.css';
 
-const Main = ({ collapsed, rtl, image, handleToggleSidebar, handleCollapsedChange, handleRtlChange, handleImageChange, book }) => {
-  const intl = useIntl();
-  const [cardList, setCardList] = useState([]);
+import Aside from './Aside';
 
-  const getCardList = async () => {
-    await axios.get(SERVER.BASE_URL + SERVER.ROUTES.getbook + book.id).then((res) => {
-      console.log(res);
-      setCardList(res.data);
+const Main = ({ collapsed, rtl, toggled, history, image, handleToggleSidebar, handleCollapsedChange, handleRtlChange, handleImageChange, book }) => {
+  const intl = useIntl();
+
+  const [entireCardList, setEntireCardList] = useState([]);
+  const [bookmarkedCardList, setBookmarkedCardList] = useState([]);
+
+  const [entireQuizList, setEntireQuizList] = useState([]);
+  const [bookmarkedQuizList, setBookmarkedQuizList] = useState([]);
+
+  const getEntireCardList = async () => {
+    await axios.get(SERVER.BASE_URL + SERVER.ROUTES.getEntireCards + book.id).then((res) => {
+      console.log('getEntireCardList res: ', res);
+      setEntireCardList(res.data);
     });
   };
 
+  const getBookmarkedCardList = async () => {
+    await axios
+      .get(SERVER.BASE_URL + SERVER.ROUTES.getEntireCards + book.id, {
+        params: {
+          bookmark: 'True',
+        },
+      })
+      .then((res) => {
+        console.log('getBookmarkedCardList res: ', res);
+        setBookmarkedCardList(res.data);
+      });
+  };
+
+  const getEntireQuizList = async () => {
+    await axios.get(SERVER.BASE_URL + SERVER.ROUTES.getEntireQuizs + book.id).then((res) => {
+      console.log('getEntireQuizList quiz: ', res);
+      setEntireQuizList(res.data);
+    });
+  };
+
+  const getBookmarkedQuizList = async () => {
+    await axios
+      .get(SERVER.BASE_URL + SERVER.ROUTES.getEntireQuizs + book.id, {
+        params: {
+          bookmark: 'True',
+        },
+      })
+      .then((res) => {
+        console.log('getBookmarkedQuizList quiz: ', res);
+        setBookmarkedQuizList(res.data);
+      });
+  };
+
   useEffect(() => {
-    getCardList();
+    getEntireCardList();
+    getBookmarkedCardList();
+    getEntireQuizList();
+    getBookmarkedQuizList();
   }, []);
 
   return (
-    <main>
-      <div className="sidebar-btn">
-        <div className="btn-toggle" onClick={() => handleToggleSidebar(true)}>
-          <FaBars />
-        </div>
-      </div>
-      <header>
-        {/* <div className="h1 text-center">
-          {book.title}&nbsp; (<FcBookmark /> : 북마크 표시)
-        </div> */}
-        <div className="text-center">
-          <div className="h1">
-            {book.title}
-            <div className="h3">
-              &nbsp; (<FcBookmark /> : 북마크 표시)
-            </div>
+    <>
+      <Aside
+        book={book}
+        collapsed={collapsed}
+        rtl={rtl}
+        toggled={toggled}
+        handleToggleSidebar={handleToggleSidebar}
+        history={history}
+        entireCardList={entireCardList}
+        bookmarkedCardList={bookmarkedCardList}
+        entireQuizList={entireQuizList}
+        bookmarkedQuizList={bookmarkedQuizList}
+      />
+      <main>
+        <div className="sidebar-btn">
+          <div className="btn-toggle" onClick={() => handleToggleSidebar(true)}>
+            <FaBars />
           </div>
         </div>
-      </header>
+        <header>
+          {/* <div className="h1 text-center">
+          {book.title}&nbsp; (<FcBookmark /> : 북마크 표시)
+        </div> */}
+          <div className="text-center">
+            <div className="h1">
+              {book.title}
+              <div className="h3">
+                &nbsp; (<FcBookmark /> : 북마크 표시)
+              </div>
+            </div>
+          </div>
+        </header>
 
-      <div className="CardList-root">
-        <div className="CardList-container">
-          {cardList.map((card) => (
-            <Card book={book} card={card} key={card.id} />
-          ))}
+        <div className="CardList-root">
+          <div className="CardList-container">
+            {entireCardList.map((card) => (
+              <Card book={book} card={card} key={card.id} getBookmarkedCardList={getBookmarkedCardList} getBookmarkedQuizList={getBookmarkedQuizList} />
+            ))}
+          </div>
         </div>
-      </div>
-    </main>
+      </main>
+    </>
   );
 };
 
-const Card = ({ book, card }) => {
+const Card = ({ book, card, getBookmarkedCardList, getBookmarkedQuizList }) => {
   const [color, setColor] = useState(card.bookmark_flag ? 'red' : 'black');
 
   useEffect(() => {
@@ -79,6 +136,8 @@ const Card = ({ book, card }) => {
                   console.log('card.id : ', card.id);
                   axios.post(SERVER.BASE_URL + SERVER.ROUTES.bookmark, { book_id: book.id, card_id: card.id }).then((res) => {
                     console.log(res);
+                    getBookmarkedCardList();
+                    getBookmarkedQuizList();
                   });
                 } else {
                   console.log('unbookmark.');
@@ -87,6 +146,8 @@ const Card = ({ book, card }) => {
                   console.log('card.id : ', card.id);
                   axios.delete(SERVER.BASE_URL + SERVER.ROUTES.unbookmark, { data: { book_id: book.id, card_id: card.id } }).then((res) => {
                     console.log(res);
+                    getBookmarkedCardList();
+                    getBookmarkedQuizList();
                   });
                 }
               }}
