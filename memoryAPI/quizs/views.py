@@ -3,8 +3,10 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from books.models import Book, Card, Bookmark
+from django.forms.models import model_to_dict
 from rest_framework import status
 import random
+from django.db.models.fields.related import ManyToManyField
 
 # Create your views here.
 
@@ -29,7 +31,14 @@ class QuizView(APIView):
         quiz = {}
         quiz_choice = {}
         for card in cards:
-            quiz[card.meaning] = card.word
+            card = model_to_dict(card)
+            if Bookmark.objects.filter(book=pk, card=card['id'], user=user, bookmark_flag=1).exists():
+                card["bookmark_flag"] = 1
+            else:
+                card["bookmark_flag"] = 0
+            quiz[card['meaning']] = card
+        print(quiz)
+
         for card in card_choices:
             quiz_choice[card.meaning] = card.word
         
@@ -44,16 +53,16 @@ class QuizView(APIView):
             A = val[1]
             answers = random.sample(list(quiz_choice.values()), 4)  # 4개 랜덤뽑기
             # print('index:',k+1, '문제:',Q, '답:',A, '번호:',answers)
-            if A not in answers:
+            if A['word'] not in answers:
                 answers.pop()
-                answers.append(A)
+                answers.append(A['word'])
                 random.shuffle(answers)  # 순서 랜덤바꾸기
             # quizbox.append({'question':Q, 'answer':A, 'choice':answers})
+            alphabet = ''
             for i in range(len(answers)):
-                if answers[i] == A:
+                if answers[i] == A['word']:
                     alphabet = chr(97+i)
-
-            quizbox.append({'question':Q, 'a':answers[0], 'b':answers[1], 'c':answers[2], 'd':answers[3], 'answer':alphabet})
+            quizbox.append({'card':A, 'question':Q, 'a':answers[0], 'b':answers[1], 'c':answers[2], 'd':answers[3], 'answer':alphabet})
 
         random.shuffle(quizbox)
 
