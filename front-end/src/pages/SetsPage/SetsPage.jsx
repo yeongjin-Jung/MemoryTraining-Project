@@ -97,7 +97,7 @@ function Book({ book, history, getBookList }) {
         <div className="container-fluid" style={{ display: 'flex', justifyContent: 'flex-end' }}>
           {book.write_flag == 0 && (
             <Button
-              className="btn-unscrap btn-light"
+              className="set-unscrap-btn"
               style={{ zIndex: '1' }}
               onClick={(e) => {
                 axios.delete(SERVER.BASE_URL + SERVER.ROUTES.unscrap, { data: { book_id: book.id } }).then((res) => {
@@ -108,7 +108,7 @@ function Book({ book, history, getBookList }) {
                 e.stopPropagation();
               }}
             >
-              스크랩 해제
+              <span>스크랩 해제</span>
             </Button>
           )}
         </div>

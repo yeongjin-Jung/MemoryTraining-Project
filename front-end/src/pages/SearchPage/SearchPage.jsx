@@ -177,7 +177,7 @@ const Book = ({ book }) => {
           <p>작성자 이름 : {book.user.name}</p>
           <p className="small"></p>
           <div className="dimmer"></div>
-          <div className="go-corner">
+          <div className="go-corner-search">
             <div className="go-arrow">→</div>
           </div>
         </div>

@@ -5,6 +5,7 @@ import CoreStyles from '../StudyPage/styles.scss';
 import AwesomeSliderStyles from 'react-awesome-slider/src/styled/open-animation/open-animation.scss';
 import Flippy, { FrontSide, BackSide } from 'react-flippy';
 import 'react-sweet-progress/lib/style.css';
+import '../../assets/css/back-btn-styles.css';
 import './StudyPage.css';
 import Speech from 'react-speech';
 
@@ -15,7 +16,7 @@ import { FcBookmark } from 'react-icons/fc';
 
 import axios from 'axios';
 import SERVER from '../../api/server';
-
+import { AwesomeButton, AwesomeButtonProgress, AwesomeButtonSocial } from 'react-awesome-button';
 const ref = React.createRef();
 
 const StudyPage = (props) => {
@@ -46,21 +47,20 @@ const StudyPage = (props) => {
     // <SimpleBar style={{ height: '100%' }}>
     <div className="StudyPageContainer">
       <div className="Study-BackgroundColor"></div>
-      <button
-        className="backbtn"
-        onClick={() => {
+      <AwesomeButton
+        className="aws-btn"
+        type="primary"
+        onPress={() => {
           props.history.push({ pathname: '/set-detail', state: { book: book } });
         }}
       >
-        <p className="backbtn-text">뒤로가기</p>
-      </button>
-
+        <span>뒤로가기</span>
+      </AwesomeButton>
       {cards.length == 0 && (
         <div className="FlippyContainer-root" key={0}>
           북마크 된 단어가 없습니다.
         </div>
       )}
-
       {cards.length != 0 && (
         <AwesomeSlider className="slider" infinite={false} bullets={false} animation="openAnimation" cssModule={(CoreStyles, AwesomeSliderStyles)}>
           {cards.map((data, index) => (

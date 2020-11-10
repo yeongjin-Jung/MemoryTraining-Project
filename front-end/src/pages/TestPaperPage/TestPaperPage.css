@@ -173,14 +173,6 @@ iframe {
   }
 }
 
-@media (max-width: 800px) {
-  .backbtn {
-    width: 20%;
-    top: 7.3em;
-    box-shadow: 0 3px 2px 0.5px #fcfcfc, 0 4px 6px #d6d7d9, 0 -2px 2px #cecfd1, 0 -4px 2px #fefefe, inset 0 0 1.5px 0 #cecfd1;
-  }
-}
-
 .testpaper-context-main,
 .testpaper-context-main:before,
 .testpaper-context-main:after {
