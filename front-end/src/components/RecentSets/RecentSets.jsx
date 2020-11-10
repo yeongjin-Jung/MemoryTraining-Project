@@ -8,6 +8,8 @@ import backImg from '../../assets/images/logo_transparent.png';
 import { Link } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
+import { IoIosCreate } from "react-icons/io";
+
 const RecentSets = (props) => {
   const [bookList, setBookList] = useState([]);
 
@@ -19,13 +21,31 @@ const RecentSets = (props) => {
   const renderComponent = () => {
     if (bookList.length == 0) {
       return (
-        <div className="card-overflow">
-          <p className="none-recent-card">스크랩한 세트가 없습니다.</p>
-          <Link to="/set-create">
-            <Button className="RecetPage-set-create-btn">
-              <p>세트 만들기</p>
-            </Button>
-          </Link>
+        <div
+          className="skill-card "
+          onClick={() => {
+            props.history.push({ pathname: '/set-create' });
+          }}
+        >
+          <header className="skill-card__header">
+            <img className="skill-card__icon" src={backImg} alt="HTML5 Logo" />
+          </header>
+          <section className="skill-card__body">
+            <div>
+              <h2 className="skill-card__title" style={{ color: 'black' }}>
+                암기의정석
+              </h2>
+            </div>
+
+            <span className="skill-card__duration"><IoIosCreate size={20} color={''} style={{ marginRight: '5px' }} />세트 만들러가기</span>
+            <ul className="skill-card__knowledge">
+              <li className="text-center">
+                <Button className="RecetPage-set-create-btn" size="lg">
+                  <p>세트 만들기</p>
+                </Button>
+              </li>
+            </ul>
+          </section>
         </div>
       );
     } else if (bookList.length == 1) {
