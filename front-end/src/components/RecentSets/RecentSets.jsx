@@ -48,7 +48,7 @@ const RecentSets = (props) => {
 
             <span className="skill-card__duration">작성자 : {bookList[0].user.name}</span>
             <ul className="skill-card__knowledge">
-              <li className="book-description">설명 : {bookList[0].description}aaaaaaaaaaaaaaaa</li>
+              <li className="book-description">설명 : {bookList[0].description}</li>
               <li>
                 생성된 날짜 : <Moment format="YYYY/MM/DD">{bookList[0].created_at}</Moment>
               </li>
@@ -77,7 +77,7 @@ const RecentSets = (props) => {
 
               <span className="skill-card__duration">작성자 : {bookList[0].user.name}</span>
               <ul className="skill-card__knowledge">
-                <li className="book-description">설명 : {bookList[0].description}aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</li>
+                <li className="book-description">설명 : {bookList[0].description}</li>
                 <li>
                   생성된 날짜 : <Moment format="YYYY/MM/DD">{bookList[0].created_at}</Moment>
                 </li>
@@ -103,7 +103,7 @@ const RecentSets = (props) => {
 
               <span className="skill-card__duration">작성자 : {bookList[1].user.name}</span>
               <ul className="skill-card__knowledge">
-                <li className="book-description">설명 : {bookList[1].description}aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</li>
+                <li className="book-description">설명 : {bookList[1].description}</li>
                 <li>
                   생성된 날짜 : <Moment format="YYYY/MM/DD">{bookList[1].created_at}</Moment>
                 </li>
@@ -133,7 +133,7 @@ const RecentSets = (props) => {
 
               <span className="skill-card__duration">작성자 : {bookList[0].user.name}</span>
               <ul className="skill-card__knowledge">
-                <li className="book-description">설명 : {bookList[0].description}aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</li>
+                <li className="book-description">설명 : {bookList[0].description}</li>
                 <li>
                   생성된 날짜 : <Moment format="YYYY/MM/DD">{bookList[0].created_at}</Moment>
                 </li>
@@ -159,7 +159,7 @@ const RecentSets = (props) => {
 
               <span className="skill-card__duration">작성자 : {bookList[1].user.name}</span>
               <ul className="skill-card__knowledge">
-                <li className="book-description">설명 : {bookList[1].description}aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</li>
+                <li className="book-description">설명 : {bookList[1].description}</li>
                 <li>
                   생성된 날짜 : <Moment format="YYYY/MM/DD">{bookList[1].created_at}</Moment>
                 </li>
@@ -185,7 +185,7 @@ const RecentSets = (props) => {
 
               <span className="skill-card__duration">작성자 : {bookList[2].user.name}</span>
               <ul className="skill-card__knowledge">
-                <li className="book-description">설명 : {bookList[2].description}aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</li>
+                <li className="book-description">설명 : {bookList[2].description}</li>
                 <li>
                   생성된 날짜 : <Moment format="YYYY/MM/DD">{bookList[2].created_at}</Moment>
                 </li>
@@ -198,7 +198,7 @@ const RecentSets = (props) => {
       return (
         <>
           <div
-            className="skill-card"
+            className="skill-card animate__animated animate__fadeInLeft"
             onClick={() => {
               props.history.push({ pathname: '/set-detail', state: { book: bookList[0] } });
             }}
@@ -215,7 +215,7 @@ const RecentSets = (props) => {
 
               <span className="skill-card__duration">작성자 : {bookList[0].user.name}</span>
               <ul className="skill-card__knowledge">
-                <li className="book-description">설명 : {bookList[0].description}aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</li>
+                <li className="book-description">설명 : {bookList[0].description}</li>
                 <li>
                   생성된 날짜 : <Moment format="YYYY/MM/DD">{bookList[0].created_at}</Moment>
                 </li>
@@ -223,7 +223,7 @@ const RecentSets = (props) => {
             </section>
           </div>
           <div
-            className="skill-card"
+            className="skill-card animate__animated animate__fadeInUp"
             onClick={() => {
               props.history.push({ pathname: '/set-detail', state: { book: bookList[1] } });
             }}
@@ -238,7 +238,7 @@ const RecentSets = (props) => {
 
               <span className="skill-card__duration">작성자 : {bookList[1].user.name}</span>
               <ul className="skill-card__knowledge">
-                <li className="book-description">설명 : {bookList[1].description}aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</li>
+                <li className="book-description">설명 : {bookList[1].description}</li>
                 <li>
                   생성된 날짜 : <Moment format="YYYY/MM/DD">{bookList[1].created_at}</Moment>
                 </li>
@@ -246,7 +246,7 @@ const RecentSets = (props) => {
             </section>
           </div>
           <div
-            className="skill-card"
+            className="skill-card animate__animated animate__fadeInDown"
             onClick={() => {
               props.history.push({ pathname: '/set-detail', state: { book: bookList[2] } });
             }}
@@ -261,7 +261,7 @@ const RecentSets = (props) => {
 
               <span className="skill-card__duration">작성자 : {bookList[2].user.name}</span>
               <ul className="skill-card__knowledge">
-                <li className="book-description">설명 : {bookList[2].description}aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</li>
+                <li className="book-description">설명 : {bookList[2].description}</li>
                 <li>
                   생성된 날짜 : <Moment format="YYYY/MM/DD">{bookList[2].created_at}</Moment>
                 </li>
@@ -269,7 +269,7 @@ const RecentSets = (props) => {
             </section>
           </div>
           <div
-            className="skill-card"
+            className="skill-card animate__animated animate__fadeInRight"
             onClick={() => {
               props.history.push({ pathname: '/set-detail', state: { book: bookList[3] } });
             }}
@@ -284,7 +284,7 @@ const RecentSets = (props) => {
 
               <span className="skill-card__duration">작성자 : {bookList[3].user.name}</span>
               <ul className="skill-card__knowledge">
-                <li className="book-description">설명 : {bookList[3].description}aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</li>
+                <li className="book-description">설명 : {bookList[3].description}</li>
                 <li>
                   생성된 날짜 : <Moment format="YYYY/MM/DD">{bookList[3].created_at}</Moment>
                 </li>

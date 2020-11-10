@@ -102,7 +102,7 @@ const Menu = ({ toggleSearch, toggleButtonRef, collapseRef }) => {
   return (
     <>
       <Nav.Link onClick={toggleSearch}>
-        <o className="nav-search-btn">검색</o>
+        <div className="nav-search-btn">검색</div>
       </Nav.Link>
       <Nav.Link
         as={Link}
@@ -114,7 +114,7 @@ const Menu = ({ toggleSearch, toggleButtonRef, collapseRef }) => {
           }
         }}
       >
-        <o className="nav-set-btn">세트</o>
+        <div className="nav-set-btn">세트</div>
       </Nav.Link>
     </>
   );

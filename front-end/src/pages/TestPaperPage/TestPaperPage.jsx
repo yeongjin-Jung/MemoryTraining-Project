@@ -5,6 +5,7 @@ import { Document, Page, Text, View, Font, StyleSheet } from '@react-pdf/rendere
 import { PDFViewer } from '@react-pdf/renderer';
 import { Button } from 'react-bootstrap';
 import Nanum from './fonts/Nanum.ttf';
+import { useHistory } from 'react-router-dom';
 
 Font.register({
   family: 'Nanum',
@@ -64,6 +65,7 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontFamily: 'Nanum',
     color: 'red',
+    letterSpacing: 7,
   },
   QuizContent: {
     fontSize: 14,
@@ -75,112 +77,85 @@ const styles = StyleSheet.create({
 const TestPaperPage = (props) => {
   const cards = props.location.state.cardList;
   const book = props.location.state.book;
-
   const [defaultCase, SetDefaultCase] = useState(true);
 
-  return (
-    <div className="testpaper-root">
-      <div className="test-category">
-        <button className="case1" onClick={() => SetDefaultCase(true)}>
-          <p>단어와 뜻 모두보기</p>
-        </button>
-        <button className="case2" onClick={() => SetDefaultCase(false)}>
-          <p>단어만 보기</p>
-        </button>
+  const [isBackButtonClicked, setBackbuttonPress] = useState(false);
+
+  useEffect(() => {
+    // window.history.pushState(null, null, window.location.pathname);
+    window.addEventListener('popstate', onBackButtonEvent);
+
+    // window.removeEventListener('popstate', onBackButtonEvent);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const onBackButtonEvent = (e) => {
+    // e.preventDefault();
+    console.log('백버튼');
+    window.location.reload();
+  };
+
+  if (cards != null) {
+    return (
+      <div className="testpaper-root">
+        <div className="test-category">
+          <button className="case1" onClick={() => SetDefaultCase(true)}>
+            <p>단어와 뜻 모두보기</p>
+          </button>
+          <button className="case2" onClick={() => SetDefaultCase(false)}>
+            <p>단어만 보기</p>
+          </button>
+        </div>
+        <PDFViewer>
+          {defaultCase ? (
+            <Document>
+              <Page size="A4" style={styles.body} orientation="portrait" wrap>
+                <Text style={styles.title}>{book.title + '\n\n'}</Text>
+
+                {cards.map((data, index) => (
+                  <Text key={index}>
+                    <Text style={styles.QuizNum}>
+                      {' '}
+                      {'문제 '}
+                      {index + 1 + '' + '\n\n'}
+                    </Text>
+
+                    <Text style={styles.QuizContent}>
+                      {'단어 : ' + data.word + '\n\n'} {'뜻     :  ' + data.meaning} {'\n\n\n\n\n'}
+                    </Text>
+                  </Text>
+                ))}
+
+                <Text style={styles.footer} render={({ pageNumber, totalPages }) => `${pageNumber} / ${totalPages}`} fixed />
+              </Page>
+            </Document>
+          ) : (
+            <Document>
+              <Page style={styles.body} orientation="portrait" wrap={true}>
+                <Text style={styles.title}>{book.title + '\n\n'}</Text>
+
+                {cards.map((data, index) => (
+                  <Text key={index}>
+                    <Text style={styles.QuizNum}>
+                      {' '}
+                      {'문제'}
+                      {index + 1 + '' + '\n\n'}
+                    </Text>
+                    <Text style={styles.QuizContent}>
+                      {'단어 : ' + data.word + '\n\n'} {'뜻     :'} {'\n\n\n\n\n'}
+                    </Text>
+                  </Text>
+                ))}
+
+                <Text style={styles.footer} render={({ pageNumber, totalPages }) => `${pageNumber} / ${totalPages}`} fixed />
+              </Page>
+            </Document>
+          )}
+        </PDFViewer>
       </div>
-      {defaultCase ? (
-        <PDFViewer>
-          <Document>
-            <Page size="A4" style={styles.body} orientation="portrait" wrap>
-              <Text style={styles.title}>{book.title + '\n\n'}</Text>
-
-              {cards.map((data, index) => (
-                <>
-                  <Text style={styles.QuizNum}>
-                    {' '}
-                    {'문제'}
-                    {index + 1 + '' + '\n\n'}
-                  </Text>
-
-                  <Text style={styles.QuizContent} key={index}>
-                    {'단어 : ' + data.word + '\n\n'} {'뜻     :  ' + data.meaning} {'\n\n\n\n\n'}
-                  </Text>
-                </>
-              ))}
-
-              <Text style={styles.footer} render={({ pageNumber, totalPages }) => `${pageNumber} / ${totalPages}`} fixed />
-            </Page>
-          </Document>
-        </PDFViewer>
-      ) : (
-        <PDFViewer>
-          <Document>
-            <Page style={styles.body} orientation="portrait" wrap={true}>
-              <Text style={styles.title}>{book.title + '\n\n'}</Text>
-
-              {cards.map((data, index) => (
-                <>
-                  <Text style={styles.QuizNum}>
-                    {' '}
-                    {'문제'}
-                    {index + 1 + '' + '\n\n'}
-                  </Text>
-                  <Text style={styles.QuizContent}>
-                    {'단어 : ' + data.word + '\n\n'} {'뜻     :'} {'\n\n\n\n\n'}
-                  </Text>
-                </>
-              ))}
-
-              <Text style={styles.footer} render={({ pageNumber, totalPages }) => `${pageNumber} / ${totalPages}`} fixed />
-            </Page>
-          </Document>
-        </PDFViewer>
-      )}
-    </div>
-    // <div className="testpaper-root">
-    //   <button
-    //     className="backbtn"
-    //     onClick={() => {
-    //       props.history.push({ pathname: '/set-detail', state: { book: book } });
-    //     }}
-    //   >
-    //     <p className="backbtn-text">뒤로가기</p>
-    //   </button>
-    //   <div className="Home-BackgroundColor"></div>
-    //   <Pdf targetRef={ref} filename="나만의 시험지.pdf">
-    //     {({ toPdf }) => (
-    //       <button className="pdf-create-btn" onClick={toPdf}>
-    //         <p>PDF로 다운로드</p>
-    //       </button>
-    //     )}
-    //   </Pdf>
-    //   <div className="testpaper-context">
-    //     <div className="testpaper-context-main">
-    //       <PDFViewer>
-    //         <Document>
-    //           <Page style={styles.page}>
-    //             <Text>
-    //               {/* <div ref={ref}>
-    //                 <div className="testpaper-title">
-    //                   <Text>{book.title}</Text>
-    //                 </div>
-    //                 <div className="testpaper-qestion-container">
-    //                   {randomcard.map((data, index) => (
-    //                     <div className="testpaper-qestion-box" key={index}>
-    //                       <Card data={data} index={index} />
-    //                     </div>
-    //                   ))}
-    //                 </div>
-    //               </div> */}
-    //               <Text fixed>{book.title}</Text>
-    //             </Text>
-    //           </Page>
-    //         </Document>
-    //       </PDFViewer>
-    //     </div>
-    //   </div>
-    // </div>
-  );
+    );
+  } else {
+    <div>카드가 없습니다</div>;
+  }
 };
 
 export default TestPaperPage;

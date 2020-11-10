@@ -84,7 +84,7 @@
   justify-content: center;
   flex-wrap: wrap;
   align-items: center;
-
+  overflow: hidden;
   justify-content: space-around;
 }
 
