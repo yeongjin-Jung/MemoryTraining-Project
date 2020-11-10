@@ -34,7 +34,7 @@
 }
 
 .RecetPage-set-create-btn {
-  margin-top: .2em;
+  margin-top: 0.2em;
   background-color: rgb(255, 255, 255);
   border-style: solid;
   border-color: rgb(255, 200, 0);
@@ -78,7 +78,7 @@
 .cards-list {
   z-index: 0;
   width: 90%;
-  height: 90%;
+  height: 100%;
   flex: 1;
   display: flex;
   justify-content: center;
@@ -249,7 +249,7 @@
   text-transform: uppercase;
 }
 .skill-card .skill-card__body .skill-card__duration {
-  color: #767A7B;
+  color: #767a7b;
 }
 .skill-card .skill-card__body .skill-card__knowledge {
   margin-top: 10px;
@@ -280,4 +280,7 @@
   -ms-text-overflow: ellipsis;
   -o-text-overflow: ellipsis;
   text-overflow: ellipsis;
+}
+.skill-card__title div {
+  overflow-y: hidden;
 }

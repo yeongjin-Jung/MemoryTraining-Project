@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
 import { IoIosCreate } from 'react-icons/io';
+import Marquee from 'react-double-marquee';
 
 const RecentSets = (props) => {
   const [bookList, setBookList] = useState([]);
@@ -65,7 +66,7 @@ const RecentSets = (props) => {
           <section className="skill-card__body">
             <div>
               <h2 className="skill-card__title" style={{ color: 'black' }}>
-                {bookList[0].title}
+                <Marquee>{bookList[0].title}</Marquee>
               </h2>
             </div>
 
@@ -94,7 +95,7 @@ const RecentSets = (props) => {
             <section className="skill-card__body">
               <div>
                 <h2 className="skill-card__title" style={{ color: 'black' }}>
-                  {bookList[0].title}
+                  <Marquee>{bookList[0].title}</Marquee>
                 </h2>
               </div>
 
@@ -120,7 +121,7 @@ const RecentSets = (props) => {
             <section className="skill-card__body">
               <div>
                 <h2 className="skill-card__title" style={{ color: 'black' }}>
-                  {bookList[1].title}
+                  <Marquee>{bookList[1].title}</Marquee>
                 </h2>
               </div>
 
@@ -150,7 +151,7 @@ const RecentSets = (props) => {
             <section className="skill-card__body">
               <div>
                 <h2 className="skill-card__title" style={{ color: 'black' }}>
-                  {bookList[0].title}
+                  <Marquee>{bookList[0].title}</Marquee>
                 </h2>
               </div>
 
@@ -176,7 +177,7 @@ const RecentSets = (props) => {
             <section className="skill-card__body">
               <div>
                 <h2 className="skill-card__title" style={{ color: 'black' }}>
-                  {bookList[1].title}
+                  <Marquee>{bookList[1].title}</Marquee>
                 </h2>
               </div>
 
@@ -202,7 +203,7 @@ const RecentSets = (props) => {
             <section className="skill-card__body">
               <div>
                 <h2 className="skill-card__title" style={{ color: 'black' }}>
-                  {bookList[2].title}
+                  <Marquee>{bookList[2].title}</Marquee>
                 </h2>
               </div>
 
@@ -232,7 +233,7 @@ const RecentSets = (props) => {
             <section className="skill-card__body">
               <div>
                 <h2 className="skill-card__title" style={{ color: 'black' }}>
-                  {bookList[0].title}
+                  <Marquee>{bookList[0].title}</Marquee>
                 </h2>
               </div>
 
@@ -256,7 +257,7 @@ const RecentSets = (props) => {
             </header>
             <section className="skill-card__body">
               <h2 className="skill-card__title" style={{ color: 'black' }}>
-                {bookList[1].title}
+                <Marquee>{bookList[1].title}</Marquee>
               </h2>
 
               <span className="skill-card__duration">작성자 : {bookList[1].user.name}</span>
@@ -279,7 +280,7 @@ const RecentSets = (props) => {
             </header>
             <section className="skill-card__body">
               <h2 className="skill-card__title" style={{ color: 'black' }}>
-                {bookList[2].title}
+                <Marquee>{bookList[2].title}</Marquee>
               </h2>
 
               <span className="skill-card__duration">작성자 : {bookList[2].user.name}</span>
@@ -302,7 +303,7 @@ const RecentSets = (props) => {
             </header>
             <section className="skill-card__body">
               <h2 className="skill-card__title" style={{ color: 'black' }}>
-                {bookList[3].title}
+                <Marquee>{bookList[3].title}</Marquee>
               </h2>
 
               <span className="skill-card__duration">작성자 : {bookList[3].user.name}</span>
