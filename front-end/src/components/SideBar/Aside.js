@@ -104,7 +104,7 @@ const Aside = ({ book, image, collapsed, rtl, toggled, handleToggleSidebar, hist
           <MenuItem
             className="MenuItem"
             onClick={() => {
-              history.history.push({ pathname: '/test-paper', state: { cardList: entireCardList, book: book } });
+              history.history.push({ pathname: '/test-paper', state: { cardList: entireCardList, book: book, case: 'case1' } });
             }}
             icon={<img src={iconQuiz} style={{ width: '40px', backgroundColor: 'white', borderRadius: '50%' }} />}
           >

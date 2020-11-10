@@ -8,7 +8,7 @@ import backImg from '../../assets/images/logo_transparent.png';
 import { Link } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
-import { IoIosCreate } from "react-icons/io";
+import { IoIosCreate } from 'react-icons/io';
 
 const RecentSets = (props) => {
   const [bookList, setBookList] = useState([]);
@@ -37,7 +37,10 @@ const RecentSets = (props) => {
               </h2>
             </div>
 
-            <span className="skill-card__duration"><IoIosCreate size={20} color={''} style={{ marginRight: '5px' }} />세트 만들러가기</span>
+            <span className="skill-card__duration">
+              <IoIosCreate size={20} color={''} style={{ marginRight: '5px' }} />
+              세트 만들러가기
+            </span>
             <ul className="skill-card__knowledge">
               <li className="text-center">
                 <Button className="RecetPage-set-create-btn" size="lg">
