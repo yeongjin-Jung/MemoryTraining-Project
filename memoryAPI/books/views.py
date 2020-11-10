@@ -31,9 +31,9 @@ class BookView(APIView):
         user = self.request.user.pk
         if self.request.query_params.get('bookmark'):
             card_id_list = Bookmark.objects.filter(book=pk, bookmark_flag=True, user=user).values_list('card', flat=True)
-            cards = Card.objects.filter(book_id=pk, id__in=card_id_list)
+            cards = Card.objects.filter(book_id=pk, id__in=card_id_list).order_by('id')
         else:
-            cards = Card.objects.filter(book_id=pk)
+            cards = Card.objects.filter(book_id=pk).order_by('id')
         for card in cards:
             if Bookmark.objects.filter(book=pk, card=card.id, user=user, bookmark_flag=1).exists():
                 setattr(card, "bookmark_flag", 1)
