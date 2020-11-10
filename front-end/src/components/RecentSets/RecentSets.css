@@ -85,7 +85,7 @@
   flex-wrap: wrap;
   align-items: center;
   overflow: hidden;
-  justify-content: space-around;
+  justify-content: space-evenly;
 }
 
 @media (max-width: 767px) {
