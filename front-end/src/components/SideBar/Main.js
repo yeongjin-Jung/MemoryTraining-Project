@@ -23,7 +23,7 @@ const Main = ({ collapsed, rtl, toggled, history, image, handleToggleSidebar, ha
 
   const getEntireCardList = async () => {
     await axios.get(SERVER.BASE_URL + SERVER.ROUTES.getEntireCards + book.id).then((res) => {
-      console.log('getEntireCardList res: ', res);
+      // console.log('getEntireCardList res: ', res);
       setEntireCardList(res.data);
     });
   };
@@ -36,14 +36,14 @@ const Main = ({ collapsed, rtl, toggled, history, image, handleToggleSidebar, ha
         },
       })
       .then((res) => {
-        console.log('getBookmarkedCardList res: ', res);
+        // console.log('getBookmarkedCardList res: ', res);
         setBookmarkedCardList(res.data);
       });
   };
 
   const getEntireQuizList = async () => {
     await axios.get(SERVER.BASE_URL + SERVER.ROUTES.getEntireQuizs + book.id).then((res) => {
-      console.log('getEntireQuizList quiz: ', res);
+      // console.log('RES getEntireQuizList: ', res);
       setEntireQuizList(res.data);
     });
   };
@@ -56,12 +56,13 @@ const Main = ({ collapsed, rtl, toggled, history, image, handleToggleSidebar, ha
         },
       })
       .then((res) => {
-        console.log('getBookmarkedQuizList quiz: ', res);
+        // console.log('getBookmarkedQuizList quiz: ', res);
         setBookmarkedQuizList(res.data);
       });
   };
 
   useEffect(() => {
+    console.log('Main.js useEffect called.');
     getEntireCardList();
     getBookmarkedCardList();
     getEntireQuizList();
@@ -105,7 +106,7 @@ const Main = ({ collapsed, rtl, toggled, history, image, handleToggleSidebar, ha
         <div className="CardList-root">
           <div className="CardList-container">
             {entireCardList.map((card) => (
-              <Card book={book} card={card} key={card.id} getBookmarkedCardList={getBookmarkedCardList} getBookmarkedQuizList={getBookmarkedQuizList} />
+              <Card book={book} card={card} key={card.id} getBookmarkedCardList={getBookmarkedCardList} getEntireQuizList={getEntireQuizList} getBookmarkedQuizList={getBookmarkedQuizList} />
             ))}
           </div>
         </div>
@@ -114,12 +115,30 @@ const Main = ({ collapsed, rtl, toggled, history, image, handleToggleSidebar, ha
   );
 };
 
-const Card = ({ book, card, getBookmarkedCardList, getBookmarkedQuizList }) => {
+const Card = ({ book, card, getBookmarkedCardList, getEntireQuizList, getBookmarkedQuizList }) => {
   const [color, setColor] = useState(card.bookmark_flag ? 'red' : 'black');
 
   useEffect(() => {
-    console.log('useEffect -> color : ', color);
+    // console.log('useEffect -> color : ', color);
   });
+
+  const handleBookmark = async () => {
+    await axios.post(SERVER.BASE_URL + SERVER.ROUTES.bookmark, { book_id: book.id, card_id: card.id }).then((res) => {
+      console.log(res);
+      getBookmarkedCardList();
+      getEntireQuizList();
+      getBookmarkedQuizList();
+    });
+  };
+
+  const handleUnBookmark = async () => {
+    await axios.delete(SERVER.BASE_URL + SERVER.ROUTES.unbookmark, { data: { book_id: book.id, card_id: card.id } }).then((res) => {
+      console.log(res);
+      getBookmarkedCardList();
+      getEntireQuizList();
+      getBookmarkedQuizList();
+    });
+  };
 
   return (
     <div className="courses-container">
@@ -130,25 +149,27 @@ const Card = ({ book, card, getBookmarkedCardList, getBookmarkedQuizList }) => {
               className=""
               onClick={() => {
                 if (color == 'black') {
-                  console.log('bookmark.');
+                  // console.log('bookmark.');
                   setColor('red');
-                  console.log('book.id : ', book.id);
-                  console.log('card.id : ', card.id);
-                  axios.post(SERVER.BASE_URL + SERVER.ROUTES.bookmark, { book_id: book.id, card_id: card.id }).then((res) => {
-                    console.log(res);
-                    getBookmarkedCardList();
-                    getBookmarkedQuizList();
-                  });
+                  // console.log('book.id : ', book.id);
+                  // console.log('card.id : ', card.id);
+                  // axios.post(SERVER.BASE_URL + SERVER.ROUTES.bookmark, { book_id: book.id, card_id: card.id }).then((res) => {
+                  //   console.log(res);
+                  //   getBookmarkedCardList();
+                  //   getBookmarkedQuizList();
+                  // });
+                  handleBookmark();
                 } else {
-                  console.log('unbookmark.');
+                  // console.log('unbookmark.');
                   setColor('black');
-                  console.log('book.id : ', book.id);
-                  console.log('card.id : ', card.id);
-                  axios.delete(SERVER.BASE_URL + SERVER.ROUTES.unbookmark, { data: { book_id: book.id, card_id: card.id } }).then((res) => {
-                    console.log(res);
-                    getBookmarkedCardList();
-                    getBookmarkedQuizList();
-                  });
+                  // console.log('book.id : ', book.id);
+                  // console.log('card.id : ', card.id);
+                  // axios.delete(SERVER.BASE_URL + SERVER.ROUTES.unbookmark, { data: { book_id: book.id, card_id: card.id } }).then((res) => {
+                  //   console.log(res);
+                  //   getBookmarkedCardList();
+                  //   getBookmarkedQuizList();
+                  // });
+                  handleUnBookmark();
                 }
               }}
             >

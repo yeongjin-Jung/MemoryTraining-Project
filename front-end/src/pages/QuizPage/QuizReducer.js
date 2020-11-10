@@ -1,4 +1,33 @@
-import { SET_ANSWERS, SET_CURRENT_QUESTION, SET_CURRENT_ANSWER, SET_ERROR, SET_SHOW_RESULTS, RESET_QUIZ, SET_WRONG_ANSWER, TOGGLE_BOOKMARK_FLAG } from './types.js';
+import {
+  SET_ANSWERS,
+  SET_CURRENT_QUESTION,
+  SET_CURRENT_ANSWER,
+  SET_ERROR,
+  SET_SHOW_RESULTS,
+  RESET_QUIZ,
+  SET_ALL_WRONG_ANSWERS_TO_BOOKMARKED,
+  TOGGLE_BOOKMARK_FLAG,
+  SET_BOOKMARKED_QUIZ,
+} from './types.js';
+
+import axios from 'axios';
+import SERVER from '../../api/server';
+
+const handleBookmarked = async (action) => {
+  let tmpQuizs = [];
+
+  await axios
+    .get(SERVER.BASE_URL + SERVER.ROUTES.getEntireQuizs + action.book.id, {
+      params: {
+        bookmark: 'True',
+      },
+    })
+    .then((res) => {
+      console.log('!REDUCER 안에서의 res: ', res);
+      tmpQuizs = [...res.data];
+      return tmpQuizs;
+    });
+};
 
 function quizReducer(state, action) {
   switch (action.type) {
@@ -37,12 +66,6 @@ function quizReducer(state, action) {
         error: '',
       };
 
-    case SET_WRONG_ANSWER:
-      console.log('action.idx : ', action.idx);
-      return {
-        ...state,
-      };
-
     case TOGGLE_BOOKMARK_FLAG:
       console.log('TOGGLE_BOOKMARK_FLAG called.');
       console.log('state의 quizs : ', state.quizs);
@@ -56,6 +79,42 @@ function quizReducer(state, action) {
         ...state,
         quizs: tmp,
       };
+
+    case SET_ALL_WRONG_ANSWERS_TO_BOOKMARKED:
+      console.log('state : ', state);
+      console.log('state.answers : ', state.answers);
+      // let answers = state.answers;
+
+      let quizs2 = state.quizs;
+      let tmp2 = [...quizs2];
+
+      state.answers.map((answer) => {
+        if (!answer.isCorrect && tmp2[answer.questionId - 1].card.bookmark_flag == 0) {
+          tmp2[answer.questionId - 1].card.bookmark_flag = !tmp2[answer.questionId - 1].card.bookmark_flag;
+
+          axios.post(SERVER.BASE_URL + SERVER.ROUTES.bookmark, { book_id: action.book.id, card_id: answer.card.id }).then((res) => {
+            console.log('BOOKMARK ACTIVATED.');
+            console.log(res);
+          });
+        }
+      });
+
+      return {
+        ...state,
+        quizs: tmp2,
+      };
+
+    case SET_BOOKMARKED_QUIZ:
+      return {
+        ...state,
+        quizs: [...action.newQuizs],
+        answers: [],
+        currentQuestion: 0,
+        currentAnswer: '',
+        showResults: false,
+        error: '',
+      };
+
     default:
       return state;
   }

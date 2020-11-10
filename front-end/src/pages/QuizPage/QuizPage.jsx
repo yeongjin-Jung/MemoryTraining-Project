@@ -4,7 +4,7 @@ import Progress from './Progress';
 import Question from './Question';
 import Answers from './Answers';
 
-import { SET_ANSWERS, SET_CURRENT_QUESTION, SET_CURRENT_ANSWER, SET_ERROR, SET_SHOW_RESULTS, RESET_QUIZ, TOGGLE_BOOKMARK_FLAG } from './types';
+import { SET_ANSWERS, SET_CURRENT_QUESTION, SET_CURRENT_ANSWER, SET_ERROR, SET_SHOW_RESULTS, RESET_QUIZ, TOGGLE_BOOKMARK_FLAG, SET_BOOKMARKED_QUIZ } from './types';
 import quizReducer from './QuizReducer';
 import QuizContext from './QuizContext';
 
@@ -16,9 +16,10 @@ import axios from 'axios';
 import SERVER from '../../api/server';
 
 const CardTestPage = (props) => {
-  const quizs = props.history.location.state.quizList;
-  console.log('props.history.location.state : ', props.history.location.state);
+  let quizs = props.history.location.state.quizList;
+  // console.log('props.history.location.state : ', props.history.location.state);
   useEffect(() => {
+    dispatch({ type: 'RESET_QUIZ' });
     console.log('quizs =>', quizs);
   }, []);
 
@@ -30,13 +31,20 @@ const CardTestPage = (props) => {
     answers: [],
     showResults: false,
     error: '',
-    wrongAnswersIdx: [],
   };
 
   const [state, dispatch] = useReducer(quizReducer, initialState);
   const { currentQuestion, currentAnswer, answers, showResults, error, wrongAnswersIdx } = state;
 
   const question = quizs[currentQuestion];
+
+  const handleWrongAnswerToBookmark = () => {
+    answers.map((answer) => {
+      console.log('answer : ', answer);
+    });
+
+    dispatch({ type: 'SET_ALL_WRONG_ANSWERS_TO_BOOKMARKED', book: props.history.location.state.book });
+  };
 
   const renderError = () => {
     if (!error) {
@@ -74,7 +82,7 @@ const CardTestPage = (props) => {
             {question.card.bookmark_flag == 0 && (
               <BsBookmark
                 onClick={() => {
-                  console.log('SCRAP BUTTON CLICKED.');
+                  console.log('BOOKMARK BUTTON CLICKED.');
 
                   axios.post(SERVER.BASE_URL + SERVER.ROUTES.bookmark, { book_id: props.history.location.state.book.id, card_id: question.card.id }).then((res) => {
                     console.log('BOOKMARK ACTIVATED.');
@@ -106,8 +114,27 @@ const CardTestPage = (props) => {
     });
   };
 
-  const restart = () => {
-    dispatch({ type: RESET_QUIZ });
+  let newQuizs = [];
+  const getBookmarkedQuizList = async () => {
+    await axios
+      .get(SERVER.BASE_URL + SERVER.ROUTES.getEntireQuizs + props.history.location.state.book.id, {
+        params: {
+          bookmark: 'True',
+        },
+      })
+      .then((res) => {
+        // console.log('getBookmarkedQuizList quiz: ', res);
+        // setBookmarkedQuizList(res.data);
+        console.log('res.data : ', res.data);
+        newQuizs = [...res.data];
+      });
+  };
+
+  const restart = async () => {
+    await getBookmarkedQuizList();
+    console.log('new quizs : ', newQuizs);
+
+    dispatch({ type: SET_BOOKMARKED_QUIZ, newQuizs: newQuizs });
   };
 
   const next = () => {
@@ -150,11 +177,24 @@ const CardTestPage = (props) => {
           <div className="container-result">
             <p>채점 결과</p>
             <div className="align-right">
-              <Button>틀린 문제 모두 스크랩하기</Button>
+              <Button onClick={handleWrongAnswerToBookmark}>틀린 문제 모두 스크랩하기</Button>
             </div>
             <ul>{renderResultData()}</ul>
-            <button className="restart-btn" onClick={restart}>
+            {/* <button className="restart-btn" onClick={restart}>
               다시 시작
+            </button> */}
+            <button className="restart-btn" onClick={restart}>
+              북마크 단어들만 다시 테스트
+            </button>
+            <button
+              className="restart-btn"
+              onClick={() => {
+                console.log('돌아가기 button clicked.');
+                console.log('props : ', props);
+                props.history.push({ pathname: '/set-detail', state: { book: props.location.state.book } });
+              }}
+            >
+              돌아가기
             </button>
           </div>
         </div>
@@ -166,7 +206,7 @@ const CardTestPage = (props) => {
         <div className="CardTest-root">
           <div className="CardTest-background"></div>
           <div className="Quiz-container">
-            <Progress total={quizs.length} current={currentQuestion + 1} />
+            <Progress total={state.quizs.length} current={state.currentQuestion + 1} />
             <div className="Quiz-problem">
               <Question question={question.question} />
               {renderError()}
