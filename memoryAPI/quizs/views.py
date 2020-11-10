@@ -22,7 +22,7 @@ class QuizView(APIView):
 
         card_choices = Card.objects.filter(book_id=pk)
 
-        if cards.count() < 4:
+        if card_choices.count() < 4:
             return Response('객관식 문제 풀기는 한 세트에 4개 이상의 카드가 있어야 가능합니다.', status=status.HTTP_400_BAD_REQUEST)
         
         quiz = {}
