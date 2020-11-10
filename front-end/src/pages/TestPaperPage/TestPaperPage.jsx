@@ -62,15 +62,16 @@ const styles = StyleSheet.create({
     color: 'grey',
   },
   QuizNum: {
-    fontSize: 22,
+    fontSize: 18,
     fontFamily: 'Nanum',
     color: 'red',
-    letterSpacing: 7,
+    letterSpacing: 2,
   },
   QuizContent: {
     fontSize: 14,
     fontFamily: 'Nanum',
     color: '#4f4c4c',
+    letterSpacing: 2,
   },
 });
 
@@ -78,21 +79,28 @@ const TestPaperPage = (props) => {
   const cards = props.location.state.cardList;
   const book = props.location.state.book;
   const [defaultCase, SetDefaultCase] = useState(true);
-
-  const [isBackButtonClicked, setBackbuttonPress] = useState(false);
+  const [locationKeys, setLocationKeys] = useState([]);
+  const history = useHistory();
 
   useEffect(() => {
-    // window.history.pushState(null, null, window.location.pathname);
-    window.addEventListener('popstate', onBackButtonEvent);
+    return history.listen((location) => {
+      if (history.action === 'PUSH') {
+        setLocationKeys([location.key]);
+      }
 
-    // window.removeEventListener('popstate', onBackButtonEvent);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-  const onBackButtonEvent = (e) => {
-    // e.preventDefault();
-    console.log('백버튼');
-    window.location.reload();
-  };
+      if (history.action === 'POP') {
+        if (locationKeys[1] === location.key) {
+          setLocationKeys(([_, ...keys]) => keys);
+
+          // Handle forward event
+        } else {
+          setLocationKeys((keys) => [location.key, ...keys]);
+          console.log('안녕');
+          // Handle back event
+        }
+      }
+    });
+  }, [locationKeys]);
 
   if (cards != null) {
     return (
@@ -120,7 +128,7 @@ const TestPaperPage = (props) => {
                     </Text>
 
                     <Text style={styles.QuizContent}>
-                      {'단어 : ' + data.word + '\n\n'} {'뜻     :  ' + data.meaning} {'\n\n\n\n\n'}
+                      {'단어 : ' + data.word + '\n\n'} {'뜻   : ' + data.meaning} {'\n\n\n\n\n'}
                     </Text>
                   </Text>
                 ))}
@@ -137,11 +145,11 @@ const TestPaperPage = (props) => {
                   <Text key={index}>
                     <Text style={styles.QuizNum}>
                       {' '}
-                      {'문제'}
+                      {'문제 '}
                       {index + 1 + '' + '\n\n'}
                     </Text>
                     <Text style={styles.QuizContent}>
-                      {'단어 : ' + data.word + '\n\n'} {'뜻     :'} {'\n\n\n\n\n'}
+                      {'단어 : ' + data.word + '\n\n'} {'뜻   : '} {'\n\n\n\n\n'}
                     </Text>
                   </Text>
                 ))}

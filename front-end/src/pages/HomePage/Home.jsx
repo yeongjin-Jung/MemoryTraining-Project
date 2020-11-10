@@ -7,7 +7,7 @@ const Home = (props) => {
     <>
       <div className="Home-BackgroundColor"></div>
       <HomeTitle />
-      <RecentSets className="RecentSets" props={props} />
+      <RecentSets className="RecentSets" prop={props} />
     </>
   );
 };
