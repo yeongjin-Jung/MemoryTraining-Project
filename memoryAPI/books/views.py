@@ -91,11 +91,11 @@ class MyBookView(generics.ListAPIView):
 
         books = Book.objects.filter(id__in=my_books).annotate(_sort_index=models.Case(*whens, output_field=models.IntegerField())).order_by('_sort_index')
         # books = Book.objects.filter(id__in=my_books)
-        # for book in books:
-        #     if MyBook.objects.get(book=book.pk, user_id=user_id).write_flag==1:
-        #         setattr(book, 'write_flag', 1)
-        #     else:
-        #         setattr(book, 'write_flag', 0)
+        for book in books:
+            if MyBook.objects.get(book=book.pk, user_id=user_id).write_flag==1:
+                setattr(book, 'write_flag', 1)
+            else:
+                setattr(book, 'write_flag', 0)
         return books
 
 class BookmarkView(APIView):
