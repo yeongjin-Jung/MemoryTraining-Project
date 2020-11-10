@@ -200,10 +200,18 @@
 
 .word-type {
   position: fixed;
-  right: 0.7em;
+  left: 0.7em;
   top: 0.7em;
   font-size: 2em;
   font-weight: 900;
+}
+
+.bookmark-icon {
+  position: fixed;
+  right: 1.7em;
+  top: 1.6em;
+  /* font-size: 2em; */
+  /* font-weight: 900; */
 }
 
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:600&display=swap');

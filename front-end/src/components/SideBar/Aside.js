@@ -20,10 +20,10 @@ const Aside = ({ book, image, collapsed, rtl, toggled, handleToggleSidebar, hist
   }, []);
 
   useEffect(() => {
-    // console.log('entireCardList : ', entireCardList);
-    // console.log('bookmarkedCardList : ', bookmarkedCardList);
-    // console.log('entireQuizList : ', entireQuizList);
-    // console.log('bookmarkedQuizList : ', bookmarkedQuizList);
+    console.log('entireCardList : ', entireCardList);
+    console.log('bookmarkedCardList : ', bookmarkedCardList);
+    console.log('entireQuizList : ', entireQuizList);
+    console.log('bookmarkedQuizList : ', bookmarkedQuizList);
   });
 
   return (
@@ -42,7 +42,8 @@ const Aside = ({ book, image, collapsed, rtl, toggled, handleToggleSidebar, hist
             color: 'white',
           }}
         >
-          내 세트
+          {book.write_flag == 0 && '스크랩한 세트'}
+          {book.write_flag == 1 && '내가 작성한 세트'}
         </div>
         {/* <div style={{ height: '2rem' }}></div> */}
       </SidebarHeader>
