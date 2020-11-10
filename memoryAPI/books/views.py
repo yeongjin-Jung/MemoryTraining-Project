@@ -12,6 +12,7 @@ from django.shortcuts import get_object_or_404
 from django.http import Http404
 from django.db.models import IntegerField, Case, Value, When
 from random import shuffle
+from django.db import models
 
 class BookView(APIView):
     permission_calsses = [IsAuthenticated]
@@ -81,16 +82,20 @@ class MyBookView(generics.ListAPIView):
     def get_queryset(self):
         user_id = self.request.user.pk
         print(user_id)
-        my_books = MyBook.objects.filter(user=user_id).values_list('book', flat=True)
+        my_books = MyBook.objects.filter(user=user_id).order_by('-id').values_list('book', flat=True)
         print(my_books)
         # books = Book.objects.filter(id__in=my_books).order_by('-id').annotate(write_flag=Case(When(MyBook.objects.get(book=Book.pk, user_id=user_id).write_flag==1), then=Value(1)), default=Value(0), output_field=IntegerField())
-        
-        books = Book.objects.filter(id__in=my_books)
-        for book in books:
-            if MyBook.objects.get(book=book.pk, user_id=user_id).write_flag==1:
-                setattr(book, 'write_flag', 1)
-            else:
-                setattr(book, 'write_flag', 0)
+        whens = []
+        for sort_index, value in enumerate(my_books):
+            whens.append(models.When(id=value, then=models.Value(sort_index)))
+
+        books = Book.objects.filter(id__in=my_books).annotate(_sort_index=models.Case(*whens, output_field=models.IntegerField())).order_by('_sort_index')
+        # books = Book.objects.filter(id__in=my_books)
+        # for book in books:
+        #     if MyBook.objects.get(book=book.pk, user_id=user_id).write_flag==1:
+        #         setattr(book, 'write_flag', 1)
+        #     else:
+        #         setattr(book, 'write_flag', 0)
         return books
 
 class BookmarkView(APIView):
