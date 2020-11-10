@@ -65,24 +65,52 @@ const Aside = ({ book, image, collapsed, rtl, toggled, handleToggleSidebar, hist
             suffix={<span className="badge red">{intl.formatMessage({ id: 'new' })}</span>}
           > */}
 
-          <MenuItem
-            className="MenuItem"
-            onClick={() => {
-              history.history.push({ pathname: '/study', state: { cardList: cardList, book: book } });
-            }}
+          <SubMenu
+            // className="MenuItem"
+            title="암기하기"
             icon={<img src={iconMemorize} style={{ width: '40px', backgroundColor: 'white', borderRadius: '50%' }} />}
           >
-            암기하기
-          </MenuItem>
-          <MenuItem
-            className="MenuItem"
-            onClick={() => {
-              history.history.push({ pathname: '/quiz', state: { quizList: quizList } });
-            }}
+            <MenuItem
+              className="MenuItem"
+              onClick={() => {
+                history.history.push({ pathname: '/study', state: { cardList: cardList, book: book } });
+              }}
+            >
+              전체 카드
+            </MenuItem>
+            <MenuItem
+              className="MenuItem"
+              onClick={() => {
+                history.history.push({ pathname: '/study', state: { cardList: cardList, book: book } });
+              }}
+            >
+              북마크 카드
+            </MenuItem>
+          </SubMenu>
+
+          <SubMenu
+            // className="MenuItem"
+            title="테스트"
             icon={<img src={iconTest} style={{ width: '40px', backgroundColor: 'white', borderRadius: '50%' }} />}
           >
-            테스트
-          </MenuItem>
+            <MenuItem
+              className="MenuItem"
+              onClick={() => {
+                history.history.push({ pathname: '/quiz', state: { quizList: quizList } });
+              }}
+            >
+              전체 카드
+            </MenuItem>
+            <MenuItem
+              className="MenuItem"
+              onClick={() => {
+                history.history.push({ pathname: '/quiz', state: { quizList: quizList } });
+              }}
+            >
+              북마크 카드
+            </MenuItem>
+          </SubMenu>
+
           <MenuItem
             className="MenuItem"
             onClick={() => {
