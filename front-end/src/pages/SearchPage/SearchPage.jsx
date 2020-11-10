@@ -140,7 +140,7 @@ const Book = ({ book }) => {
   const getCardList = async () => {
     console.log('getBookList called.');
     // await axios.get(`http://127.0.0.1:8000/api/books/${book.id}`).then((res) => {
-    await axios.get(SERVER.BASE_URL + SERVER.ROUTES.getbook + book.id).then((res) => {
+    await axios.get(SERVER.BASE_URL + SERVER.ROUTES.getEntireCards + book.id).then((res) => {
       console.log(res);
       let tmpCardList = [];
       tmpCardList = [...res.data];
@@ -240,7 +240,6 @@ const Book = ({ book }) => {
           {cardList.map((card) => (
             <Card card={card} key={card.id} />
           ))}
-
         </SimpleBar>
       </Rodal>
     </div>
