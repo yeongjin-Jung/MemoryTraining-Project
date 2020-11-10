@@ -86,7 +86,7 @@ const Aside = ({ book, image, collapsed, rtl, toggled, handleToggleSidebar, hist
             <MenuItem
               className="MenuItem"
               onClick={() => {
-                history.history.push({ pathname: '/quiz', state: { quizList: entireQuizList } });
+                history.history.push({ pathname: '/quiz', state: { quizList: entireQuizList, book: book } });
               }}
             >
               전체 카드
@@ -94,7 +94,7 @@ const Aside = ({ book, image, collapsed, rtl, toggled, handleToggleSidebar, hist
             <MenuItem
               className="MenuItem"
               onClick={() => {
-                history.history.push({ pathname: '/quiz', state: { quizList: bookmarkedQuizList } });
+                history.history.push({ pathname: '/quiz', state: { quizList: bookmarkedQuizList, book: book } });
               }}
             >
               북마크 카드
@@ -102,7 +102,7 @@ const Aside = ({ book, image, collapsed, rtl, toggled, handleToggleSidebar, hist
           </SubMenu>
 
           <MenuItem
-            className="MenuItem"
+            className="MenuItem testpaper-btn"
             onClick={() => {
               history.history.push({ pathname: '/test-paper', state: { cardList: entireCardList, book: book, case: 'case1' } });
             }}

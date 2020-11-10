@@ -83,7 +83,7 @@ const SearchPage = (props) => {
         <p className="search-title">검색어 : {searchValue}</p>
         <div className="ButtonContainer">
           <SortDropDown className="searchDropDown" onChaneHandler={onChaneHandler} />
-          <Link to="/create-set">
+          <Link to="/set-create">
             <Button className="set-create-btn">
               <span style={{ fontWeight: '600', color: 'black' }}>세트 만들기</span>
             </Button>

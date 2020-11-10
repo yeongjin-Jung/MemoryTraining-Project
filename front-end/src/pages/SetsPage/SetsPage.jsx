@@ -3,12 +3,13 @@ import React, { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import { DropDown } from '../../components';
-import './SetsPage.css';
-import 'animate.css';
 import FadeIn from 'react-fade-in';
-
 import axios from 'axios';
 import SERVER from '../../api/server';
+import { AwesomeButton } from 'react-awesome-button';
+import './unscrap-btn-styles.css';
+import './SetsPage.css';
+import 'animate.css';
 
 const SetsPage = (props) => {
   const [DropDownValue, setDropDownValue] = useState('all');
@@ -96,20 +97,33 @@ function Book({ book, history, getBookList }) {
         </div>
         <div className="container-fluid" style={{ display: 'flex', justifyContent: 'flex-end' }}>
           {book.write_flag == 0 && (
-            <Button
-              className="set-unscrap-btn"
-              style={{ zIndex: '1' }}
-              onClick={(e) => {
+            // <Button
+            //   className="set-unscrap-btn"
+            //   style={{ zIndex: '1' }}
+            //   onClick={(e) => {
+            //     axios.delete(SERVER.BASE_URL + SERVER.ROUTES.unscrap, { data: { book_id: book.id } }).then((res) => {
+            //       console.log(res);
+            //       getBookList();
+            //     });
+            //     e.stopPropagation();
+            //   }}
+            // >
+            //   <span>스크랩 해제</span>
+            // </Button>
+
+            <AwesomeButton
+              className="aws-unscrap-btn"
+              type="secondary"
+              onPress={(e) => {
                 axios.delete(SERVER.BASE_URL + SERVER.ROUTES.unscrap, { data: { book_id: book.id } }).then((res) => {
                   console.log(res);
                   getBookList();
                 });
-
-                e.stopPropagation();
+                //     e.stopPropagation();
               }}
             >
-              <span>스크랩 해제</span>
-            </Button>
+              <span>스크랩해제</span>
+            </AwesomeButton>
           )}
         </div>
       </a>

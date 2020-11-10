@@ -19,8 +19,8 @@
   right: 0;
   top: 0;
   z-index: -1;
-
-  background-color: #c6f5ed;
+  background: linear-gradient(-45deg, #ddee9f, #fffedc, #63bfe0, #c6f5ea);
+  background-size: 400% 400%;
 }
 
 .Quiz-container {
@@ -48,6 +48,7 @@
   .Quiz-problem {
     padding: 1.5em;
     height: 35%;
+    padding: 0.5em;
   }
 }
 .Quiz-problem p {
@@ -76,17 +77,19 @@
   text-align: left;
   margin-bottom: 15px;
   position: relative;
-  font-size: 2.5em;
+  font-size: 2em;
   cursor: pointer;
   transition: ease-in-out, width 0.35s ease-in-out;
   box-shadow: 3px 3px 3px 3px gray;
   z-index: 100;
-  font-weight: 200;
+  font-weight: 600;
+  font-family: NanumBarunGothic;
 }
 
 @media (max-width: 800px) {
-  .answer p {
-    font-size: 0.8em;
+  .answer {
+    font-size: 1.2em;
+    padding-left: 15px;
   }
 }
 
@@ -97,13 +100,13 @@
 }
 
 .answer.selected {
-  color: #4f4c4c;
-  background-color: #7cd5ff;
+  color: #ffffff;
+  background-color: #15b5ff;
 }
 
 .answer:hover {
-  color: #4f4c4c;
-  background-color: #7cd5ff;
+  color: #ffffff;
+  background-color: #15b5ff;
 }
 
 .answer:focus {
@@ -214,29 +217,32 @@
 }
 
 .progress-root {
-  padding-top: 4em;
+  padding-top: 7em;
   position: relative;
 }
 .progress-root p {
-  color: rgb(0, 255, 42);
+  color: rgb(51, 255, 0);
   font-size: 3em;
   font-weight: 700;
+  text-shadow: 2px 2px 3px black;
 }
 @media (max-width: 800px) {
   .progress-root p {
+    margin-top: 0;
     font-size: 1.9em;
   }
 }
 .Quiz-problem p {
   width: 80%;
   text-align: center;
-  font-size: 2em;
+  font-size: 1.7em;
   color: black;
-  font-weight: 700;
+  font-weight: 600;
+  font-family: NanumBarunGothic;
 }
 @media (max-width: 800px) {
   .Quiz-problem p {
-    font-size: 1.6em;
+    font-size: 1.4em;
   }
 }
 
@@ -272,4 +278,19 @@
   .restart-btn {
     font-size: 1.7em;
   }
+}
+.back-btn-container {
+  height: 15%;
+  width: 100%;
+  background-color: yellow;
+}
+
+.aws-Quizback-btn {
+  position: absolute;
+  right: 10vw;
+  top: 5%;
+}
+
+.aws-Quizback-btn span {
+  font-weight: 900;
 }

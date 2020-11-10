@@ -1,5 +1,4 @@
 import React, { useReducer, useState, useEffect } from 'react';
-import './QuizPage.css';
 import Progress from './Progress';
 import Question from './Question';
 import Answers from './Answers';
@@ -7,12 +6,15 @@ import Answers from './Answers';
 import { SET_ANSWERS, SET_CURRENT_QUESTION, SET_CURRENT_ANSWER, SET_ERROR, SET_SHOW_RESULTS, RESET_QUIZ } from './types';
 import quizReducer from './QuizReducer';
 import QuizContext from './QuizContext';
-
+import { AwesomeButton } from 'react-awesome-button';
+import '../../assets/css/back-btn-styles.css';
+import './QuizPage.css';
 const CardTestPage = (props) => {
   const quizs = props.history.location.state.quizList;
-
+  const book = props.history.location.state.book;
   useEffect(() => {
     console.log('quizs =>', quizs);
+    console.log('book=>', book);
   }, []);
 
   const initialState = {
@@ -106,6 +108,17 @@ const CardTestPage = (props) => {
       <QuizContext.Provider value={{ state, dispatch }}>
         <div className="CardTest-root">
           <div className="CardTest-background"></div>
+
+          <AwesomeButton
+            className="aws-Quizback-btn"
+            type="primary"
+            onPress={() => {
+              props.history.push({ pathname: '/set-detail', state: { book: book } });
+            }}
+          >
+            <span>세트페이지</span>
+          </AwesomeButton>
+
           <div className="Quiz-container">
             <Progress total={quizs.length} current={currentQuestion + 1} />
             <div className="Quiz-problem">

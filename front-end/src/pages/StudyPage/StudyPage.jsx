@@ -4,9 +4,6 @@ import { Link } from 'react-router-dom';
 import CoreStyles from '../StudyPage/styles.scss';
 import AwesomeSliderStyles from 'react-awesome-slider/src/styled/open-animation/open-animation.scss';
 import Flippy, { FrontSide, BackSide } from 'react-flippy';
-import 'react-sweet-progress/lib/style.css';
-import '../../assets/css/back-btn-styles.css';
-import './StudyPage.css';
 import Speech from 'react-speech';
 
 import SimpleBar from 'simplebar-react';
@@ -16,7 +13,10 @@ import { FcBookmark } from 'react-icons/fc';
 
 import axios from 'axios';
 import SERVER from '../../api/server';
-import { AwesomeButton, AwesomeButtonProgress, AwesomeButtonSocial } from 'react-awesome-button';
+import { AwesomeButton } from 'react-awesome-button';
+import 'react-sweet-progress/lib/style.css';
+import '../../assets/css/back-btn-styles.css';
+import './StudyPage.css';
 const ref = React.createRef();
 
 const StudyPage = (props) => {
@@ -48,7 +48,7 @@ const StudyPage = (props) => {
     <div className="StudyPageContainer">
       <div className="Study-BackgroundColor"></div>
       <AwesomeButton
-        className="aws-btn"
+        className="aws-studyback-btn"
         type="primary"
         onPress={() => {
           props.history.push({ pathname: '/set-detail', state: { book: book } });
@@ -58,7 +58,9 @@ const StudyPage = (props) => {
       </AwesomeButton>
       {cards.length == 0 && (
         <div className="FlippyContainer-root" key={0}>
-          북마크 된 단어가 없습니다.
+          <div className="none-bookmark">
+            <p>북마크 된 단어가 없습니다.</p>
+          </div>
         </div>
       )}
       {cards.length != 0 && (
@@ -133,7 +135,9 @@ const Card = ({ data, handleCard, book }) => {
           <div className="speech-button" onClick={stopPropagation}>
             <Speech text={data.word} />
           </div>
-          <p>{data.word}</p>
+          <div className="word-content">
+            <p>{data.word}aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
+          </div>
         </FrontSide>
         <BackSide className="BackSide">
           <div className="bookmark-icon">
