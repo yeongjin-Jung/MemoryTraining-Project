@@ -32,7 +32,17 @@ const Main = ({ collapsed, rtl, image, handleToggleSidebar, handleCollapsedChang
         </div>
       </div>
       <header>
-        <div className="h1 text-center">{book.title}</div>
+        {/* <div className="h1 text-center">
+          {book.title}&nbsp; (<FcBookmark /> : 북마크 표시)
+        </div> */}
+        <div className="text-center">
+          <div className="h1">
+            {book.title}
+            <div className="h3">
+              &nbsp; (<FcBookmark /> : 북마크 표시)
+            </div>
+          </div>
+        </div>
       </header>
 
       <div className="Sets-root">
