@@ -39,6 +39,7 @@ class BookView(APIView):
                 setattr(card, "bookmark_flag", 1)
             else:
                 setattr(card, "bookmark_flag", 0)
+        cards = cards.order_by('id')
         if self.request.query_params.get('random'):
             cards = list(cards)
             shuffle(cards)
