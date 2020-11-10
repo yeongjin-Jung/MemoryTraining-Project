@@ -126,6 +126,8 @@ const Search = ({ toggleSearch, toggleButtonRef, collapseRef }) => {
   const inputRef = useRef(null);
 
   useEffect(() => {
+    inputRef.current.focus();
+
     /**
      * Alert if clicked on outside of element
      */
