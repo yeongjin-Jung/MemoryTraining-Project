@@ -28,12 +28,12 @@ class BookView(APIView):
         return Response(serializer.data)
 
     def get(self, request, pk, format=None):
+        user = self.request.user.pk
         if self.request.query_params.get('bookmark'):
-            card_id_list = Bookmark.objects.filter(book=pk, bookmark_flag=True).values_list('card', flat=True)
+            card_id_list = Bookmark.objects.filter(book=pk, bookmark_flag=True, user=user).values_list('card', flat=True)
             cards = Card.objects.filter(book_id=pk, id__in=card_id_list)
         else:
             cards = Card.objects.filter(book_id=pk)
-        user = self.request.user.pk
         for card in cards:
             if Bookmark.objects.filter(book=pk, card=card.id, user=user, bookmark_flag=1).exists():
                 setattr(card, "bookmark_flag", 1)
