@@ -111,11 +111,11 @@ const SetPage = (props) => {
                       console.log('createSetDescription.current.value : ', createSetDescription.current.value);
 
                       if (createSetTitle.current.value == '') {
-                        alert('제목을 입력해주세요.');
+                        alert('제목을 입력해주세요');
                       } else if (createSetDescription.current.value == '') {
-                        alert('설명을 입력해주세요.');
+                        alert('설명을 입력해주세요');
                       } else if (cards.length < 4) {
-                        alert('최소 4개의 카드를 추가해주세요.');
+                        alert('최소 4개의 카드를 추가해주세요');
                       } else {
                         console.log('cards : ', cards);
                         const book = {
@@ -137,6 +137,7 @@ const SetPage = (props) => {
                             console.log('props.history : ', props.history);
                             props.history.push({ pathname: '/set-detail', state: { book: res.data } });
                           });
+                        alert('저장되었습니다');
                       }
                     }}
                   >
@@ -186,6 +187,7 @@ const SetPage = (props) => {
                 </div>
               </div>
               <div style={{ marginTop: '2rem' }}>
+                <span className="CreateSetHeader-title">제목</span>
                 <Form.Control className="inputbox create-set-title" type="text" placeholder="제목을 입력하세요." ref={createSetTitle} />
                 {/* <span className="">제목</span> */}
 
