@@ -5,19 +5,28 @@
 // 로그인에 관한 컴포넌트로 작성해주세요.
 
 // 영진 작성 예정.
-import React, { useState } from 'react';
+import React, { useState, useReducer } from 'react';
 import '../LoginPage/Login.css';
 import '../../assets/css/util.css';
 import { withRouter } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { loginUser } from '../../_actions/userAction';
 import axios from 'axios';
 import SERVER from '../../api/server';
 
+import { useEffect } from 'react';
+
 const LoginPage = (props) => {
+  // const [state, dispatch] = useReducer(UserReducer);
+  const dispatch = useDispatch();
+
   const [Email, setEmail] = useState('');
   const [Password, setPassword] = useState('');
-  const dispatch = useDispatch();
+
+  useEffect(() => {
+    console.log('LoginPage.jsx useEffect called.');
+    console.log('props : ', props);
+    // console.log('isLoggedIn : ', isLoggedIn);
+  });
 
   const onEmailHandler = (e) => {
     setEmail(e.currentTarget.value);
@@ -27,6 +36,7 @@ const LoginPage = (props) => {
   };
 
   const onSubmitHandler = (e) => {
+    console.log('로그인 버튼 누름.');
     e.preventDefault();
 
     if (localStorage.getItem('Authorization') != null) {
@@ -39,19 +49,7 @@ const LoginPage = (props) => {
       email: Email,
       password: Password,
     };
-    // dispatch(loginUser(body))
-    //   .then((res) => {
-    //     console.log(res);
-    //     if (res.type == 'LOGIN_USER') {
-    //       localStorage.setItem('Authorization', 'JWT ' + res.payload.token);
-    //       props.history.push('/');
-    //     } else {
-    //       alert(res.payload.message);
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
+
     axios
       .post(
         SERVER.BASE_URL + SERVER.ROUTES.login,
@@ -67,6 +65,7 @@ const LoginPage = (props) => {
         if (response.status == 200) {
           localStorage.setItem('Authorization', 'JWT ' + response.data.token);
         }
+        dispatch({ type: 'LOGIN' });
         props.history.push('/');
       })
       .catch(function (error) {
