@@ -90,3 +90,20 @@
   padding-top: 0;
   padding-bottom: 0;
 }
+@media (max-width: 990px) {
+  .col-11 {
+    padding-top: 10px;
+  }
+}
+@media (max-width: 990px) {
+  .nav-search-close {
+    padding: 0.2rem 0.5rem;
+    height: 38px;
+  }
+}
+@media (max-width: 990px) {
+  .input-group-append {
+    padding-top: 9px;
+    padding-left: 0px;
+  }
+}
