@@ -20,7 +20,6 @@ const RecentSets = (props) => {
   }, []);
 
   const renderComponent = () => {
-    console.log(bookList)
     if (bookList === null) {  // 렌더링 초기값 설정부분, 초기값을 null 로 두고 bookList 가 불러지기 전에는 비어있는 div 리턴
       return <div></div>
     }
@@ -34,7 +33,7 @@ const RecentSets = (props) => {
 
       return (
         lengthArr.map((i) => (  // bookList 의 길이만큼 SkillCard 컴포넌트 생성
-          <SkillCard book={bookList} index={i - 1} />  // 컴포넌트 생성하면서 해당 인덱스를 prop 으로 넘겨줌
+          <SkillCard key={i - 1} book={bookList} index={i - 1} />  // 컴포넌트 생성하면서 해당 인덱스를 prop 으로 넘겨줌
         ))
       );
     }
