@@ -40,7 +40,7 @@ class QuizView(APIView):
         # print(quiz)
 
         for card in card_choices:
-            quiz_choice += [card.word]
+            quiz_choice += [model_to_dict(card)]
         
         # quiz.keys()  # 키 값들 모음
         # type(  list(quiz.keys())  ) => list, type(  quiz.keys()  ) => dict_kyes 객체(순회만가능, CRUD 불가) dict_values, dict_items 동일
@@ -54,21 +54,30 @@ class QuizView(APIView):
             print(quiz_choice)
             if len(quiz_choice) == 4:
                 random.shuffle(quiz_choice)
-                answers = quiz_choice
             else:
-                answers = random.sample(quiz_choice, 4)  # 4개 랜덤뽑기
-            print(answers)
+                quiz_choice = random.sample(quiz_choice, 4)  # 4개 랜덤뽑기
             # print('index:',k+1, '문제:',Q, '답:',A, '번호:',answers)
-            if A not in answers:
-                answers.pop()
-                answers.append(A)
-                random.shuffle(answers)  # 순서 랜덤바꾸기
-            # quizbox.append({'question':Q, 'answer':A, 'choice':answers})
+            answer_flag = False # quiz_choice에 answer이 이미 포함되어있으면 True, 아니면 False
+            answer_list = []
             alphabet = ''
-            for i in range(len(answers)):
-                if answers[i] == A:
-                    alphabet = chr(97+i)
-            quizbox.append({'card':card, 'question':Q, 'a':answers[0], 'b':answers[1], 'c':answers[2], 'd':answers[3], 'answer':alphabet})
+            alphabet_list = []
+            for idx in range(len(quiz_choice)):
+                if quiz_choice[idx]['meaning'] == Q:
+                    answer_flag = True
+                    answer_list += [idx]
+            if not answer_flag:
+                quiz_choice.pop()
+                quiz_choice.append(card)
+                random.shuffle(quiz_choice)  # 순서 랜덤바꾸기
+                for i in range(len(quiz_choice)):
+                    if quiz_choice[i]['word'] == A:
+                        alphabet = chr(97+i)
+                        alphabet_list += [alphabet]
+            else:
+                for answer in answer_list:
+                    alphabet = chr(97+answer)
+                    alphabet_list += [alphabet]
+            quizbox.append({'card':card, 'question':Q, 'a':quiz_choice[0]['word'], 'b':quiz_choice[1]['word'], 'c':quiz_choice[2]['word'], 'd':quiz_choice[3]['word'], 'answer':alphabet_list})
 
         random.shuffle(quizbox)
         
