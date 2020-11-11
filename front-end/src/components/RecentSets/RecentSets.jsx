@@ -11,6 +11,7 @@ import { IoIosCreate } from 'react-icons/io';
 import SkillCard from './SkillCard';
 
 const RecentSets = (props) => {
+  // console.log('Recent', props)
   const [bookList, setBookList] = useState(null);
 
   useEffect(() => {
@@ -31,11 +32,9 @@ const RecentSets = (props) => {
         lengthArr.push(i + 1)
       };
 
-      return (
-        lengthArr.map((i) => (  // bookList 의 길이만큼 SkillCard 컴포넌트 생성
-          <SkillCard key={i - 1} book={bookList} index={i - 1} />  // 컴포넌트 생성하면서 해당 인덱스를 prop 으로 넘겨줌
-        ))
-      );
+      return lengthArr.map((i) => (  // bookList 의 길이만큼 SkillCard 컴포넌트 생성
+        <SkillCard history={props.history} key={i - 1} book={bookList} index={i - 1} />  // 컴포넌트 생성하면서 해당 인덱스를 prop 으로 넘겨줌
+      ));
     }
 
     else {  // bookList 가 존재하지 않을 때, Default 컴포넌트

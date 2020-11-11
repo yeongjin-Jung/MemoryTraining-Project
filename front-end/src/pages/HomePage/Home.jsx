@@ -2,12 +2,13 @@ import React from 'react';
 import { RecentSets, HomeTitle } from '../../components';
 import './Home.css';
 
-const Home = () => {
+const Home = (props) => {
+  // console.log('Home', props)
   return (
     <>
       <div className="Home-BackgroundColor"></div>
       <HomeTitle />
-      <RecentSets />
+      <RecentSets history={props.history} />
     </>
   );
 };
