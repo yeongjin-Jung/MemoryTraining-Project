@@ -76,6 +76,7 @@ const RecentSets = (props) => {
 
   return (
     <section className="bg">
+      <p className="title">최근 스크랩한 세트</p>
       {/* {bookList ? <p className="title">최근 스크랩한 세트</p> : <p className="title">암기의정석</p>} */}
       <div className="card-container">
         <div className="cards-list">{renderComponent()}</div>
