@@ -239,11 +239,11 @@ const SetModifyPage = (props) => {
                       console.log('createSetDescription.current.value : ', createSetDescription.current.value);
 
                       if (createSetTitle.current.value == '') {
-                        alert('제목을 입력해주세요.');
+                        alert('제목을 입력해주세요');
                       } else if (createSetDescription.current.value == '') {
-                        alert('설명을 입력해주세요.');
+                        alert('설명을 입력해주세요');
                       } else if (cards.length < 4) {
-                        alert('최소 4개의 카드를 추가해주세요.');
+                        alert('최소 4개의 카드를 추가해주세요');
                       } else {
                         console.log('cards : ', cards);
                         console.log('deleteCardList : ', deleteCardList);
@@ -272,7 +272,8 @@ const SetModifyPage = (props) => {
                               });
                             });
                           });
-                      }
+                        alert('저장되었습니다');
+                      };
                     }}
                   >
                     저장
@@ -284,7 +285,7 @@ const SetModifyPage = (props) => {
                       if (result) {
                         axios.delete(SERVER.BASE_URL + SERVER.ROUTES.delete + props.location.state.book.id).then((res) => {
                           console.log(res);
-                          alert(`[${props.location.state.book.title}] 세트가 삭제되었습니다.`);
+                          alert(`[${props.location.state.book.title}] 세트가 삭제되었습니다`);
                           props.history.push('/sets');
                         });
                       } else {
