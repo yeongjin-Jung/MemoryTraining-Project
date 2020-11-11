@@ -33,11 +33,24 @@
   --button-nextQuiz-color-hover: #ffbb00;
   --button-nextQuiz-border: none;
 
+  --button-testpaper-color: #fdcd21;
+  --button-testpaper-color-dark: #997a0a;
+  --button-testpaper-color-light: #000000;
+  --button-testpaper-color-hover: #ffbb00;
+  --button-testpaper-border: none;
+
   --button-bookmark-restart-color: #ff5252;
   --button-bookmark-restart-color-dark: #931a1a;
   --button-bookmark-restart-color-light: #ffffff;
   --button-bookmark-restart-color-hover: #ff0000;
   --button-bookmark-restart-border: none;
+
+  --button-setsave-color: #ff5252;
+  --button-setsave-color-dark: #931a1a;
+  --button-setsave-color-light: #ffffff;
+  --button-setsave-color-hover: #ff0000;
+  --button-setsave-border: none;
+
   --button-anchor-color: #f3c8ad;
   --button-anchor-color-dark: #734922;
   --button-anchor-color-light: #4c3016;
@@ -627,6 +640,41 @@ button.aws-btn .aws-btn__wrapper {
   color: var(--button-secondary-color-light);
 }
 
+.aws-btn--setsave .aws-btn__wrapper:before {
+  background: var(--button-setsave-color-dark);
+}
+.aws-btn--setsave .aws-btn__content {
+  background: var(--button-setsave-color);
+  color: var(--button-setsave-color-light);
+  border: var(--button-setsave-border);
+}
+.aws-btn--setsave .aws-btn__content path {
+  fill: var(--button-setsave-color-light);
+}
+.aws-btn--setsave .aws-btn__wrapper:hover .aws-btn__content {
+  background: var(--button-setsave-color-hover);
+}
+.aws-btn--setsave.aws-btn--active .aws-btn__wrapper .aws-btn__content {
+  background: var(--button-setsave-color-active);
+}
+.aws-btn--setsave.aws-btn--progress .aws-btn__content > span {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+.aws-btn--setsave.aws-btn--progress .aws-btn__progress:before,
+.aws-btn--setsave.aws-btn--progress .aws-btn__progress:after {
+  color: var(--button-setsave-color-light);
+}
+
 .aws-btn--third .aws-btn__wrapper:before {
   background: var(--button-third-color-dark);
 }
@@ -695,6 +743,41 @@ button.aws-btn .aws-btn__wrapper {
 .aws-btn--nextQuiz.aws-btn--progress .aws-btn__progress:before,
 .aws-btn--nextQuiz.aws-btn--progress .aws-btn__progress:after {
   color: var(--button-nextQuiz-color-light);
+}
+
+.aws-btn--testpaper .aws-btn__wrapper:before {
+  background: var(--button-testpaper-color-dark);
+}
+.aws-btn--testpaper .aws-btn__content {
+  background: var(--button-testpaper-color);
+  color: var(--button-testpaper-color-light);
+  border: var(--button-testpaper-border);
+}
+.aws-btn--testpaper .aws-btn__content path {
+  fill: var(--button-testpaper-color-light);
+}
+.aws-btn--testpaper .aws-btn__wrapper:hover .aws-btn__content {
+  background: var(--button-testpaper-color-hover);
+}
+.aws-btn--testpaper.aws-btn--active .aws-btn__wrapper .aws-btn__content {
+  background: var(--button-testpaper-color-active);
+}
+.aws-btn--testpaper.aws-btn--progress .aws-btn__content > span {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+.aws-btn--testpaper.aws-btn--progress .aws-btn__progress:before,
+.aws-btn--testpaper.aws-btn--progress .aws-btn__progress:after {
+  color: var(--button-testpaper-color-light);
 }
 
 .aws-btn--testfinish .aws-btn__wrapper:before {

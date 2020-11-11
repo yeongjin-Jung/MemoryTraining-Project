@@ -1,13 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
-
 import { Form, Button } from 'react-bootstrap';
-import './SetPage.css';
-
 import { FiPlus, FiTrash2, FiEdit2, FiSave } from 'react-icons/fi';
-
 import axios from 'axios';
-
 import SERVER from '../../api/server';
+import { AwesomeButton } from 'react-awesome-button';
+import '../../assets/css/back-btn-styles.css';
+import './SetPage.css';
 
 const SetPage = (props) => {
   const [cards, setCards] = useState([]);
@@ -78,10 +76,16 @@ const SetPage = (props) => {
     meaning.current.style.height = '38px';
   };
 
-  const handleKeyUp = (e) => {
-    console.log(meaning.current.value);
+  const MeaninghandleKeyUp = (e) => {
     meaning.current.style.height = '5px';
     meaning.current.style.height = meaning.current.scrollHeight + 'px';
+    createSetDescription.current.style.height = '5px';
+    createSetDescription.current.style.height = createSetDescription.current.scrollHeight + 'px';
+  };
+
+  const WordhandleKeyUp = (e) => {
+    word.current.style.height = '5px';
+    word.current.style.height = word.current.scrollHeight + 'px';
     createSetDescription.current.style.height = '5px';
     createSetDescription.current.style.height = createSetDescription.current.scrollHeight + 'px';
   };
@@ -89,17 +93,17 @@ const SetPage = (props) => {
   return (
     <div className="container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       <div className="set-create-BackgroundColor"></div>
-      <div className="set-header" ref={testRef} style={{ width: '80%', height: '250px' }}>
+      <div className="set-header" ref={testRef} style={{ width: '92%', height: '250px' }}>
         <div className="" style={{ paddingTop: '1rem' }}>
           <div style={{ display: 'flex' }}>
             <div style={{ width: '100%' }}>
-              <div style={{ display: 'flex' }}>
+              <div style={{ display: 'flex', alignItems: 'center' }}>
                 <div style={{ width: '500px' }}>
                   <span className="CreateSetHeader-title">학습 세트 만들기</span>
                   {/* <span>학습 세트 만들기</span> */}
                 </div>
                 <div style={{ width: '100%', display: 'flex', justifyContent: 'flex-end' }}>
-                  <Button
+                  {/* <Button
                     style={{ backgroundColor: 'skyblue', border: 'none' }}
                     onClick={() => {
                       console.log('save button clicked.');
@@ -137,30 +141,64 @@ const SetPage = (props) => {
                     }}
                   >
                     저장
-                  </Button>
+                  </Button> */}
+
+                  <AwesomeButton
+                    className="aws-setsave-btn"
+                    type="setsave"
+                    onPress={() => {
+                      console.log('save button clicked.');
+                      console.log('createSetTitle.current.value : ', createSetTitle.current.value);
+                      console.log('createSetDescription.current.value : ', createSetDescription.current.value);
+
+                      if (createSetTitle.current.value == '') {
+                        alert('제목을 입력해주세요.');
+                      } else if (createSetDescription.current.value == '') {
+                        alert('설명을 입력해주세요.');
+                      } else if (cards.length < 4) {
+                        alert('최소 4개의 카드를 추가해주세요.');
+                      } else {
+                        console.log('cards : ', cards);
+                        const book = {
+                          title: createSetTitle.current.value,
+                          description: createSetDescription.current.value,
+                        };
+                        console.log('book : ', book);
+                        console.log('cards : ', cards);
+
+                        axios
+                          // .post('http://127.0.0.1:8000/api/books/create/', {
+                          .post(SERVER.BASE_URL + SERVER.ROUTES.create, {
+                            title: createSetTitle.current.value,
+                            description: createSetDescription.current.value,
+                            cards: cards,
+                          })
+                          .then((res) => {
+                            console.log('create axios res : ', res);
+                            console.log('props.history : ', props.history);
+                            props.history.push({ pathname: '/set-detail', state: { book: res.data } });
+                          });
+                      }
+                    }}
+                  >
+                    <span>저장</span>
+                  </AwesomeButton>
                 </div>
               </div>
               <div style={{ marginTop: '2rem' }}>
                 <Form.Control className="inputbox create-set-title" type="text" placeholder="제목을 입력하세요." ref={createSetTitle} />
-                <span className="">제목</span>
-                <br />
-                <Form.Control
-                  className="inputbox create-set-description"
-                  as="textarea"
-                  placeholder="설명을 입력하세요."
-                  ref={createSetDescription}
-                  style={{ width: '100%', height: '38px' }}
-                  onKeyUp={handleKeyUp}
-                />
-                <span className="">설명</span>
+                {/* <span className="">제목</span> */}
+
+                <Form.Control className="inputbox create-set-description" as="textarea" placeholder="설명을 입력하세요." ref={createSetDescription} onKeyUp={MeaninghandleKeyUp} />
+                {/* <span className="">설명</span> */}
                 <div className="div-add-card-form" style={{ position: 'relative', width: '100%', height: '150px', marginTop: '2rem' }} ref={divAddCardForm}>
                   <span className="CreateSetHeader-title" style={{ paddingBottom: '2rem' }}>
                     카드 추가
                   </span>
                   {/* <form id="input-form"> */}
-                  <div style={{ display: 'flex', width: '100%' }}>
-                    <Form.Control className="inputbox mx-3" type="text" placeholder="단어" style={{ width: '50%', height: '38px' }} ref={word} />
-                    <Form.Control className="inputbox mx-3" as="textarea" placeholder="뜻" style={{ width: '50%', height: '38px' }} onKeyUp={handleKeyUp} ref={meaning} />
+                  <div style={{ display: 'flex', width: '100%', marginTop: '20px' }}>
+                    <Form.Control className="inputbox mx-3 word-input" as="textarea" placeholder="단어" style={{ width: '50%', height: '60px' }} onKeyUp={WordhandleKeyUp} ref={word} />
+                    <Form.Control className="inputbox mx-3 meaning-input" as="textarea" placeholder="뜻" style={{ width: '50%', height: '60px' }} onKeyUp={MeaninghandleKeyUp} ref={meaning} />
                     <div>
                       <Button type="submit" value="Add" onClick={addCard}>
                         <FiPlus />
