@@ -51,12 +51,13 @@ class QuizView(APIView):
         for index, card in enumerate(quiz):
             Q = card['meaning']
             A = card['word']
-            # print(quiz_choice)
+            print(quiz_choice)
             if len(quiz_choice) == 4:
-                answers = random.shuffle(quiz_choice)
+                random.shuffle(quiz_choice)
+                answers = quiz_choice
             else:
                 answers = random.sample(quiz_choice, 4)  # 4개 랜덤뽑기
-                # print('random', answers)
+            print(answers)
             # print('index:',k+1, '문제:',Q, '답:',A, '번호:',answers)
             if A not in answers:
                 answers.pop()
