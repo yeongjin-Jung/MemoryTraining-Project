@@ -8,14 +8,29 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { logoutUser } from '../../_actions/userAction';
 import SERVER from '../../api/server';
+import { Hint } from 'react-autocomplete-hint';
 
 const MyNavbar = (props) => {
+  // const [prevAllSet, setprevAllSet] = useState([]);
+  // const [newAllSet, setnewAllSet] = useState([]);
   const [showSearch, setShowSearch] = useState(false);
   const collapseRef = useRef(null);
   const toggleButtonRef = useRef(null);
 
-  const toggleSearch = () => {
-    // console.log('toggleSearch called.');
+  const toggleSearch = async () => {
+    // if (newAllSet.length == 0) {
+    //   // console.log('toggleSearch called.');
+    //   await axios.get(SERVER.BASE_URL + SERVER.ROUTES.search).then((res) => {
+    //     setprevAllSet([]);
+    //     setnewAllSet([]);
+    //     console.log('all sets: ', res.data.length);
+
+    //     res.data.forEach((element) => {
+    //       prevAllSet.push(element.title);
+    //     });
+    //     setnewAllSet([...newAllSet, prevAllSet]);
+    //   });
+    // }
     setShowSearch(!showSearch);
   };
 
@@ -120,7 +135,7 @@ const Menu = ({ toggleSearch, toggleButtonRef, collapseRef }) => {
   );
 };
 
-const Search = ({ toggleSearch, toggleButtonRef, collapseRef }) => {
+const Search = ({ toggleSearch, toggleButtonRef, collapseRef, allSet }) => {
   const history = useHistory();
   const buttonRef = useRef(null);
   const inputRef = useRef(null);
@@ -155,6 +170,9 @@ const Search = ({ toggleSearch, toggleButtonRef, collapseRef }) => {
             placeholder="검색하기"
             aria-label="Recipient's username"
             aria-describedby="basic-addon2"
+            onChange={() => {
+              console.log(allSet);
+            }}
             onKeyPress={(event) => {
               if (event.key == 'Enter') {
                 var cName = collapseRef.current.className;

@@ -135,9 +135,7 @@ const Card = ({ data, handleCard, book }) => {
           <div className="speech-button" onClick={stopPropagation}>
             <Speech text={data.word} />
           </div>
-          <div className="word-content">
-            <p>{data.word}aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
-          </div>
+          <div className="word-content">{data.word}</div>
         </FrontSide>
         <BackSide className="BackSide">
           <div className="bookmark-icon">
@@ -171,7 +169,7 @@ const Card = ({ data, handleCard, book }) => {
           <div className="speech-button" onClick={stopPropagation}>
             <Speech text={data.meaning}></Speech>
           </div>
-          <p>{data.meaning}</p>
+          <div className="meaning-content">{data.meaning}</div>
         </BackSide>
       </Flippy>
     </div>
