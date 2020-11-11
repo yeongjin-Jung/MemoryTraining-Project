@@ -142,9 +142,10 @@ const SetPage = (props) => {
                 </div>
               </div>
               <div style={{ marginTop: '2rem' }}>
+                <span className="CreateSetHeader-title">제목</span>
                 <Form.Control className="inputbox create-set-title" type="text" placeholder="제목을 입력하세요." ref={createSetTitle} />
-                <span className="">제목</span>
                 <br />
+                <span className="CreateSetHeader-title">설명</span>
                 <Form.Control
                   className="inputbox create-set-description"
                   as="textarea"
@@ -153,7 +154,6 @@ const SetPage = (props) => {
                   style={{ width: '100%', height: '38px' }}
                   onKeyUp={handleKeyUp}
                 />
-                <span className="">설명</span>
                 <div className="div-add-card-form" style={{ position: 'relative', width: '100%', height: '150px', marginTop: '2rem' }} ref={divAddCardForm}>
                   <span className="CreateSetHeader-title" style={{ paddingBottom: '2rem' }}>
                     카드 추가

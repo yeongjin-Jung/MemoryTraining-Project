@@ -1,3 +1,10 @@
+.CreateSetHeader-title {
+  font-weight: 700 !important;
+  font-size: 1.25rem !important;
+  line-height: 1.2 !important;
+  /* margin: 0.25rem 0 !important; */
+  margin: 20px 0 !important;
+}
 .set-modify-BackgroundColor {
   max-height: 100%;
   max-width: 100%;

@@ -297,9 +297,10 @@ const SetModifyPage = (props) => {
                 </div>
               </div>
               <div style={{ marginTop: '2rem' }}>
+                <span className="CreateSetHeader-title">제목</span>
                 <Form.Control className="inputbox create-set-title" type="text" placeholder="제목을 입력하세요." ref={createSetTitle} defaultValue={props.location.state.book.title} />
-                <span className="">제목</span>
                 <br />
+                <span className="CreateSetHeader-title">설명</span>
                 <Form.Control
                   className="inputbox create-set-description"
                   type="text"
@@ -307,7 +308,6 @@ const SetModifyPage = (props) => {
                   ref={createSetDescription}
                   defaultValue={props.location.state.book.description}
                 />
-                <span className="">설명</span>
               </div>
             </div>
             {/* <div style={{ display: 'flex', justifyContent: 'flex-end', width: '10%' }}></div> */}
