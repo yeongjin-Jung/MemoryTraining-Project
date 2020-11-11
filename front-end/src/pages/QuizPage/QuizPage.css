@@ -340,7 +340,7 @@
 
 .aws-scrapback-btn {
   font-weight: 900;
-  font-size: 1.3em;
+  font-size: 1.5em;
 }
 
 @media (max-width: 800px) {
@@ -359,6 +359,7 @@
 .aws-bookmark-restart-btn {
   font-weight: 900;
   font-size: 2.5em;
+  height: 60px;
 }
 
 @media (max-width: 800px) {
@@ -370,10 +371,24 @@
 .aws-testfinish-btn {
   font-weight: 900;
   font-size: 2.5em;
+  height: 60px;
 }
 
 @media (max-width: 800px) {
   .aws-testfinish-btn {
     font-size: medium;
+  }
+}
+
+.aws-nextQuiz-btn {
+  margin-top: 0.5em;
+  font-weight: 900;
+  font-size: 2em;
+  height: 50px;
+}
+
+@media (max-width: 800px) {
+  .aws-nextQuiz-btn {
+    font-size: large;
   }
 }

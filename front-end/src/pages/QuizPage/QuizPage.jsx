@@ -245,7 +245,7 @@ const CardTestPage = (props) => {
             className="aws-Quizback-btn"
             type="primary"
             onPress={() => {
-              props.history.push({ pathname: '/set-detail', state: { book: book } });
+              props.history.push({ pathname: '/set-detail', state: { book: props.location.state.book } });
             }}
           >
             <span>세트페이지</span>
@@ -261,9 +261,13 @@ const CardTestPage = (props) => {
             <div className="Quiz-answer">
               <Answers question={question} currentAnswer={currentAnswer} dispatch={dispatch} />
             </div>
-            <button className="Quizbtn Quizbtn-primary" onClick={next}>
+            {/* <button className="Quizbtn Quizbtn-primary" onClick={next}>
               <p>다음 문제</p>
-            </button>
+            </button> */}
+
+            <AwesomeButton className="aws-nextQuiz-btn" type="nextQuiz" onPress={next}>
+              <span>다음 문제</span>
+            </AwesomeButton>
           </div>
         </div>
       </QuizContext.Provider>

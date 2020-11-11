@@ -26,6 +26,13 @@
   --button-third-color-light: #ffffff;
   --button-third-color-hover: #ff0000;
   --button-third-border: none;
+
+  --button-nextQuiz-color: #fdcd21;
+  --button-nextQuiz-color-dark: #997a0a;
+  --button-nextQuiz-color-light: #000000;
+  --button-nextQuiz-color-hover: #ffbb00;
+  --button-nextQuiz-border: none;
+
   --button-bookmark-restart-color: #ff5252;
   --button-bookmark-restart-color-dark: #931a1a;
   --button-bookmark-restart-color-light: #ffffff;
@@ -653,6 +660,41 @@ button.aws-btn .aws-btn__wrapper {
 .aws-btn--third.aws-btn--progress .aws-btn__progress:before,
 .aws-btn--third.aws-btn--progress .aws-btn__progress:after {
   color: var(--button-third-color-light);
+}
+
+.aws-btn--nextQuiz .aws-btn__wrapper:before {
+  background: var(--button-nextQuiz-color-dark);
+}
+.aws-btn--nextQuiz .aws-btn__content {
+  background: var(--button-nextQuiz-color);
+  color: var(--button-nextQuiz-color-light);
+  border: var(--button-nextQuiz-border);
+}
+.aws-btn--nextQuiz .aws-btn__content path {
+  fill: var(--button-nextQuiz-color-light);
+}
+.aws-btn--nextQuiz .aws-btn__wrapper:hover .aws-btn__content {
+  background: var(--button-nextQuiz-color-hover);
+}
+.aws-btn--nextQuiz.aws-btn--active .aws-btn__wrapper .aws-btn__content {
+  background: var(--button-nextQuiz-color-active);
+}
+.aws-btn--nextQuiz.aws-btn--progress .aws-btn__content > span {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+.aws-btn--nextQuiz.aws-btn--progress .aws-btn__progress:before,
+.aws-btn--nextQuiz.aws-btn--progress .aws-btn__progress:after {
+  color: var(--button-nextQuiz-color-light);
 }
 
 .aws-btn--testfinish .aws-btn__wrapper:before {
