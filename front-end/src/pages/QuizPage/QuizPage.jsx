@@ -36,7 +36,7 @@ const CardTestPage = (props) => {
   const [state, dispatch] = useReducer(quizReducer, initialState);
   const { currentQuestion, currentAnswer, answers, showResults, error, wrongAnswersIdx } = state;
 
-  const question = quizs[currentQuestion];
+  const question = state.quizs[currentQuestion];
 
   const handleWrongAnswerToBookmark = () => {
     answers.map((answer) => {
@@ -70,8 +70,8 @@ const CardTestPage = (props) => {
   };
 
   const renderResultData = () => {
-    return answers.map((answer) => {
-      const question = quizs.find((question) => question.no === answer.questionId);
+    return state.answers.map((answer) => {
+      const question = state.quizs.find((question) => question.no === answer.questionId);
       return (
         <div className="result-content" key={question.no}>
           <div className="result-content-question">{question.question}</div>
@@ -138,6 +138,7 @@ const CardTestPage = (props) => {
   };
 
   const next = () => {
+    console.log('currentQuestion : ', currentQuestion);
     const answer = {
       card: question.card,
       questionId: question.no,
@@ -156,7 +157,7 @@ const CardTestPage = (props) => {
     dispatch({ type: SET_ANSWERS, answers });
     dispatch({ type: SET_CURRENT_ANSWER, currentAnswer: '' });
 
-    if (currentQuestion + 1 < quizs.length) {
+    if (currentQuestion + 1 < state.quizs.length) {
       dispatch({ type: SET_CURRENT_QUESTION, currentQuestion: currentQuestion + 1 });
       return;
     }
@@ -166,7 +167,7 @@ const CardTestPage = (props) => {
 
   if (showResults) {
     console.log('answers : ', answers);
-    console.log('wrongAnswersIdx : ', wrongAnswersIdx);
+    // console.log('wrongAnswersIdx : ', wrongAnswersIdx);
 
     renderResultData();
 
