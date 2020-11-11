@@ -26,6 +26,9 @@ const RecentSets = (props) => {
     }
 
     else if (bookList.length > 0) {  // bookList 가 존재할 때, 컴포넌트화
+      if (bookList.length > 4) {
+        bookList.length = 4
+      }
       var lengthArr = [];  // map 함수 위한 배열
 
       for (var i = 0; i < bookList.length; i++) {  // bookList 의 길이가 3이면 [1, 2, 3] 배열 만들어줌
