@@ -3,24 +3,43 @@ import 'animate.css';
 import './RecentSets.css';
 import axios from 'axios';
 import SERVER from '../../api/server';
-import Moment from 'react-moment';
 import backImg from '../../assets/images/logo_transparent.png';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
 import { IoIosCreate } from 'react-icons/io';
-import Marquee from 'react-double-marquee';
+import SkillCard from './SkillCard';
 
 const RecentSets = (props) => {
-  const [bookList, setBookList] = useState([]);
+  const [bookList, setBookList] = useState(null);
 
   useEffect(() => {
-    console.log('bookList =>', bookList);
-    console.log('props =>', props);
+    axios.get(SERVER.BASE_URL + SERVER.ROUTES.myset).then((res) => {
+      setBookList(res.data);
+    });
   }, []);
 
   const renderComponent = () => {
-    if (bookList.length == 0) {
+    console.log(bookList)
+    if (bookList === null) {  // 렌더링 초기값 설정부분, 초기값을 null 로 두고 bookList 가 불러지기 전에는 비어있는 div 리턴
+      return <div></div>
+    }
+
+    else if (bookList.length > 0) {  // bookList 가 존재할 때, 컴포넌트화
+      var lengthArr = [];  // map 함수 위한 배열
+
+      for (var i = 0; i < bookList.length; i++) {  // bookList 의 길이가 3이면 [1, 2, 3] 배열 만들어줌
+        lengthArr.push(i + 1)
+      };
+
+      return (
+        lengthArr.map((i) => (  // bookList 의 길이만큼 SkillCard 컴포넌트 생성
+          <SkillCard book={bookList} index={i - 1} />  // 컴포넌트 생성하면서 해당 인덱스를 prop 으로 넘겨줌
+        ))
+      );
+    }
+
+    else {  // bookList 가 존재하지 않을 때, Default 컴포넌트
       return (
         <div
           className="skill-card "
@@ -52,283 +71,12 @@ const RecentSets = (props) => {
           </section>
         </div>
       );
-    } else if (bookList.length == 1) {
-      return (
-        <div
-          className="skill-card "
-          onClick={() => {
-            props.history.push({ pathname: '/set-detail', state: { book: bookList[0] } });
-          }}
-        >
-          <header className="skill-card__header">
-            <img className="skill-card__icon" src={backImg} alt="HTML5 Logo" />
-          </header>
-          <section className="skill-card__body">
-            <div>
-              <h2 className="skill-card__title" style={{ color: 'black' }}>
-                <Marquee>{bookList[0].title}</Marquee>
-              </h2>
-            </div>
-
-            <span className="skill-card__duration">작성자 : {bookList[0].user.name}</span>
-            <ul className="skill-card__knowledge">
-              <li className="book-description">설명 : {bookList[0].description}</li>
-              <li>
-                생성된 날짜 : <Moment format="YYYY/MM/DD">{bookList[0].created_at}</Moment>
-              </li>
-            </ul>
-          </section>
-        </div>
-      );
-    } else if (bookList.length == 2) {
-      return (
-        <>
-          <div
-            className="skill-card"
-            onClick={() => {
-              props.history.push({ pathname: '/set-detail', state: { book: bookList[0] } });
-            }}
-          >
-            <header className="skill-card__header">
-              <img className="skill-card__icon" src={backImg} alt="HTML5 Logo" />
-            </header>
-            <section className="skill-card__body">
-              <div>
-                <h2 className="skill-card__title" style={{ color: 'black' }}>
-                  <Marquee>{bookList[0].title}</Marquee>
-                </h2>
-              </div>
-
-              <span className="skill-card__duration">작성자 : {bookList[0].user.name}</span>
-              <ul className="skill-card__knowledge">
-                <li className="book-description">설명 : {bookList[0].description}</li>
-                <li>
-                  생성된 날짜 : <Moment format="YYYY/MM/DD">{bookList[0].created_at}</Moment>
-                </li>
-              </ul>
-            </section>
-          </div>
-
-          <div
-            className="skill-card"
-            onClick={() => {
-              props.history.push({ pathname: '/set-detail', state: { book: bookList[1] } });
-            }}
-          >
-            <header className="skill-card__header">
-              <img className="skill-card__icon" src={backImg} alt="HTML5 Logo" />
-            </header>
-            <section className="skill-card__body">
-              <div>
-                <h2 className="skill-card__title" style={{ color: 'black' }}>
-                  <Marquee>{bookList[1].title}</Marquee>
-                </h2>
-              </div>
-
-              <span className="skill-card__duration">작성자 : {bookList[1].user.name}</span>
-              <ul className="skill-card__knowledge">
-                <li className="book-description">설명 : {bookList[1].description}</li>
-                <li>
-                  생성된 날짜 : <Moment format="YYYY/MM/DD">{bookList[1].created_at}</Moment>
-                </li>
-              </ul>
-            </section>
-          </div>
-        </>
-      );
-    } else if (bookList.length == 3) {
-      return (
-        <>
-          <div
-            className="skill-card"
-            onClick={() => {
-              props.history.push({ pathname: '/set-detail', state: { book: bookList[0] } });
-            }}
-          >
-            <header className="skill-card__header">
-              <img className="skill-card__icon" src={backImg} alt="HTML5 Logo" />
-            </header>
-            <section className="skill-card__body">
-              <div>
-                <h2 className="skill-card__title" style={{ color: 'black' }}>
-                  <Marquee>{bookList[0].title}</Marquee>
-                </h2>
-              </div>
-
-              <span className="skill-card__duration">작성자 : {bookList[0].user.name}</span>
-              <ul className="skill-card__knowledge">
-                <li className="book-description">설명 : {bookList[0].description}</li>
-                <li>
-                  생성된 날짜 : <Moment format="YYYY/MM/DD">{bookList[0].created_at}</Moment>
-                </li>
-              </ul>
-            </section>
-          </div>
-
-          <div
-            className="skill-card"
-            onClick={() => {
-              props.history.push({ pathname: '/set-detail', state: { book: bookList[1] } });
-            }}
-          >
-            <header className="skill-card__header">
-              <img className="skill-card__icon" src={backImg} alt="HTML5 Logo" />
-            </header>
-            <section className="skill-card__body">
-              <div>
-                <h2 className="skill-card__title" style={{ color: 'black' }}>
-                  <Marquee>{bookList[1].title}</Marquee>
-                </h2>
-              </div>
-
-              <span className="skill-card__duration">작성자 : {bookList[1].user.name}</span>
-              <ul className="skill-card__knowledge">
-                <li className="book-description">설명 : {bookList[1].description}</li>
-                <li>
-                  생성된 날짜 : <Moment format="YYYY/MM/DD">{bookList[1].created_at}</Moment>
-                </li>
-              </ul>
-            </section>
-          </div>
-
-          <div
-            className="skill-card"
-            onClick={() => {
-              props.history.push({ pathname: '/set-detail', state: { book: bookList[2] } });
-            }}
-          >
-            <header className="skill-card__header">
-              <img className="skill-card__icon" src={backImg} alt="HTML5 Logo" />
-            </header>
-            <section className="skill-card__body">
-              <div>
-                <h2 className="skill-card__title" style={{ color: 'black' }}>
-                  <Marquee>{bookList[2].title}</Marquee>
-                </h2>
-              </div>
-
-              <span className="skill-card__duration">작성자 : {bookList[2].user.name}</span>
-              <ul className="skill-card__knowledge">
-                <li className="book-description">설명 : {bookList[2].description}</li>
-                <li>
-                  생성된 날짜 : <Moment format="YYYY/MM/DD">{bookList[2].created_at}</Moment>
-                </li>
-              </ul>
-            </section>
-          </div>
-        </>
-      );
-    } else {
-      return (
-        <>
-          <div
-            className="skill-card animate__animated animate__fadeInLeft"
-            onClick={() => {
-              props.history.push({ pathname: '/set-detail', state: { book: bookList[0] } });
-            }}
-          >
-            <header className="skill-card__header">
-              <img className="skill-card__icon" src={backImg} alt="HTML5 Logo" />
-            </header>
-            <section className="skill-card__body">
-              <div>
-                <h2 className="skill-card__title" style={{ color: 'black' }}>
-                  <Marquee>{bookList[0].title}</Marquee>
-                </h2>
-              </div>
-
-              <span className="skill-card__duration">작성자 : {bookList[0].user.name}</span>
-              <ul className="skill-card__knowledge">
-                <li className="book-description">설명 : {bookList[0].description}</li>
-                <li>
-                  생성된 날짜 : <Moment format="YYYY/MM/DD">{bookList[0].created_at}</Moment>
-                </li>
-              </ul>
-            </section>
-          </div>
-          <div
-            className="skill-card animate__animated animate__fadeInUp"
-            onClick={() => {
-              props.history.push({ pathname: '/set-detail', state: { book: bookList[1] } });
-            }}
-          >
-            <header className="skill-card__header">
-              <img className="skill-card__icon" src={backImg} alt="HTML5 Logo" />
-            </header>
-            <section className="skill-card__body">
-              <h2 className="skill-card__title" style={{ color: 'black' }}>
-                <Marquee>{bookList[1].title}</Marquee>
-              </h2>
-
-              <span className="skill-card__duration">작성자 : {bookList[1].user.name}</span>
-              <ul className="skill-card__knowledge">
-                <li className="book-description">설명 : {bookList[1].description}</li>
-                <li>
-                  생성된 날짜 : <Moment format="YYYY/MM/DD">{bookList[1].created_at}</Moment>
-                </li>
-              </ul>
-            </section>
-          </div>
-          <div
-            className="skill-card animate__animated animate__fadeInDown"
-            onClick={() => {
-              props.history.push({ pathname: '/set-detail', state: { book: bookList[2] } });
-            }}
-          >
-            <header className="skill-card__header">
-              <img className="skill-card__icon" src={backImg} alt="HTML5 Logo" />
-            </header>
-            <section className="skill-card__body">
-              <h2 className="skill-card__title" style={{ color: 'black' }}>
-                <Marquee>{bookList[2].title}</Marquee>
-              </h2>
-
-              <span className="skill-card__duration">작성자 : {bookList[2].user.name}</span>
-              <ul className="skill-card__knowledge">
-                <li className="book-description">설명 : {bookList[2].description}</li>
-                <li>
-                  생성된 날짜 : <Moment format="YYYY/MM/DD">{bookList[2].created_at}</Moment>
-                </li>
-              </ul>
-            </section>
-          </div>
-          <div
-            className="skill-card animate__animated animate__fadeInRight"
-            onClick={() => {
-              props.history.push({ pathname: '/set-detail', state: { book: bookList[3] } });
-            }}
-          >
-            <header className="skill-card__header">
-              <img className="skill-card__icon" src={backImg} alt="HTML5 Logo" />
-            </header>
-            <section className="skill-card__body">
-              <h2 className="skill-card__title" style={{ color: 'black' }}>
-                <Marquee>{bookList[3].title}</Marquee>
-              </h2>
-
-              <span className="skill-card__duration">작성자 : {bookList[3].user.name}</span>
-              <ul className="skill-card__knowledge">
-                <li className="book-description">설명 : {bookList[3].description}</li>
-                <li>
-                  생성된 날짜 : <Moment format="YYYY/MM/DD">{bookList[3].created_at}</Moment>
-                </li>
-              </ul>
-            </section>
-          </div>
-        </>
-      );
     }
   };
 
-  useEffect(() => {
-    axios.get(SERVER.BASE_URL + SERVER.ROUTES.myset).then((res) => {
-      setBookList(res.data);
-    });
-  }, []);
-
   return (
     <section className="bg">
-      <p className="title">최근 스크랩한 세트</p>
+      {/* {bookList ? <p className="title">최근 스크랩한 세트</p> : <p className="title">암기의정석</p>} */}
       <div className="card-container">
         <div className="cards-list">{renderComponent()}</div>
       </div>
