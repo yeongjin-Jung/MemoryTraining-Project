@@ -1,24 +1,28 @@
 /* eslint-disable */
-import React, { Component } from 'react';
+import React from 'react';
 import { Home, RegisterPage, LoginPage, StudyPage, SearchPage, SetsPage, SetPage, SetDetailPage, QuizPage, SetModifyPage, TestPaperPage, TestPaperPage_word, TestPaperPage_meaning } from './pages';
 // import Auth from "./hoc/auth";
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
-import { MyNavbar } from './components';
 
 // import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import PrivateRoute from './PrivateRoute';
-import axios from 'axios';
 
-axios.interceptors.request.use(function (config) {
-  if (localStorage.getItem('Authorization') == undefined) return config;
-  config.headers.Authorization = localStorage.getItem('Authorization');
-  return config;
-});
+import UserReducer from './user/UserReducer';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import Interceptor from './Interceptor';
 
-class App extends Component {
-  render() {
-    return (
+const store = createStore(UserReducer);
+Interceptor.interceptor(store);
+
+if (localStorage.getItem('Authorization') != undefined) {
+  store.dispatch({ type: 'LOGIN' });
+}
+
+const App = () => {
+  return (
+    <Provider store={store}>
       <BrowserRouter>
         <Switch>
           <Route
@@ -55,8 +59,8 @@ class App extends Component {
           <PrivateRoute path="/test-only-meaning" component={TestPaperPage_meaning} />
         </Switch>
       </BrowserRouter>
-    );
-  }
-}
+    </Provider>
+  );
+};
 
 export default App;

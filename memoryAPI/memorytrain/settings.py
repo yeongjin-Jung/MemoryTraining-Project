@@ -26,7 +26,8 @@ SECRET_KEY = 'qbhx!6zy7=nxv2*bq*eewbqr@wy!h@292bmv+mxhjbm@lcjme_'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['172.17.0.2', '172.17.0.3', 'http://localhost:3000','127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['172.17.0.2', '172.17.0.3',
+                 'http://localhost:3000', '127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -101,10 +102,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'memorytraining',
-        'USER' : 'root',
-        'PASSWORD' : 'fishbreadbun4',
-        'HOST' : '13.125.43.95',
-        'PORT' : '3306',
+        'USER': 'root',
+        'PASSWORD': 'fishbreadbun4',
+        'HOST': '13.125.43.95',
+        'PORT': '3306',
     }
 }
 
@@ -149,8 +150,8 @@ STATIC_URL = '/static/'
 
 AUTH_USER_MODEL = 'accounts.User'
 
-REST_AUTH_SERIALIZERS = {     
-    'USER_DETAILS_SERIALIZER':'accounts.serializers.UserSerializer' 
+REST_AUTH_SERIALIZERS = {
+    'USER_DETAILS_SERIALIZER': 'accounts.serializers.UserSerializer'
 }
 
 # django sites app settion
@@ -166,7 +167,7 @@ CORS_ORIGIN_WHITELIST = (
 )
 
 
-#DRF auth settings
+# DRF auth settings
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
@@ -180,7 +181,7 @@ REST_FRAMEWORK = {
 # 로그인 전에 JWT를 사용하고 싶을 때 설정
 REST_USE_JWT = True
 
-#로그아웃 설정
+# 로그아웃 설정
 ACCOUNT_LOGOUT_ON_GET = True
 
 JWT_AUTH = {
@@ -192,5 +193,5 @@ JWT_AUTH = {
 }
 
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
-ACCOUNT_EMAIL_REQUIRED = True   
+ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = False
