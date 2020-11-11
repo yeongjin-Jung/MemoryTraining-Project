@@ -62,7 +62,7 @@ class QuizView(APIView):
             alphabet = ''
             alphabet_list = []
             for idx in range(len(quiz_choice)):
-                if quiz_choice[idx]['meaning'] == Q:
+                if quiz_choice[idx]['meaning'] == Q or quiz_choice[idx]['answer'] == A:
                     answer_flag = True
                     answer_list += [idx]
             if not answer_flag:
