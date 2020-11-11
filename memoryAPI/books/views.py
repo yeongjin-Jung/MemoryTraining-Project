@@ -59,14 +59,17 @@ class BookListView(APIView):
 
     def get(self, request, format=None):
         user_id = self.request.user.pk
-        keyword = self.request.query_params.get('keyword')
+        if self.request.query_params.get('keyword'):
+            keyword = self.request.query_params.get('keyword')
+        else:
+            keyword = ''
         if self.request.query_params.get('scrap_only'):
             return Book.objects.exclude(user_id=user_id).filter(title__icontains=keyword).order_by('-updated_at')
         if self.request.query_params.get('my_set_only'):
             return Book.objects.filter(title__icontains=keyword, user_id=user_id).order_by('-updated_at')
         books = Book.objects.exclude(user_id=user_id).filter(title__icontains=keyword).order_by('-updated_at')
         for book_info in books:
-            print(book_info.id)
+            # print(book_info.id)
             if MyBook.objects.filter(book_id=book_info.id, user_id=user_id).exists():
                 setattr(book_info, "scrap_flag", 1)
                 # book_info['scrap_flag'] = 1
@@ -82,9 +85,9 @@ class MyBookView(generics.ListAPIView):
 
     def get_queryset(self):
         user_id = self.request.user.pk
-        print(user_id)
+        # print(user_id)
         my_books = MyBook.objects.filter(user=user_id).order_by('-id').values_list('book', flat=True)
-        print(my_books)
+        # print(my_books)
         # books = Book.objects.filter(id__in=my_books).order_by('-id').annotate(write_flag=Case(When(MyBook.objects.get(book=Book.pk, user_id=user_id).write_flag==1), then=Value(1)), default=Value(0), output_field=IntegerField())
         whens = []
         for sort_index, value in enumerate(my_books):

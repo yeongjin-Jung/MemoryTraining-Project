@@ -32,6 +32,7 @@ class QuizView(APIView):
         quiz_choice = {}
         for card in cards:
             card = model_to_dict(card)
+            print(card)
             if Bookmark.objects.filter(book=pk, card=card['id'], user=user, bookmark_flag=1).exists():
                 card["bookmark_flag"] = 1
             else:
@@ -48,10 +49,16 @@ class QuizView(APIView):
         # quiz.get('key')  # 'value'
         # 'key' in quiz  # T, F
         quizbox = []
+        answer_list = list(quiz_choice.values())
         for k, val in enumerate(list(quiz.items())):
             Q = val[0]
             A = val[1]
-            answers = random.sample(list(quiz_choice.values()), 4)  # 4개 랜덤뽑기
+            print(answer_list)
+            if len(answer_list) == 4:
+                answers = random.shuffle(answer_list)
+            else:
+                print(1)
+                answers = random.sample(answer_list, 4)  # 4개 랜덤뽑기
             # print('index:',k+1, '문제:',Q, '답:',A, '번호:',answers)
             if A['word'] not in answers:
                 answers.pop()
