@@ -164,13 +164,13 @@
   white-space: normal;
   word-break: break-word;
   color: white;
-  font-size: 8em;
+  font-size: 4.5em;
   padding: 20px;
   overflow-y: auto;
 }
 @media (max-width: 800px) {
   .word-content {
-    font-size: 4em;
+    font-size: 3.7em;
   }
 }
 .meaning-content {

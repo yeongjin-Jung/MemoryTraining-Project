@@ -77,8 +77,14 @@ const CardTestPage = (props) => {
       const question = state.quizs.find((question) => question.no === answer.questionId);
       return (
         <div className="result-content" key={question.no}>
-          <div className="result-content-question">{question.question}</div>
-          <div className="result-content-question">{answer.card.word}</div>
+          <div className="result-content-question">
+            <p className="meaning-type">뜻</p>
+            <p className="meaning-type-text">{question.question}</p>
+          </div>
+          <div className="result-content-question">
+            <p className="meaning-type">단어</p>
+            <p className="meaning-type-text">{answer.card.word}</p>
+          </div>
           <div className="result-content-result">{renderResultMark(question, answer)}</div>
           <button>
             {/* 북마크 활성화 */}
@@ -179,27 +185,52 @@ const CardTestPage = (props) => {
         <div className="CardTest-background"></div>
         <div className="Quiz-container">
           <div className="container-result">
-            <p>채점 결과</p>
-            <div className="align-right">
-              <Button onClick={handleWrongAnswerToBookmark}>틀린 문제 모두 스크랩하기</Button>
-            </div>
-            <ul>{renderResultData()}</ul>
-            {/* <button className="restart-btn" onClick={restart}>
+            <p className="result-title" style={{ textShadow: '2px 2px 2.5px black' }}>
+              채점 결과
+            </p>
+            <div className="container-result-content">
+              <div className="align-right">
+                {/* <Button onClick={handleWrongAnswerToBookmark}>틀린 문제 모두 스크랩하기</Button> */}
+                <AwesomeButton className="aws-scrapback-btn" type="bookmark-restart" onPress={handleWrongAnswerToBookmark}>
+                  <span>틀린 문제 모두 스크랩하기</span>
+                </AwesomeButton>
+              </div>
+              <ul>{renderResultData()}</ul>
+              {/* <button className="restart-btn" onClick={restart}>
               다시 시작
             </button> */}
-            <button className="restart-btn" onClick={restart}>
-              북마크 단어들만 다시 테스트
-            </button>
-            <button
-              className="restart-btn"
-              onClick={() => {
-                console.log('돌아가기 button clicked.');
-                console.log('props : ', props);
-                props.history.push({ pathname: '/set-detail', state: { book: props.location.state.book } });
-              }}
-            >
-              돌아가기
-            </button>
+              <div className="result-btn-container">
+                {/* <button className="restart-btn" onClick={restart}>
+                  북마크 단어들만 다시 테스트
+                </button> */}
+
+                <AwesomeButton className="aws-bookmark-restart-btn" type="third" onPress={restart}>
+                  <span>북마크 단어들만 다시 테스트</span>
+                </AwesomeButton>
+                {/* <button
+                  className="restart-btn"
+                  onClick={() => {
+                    console.log('돌아가기 button clicked.');
+                    console.log('props : ', props);
+                    props.history.push({ pathname: '/set-detail', state: { book: props.location.state.book } });
+                  }}
+                >
+                  돌아가기
+                </button> */}
+
+                <AwesomeButton
+                  className="aws-testfinish-btn"
+                  type="testfinish"
+                  onPress={() => {
+                    console.log('돌아가기 button clicked.');
+                    console.log('props : ', props);
+                    props.history.push({ pathname: '/set-detail', state: { book: props.location.state.book } });
+                  }}
+                >
+                  <span>끝내기</span>
+                </AwesomeButton>
+              </div>
+            </div>
           </div>
         </div>
       </div>

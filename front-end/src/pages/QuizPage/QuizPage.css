@@ -125,7 +125,7 @@
 
 .error {
   font-size: 2em;
-  color: #f27c7c;
+  color: #ff3737;
   font-weight: 800;
 }
 
@@ -188,26 +188,27 @@
   /* justify-content: center; */
   flex-direction: column;
 }
-.container-result p {
-  margin-bottom: 1em;
+.result-title {
+  margin-bottom: 0.2em;
   font-size: 5em;
   color: red;
   font-weight: 800;
 }
 
 @media (max-width: 800px) {
-  .container-result p {
-    font-size: 3em;
+  .result-title {
+    margin-bottom: 0.1em;
   }
 }
 
 .container-result ul {
   padding-left: 0;
-  width: 70%;
-  margin-bottom: 1em;
+  width: 85%;
   font-size: 3em;
   display: flex;
   flex-direction: column;
+  justify-items: center;
+  align-items: center;
 }
 @media (max-width: 800px) {
   .container-result ul {
@@ -235,21 +236,51 @@
 .Quiz-problem p {
   width: 80%;
   text-align: center;
-  font-size: 1.7em;
+  font-size: 2em;
   color: black;
   font-weight: 600;
   font-family: NanumBarunGothic;
 }
+
+.meaning-type {
+  font-size: 0.93em;
+  margin-bottom: 0;
+  color: black;
+  font-weight: bolder;
+  margin-bottom: 0.3em;
+}
+.meaning-type-text {
+  font-family: Poppins-Regular;
+  line-height: 1.7;
+  color: #525252;
+  margin: 0px;
+  font-size: 0.75em;
+}
+
 @media (max-width: 800px) {
-  .Quiz-problem p {
+  .meaning-type {
     font-size: 1.4em;
   }
+}
+
+.container-result-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .result-content {
   display: flex;
   justify-content: center;
   margin-bottom: 1em;
+  align-items: center;
+  border-style: ridge;
+  padding: 25px;
+  width: 90%;
+  border-color: rgb(255, 78, 78);
+  border-width: 4px;
+  background-color: rgb(255, 255, 255, 1);
 }
 
 .result-content div {
@@ -262,12 +293,18 @@
 }
 
 .result-content-question {
-  padding-left: 2em;
+  padding-left: 1em;
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
 }
 
 .restart-btn {
   font-weight: 800;
-  font-size: 3em;
+  font-size: 2em;
+  margin-right: 10px;
+  margin-left: 10px;
   padding: 7px 13px;
   border-radius: 15px;
   background-color: #ffc107;
@@ -276,7 +313,7 @@
 
 @media (max-width: 800px) {
   .restart-btn {
-    font-size: 1.7em;
+    font-size: 1.1em;
   }
 }
 .back-btn-container {
@@ -293,4 +330,50 @@
 
 .aws-Quizback-btn span {
   font-weight: 900;
+}
+
+.align-right {
+  margin-left: auto;
+  margin-right: 12vw;
+  margin-bottom: 3vh;
+}
+
+.aws-scrapback-btn {
+  font-weight: 900;
+  font-size: 1.3em;
+}
+
+@media (max-width: 800px) {
+  .aws-scrapback-btn {
+    font-size: 1em;
+  }
+}
+
+.result-btn-container {
+  display: flex;
+  width: 95%;
+  height: 12vh;
+  justify-content: space-evenly;
+}
+
+.aws-bookmark-restart-btn {
+  font-weight: 900;
+  font-size: 2.5em;
+}
+
+@media (max-width: 800px) {
+  .aws-bookmark-restart-btn {
+    font-size: medium;
+  }
+}
+
+.aws-testfinish-btn {
+  font-weight: 900;
+  font-size: 2.5em;
+}
+
+@media (max-width: 800px) {
+  .aws-testfinish-btn {
+    font-size: medium;
+  }
 }
