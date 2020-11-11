@@ -17,6 +17,7 @@ import { AwesomeButton } from 'react-awesome-button';
 import 'react-sweet-progress/lib/style.css';
 import '../../assets/css/back-btn-styles.css';
 import './StudyPage.css';
+
 const ref = React.createRef();
 
 const StudyPage = (props) => {

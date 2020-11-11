@@ -174,17 +174,17 @@
   }
 }
 .meaning-content {
-  display: flex;
-  height: 80%;
+  /* height: 80%; */
   width: 100%;
+  /* display: flex; */
   font-weight: 600;
   justify-content: center;
   align-items: center;
   white-space: normal;
   word-break: break-word;
   color: black;
-  font-size: 3em;
-  padding: 20px;
+  font-size: 3.2em;
+  padding: 40px;
   overflow-y: auto;
 }
 
