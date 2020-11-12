@@ -16,7 +16,8 @@ const Aside = ({ book, image, collapsed, rtl, toggled, handleToggleSidebar, hist
   const intl = useIntl();
 
   useEffect(() => {
-    // console.log('book.id : ', book.id);
+    console.log('Aside useEffect called.');
+    console.log('book : ', book);
   }, []);
 
   useEffect(() => {
