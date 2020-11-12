@@ -396,6 +396,16 @@ const Card = ({ cards, card, onDelete, onEdit, onSave }) => {
     }
   });
 
+  const handleModifyWord = () => {
+    modifyword.current.style.height = '5px';
+    modifyword.current.style.height = modifyword.current.scrollHeight + 'px';
+  };
+
+  const handleModifyMeaning = () => {
+    modifymeaning.current.style.height = '5px';
+    modifymeaning.current.style.height = modifymeaning.current.scrollHeight + 'px';
+  };
+
   return (
     <div className="added-card draggable" style={{ marginBottom: '10px' }}>
       <div stlye={{ display: 'flex', backgroundColor: 'white' }}>
@@ -448,7 +458,9 @@ const Card = ({ cards, card, onDelete, onEdit, onSave }) => {
 
         <div style={{ display: 'flex', flexDirection: 'row', marginBottom: '2rem' }}>
           <div className="mx-3" style={{ width: '40%' }}>
-            {card.isEditing && <Form.Control className="inputbox" as="textarea" placeholder={card.word} ref={modifyword} defaultValue={card.word} style={{ fontSize: '20px' }} />}
+            {card.isEditing && (
+              <Form.Control className="inputbox" as="textarea" placeholder={card.word} ref={modifyword} defaultValue={card.word} style={{ fontSize: '20px' }} onKeyUp={handleModifyWord} />
+            )}
             {!card.isEditing && (
               <pre style={{ borderBottom: '5px solid black', wordBreak: 'break-all' }}>
                 <span style={{ fontSize: '20px' }}>{card.word}</span>
@@ -458,7 +470,9 @@ const Card = ({ cards, card, onDelete, onEdit, onSave }) => {
             <span className="word">단어</span>
           </div>
           <div className="mx-3" style={{ width: '40%' }}>
-            {card.isEditing && <Form.Control className="inputbox" as="textarea" placeholder={card.meaning} ref={modifymeaning} defaultValue={card.meaning} style={{ fontSize: '20px' }} />}
+            {card.isEditing && (
+              <Form.Control className="inputbox" as="textarea" placeholder={card.meaning} ref={modifymeaning} defaultValue={card.meaning} style={{ fontSize: '20px' }} onKeyUp={handleModifyMeaning} />
+            )}
             {!card.isEditing && (
               <pre style={{ borderBottom: '5px solid black', wordBreak: 'break-all' }}>
                 <span style={{ fontSize: '20px' }}>{card.meaning}</span>
