@@ -55,7 +55,16 @@ const SetPage = (props) => {
   };
 
   const addCard = () => {
-    if (word.current.value == '' && meaning.current.value == '') return;
+    if (word.current.value == '' || meaning.current.value == '') {
+      alert('단어와 뜻을 입력해주세요.');
+      return;
+    }
+
+    const found = cards.find((card) => card.word == word.current.value || card.meaning == meaning.current.value);
+    if (found != undefined) {
+      alert('중복된 단어나 뜻이 이미 세트에 존재합니다.');
+      return;
+    }
 
     let inputWord = divAddCardForm.current.children[1].children[0];
     let textareaMeaning = divAddCardForm.current.children[1].children[1];
@@ -72,21 +81,24 @@ const SetPage = (props) => {
     setCards([...cards, newObj]);
 
     word.current.value = '';
+    word.current.style.height = '43px';
+
     meaning.current.value = '';
-    meaning.current.style.height = '38px';
+    meaning.current.style.height = '43px';
   };
 
   const MeaninghandleKeyUp = (e) => {
     meaning.current.style.height = '5px';
     meaning.current.style.height = meaning.current.scrollHeight + 'px';
-    createSetDescription.current.style.height = '5px';
-    createSetDescription.current.style.height = createSetDescription.current.scrollHeight + 'px';
   };
 
   const WordhandleKeyUp = (e) => {
     word.current.style.height = '5px';
     word.current.style.height = word.current.scrollHeight + 'px';
-    createSetDescription.current.style.height = '5px';
+  };
+
+  const createSetDescriptionKeyUp = () => {
+    // createSetDescription.current.style.height = '10px';
     createSetDescription.current.style.height = createSetDescription.current.scrollHeight + 'px';
   };
 
@@ -103,51 +115,16 @@ const SetPage = (props) => {
                   {/* <span>학습 세트 만들기</span> */}
                 </div>
                 <div style={{ width: '100%', display: 'flex', justifyContent: 'flex-end' }}>
-                  {/* <Button
-                    style={{ backgroundColor: 'skyblue', border: 'none' }}
-                    onClick={() => {
-                      console.log('save button clicked.');
-                      console.log('createSetTitle.current.value : ', createSetTitle.current.value);
-                      console.log('createSetDescription.current.value : ', createSetDescription.current.value);
-
-                      if (createSetTitle.current.value == '') {
-                        alert('제목을 입력해주세요');
-                      } else if (createSetDescription.current.value == '') {
-                        alert('설명을 입력해주세요');
-                      } else if (cards.length < 4) {
-                        alert('최소 4개의 카드를 추가해주세요');
-                      } else {
-                        console.log('cards : ', cards);
-                        const book = {
-                          title: createSetTitle.current.value,
-                          description: createSetDescription.current.value,
-                        };
-                        console.log('book : ', book);
-                        console.log('cards : ', cards);
-
-                        axios
-                          // .post('http://127.0.0.1:8000/api/books/create/', {
-                          .post(SERVER.BASE_URL + SERVER.ROUTES.create, {
-                            title: createSetTitle.current.value,
-                            description: createSetDescription.current.value,
-                            cards: cards,
-                          })
-                          .then((res) => {
-                            console.log('create axios res : ', res);
-                            console.log('props.history : ', props.history);
-                            props.history.push({ pathname: '/set-detail', state: { book: res.data } });
-                          });
-                        alert('저장되었습니다');
-                      }
-                    }}
-                  >
-                    저장
-                  </Button> */}
-
                   <AwesomeButton
                     className="aws-setsave-btn"
                     type="setsave"
                     onPress={() => {
+                      const found = cards.find((card) => card.isEditing != undefined && card.isEditing == true);
+                      if (found != undefined) {
+                        alert('수정중인 카드가 존재합니다. 수정을 마치고 저장해주세요.');
+                        return;
+                      }
+
                       console.log('save button clicked.');
                       console.log('createSetTitle.current.value : ', createSetTitle.current.value);
                       console.log('createSetDescription.current.value : ', createSetDescription.current.value);
@@ -188,10 +165,17 @@ const SetPage = (props) => {
               </div>
               <div style={{ marginTop: '2rem' }}>
                 <span className="CreateSetHeader-title">제목</span>
-                <Form.Control className="inputbox create-set-title" type="text" placeholder="제목을 입력하세요." ref={createSetTitle} />
+                <Form.Control className="inputbox create-set-title" type="text" placeholder="제목을 입력하세요." ref={createSetTitle} maxLength={20} />
                 {/* <span className="">제목</span> */}
 
-                <Form.Control className="inputbox create-set-description" as="textarea" placeholder="설명을 입력하세요." ref={createSetDescription} onKeyUp={MeaninghandleKeyUp} />
+                <Form.Control
+                  className="inputbox create-set-description"
+                  as="textarea"
+                  placeholder="설명을 입력하세요."
+                  style={{ width: '100%', height: '41px' }}
+                  onKeyUp={createSetDescriptionKeyUp}
+                  ref={createSetDescription}
+                />
                 {/* <span className="">설명</span> */}
                 <div className="div-add-card-form" style={{ position: 'relative', width: '100%', height: '150px', marginTop: '2rem' }} ref={divAddCardForm}>
                   <span className="CreateSetHeader-title" style={{ paddingBottom: '2rem' }}>
@@ -199,8 +183,8 @@ const SetPage = (props) => {
                   </span>
                   {/* <form id="input-form"> */}
                   <div style={{ display: 'flex', width: '100%', marginTop: '20px' }}>
-                    <Form.Control className="inputbox mx-3 word-input" as="textarea" placeholder="단어" style={{ width: '50%', height: '60px' }} onKeyUp={WordhandleKeyUp} ref={word} />
-                    <Form.Control className="inputbox mx-3 meaning-input" as="textarea" placeholder="뜻" style={{ width: '50%', height: '60px' }} onKeyUp={MeaninghandleKeyUp} ref={meaning} />
+                    <Form.Control className="inputbox mx-3 word-input" as="textarea" placeholder="단어" style={{ width: '50%', height: '43px' }} onKeyUp={WordhandleKeyUp} ref={word} />
+                    <Form.Control className="inputbox mx-3 meaning-input" as="textarea" placeholder="뜻" style={{ width: '50%', height: '43px' }} onKeyUp={MeaninghandleKeyUp} ref={meaning} />
                     <div>
                       <Button type="submit" value="Add" onClick={addCard}>
                         <FiPlus />
@@ -238,12 +222,18 @@ const Card = ({ card, onDelete, onEdit, onSave }) => {
   var modifyword = useRef(null);
   var modifymeaning = useRef(null);
 
+  let meaningRef = useRef(null);
+
   useEffect(() => {
     console.log('useEffect() called.');
     console.log(modifyword);
 
     if (modifymeaning.current != null) {
       console.log(modifymeaning.current.value);
+
+      modifyword.current.style.height = '5px';
+      modifyword.current.style.height = modifyword.current.scrollHeight + 'px';
+
       modifymeaning.current.style.height = '5px';
       modifymeaning.current.style.height = modifymeaning.current.scrollHeight + 'px';
     }
@@ -260,7 +250,7 @@ const Card = ({ card, onDelete, onEdit, onSave }) => {
                 onClick={() => {
                   console.log(modifyword.current.value);
                   console.log(modifymeaning.current.value);
-                  card.w0rd = modifyword.current.value;
+                  card.word = modifyword.current.value;
                   card.meaning = modifymeaning.current.value;
                   onSave(card);
                 }}
@@ -291,13 +281,22 @@ const Card = ({ card, onDelete, onEdit, onSave }) => {
 
         <div style={{ display: 'flex', flexDirection: 'row', marginBottom: '2rem' }}>
           <div className="mx-3" style={{ width: '40%' }}>
-            {card.isEditing && <Form.Control className="inputbox" type="text" placeholder={card.word} ref={modifyword} defaultValue={card.word} />}
-            {!card.isEditing && <p style={{ borderBottom: '5px solid black', wordBreak: 'break-all' }}>{card.word}</p>}
+            {card.isEditing && <Form.Control className="inputbox" as="textarea" placeholder={card.word} ref={modifyword} defaultValue={card.word} style={{ fontSize: '20px' }} />}
+            {!card.isEditing && (
+              <pre style={{ borderBottom: '5px solid black', wordBreak: 'break-all' }}>
+                <span style={{ fontSize: '20px' }}>{card.word}</span>
+              </pre>
+            )}
+
             <span className="word">단어</span>
           </div>
           <div className="mx-3" style={{ width: '40%' }}>
-            {card.isEditing && <Form.Control className="inputbox" as="textarea" placeholder={card.meaning} ref={modifymeaning} defaultValue={card.meaning} />}
-            {!card.isEditing && <p style={{ borderBottom: '5px solid black', wordBreak: 'break-all' }}>{card.meaning}</p>}
+            {card.isEditing && <Form.Control className="inputbox" as="textarea" placeholder={card.meaning} ref={modifymeaning} defaultValue={card.meaning} style={{ fontSize: '20px' }} />}
+            {!card.isEditing && (
+              <pre style={{ borderBottom: '5px solid black', wordBreak: 'break-all' }}>
+                <span style={{ fontSize: '20px' }}>{card.meaning}</span>
+              </pre>
+            )}
             <span className="descpription">뜻</span>
           </div>
         </div>
