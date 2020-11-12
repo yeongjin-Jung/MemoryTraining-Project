@@ -191,8 +191,8 @@
 .result-title {
   margin-bottom: 0.2em;
   font-size: 5em;
-  color: red;
-  font-weight: 800;
+  color: white;
+  font-weight: 500;
 }
 
 @media (max-width: 800px) {
@@ -276,11 +276,12 @@
   justify-content: center;
   margin-bottom: 1em;
   align-items: center;
-  border-style: ridge;
+  /* border-style: ridge; */
   padding: 25px;
   width: 90%;
-  border-color: rgb(255, 78, 78);
-  border-width: 4px;
+  /* border-color: rgb(255, 78, 78); */
+  border-radius: 10px;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
   background-color: rgb(255, 255, 255, 1);
 }
 

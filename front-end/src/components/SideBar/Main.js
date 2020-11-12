@@ -91,13 +91,13 @@ const Main = ({ collapsed, rtl, toggled, history, image, handleToggleSidebar, ha
         </div>
         <header>
           {/* <div className="h1 text-center">
-          {book.title}&nbsp; (<FcBookmark /> : 북마크 표시)
-        </div> */}
+            {book.title}&nbsp; (<FcBookmark /> : 북마크 표시)
+          </div> */}
           <div className="text-center">
             <div className="h1">
               {book.title}
               <div className="h3">
-                &nbsp; (<FcBookmark /> : 북마크 표시)
+                (<FcBookmark /> : 북마크 표시)
               </div>
             </div>
           </div>
@@ -144,7 +144,7 @@ const Card = ({ book, card, getBookmarkedCardList, getEntireQuizList, getBookmar
     <div className="courses-container">
       <div className="course">
         <div className="course-info">
-          <div>
+          <div className="Card-bookmark">
             <button
               className=""
               onClick={() => {
