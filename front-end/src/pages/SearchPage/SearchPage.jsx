@@ -2,24 +2,26 @@ import React, { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Modal } from 'react-bootstrap';
 import { SortDropDown } from '../../components';
-
 import 'animate.css';
 import './SearchPage.css';
 import FadeIn from 'react-fade-in';
-
 import Rodal from 'rodal';
 import 'rodal/lib/rodal.css';
-import { IconContext } from 'react-icons';
-import { FcBookmark } from 'react-icons/fc';
-import { FaBookmark } from 'react-icons/fa';
-import { BsBookmark } from 'react-icons/bs';
 import { FiExternalLink, FiCheckSquare } from 'react-icons/fi';
-
 import axios from 'axios';
 import SERVER from '../../api/server';
-
 import SimpleBar from 'simplebar-react';
 import 'simplebar/dist/simplebar.min.css';
+import MaterialButton from '@material-ui/core/Button';
+import ToggleButton from '@material-ui/lab/ToggleButton';
+import { makeStyles } from '@material-ui/core/styles';
+import DeleteIcon from '@material-ui/icons/Delete';
+
+const useStyles = makeStyles((theme) => ({
+  button: {
+    margin: theme.spacing(1),
+  },
+}));
 
 const SearchPage = (props) => {
   const [DropDownValue, setDropDownValue] = useState('name');
@@ -118,6 +120,7 @@ const SearchPage = (props) => {
 };
 
 const Book = ({ book }) => {
+  const classes = useStyles();
   const [show, bookListhow] = useState(false);
   const [cardList, setCardList] = useState([]);
   const buttonRef = useRef(null);
@@ -182,7 +185,7 @@ const Book = ({ book }) => {
           </div>
         </div>
         <div>
-          <Button
+          {/* <Button
             variant="light"
             color={book.scrap_flag ? 'green' : 'black'}
             onClick={(e) => {
@@ -203,7 +206,38 @@ const Book = ({ book }) => {
             }}
           >
             {color == 'green' ? <FiCheckSquare size={30} color={color} /> : <FiExternalLink size={30} color={color} />}
-          </Button>
+          </Button> */}
+          <MaterialButton
+            variant="contained"
+            onClick={(e) => {
+              if (color == 'black') {
+                console.log('color == black');
+                setColor('green');
+                axios.post(SERVER.BASE_URL + SERVER.ROUTES.scrap, { book_id: book.id }).then((res) => {
+                  console.log('scrap axios res : ', res);
+                });
+              } else {
+                console.log('color == green');
+                setColor('black');
+                axios.delete(SERVER.BASE_URL + SERVER.ROUTES.unscrap, { data: { book_id: book.id } }).then((res) => {
+                  console.log('unscrap axios res : ', res);
+                });
+              }
+              e.stopPropagation();
+            }}
+            style={{ marginRight: '5vw', fontWeight: '800' }}
+            color={color == 'green' ? 'secondary' : 'primary'}
+            startIcon={color == 'green' ? <DeleteIcon /> : ''}
+            className={classes.button}
+          >
+            {color == 'green' ? (
+              <>스크랩해제</>
+            ) : (
+              <>
+                <FiExternalLink size={20} style={{ marginRight: '10px' }} /> 스크랩
+              </>
+            )}
+          </MaterialButton>
         </div>
       </div>
 
@@ -213,9 +247,8 @@ const Book = ({ book }) => {
             {/* <div style={{ display: 'inline-block' }}> */}
             {book.title}&nbsp;
             {/* </div> */}
-            <Button
-              variant="light"
-              color={book.scrap_flag ? 'green' : 'black'}
+            <MaterialButton
+              variant="contained"
               onClick={(e) => {
                 if (color == 'black') {
                   console.log('color == black');
@@ -232,9 +265,19 @@ const Book = ({ book }) => {
                 }
                 e.stopPropagation();
               }}
+              style={{ fontWeight: '800' }}
+              color={color == 'green' ? 'secondary' : 'primary'}
+              startIcon={color == 'green' ? <DeleteIcon /> : ''}
+              className={classes.button}
             >
-              {color == 'green' ? <FiCheckSquare size={30} color={color} /> : <FiExternalLink size={30} color={color} />}
-            </Button>
+              {color == 'green' ? (
+                <>스크랩해제</>
+              ) : (
+                <>
+                  <FiExternalLink size={20} style={{ marginRight: '10px' }} /> 스크랩
+                </>
+              )}
+            </MaterialButton>
           </div>
 
           {cardList.map((card) => (

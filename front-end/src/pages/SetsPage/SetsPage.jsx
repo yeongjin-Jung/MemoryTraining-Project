@@ -124,7 +124,6 @@ function Book({ book, history, getBookList }) {
               variant="contained"
               onClick={(e) => {
                 axios.delete(SERVER.BASE_URL + SERVER.ROUTES.unscrap, { data: { book_id: book.id } }).then((res) => {
-                  console.log(res);
                   getBookList();
                 });
                 e.stopPropagation();
