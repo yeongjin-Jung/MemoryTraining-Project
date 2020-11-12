@@ -3,7 +3,7 @@ import Progress from './Progress';
 import Question from './Question';
 import Answers from './Answers';
 
-import { SET_ANSWERS, SET_CURRENT_QUESTION, SET_CURRENT_ANSWER, SET_ERROR, SET_SHOW_RESULTS, RESET_QUIZ, TOGGLE_BOOKMARK_FLAG, SET_BOOKMARKED_QUIZ } from './types';
+import { SET_ANSWERS, SET_CURRENT_QUESTION, SET_CURRENT_ANSWER, SET_ERROR, SET_SHOW_RESULTS, RESET_QUIZ, TOGGLE_BOOKMARK_FLAG, SET_BOOKMARKED_QUIZ, SET_ALL_TO_UNBOOKMARKED } from './types';
 import quizReducer from './QuizReducer';
 import QuizContext from './QuizContext';
 import { AwesomeButton } from 'react-awesome-button';
@@ -74,6 +74,10 @@ const CardTestPage = (props) => {
     });
 
     dispatch({ type: 'SET_ALL_WRONG_ANSWERS_TO_BOOKMARKED', book: props.history.location.state.book });
+  };
+
+  const handleAllToUnbookmarked = () => {
+    dispatch({ type: 'SET_ALL_TO_UNBOOKMARKED', book: props.history.location.state.book });
   };
 
   const renderError = () => {
@@ -218,10 +222,14 @@ const CardTestPage = (props) => {
               채점 결과
             </p>
             <div className="container-result-content">
-              <div className="align-right">
+              {/* <div className="align-right"> */}
+              <div className="container-fluid button-group" style={{}}>
+                <AwesomeButton className="aws-scrapback-btn one" type="bookmark-restart" onPress={handleAllToUnbookmarked}>
+                  <span>모두 북마크 해제</span>
+                </AwesomeButton>
                 {/* <Button onClick={handleWrongAnswerToBookmark}>틀린 문제 모두 스크랩하기</Button> */}
-                <AwesomeButton className="aws-scrapback-btn" type="bookmark-restart" onPress={handleWrongAnswerToBookmark}>
-                  <span>틀린 문제 모두 스크랩하기</span>
+                <AwesomeButton className="aws-scrapback-btn two" type="testfinish" onPress={handleWrongAnswerToBookmark}>
+                  <span>틀린 문제 모두 북마크</span>
                 </AwesomeButton>
               </div>
               <ul>{renderResultData()}</ul>
