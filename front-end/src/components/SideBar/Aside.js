@@ -25,7 +25,7 @@ const Aside = ({ book, image, collapsed, rtl, toggled, handleToggleSidebar, hist
     console.log('Aside.js useEffect called');
     console.log('bookmarkedCardList : ', bookmarkedCardList);
     console.log('entireQuizList : ', entireQuizList);
-    // console.log('bookmarkedQuizList : ', bookmarkedQuizList);
+    console.log('bookmarkedQuizList : ', bookmarkedQuizList);
   });
 
   return (

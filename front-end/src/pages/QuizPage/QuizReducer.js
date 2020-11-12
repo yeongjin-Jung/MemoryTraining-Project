@@ -8,6 +8,7 @@ import {
   SET_ALL_WRONG_ANSWERS_TO_BOOKMARKED,
   TOGGLE_BOOKMARK_FLAG,
   SET_BOOKMARKED_QUIZ,
+  SET_ALL_TO_UNBOOKMARKED,
 } from './types.js';
 
 import axios from 'axios';
@@ -103,6 +104,40 @@ function quizReducer(state, action) {
         ...state,
         quizs: tmp2,
       };
+
+    case SET_ALL_TO_UNBOOKMARKED:
+      console.log('SET_ALL_TO_UNBOOKMARKED called.');
+
+      let quiz3 = state.quizs;
+      let tmp3 = [...quiz3];
+      console.log('tmp3 : ', tmp3);
+
+      state.answers.map((answer) => {
+        if (tmp3[answer.questionId - 1].card.bookmark_flag == 1) {
+          tmp3[answer.questionId - 1].card.bookmark_flag = 0;
+
+          axios.delete(SERVER.BASE_URL + SERVER.ROUTES.unbookmark, { data: { book_id: action.book.id, card_id: answer.card.id } }).then((res) => {
+            console.log('UNBOOKMARK ACTIVATED.');
+            // quiz.card.bookmark_flag = 0;
+            console.log(res);
+          });
+        }
+      });
+      return {
+        ...state,
+        quizs: tmp3,
+      };
+
+    // tmp3.map((quiz) => {
+    //   console.log('quiz : ', quiz);
+    //   if (quiz.card.bookmark_flag == 1) {
+    //     axios.delete(SERVER.BASE_URL + SERVER.ROUTES.unbookmark, { data: { book_id: action.book.id, card_id: quiz.card.id } }).then((res) => {
+    //       console.log('UNBOOKMARK ACTIVATED.');
+    //       quiz.card.bookmark_flag = 0;
+    //       console.log(res);
+    //     });
+    //   }
+    // });
 
     case SET_BOOKMARKED_QUIZ:
       return {
