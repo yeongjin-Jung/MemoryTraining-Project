@@ -1,4 +1,4 @@
-import React, { useReducer, useState, useEffect } from 'react';
+import React, { useReducer, useState, useEffect, useRef } from 'react';
 import Progress from './Progress';
 import Question from './Question';
 import Answers from './Answers';
@@ -20,11 +20,18 @@ import SERVER from '../../api/server';
 const CardTestPage = (props) => {
   let quizs = props.history.location.state.quizList;
   // console.log('props.history.location.state : ', props.history.location.state);
+  // const [btnFlag, setBtnFlag] = useState(true);
+  let btnFlag = useRef(false);
+  useRef;
   useEffect(() => {
     dispatch({ type: 'RESET_QUIZ' });
-    console.log('quizs =>', quizs);
+    // console.log('quizs =>', quizs);
     // console.log('book=>', book);
+
+    console.log('QuizTestPage.jsx useEffect called.');
   }, []);
+
+  // const [noBookmarkedCards, setNoBookmarkedCards] = useState(false);
 
   const initialState = {
     quizs,
@@ -38,6 +45,26 @@ const CardTestPage = (props) => {
 
   const [state, dispatch] = useReducer(quizReducer, initialState);
   const { currentQuestion, currentAnswer, answers, showResults, error, wrongAnswersIdx } = state;
+
+  const checkIfNoBookmarkCards = () => {
+    const found = state.quizs.find((quiz) => quiz.card.bookmark_flag == 1);
+    console.log('found : ', found);
+
+    // 북마크 된 카드들이 하나도 없을 때
+    if (found == undefined) {
+      // setNoBookmarkedCards(true);
+      console.log('NO BOOKMARKED CARDS');
+      btnFlag = false;
+    }
+
+    // 북마크 된 카드들이 하나라도 있을 때
+    else {
+      // setNoBookmarkedCards(false);
+      // setBtnFlag(true);
+      console.log('YES BOOKMARKED CARDS');
+      btnFlag = true;
+    }
+  };
 
   const question = state.quizs[currentQuestion];
 
@@ -113,6 +140,7 @@ const CardTestPage = (props) => {
                     console.log(res);
 
                     dispatch({ type: TOGGLE_BOOKMARK_FLAG, quizIdx: question.no - 1 });
+                    checkIfNoBookmarkCards();
                   });
                 }}
               />
@@ -176,6 +204,7 @@ const CardTestPage = (props) => {
 
   if (showResults) {
     console.log('answers : ', answers);
+    checkIfNoBookmarkCards();
     // console.log('wrongAnswersIdx : ', wrongAnswersIdx);
 
     renderResultData();
@@ -204,9 +233,17 @@ const CardTestPage = (props) => {
                   북마크 단어들만 다시 테스트
                 </button> */}
 
-                <AwesomeButton className="aws-bookmark-restart-btn" type="third" onPress={restart}>
-                  <span>북마크 단어들만 다시 테스트</span>
-                </AwesomeButton>
+                {btnFlag && (
+                  <AwesomeButton className="aws-bookmark-restart-btn" type="third" onPress={restart}>
+                    <span>북마크 단어들만 다시 테스트</span>
+                  </AwesomeButton>
+                )}
+                {!btnFlag && (
+                  <AwesomeButton className="aws-bookmark-restart-btn" type="third" onPress={restart} disabled={true}>
+                    <strike>북마크 단어들만 다시 테스트</strike>
+                  </AwesomeButton>
+                )}
+
                 {/* <button
                   className="restart-btn"
                   onClick={() => {
@@ -237,40 +274,66 @@ const CardTestPage = (props) => {
     );
   } else {
     return (
-      <QuizContext.Provider value={{ state, dispatch }}>
-        <div className="CardTest-root">
-          <div className="CardTest-background"></div>
+      <>
+        {props.history.location.state.quizList.length == 0 && (
+          <div className="CardTest-root">
+            <div className="CardTest-background"></div>
+            <div className="container-fluid " style={{ display: 'flex', justifyContent: 'center', alignContent: 'center' }}>
+              <AwesomeButton
+                // style={{ marginTop: '1rem' }}
+                className="aws-Quizback-btn"
+                type="primary"
+                onPress={() => {
+                  props.history.push({ pathname: '/set-detail', state: { book: props.location.state.book } });
+                }}
+              >
+                <span>세트페이지</span>
+              </AwesomeButton>
 
-          <AwesomeButton
-            className="aws-Quizback-btn"
-            type="primary"
-            onPress={() => {
-              props.history.push({ pathname: '/set-detail', state: { book: props.location.state.book } });
-            }}
-          >
-            <span>세트페이지</span>
-          </AwesomeButton>
+              <div className="search-empty" style={{ marginTop: '35vh' }}>
+                북마크 된 카드가 없습니다.
+              </div>
+            </div>
+          </div>
+        )}
 
-          <div className="Quiz-container">
-            <Progress total={state.quizs.length} current={state.currentQuestion + 1} />
-            <div className="Quiz-problem">
-              <Question question={question.question} />
-              {renderError()}
-              {/* <h2>In 2016, who won the Formula 1 World Constructor's Championship for the third time in a row?</h2> */}
-            </div>
-            <div className="Quiz-answer">
-              <Answers question={question} currentAnswer={currentAnswer} dispatch={dispatch} />
-            </div>
-            {/* <button className="Quizbtn Quizbtn-primary" onClick={next}>
+        {props.history.location.state.quizList.length != 0 && (
+          <QuizContext.Provider value={{ state, dispatch }}>
+            <div className="CardTest-root">
+              <div className="CardTest-background"></div>
+
+              <AwesomeButton
+                className="aws-Quizback-btn"
+                type="primary"
+                onPress={() => {
+                  props.history.push({ pathname: '/set-detail', state: { book: props.location.state.book } });
+                }}
+              >
+                <span>세트페이지</span>
+              </AwesomeButton>
+
+              <div className="Quiz-container">
+                <Progress total={state.quizs.length} current={state.currentQuestion + 1} />
+                <div className="Quiz-problem">
+                  <Question question={question.question} />
+                  {renderError()}
+                  {/* <h2>In 2016, who won the Formula 1 World Constructor's Championship for the third time in a row?</h2> */}
+                </div>
+                <div className="Quiz-answer">
+                  <Answers question={question} currentAnswer={currentAnswer} dispatch={dispatch} />
+                </div>
+                {/* <button className="Quizbtn Quizbtn-primary" onClick={next}>
               <p>다음 문제</p>
             </button> */}
 
-            <AwesomeButton className="aws-nextQuiz-btn" type="nextQuiz" onPress={next}>
-              <span>다음 문제</span>
-            </AwesomeButton>
-          </div>
-        </div>
-      </QuizContext.Provider>
+                <AwesomeButton className="aws-nextQuiz-btn" type="nextQuiz" onPress={next}>
+                  <span>다음 문제</span>
+                </AwesomeButton>
+              </div>
+            </div>
+          </QuizContext.Provider>
+        )}
+      </>
     );
   }
 };
