@@ -90,7 +90,7 @@ const Aside = ({ book, image, collapsed, rtl, toggled, handleToggleSidebar, hist
                 history.history.push({ pathname: '/quiz', state: { quizList: entireQuizList, book: book } });
               }}
             >
-              전체 카드
+              전체 테스트
             </MenuItem>
             <MenuItem
               className="MenuItem"
@@ -98,7 +98,7 @@ const Aside = ({ book, image, collapsed, rtl, toggled, handleToggleSidebar, hist
                 history.history.push({ pathname: '/quiz', state: { quizList: bookmarkedQuizList, book: book } });
               }}
             >
-              북마크 카드
+              북마크 테스트
             </MenuItem>
           </SubMenu>
 

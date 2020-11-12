@@ -1,5 +1,5 @@
 .wrap-register {
-  background-image: url("../../assets/images/bg-01.png");
+  background-image: url('../../assets/images/bg-01.png');
 }
 
 .background {
@@ -16,22 +16,22 @@
 
 @font-face {
   font-family: Poppins-Regular;
-  src: url("../../assets/font/Poppins-Regular.ttf");
+  src: url('../../assets/font/Poppins-Regular.ttf');
 }
 
 @font-face {
   font-family: Poppins-Medium;
-  src: url("../../assets/font/Poppins-Medium.ttf");
+  src: url('../../assets/font/Poppins-Medium.ttf');
 }
 
 @font-face {
   font-family: Poppins-Bold;
-  src: url("../../assets/font/Poppins-Bold.ttf");
+  src: url('../../assets/font/Poppins-Bold.ttf');
 }
 
 @font-face {
   font-family: Poppins-SemiBold;
-  src: url("../../assets/font/Poppins-SemiBold.ttf");
+  src: url('../../assets/font/Poppins-SemiBold.ttf');
 }
 
 /*//////////////////////////////////////////////////////////////////
@@ -246,7 +246,7 @@ iframe {
   background: linear-gradient(-45deg, #ddee9f, #fffedc, #63bfe0, #c6f5ea);
   background-size: 400% 400%;
   animation: gradient 15s ease infinite;
-  content: "";
+  content: '';
   display: block;
   position: absolute;
   z-index: -1;
@@ -261,8 +261,7 @@ iframe {
   width: 600px;
   border-radius: 10px;
   overflow: hidden;
-  padding: 35px 45px 25px 45px;
-
+  padding: 30px 45px 20px 45px;
   background: #358ff5;
   background: -webkit-linear-gradient(top, #7579ff, #b224ef);
   background: -o-linear-gradient(top, #7579ff, #b224ef);
@@ -341,7 +340,7 @@ iframe {
 }
 
 .focus-input100::before {
-  content: "";
+  content: '';
   display: block;
   position: absolute;
   bottom: -2px;
@@ -461,7 +460,7 @@ iframe {
 }
 
 .login100-form-btn::before {
-  content: "";
+  content: '';
   display: block;
   position: absolute;
   z-index: -1;
@@ -536,7 +535,7 @@ iframe {
 }
 
 .alert-validate::after {
-  content: "\f12a";
+  content: '\f12a';
   font-family: FontAwesome;
   font-size: 16px;
   color: #c80000;

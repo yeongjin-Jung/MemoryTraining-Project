@@ -184,7 +184,7 @@
   height: 100%;
   display: flex;
   flex: 1;
-  align-items: center;
+  align-items: flex-start;
   /* justify-content: center; */
   flex-direction: column;
 }
@@ -264,6 +264,7 @@
 }
 
 .container-result-content {
+  width: 90%;
   display: flex;
   flex-direction: column;
   justify-content: center;

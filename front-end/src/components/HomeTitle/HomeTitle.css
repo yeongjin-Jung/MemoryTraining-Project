@@ -2,6 +2,7 @@
   background-image: url('../../assets/images/bg-01.png');
   width: 100%;
   min-height: 90%;
+  height: 22vh;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;

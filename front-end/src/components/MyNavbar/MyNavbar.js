@@ -129,7 +129,7 @@ const Menu = ({ toggleSearch, toggleButtonRef, collapseRef }) => {
           }
         }}
       >
-        <div className="nav-set-btn">세트</div>
+        <div className="nav-set-btn">내 세트</div>
       </Nav.Link>
     </>
   );
