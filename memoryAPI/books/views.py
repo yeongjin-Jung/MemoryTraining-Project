@@ -68,6 +68,8 @@ class BookListView(APIView):
         if self.request.query_params.get('my_set_only'):
             return Book.objects.filter(title__icontains=keyword, user_id=user_id).order_by('-updated_at')
         books = Book.objects.exclude(user_id=user_id).filter(title__icontains=keyword).order_by('-updated_at')
+        if self.request.query_params.get('order') == 'name':
+            books = books.order_by('title')
         for book_info in books:
             # print(book_info.id)
             if MyBook.objects.filter(book_id=book_info.id, user_id=user_id).exists():
