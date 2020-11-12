@@ -13,7 +13,6 @@ import SERVER from '../../api/server';
 import SimpleBar from 'simplebar-react';
 import 'simplebar/dist/simplebar.min.css';
 import MaterialButton from '@material-ui/core/Button';
-import ToggleButton from '@material-ui/lab/ToggleButton';
 import { makeStyles } from '@material-ui/core/styles';
 import DeleteIcon from '@material-ui/icons/Delete';
 
@@ -171,9 +170,10 @@ const Book = ({ book }) => {
         }}
       >
         <div className="real-card">
-          <h3>
-            {book.id} : {book.title}
-          </h3>
+          <h2>
+            {/* {book.id} : {book.title} */}
+            {book.title}
+          </h2>
           <p>{book.description}</p>
           <p>수정 날짜 : {book.updated_at}</p>
           <p>작성자 이메일: {book.user.email}</p>
@@ -230,13 +230,7 @@ const Book = ({ book }) => {
             startIcon={color == 'green' ? <DeleteIcon /> : ''}
             className={classes.button}
           >
-            {color == 'green' ? (
-              <>스크랩해제</>
-            ) : (
-              <>
-                <FiExternalLink size={20} style={{ marginRight: '10px' }} /> 스크랩
-              </>
-            )}
+            {color == 'green' ? <>스크랩해제</> : <><FiExternalLink size={20} style={{ marginRight: '10px' }} />스크랩</>}
           </MaterialButton>
         </div>
       </div>
@@ -270,13 +264,7 @@ const Book = ({ book }) => {
               startIcon={color == 'green' ? <DeleteIcon /> : ''}
               className={classes.button}
             >
-              {color == 'green' ? (
-                <>스크랩해제</>
-              ) : (
-                <>
-                  <FiExternalLink size={20} style={{ marginRight: '10px' }} /> 스크랩
-                </>
-              )}
+              {color == 'green' ? <>스크랩해제</> : <><FiExternalLink size={20} style={{ marginRight: '10px' }} />스크랩</>}
             </MaterialButton>
           </div>
 
