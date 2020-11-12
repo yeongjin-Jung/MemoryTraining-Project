@@ -61,12 +61,12 @@ const LoginPage = (props) => {
       )
       .then(function (response) {
         console.log(response);
-        alert('로그인이 정상적으로 완료되었습니다');
         if (response.status == 200) {
           localStorage.setItem('Authorization', 'JWT ' + response.data.token);
+          alert('로그인이 정상적으로 완료되었습니다');
+          dispatch({ type: 'LOGIN' });
+          props.history.push('/');
         }
-        dispatch({ type: 'LOGIN' });
-        props.history.push('/');
       })
       .catch(function (error) {
         alert('가입하지 않은 아이디이거나, 잘못된 비밀번호입니다');

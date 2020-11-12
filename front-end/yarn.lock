@@ -11251,6 +11251,11 @@ react-app-polyfill@^2.0.0:
     regenerator-runtime "^0.13.7"
     whatwg-fetch "^3.4.1"
 
+react-autocomplete-hint@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/react-autocomplete-hint/-/react-autocomplete-hint-1.2.0.tgz#ec31a54a0f83bff93d8014803255973b4c47061c"
+  integrity sha512-DFHNoJ5tAw3tZAXTafsoBm6EE/59hNF9lY8DTWWEL0rnesja+RbZ/TdDjv5rGoz2ahy+6dSlXHx+56V6G07oig==
+
 react-awesome-button@^6.5.1:
   version "6.5.1"
   resolved "https://registry.yarnpkg.com/react-awesome-button/-/react-awesome-button-6.5.1.tgz#d2103e98dc4d48550efd21dd9ec8f5a09e596407"
