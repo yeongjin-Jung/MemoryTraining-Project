@@ -11,6 +11,17 @@ import './unscrap-btn-styles.css';
 import './SetsPage.css';
 import 'animate.css';
 
+import MaterialButton from '@material-ui/core/Button';
+import { makeStyles } from '@material-ui/core/styles';
+import DeleteIcon from '@material-ui/icons/Delete';
+import Icon from '@material-ui/core/Icon';
+
+const useStyles = makeStyles((theme) => ({
+  button: {
+    margin: theme.spacing(1),
+  },
+}));
+
 const SetsPage = (props) => {
   const [DropDownValue, setDropDownValue] = useState('all');
   const [bookList, setBookList] = useState([]);
@@ -78,6 +89,16 @@ const SetsPage = (props) => {
 };
 
 function Book({ book, history, getBookList }) {
+  const classes = useStyles();
+  const unscrapHandler = (e) => {
+    axios.delete(SERVER.BASE_URL + SERVER.ROUTES.unscrap, { data: { book_id: book.id } }).then((res) => {
+      console.log(res);
+      getBookList();
+    });
+    e.stopPropagation();
+    console.log(e);
+  };
+
   return (
     <div className="card-container">
       <a
@@ -99,6 +120,22 @@ function Book({ book, history, getBookList }) {
         </div>
         <div className="container-fluid" style={{ display: 'flex', justifyContent: 'flex-end' }}>
           {book.write_flag == 0 && (
+            <MaterialButton
+              variant="contained"
+              onClick={(e) => {
+                axios.delete(SERVER.BASE_URL + SERVER.ROUTES.unscrap, { data: { book_id: book.id } }).then((res) => {
+                  console.log(res);
+                  getBookList();
+                });
+                e.stopPropagation();
+              }}
+              style={{ marginRight: '5vw', fontWeight: '800' }}
+              color="secondary"
+              className={classes.button}
+              startIcon={<DeleteIcon />}
+            >
+              스크랩해제
+            </MaterialButton>
             // <Button
             //   className="set-unscrap-btn"
             //   style={{ zIndex: '1' }}
@@ -113,19 +150,20 @@ function Book({ book, history, getBookList }) {
             //   <span>스크랩 해제</span>
             // </Button>
 
-            <AwesomeButton
-              className="aws-unscrap-btn"
-              type="secondary"
-              onPress={(e) => {
-                axios.delete(SERVER.BASE_URL + SERVER.ROUTES.unscrap, { data: { book_id: book.id } }).then((res) => {
-                  console.log(res);
-                  getBookList();
-                });
-                e.stopPropagation();
-              }}
-            >
-              <span>스크랩해제</span>
-            </AwesomeButton>
+            // <AwesomeButton
+            //   className="aws-unscrap-btn"
+            //   type="secondary"
+            //   onPress={(e) => {
+            //     axios.delete(SERVER.BASE_URL + SERVER.ROUTES.unscrap, { data: { book_id: book.id } }).then((res) => {
+            //       console.log(res);
+            //       getBookList();
+            //     });
+            //     e.stopPropagation();
+            //     console.log(e);
+            //   }}
+            // >
+            //   <span>스크랩해제</span>
+            // </AwesomeButton>
           )}
         </div>
       </a>
