@@ -51,6 +51,10 @@ class BookView(APIView):
         book.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+    def patch(self, request, pk, format=None):
+        Book.objects.filter(id=pk).update(title=request.data['title'], description=request.data['description'])
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
 
 class BookListView(APIView):
     serializer_class = BookSerializer
@@ -171,7 +175,7 @@ class CardView(APIView):
             if not Book.objects.filter(id=book_id, user_id=self.request.user.pk).exists():
                 return Response('직접 생성한 카드만 삭제가 가능합니다', status=status.HTTP_400_BAD_REQUEST)
             card.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response(status=status.HTTP_204_NOf_CONTENT)
 
     def patch(self, request, format=None):
         card_list = request.data['card_list']
