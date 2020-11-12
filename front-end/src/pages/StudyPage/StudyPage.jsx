@@ -4,40 +4,78 @@ import { Link } from 'react-router-dom';
 import CoreStyles from '../StudyPage/styles.scss';
 import AwesomeSliderStyles from 'react-awesome-slider/src/styled/open-animation/open-animation.scss';
 import Flippy, { FrontSide, BackSide } from 'react-flippy';
-import Speech from 'react-speech';
 import { useSpeechSynthesis } from 'react-speech-kit';
-
-import SimpleBar from 'simplebar-react';
 import 'simplebar/dist/simplebar.min.css';
 import { BsBookmark } from 'react-icons/bs';
 import { FcBookmark } from 'react-icons/fc';
-
 import axios from 'axios';
 import SERVER from '../../api/server';
 import { AwesomeButton } from 'react-awesome-button';
 import 'react-sweet-progress/lib/style.css';
 import '../../assets/css/back-btn-styles.css';
 import './StudyPage.css';
+import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import Flag from 'react-country-flags';
 
 const ref = React.createRef();
+const useStyles = makeStyles({
+  root1: {
+    background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+    borderRadius: 3,
+    border: 0,
+    color: 'white',
+    height: 48,
+    padding: '0 30px',
+    boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+  },
+  root2: {
+    background: 'linear-gradient(45deg, #F0000 30%, #FF8E53 90%)',
+    borderRadius: 3,
+    border: 0,
+    color: 'white',
+    height: 48,
+    padding: '0 30px',
+    boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+  },
+  label: {
+    textTransform: 'capitalize',
+  },
+});
 
 const StudyPage = (props) => {
+  const { speak, cancel, voices } = useSpeechSynthesis();
   const cards = props.location.state.cardList;
   const book = props.location.state.book;
   const [cardList, setCardList] = useState(cards);
 
   useEffect(() => {
-    console.log('props =>', props);
-    console.log('book : ', book);
-    console.log('@@@@@@@@@@@@@@@@@@@@ cards : ', cards);
+    console.log('voices : ', voices);
+    return () => {
+      window.speechSynthesis.cancel();
+    };
   }, []);
 
+  const speechWord = (e, word, num) => {
+    cancel();
+    speak({
+      text: word,
+      voice: voices[num],
+    });
+    e.stopPropagation();
+  };
+
+  const speechMeaning = (e, meaning, num) => {
+    cancel();
+    speak({
+      text: meaning,
+      voice: voices[num],
+    });
+    e.stopPropagation();
+  };
+
   const handleCard = (card) => {
-    console.log('handleCard called.');
-
     var idx = cardList.findIndex((ele) => ele.id == card.id);
-    console.log('idx : ', idx);
-
     let tmpCardList = [...cardList];
     tmpCardList[idx].bookmark_flag = !tmpCardList[idx].bookmark_flag;
 
@@ -68,7 +106,7 @@ const StudyPage = (props) => {
         <AwesomeSlider className="slider" infinite={false} bullets={false} animation="openAnimation" cssModule={(CoreStyles, AwesomeSliderStyles)}>
           {cards.map((data, index) => (
             <div className="FlippyContainer-root" key={index}>
-              <Card data={data} handleCard={handleCard} book={book} />
+              <Card data={data} handleCard={handleCard} book={book} speechWord={speechWord} speechMeaning={speechMeaning} />
             </div>
           ))}
         </AwesomeSlider>
@@ -78,24 +116,10 @@ const StudyPage = (props) => {
   );
 };
 
-const Card = ({ data, handleCard, book }) => {
-  const { speak, cancel } = useSpeechSynthesis();
-
-  const [voiceStart, setVoiceStart] = useState(false);
+const Card = ({ data, handleCard, book, speechWord, speechMeaning }) => {
+  const { cancel } = useSpeechSynthesis();
   const [card, setCard] = useState(data);
-  //console.log('각각의 카드 데이터 : ', data);
-  //console.log('각각의 카드 bookmark_flag : ', data.bookmark_flag);
-  // const [color, setColor] = useState(data.bookmark_flag ? 'red' : 'black');
-
-  const speechWord = (e) => {
-    speak({ text: data.word });
-    e.stopPropagation();
-  };
-
-  const speechMeaning = (e) => {
-    speak({ text: data.meaning });
-    e.stopPropagation();
-  };
+  const classes = useStyles();
 
   useEffect(() => {
     console.log('Card useEffect called.');
@@ -112,10 +136,6 @@ const Card = ({ data, handleCard, book }) => {
     };
     setCard(data);
   });
-
-  const speechhandler = (e) => {
-    console.log(e);
-  };
 
   return (
     <div className="FlippyContainer">
@@ -154,8 +174,33 @@ const Card = ({ data, handleCard, book }) => {
             </button>
           </div>
           <div className="word-type">단어</div>
-          <div className="speech-button" onClick={speechWord} style={{ backgroundColor: 'black' }}>
-            {/* <Speech text={data.word} /> */}
+          <div className="speech-button" style={{ display: 'flex', width: '50%', justifyContent: 'space-around', alignItems: 'center', top: '1.4em' }}>
+            <Flag
+              className="flag us"
+              country="us"
+              asSquare={true}
+              onClick={(e) => {
+                speechWord(e, data.word, 3);
+              }}
+            />
+
+            <Flag
+              className="flag kr"
+              country="kr"
+              asSquare={true}
+              onClick={(e) => {
+                speechWord(e, data.word, 13);
+              }}
+            />
+
+            <Flag
+              className="flag cn"
+              country="cn"
+              asSquare={true}
+              onClick={(e) => {
+                speechWord(e, data.word, 18);
+              }}
+            />
           </div>
           <div className="word-content">{data.word}</div>
         </FrontSide>
@@ -188,8 +233,33 @@ const Card = ({ data, handleCard, book }) => {
             </button>
           </div>
           <div className="word-type">뜻</div>
-          <div className="speech-button" onClick={speechMeaning} style={{ backgroundColor: 'black' }}>
-            {/* <Speech text={data.meaning}></Speech> */}
+          <div className="speech-button" style={{ display: 'flex', width: '50%', justifyContent: 'space-around', alignItems: 'center', top: '1.4em' }}>
+            <Flag
+              className="flag us"
+              country="us"
+              asSquare={true}
+              onClick={(e) => {
+                speechMeaning(e, data.meaning, 3);
+              }}
+            />
+
+            <Flag
+              className="flag kr"
+              country="kr"
+              asSquare={true}
+              onClick={(e) => {
+                speechMeaning(e, data.meaning, 13);
+              }}
+            />
+
+            <Flag
+              className="flag cn"
+              country="cn"
+              asSquare={true}
+              onClick={(e) => {
+                speechMeaning(e, data.meaning, 18);
+              }}
+            />
           </div>
           <div className="meaning-content">{data.meaning}</div>
         </BackSide>

@@ -248,6 +248,12 @@
   font-size: 2em;
   font-weight: 900;
 }
+@media (max-width: 800px) {
+  .word-type {
+    font-size: 1.5em;
+    margin-left: 2px;
+  }
+}
 
 .bookmark-icon {
   position: fixed;
@@ -255,6 +261,13 @@
   top: 1.6em;
   /* font-size: 2em; */
   /* font-weight: 900; */
+}
+
+@media (max-width: 800px) {
+  .bookmark-icon button svg {
+    width: 23px !important;
+    height: 23px !important;
+  }
 }
 
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:600&display=swap');
@@ -296,4 +309,24 @@
   text-align: center;
   font-size: 3em;
   color: black;
+}
+
+.flag {
+  width: 80px;
+  height: 70px;
+  margin-top: 5px;
+  padding: 3px;
+}
+.flag:hover {
+  cursor: pointer;
+}
+
+@media (max-width: 700px) {
+  .flag {
+    width: 45px;
+    height: 45px;
+    padding: 3px;
+    margin-left: 10px;
+    margin-top: 2px;
+  }
 }
