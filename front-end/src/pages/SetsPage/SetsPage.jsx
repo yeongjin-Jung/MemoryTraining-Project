@@ -60,6 +60,8 @@ const SetsPage = (props) => {
             {DropDownValue == 'Scrap' && bookList.filter((book) => book.write_flag == 0).map((book) => <Book book={book} key={book.id} history={props.history} getBookList={getBookList} />)}
           </FadeIn>
         )}
+
+        {!isLoading && bookList.length == 0 && <div className="sets-empty">세트가 비었습니다.</div>}
       </div>
 
       <a
@@ -119,7 +121,7 @@ function Book({ book, history, getBookList }) {
                   console.log(res);
                   getBookList();
                 });
-                //     e.stopPropagation();
+                e.stopPropagation();
               }}
             >
               <span>스크랩해제</span>

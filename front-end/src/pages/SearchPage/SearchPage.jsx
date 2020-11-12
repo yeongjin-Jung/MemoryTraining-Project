@@ -102,7 +102,7 @@ const SearchPage = (props) => {
             {/* </div> */}
           </FadeIn>
         )}
-        {!isLoading && bookList.length == 0 && <div>검색결과가 없습니다.</div>}
+        {!isLoading && bookList.length == 0 && <div className="search-empty">검색 결과가 없습니다.</div>}
       </div>
       <a
         onClick={() => {

@@ -57,8 +57,8 @@ const CardTestPage = (props) => {
   };
 
   const renderResultMark = (question, answer) => {
-    // console.log('question', question);
-    // console.log('answer', answer);
+    console.log('question 입니다 :', question);
+    console.log('answer 입니다 : ', answer);
 
     if (question.answer === answer.answer) {
       return (
