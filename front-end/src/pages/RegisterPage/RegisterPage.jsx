@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import './Register.css';
 import '../../assets/css/util.css';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { registerUser } from '../../_actions/userAction';
 import axios from 'axios';
@@ -128,12 +128,10 @@ function RegisterPage(props) {
               <button className="login100-form-btn m-l-20" type="submit">
                 회원가입
               </button>
+              <Link to="/login">
+                <button className="login100-form-btn m-l-20">취소</button>
+              </Link>
             </div>
-            {/* <div className="text-center p-t-30">
-            <a className="txt1" href="#">
-              Forgot Password?
-            </a>
-          </div> */}
           </form>
         </div>
       </div>
