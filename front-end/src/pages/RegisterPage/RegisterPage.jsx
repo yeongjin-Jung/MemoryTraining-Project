@@ -10,8 +10,8 @@ import SERVER from '../../api/server';
 
 function RegisterPage(props) {
   const [Email, setEmail] = useState('');
-  const [Password, setPassword] = useState('');
   const [Name, setName] = useState('');
+  const [Password, setPassword] = useState('');
   const [ConfirmPasword, setConfirmPasword] = useState('');
   const [passwordError, setPasswordError] = useState(false);
   const dispatch = useDispatch();
@@ -45,8 +45,16 @@ function RegisterPage(props) {
       alert('이메일을 입력해 주세요');
       return;
     }
+    if (Email.length > 100) {
+      alert('이메일이 너무 길어요');
+      return;
+    }
     if (Name == '') {
       alert('이름을 입력해 주세요');
+      return;
+    }
+    if (Name.length > 20) {
+      alert('이름이 너무 길어요');
       return;
     }
     if (Password == '') {
@@ -124,12 +132,12 @@ function RegisterPage(props) {
               {passwordError && <div style={{ color: 'red' }}>비밀번호가 일치하지 않습니다.</div>}
             </div>
 
-            <div className="container-login100-form-btn">
-              <button className="login100-form-btn m-l-20" type="submit">
+            <div className="container-login100-form-btn justify-content-around">
+              <button className="login100-form-btn" type="submit">
                 회원가입
               </button>
               <Link to="/login">
-                <button className="login100-form-btn m-l-20">취소</button>
+                <button className="login100-form-btn">돌아가기</button>
               </Link>
             </div>
           </form>

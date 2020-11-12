@@ -101,11 +101,11 @@ const LoginPage = (props) => {
               <span className="focus-input100" data-placeholder="&#xf191;"></span>
             </div>
 
-            <div className="container-login100-form-btn">
-              <button className="login100-form-btn m-r-20" type="submit">
+            <div className="container-login100-form-btn justify-content-around">
+              <button className="login100-form-btn" type="submit">
                 로그인
               </button>
-              <button className="login100-form-btn m-l-20" onClick={() => redirectToRegister()}>
+              <button className="login100-form-btn" onClick={() => redirectToRegister()}>
                 회원가입
               </button>
             </div>
