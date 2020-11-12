@@ -279,16 +279,22 @@ const SetModifyPage = (props) => {
 
                                 console.log('props : ', props);
                                 console.log('주소 : ', SERVER.BASE_URL + SERVER.ROUTES.update + props.location.state.book.id + '/');
-                                console.log('--------------------------------------------------------------------------------');
                                 axios
                                   .patch(SERVER.BASE_URL + SERVER.ROUTES.update + props.location.state.book.id + '/', {
                                     title: createSetTitle.current.value,
                                     description: createSetDescription.current.value,
                                   })
                                   .then((res) => {
+                                    console.log('--------------------------------------------------------------------------------');
                                     console.log('patch 세트 제목, 설명 수정 res : ', res);
                                     alert(`[${props.location.state.book.title}] 세트가 수정되었습니다.`);
-                                    props.history.push({ pathname: '/set-detail', state: { book: props.location.state.book } });
+                                    let bookData = {
+                                      ...res.data,
+                                      write_flag: 1,
+                                    };
+
+                                    console.log('bookData : ', bookData);
+                                    props.history.push({ pathname: '/set-detail', state: { book: bookData } });
                                   });
                               });
                             });
