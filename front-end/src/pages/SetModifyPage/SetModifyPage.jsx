@@ -273,7 +273,7 @@ const SetModifyPage = (props) => {
                             });
                           });
                         alert('저장되었습니다');
-                      };
+                      }
                     }}
                   >
                     저장
@@ -408,12 +408,20 @@ const Card = ({ card, onDelete, onEdit, onSave }) => {
         <div style={{ display: 'flex', flexDirection: 'row', marginBottom: '2rem' }}>
           <div className="mx-3" style={{ width: '40%' }}>
             {card.isEditing && <Form.Control className="inputbox" type="text" placeholder={card.word} ref={modifyword} defaultValue={card.word} />}
-            {!card.isEditing && <p style={{ borderBottom: '5px solid black', wordBreak: 'break-all' }}>{card.word}</p>}
+            {!card.isEditing && (
+              <pre style={{ borderBottom: '5px solid black', wordBreak: 'break-all' }}>
+                <span style={{ fontSize: '20px' }}>{card.word}</span>
+              </pre>
+            )}
             <span className="word">단어</span>
           </div>
           <div className="mx-3" style={{ width: '40%' }}>
             {card.isEditing && <Form.Control className="inputbox" as="textarea" placeholder={card.meaning} ref={modifymeaning} defaultValue={card.meaning} />}
-            {!card.isEditing && <p style={{ borderBottom: '5px solid black', wordBreak: 'break-all' }}>{card.meaning}</p>}
+            {!card.isEditing && (
+              <pre style={{ borderBottom: '5px solid black', wordBreak: 'break-all' }}>
+                <span style={{ fontSize: '20px' }}>{card.meaning}</span>
+              </pre>
+            )}
             <span className="descpription">뜻</span>
           </div>
         </div>

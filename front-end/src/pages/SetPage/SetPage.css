@@ -105,8 +105,8 @@ textarea {
 
 .create-set-description {
   font-size: 1.4em;
-  width: 100% !important;
-  height: 50px !important;
+  /* width: 100% !important; */
+  /* height: 50px !important; */
   font-family: NanumBarunGothic;
 }
 
