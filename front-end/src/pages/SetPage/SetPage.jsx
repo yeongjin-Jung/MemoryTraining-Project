@@ -154,6 +154,7 @@ const SetPage = (props) => {
                           .then((res) => {
                             console.log('create axios res : ', res);
                             console.log('props.history : ', props.history);
+                            alert(`[${res.data.title}] 세트가 생성되었습니다.`);
                             props.history.push({ pathname: '/set-detail', state: { book: res.data } });
                           });
                       }
@@ -192,7 +193,7 @@ const SetPage = (props) => {
                     </div>
                   </div>
                   {/* </form> */}
-                  <div style={{ position: 'relative', marginTop: '2rem' }}>
+                  <div style={{ width: '100%', position: 'relative', marginTop: '2rem' }}>
                     <div style={{ marginBottom: '2rem' }}>
                       <span className="CreateSetHeader-title">카드 목록</span>
                     </div>
@@ -203,7 +204,7 @@ const SetPage = (props) => {
                           return b.idx - a.idx;
                         })
                         .map((card) => (
-                          <Card card={card} key={card.idx} onDelete={onDelete} onEdit={onEdit} onSave={onSave} />
+                          <Card cards={cards} card={card} key={card.idx} onDelete={onDelete} onEdit={onEdit} onSave={onSave} />
                         ))}
                     </div>
                   </div>
@@ -218,15 +219,15 @@ const SetPage = (props) => {
   );
 };
 
-const Card = ({ card, onDelete, onEdit, onSave }) => {
+const Card = ({ cards, card, onDelete, onEdit, onSave }) => {
   var modifyword = useRef(null);
   var modifymeaning = useRef(null);
 
   let meaningRef = useRef(null);
 
   useEffect(() => {
-    console.log('useEffect() called.');
-    console.log(modifyword);
+    // console.log('useEffect() called.');
+    // console.log(modifyword);
 
     if (modifymeaning.current != null) {
       console.log(modifymeaning.current.value);
@@ -248,6 +249,12 @@ const Card = ({ card, onDelete, onEdit, onSave }) => {
             {card.isEditing && (
               <Button
                 onClick={() => {
+                  const found = cards.find((ccard) => ccard.idx != card.idx && (ccard.word == modifyword.current.value || ccard.meaning == modifymeaning.current.value));
+                  if (found != undefined) {
+                    alert('중복된 단어나 뜻이 이미 세트에 존재합니다.');
+                    return;
+                  }
+
                   console.log(modifyword.current.value);
                   console.log(modifymeaning.current.value);
                   card.word = modifyword.current.value;
