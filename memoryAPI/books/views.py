@@ -52,8 +52,12 @@ class BookView(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
     def patch(self, request, pk, format=None):
-        Book.objects.filter(id=pk).update(title=request.data['title'], description=request.data['description'])
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        book = Book.objects.get(id=pk)
+        serializer = BookSerializer(book, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class BookListView(APIView):
