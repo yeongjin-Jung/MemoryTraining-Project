@@ -122,7 +122,19 @@ const Aside = ({ book, image, collapsed, rtl, toggled, handleToggleSidebar, hist
               세트 수정
             </MenuItem>
           ) : (
-            <MenuItem style={{ display: 'none' }} />
+            // <MenuItem style={{ display: 'none' }} />
+            <MenuItem
+              className="MenuItem"
+              onClick={(e) => {
+                axios.delete(SERVER.BASE_URL + SERVER.ROUTES.unscrap, { data: { book_id: book.id } }).then((res) => {
+                  history.history.goBack(1)
+                });
+                e.stopPropagation();
+              }}
+              icon={<img src={iconSetting} style={{ width: '40px', backgroundColor: 'white', borderRadius: '50%' }} />}
+            >
+              스크랩 해제
+            </MenuItem>
           )}
         </Menu>
         {/* <Menu iconShape="circle">
