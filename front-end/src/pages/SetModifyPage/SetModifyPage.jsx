@@ -270,31 +270,31 @@ const SetModifyPage = (props) => {
                       },
                     })
                     .then((res) => {
-                      console.log('delete 카드 리스트 삭제 res : ', res);
+                      // console.log('delete 카드 리스트 삭제 res : ', res);
 
                       axios.patch(SERVER.BASE_URL + SERVER.ROUTES.updateCard, { card_list: updateCardList }).then((res) => {
-                        console.log('patch 카드 리스트 수정 res : ', res);
+                        // console.log('patch 카드 리스트 수정 res : ', res);
 
                         axios.post(SERVER.BASE_URL + SERVER.ROUTES.createCard, { book_id: props.location.state.book.id, card_list: createCardList }).then((res) => {
-                          console.log('post 카드 리스트 추가 res : ', res);
+                          // console.log('post 카드 리스트 추가 res : ', res);
 
-                          console.log('props : ', props);
-                          console.log('주소 : ', SERVER.BASE_URL + SERVER.ROUTES.update + props.location.state.book.id + '/');
+                          // console.log('props : ', props);
+                          // console.log('주소 : ', SERVER.BASE_URL + SERVER.ROUTES.update + props.location.state.book.id + '/');
                           axios
                             .patch(SERVER.BASE_URL + SERVER.ROUTES.update + props.location.state.book.id + '/', {
                               title: createSetTitle.current.value,
                               description: createSetDescription.current.value,
                             })
                             .then((res) => {
-                              console.log('--------------------------------------------------------------------------------');
-                              console.log('patch 세트 제목, 설명 수정 res : ', res);
+                              // console.log('--------------------------------------------------------------------------------');
+                              // console.log('patch 세트 제목, 설명 수정 res : ', res);
                               alert(`[${props.location.state.book.title}] 세트가 수정되었습니다.`);
                               let bookData = {
                                 ...res.data,
                                 write_flag: 1,
                               };
 
-                              console.log('bookData : ', bookData);
+                              // console.log('bookData : ', bookData);
                               props.history.push({ pathname: '/set-detail', state: { book: bookData } });
                             });
                         });
@@ -304,7 +304,7 @@ const SetModifyPage = (props) => {
               }}
             >
               저장
-                  </Button>
+            </Button>
             <Button
               variant="danger"
               onClick={() => {
@@ -320,7 +320,7 @@ const SetModifyPage = (props) => {
               }}
             >
               삭제
-                  </Button>
+            </Button>
           </div>
         </div>
         <div style={{ marginTop: '32px' }}>
@@ -359,7 +359,7 @@ const SetModifyPage = (props) => {
           <div className="div-add-card-form" style={{ position: 'relative', width: '100%', height: '150px', marginTop: '2rem' }} ref={divAddCardForm}>
             <span className="CreateSetHeader-title" style={{ paddingBottom: '2rem' }}>
               카드 추가
-                  </span>
+            </span>
             {/* <form id="input-form"> */}
             <div style={{ display: 'flex', width: '100%', marginTop: '20px' }}>
               <Form.Control className="inputbox mx-3 word-input" as="textarea" placeholder="단어" style={{ width: '50%', height: '43px' }} onKeyUp={WordhandleKeyUp} ref={word} />
