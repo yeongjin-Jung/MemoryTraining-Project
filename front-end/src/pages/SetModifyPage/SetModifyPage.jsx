@@ -3,10 +3,9 @@ import axios from 'axios';
 import SERVER from '../../api/server';
 import * as _ from 'lodash';
 
-import { Form, Button } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import { FiPlus, FiTrash2, FiEdit2, FiSave } from 'react-icons/fi';
 import MaterialButton from '@material-ui/core/Button';
-import { withStyles } from '@material-ui/core/styles';
 
 import './SetModifyPage.css';
 
@@ -220,10 +219,7 @@ const SetModifyPage = (props) => {
   return (
     <div className="container-fluid" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       <div className="set-modify-BackgroundColor"></div>
-      {/* <div className="set-header" ref={testRef} style={{ width: '80%', height: '250px' }}> */}
       <div className="container" style={{ paddingTop: '15px' }}>
-        {/* <div style={{ display: 'flex' }}>
-          <div style={{ width: '100%' }}> */}
         <div style={{ display: 'flex' }}>
           <div style={{ width: '500px', alignSelf: 'flex-end' }}>
             <span className="CreateSetHeader-title">학습 세트 수정하기</span>
@@ -339,7 +335,6 @@ const SetModifyPage = (props) => {
           />
           <div className="div-add-card-form" style={{ position: 'relative', width: '100%', height: '100px', marginTop: '60px' }} ref={divAddCardForm}>
             <span className="CreateSetHeader-title">카드 추가</span>
-            {/* <form id="input-form"> */}
             <div style={{ display: 'flex', width: '100%', marginTop: '20px' }}>
               <Form.Control className="inputbox mx-3 word-input" as="textarea" placeholder="단어" style={{ width: '40%', height: '43px', borderRadius: 0 }} onKeyUp={WordhandleKeyUp} ref={word} />
               <Form.Control className="inputbox mx-3 meaning-input" as="textarea" placeholder="뜻" style={{ width: '60%', height: '43px', borderRadius: 0 }} onKeyUp={MeaninghandleKeyUp} ref={meaning} />
@@ -367,11 +362,7 @@ const SetModifyPage = (props) => {
               ))}
           </div>
         </div>
-        {/* </div> */}
-        {/* <div style={{ display: 'flex', justifyContent: 'flex-end', width: '10%' }}></div> */}
-        {/* </div> */}
       </div>
-      {/* </div> */}
     </div >
   );
 };
@@ -407,7 +398,7 @@ const Card = ({ cards, card, onDelete, onEdit, onSave }) => {
 
   return (
     <div className="added-card draggable bg-color-white" style={{ marginBottom: '30px' }}>
-      <div stlye={{ display: 'flex' }}>
+      <div stlye={{ display: 'flex', backgroundColor: 'white' }}>
         <div className="div-card-index" style={{ display: 'flex', borderBottom: '1px solid lightgrey', marginBottom: '1rem' }}>
           <h3 style={{ alignSelf: 'center' }}>{card.idx + 1}번 카드</h3>
           {/* <div style={{ width: '100%', display: 'flex', justifyContent: 'flex-end' }}> */}
@@ -417,7 +408,7 @@ const Card = ({ cards, card, onDelete, onEdit, onSave }) => {
             {card.isEditing ?
               <MaterialButton
                 variant="text"
-                style={{ fontWeight: '800', margin: '0 0.5rem' }}
+                style={{ fontWeight: '800' }}
                 color={'primary'}
                 onClick={() => {
                   console.log('cards : ', cards);

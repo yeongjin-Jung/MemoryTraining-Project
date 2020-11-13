@@ -94,6 +94,8 @@ const LoginPage = (props) => {
             <div className="wrap-input100 " data-validate="Enter username">
               <input className="input100" type="email" name="Email" placeholder="Email" value={Email} onChange={onEmailHandler} />
               <span className="focus-input100" data-placeholder="&#xf207;"></span>
+              {/* <input className="input100" type="email" name="Email" value={Email} onChange={onEmailHandler} />
+              {Email ? <span className="focus-input100" data-placeholder="&#xf207;"></span> : <span className="focus-input100" data-placeholder="&#xf207; Email"></span>} */}
             </div>
 
             <div className="wrap-input100 " data-validate="Enter password">
