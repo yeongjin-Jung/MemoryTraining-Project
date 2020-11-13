@@ -117,7 +117,7 @@ const Book = ({ book }) => {
   const [show, bookListhow] = useState(false);
   const [cardList, setCardList] = useState([]);
   const buttonRef = useRef(null);
-  const [color, setColor] = useState(book.scrap_flag ? 'green' : 'black');
+  const [scrapFlag, setScrapFlag] = useState(book.scrap_flag ? true : false);
 
   const handleShow = () => {
     // console.log('handleShow called.');
@@ -179,59 +179,28 @@ const Book = ({ book }) => {
           </div>
         </div>
         <div>
-          {/* <Button
-            variant="light"
-            color={book.scrap_flag ? 'green' : 'black'}
-            onClick={(e) => {
-              if (color == 'black') {
-                console.log('color == black');
-                setColor('green');
-                axios.post(SERVER.BASE_URL + SERVER.ROUTES.scrap, { book_id: book.id }).then((res) => {
-                  console.log('scrap axios res : ', res);
-                });
-              } else {
-                console.log('color == green');
-                setColor('black');
-                axios.delete(SERVER.BASE_URL + SERVER.ROUTES.unscrap, { data: { book_id: book.id } }).then((res) => {
-                  console.log('unscrap axios res : ', res);
-                });
-              }
-              e.stopPropagation();
-            }}
-          >
-            {color == 'green' ? <FiCheckSquare size={30} color={color} /> : <FiExternalLink size={30} color={color} />}
-          </Button> */}
           <MaterialButton
             variant="contained"
+            style={{ fontWeight: '800' }}
+            color={scrapFlag ? 'secondary' : 'primary'}
+            startIcon={scrapFlag ? <DeleteIcon /> : <FiExternalLink />}
+            className={classes.button}
             onClick={(e) => {
-              if (color == 'black') {
-                console.log('color == black');
-                setColor('green');
+              if (!scrapFlag) {
+                setScrapFlag(true)
                 axios.post(SERVER.BASE_URL + SERVER.ROUTES.scrap, { book_id: book.id }).then((res) => {
                   console.log('scrap axios res : ', res);
                 });
               } else {
-                console.log('color == green');
-                setColor('black');
+                setScrapFlag(false)
                 axios.delete(SERVER.BASE_URL + SERVER.ROUTES.unscrap, { data: { book_id: book.id } }).then((res) => {
                   console.log('unscrap axios res : ', res);
                 });
               }
               e.stopPropagation();
             }}
-            style={{ marginRight: '5vw', fontWeight: '800' }}
-            color={color == 'green' ? 'secondary' : 'primary'}
-            startIcon={color == 'green' ? <DeleteIcon /> : ''}
-            className={classes.button}
           >
-            {color == 'green' ? (
-              <>스크랩해제</>
-            ) : (
-              <>
-                <FiExternalLink size={20} style={{ marginRight: '10px' }} />
-                스크랩
-              </>
-            )}
+            {scrapFlag ? <>스크랩해제</> : <>스크랩</>}
           </MaterialButton>
         </div>
       </div>
@@ -244,35 +213,26 @@ const Book = ({ book }) => {
             {/* </div> */}
             <MaterialButton
               variant="contained"
+              style={{ fontWeight: '800' }}
+              color={scrapFlag ? 'secondary' : 'primary'}
+              startIcon={scrapFlag ? <DeleteIcon /> : <FiExternalLink />}
+              className={classes.button}
               onClick={(e) => {
-                if (color == 'black') {
-                  console.log('color == black');
-                  setColor('green');
+                if (!scrapFlag) {
+                  setScrapFlag(true)
                   axios.post(SERVER.BASE_URL + SERVER.ROUTES.scrap, { book_id: book.id }).then((res) => {
                     console.log('scrap axios res : ', res);
                   });
                 } else {
-                  console.log('color == green');
-                  setColor('black');
+                  setScrapFlag(false)
                   axios.delete(SERVER.BASE_URL + SERVER.ROUTES.unscrap, { data: { book_id: book.id } }).then((res) => {
                     console.log('unscrap axios res : ', res);
                   });
                 }
                 e.stopPropagation();
               }}
-              style={{ fontWeight: '800' }}
-              color={color == 'green' ? 'secondary' : 'primary'}
-              startIcon={color == 'green' ? <DeleteIcon /> : ''}
-              className={classes.button}
             >
-              {color == 'green' ? (
-                <>스크랩해제</>
-              ) : (
-                <>
-                  <FiExternalLink size={20} style={{ marginRight: '10px' }} />
-                  스크랩
-                </>
-              )}
+              {scrapFlag ? <>스크랩해제</> : <>스크랩</>}
             </MaterialButton>
           </div>
 
