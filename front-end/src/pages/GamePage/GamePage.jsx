@@ -73,10 +73,12 @@ const Card = ({ card, hasFlippedCard, setHasFlippedCard, firstCard, setFirstCard
 
   const [tmpSecondCard, setTmpSecondCard] = useState(secondCard);
 
+  const [match, setMatch] = useState(false);
+
   useEffect(() => {
-    console.log('firstCard : ', firstCard);
-    console.log('secondCard : ', secondCard);
-  });
+    // console.log('firstCard : ', firstCard);
+    // console.log('secondCard : ', secondCard);
+  }, [match]);
 
   const unflipCards = () => {
     setLockBoard(true);
