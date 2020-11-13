@@ -96,12 +96,12 @@ textarea {
 .create-set-title {
   margin-bottom: 4%;
   font-size: 2em;
-  width: 60%;
+  width: 70%;
   font-family: NanumBarunGothic;
 }
 @media (max-width: 1000px) {
   .create-set-title {
-    font-size: 1.7em;
+    font-size: 1.6em;
   }
 }
 

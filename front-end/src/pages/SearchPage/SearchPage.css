@@ -1,8 +1,4 @@
 @import url('https://fonts.googleapis.com/css?family=Nunito:400,700');
-/* * {
-  -webkit-transition: all 0.3s ease-out;
-  transition: all 0.3s ease-out;
-} */
 
 .search-container {
   width: 100%;
@@ -31,6 +27,11 @@
   margin-top: 1.3em;
 }
 
+@media (max-width: 800px) {
+  .ButtonContainer {
+    width: 90%;
+  }
+}
 .set-create-btn {
   background-color: white;
   border-style: solid;
@@ -49,9 +50,10 @@
 .css-2b097c-container {
   width: 15%;
 }
+
 @media (max-width: 576px) {
   .css-2b097c-container {
-    width: 35%;
+    width: 40%;
   }
 }
 
@@ -69,6 +71,14 @@
   background: linear-gradient(-45deg, #ddee9f, #fffedc, #63bfe0, #c6f5ea);
   background-size: 400% 400%;
   animation: gradient 15s ease infinite;
+}
+
+@media (max-width: 800px) {
+  .sticky-top {
+    display: flex;
+    font-size: 1.4em !important;
+    flex-direction: column;
+  }
 }
 
 h3 {
@@ -388,7 +398,7 @@ h3 {
   max-width: 100%;
   margin: 20px;
   overflow: hidden;
-  width: 70%;
+  width: 80%;
 }
 
 @media (max-width: 800px) {

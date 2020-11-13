@@ -53,12 +53,18 @@
   margin-top: 1.3em;
 }
 
+@media (max-width: 800px) {
+  .ButtonContainer {
+    width: 90%;
+  }
+}
+
 .css-2b097c-container {
   width: 15%;
 }
 @media (max-width: 576px) {
   .css-2b097c-container {
-    width: 35%;
+    width: 40%;
   }
 }
 
@@ -173,6 +179,15 @@ h3 {
 }
 .card4 h3 {
   margin-top: 8px;
+}
+
+@media (max-width: 800px) {
+  .card4 h3 {
+    width: 240px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
 
 .card4:hover .go-corner {
