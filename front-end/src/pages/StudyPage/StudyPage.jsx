@@ -145,9 +145,6 @@ const Card = ({ data, handleCard, book, speechWord, speechMeaning }) => {
   const classes = useStyles();
 
   useEffect(() => {
-    console.log('Card useEffect called.');
-    console.log('card : ', card);
-
     var nextClick = document.querySelector('.awssld__next');
     nextClick.onclick = function () {
       cancel();

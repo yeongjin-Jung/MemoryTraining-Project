@@ -243,12 +243,12 @@ const CardTestPage = (props) => {
 
                 {btnFlag && (
                   <AwesomeButton className="aws-bookmark-restart-btn" type="third" onPress={restart}>
-                    <span>북마크 단어들만 다시 테스트</span>
+                    <span>북마크 단어 다시 테스트</span>
                   </AwesomeButton>
                 )}
                 {!btnFlag && (
                   <AwesomeButton className="aws-bookmark-restart-btn" type="third" onPress={restart} disabled={true}>
-                    <strike>북마크 단어들만 다시 테스트</strike>
+                    <strike>북마크 단어 다시 테스트</strike>
                   </AwesomeButton>
                 )}
 
