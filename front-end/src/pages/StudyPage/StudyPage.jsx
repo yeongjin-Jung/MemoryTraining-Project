@@ -50,28 +50,34 @@ const StudyPage = (props) => {
   const [cardList, setCardList] = useState(cards);
 
   useEffect(() => {
-    console.log('voices : ', voices);
-
     window.onkeyup = function (e) {
       if (e.key == 'ArrowRight') {
         document.getElementsByClassName('awssld__next')[0].click();
       } else if (e.key == 'ArrowLeft') {
         document.getElementsByClassName('awssld__prev')[0].click();
       } else if (e.key == 'ArrowUp') {
-        console.log('위');
-        // setFlip(false);
-        document.getElementsByClassName('flippy-cardContainer')[0].click();
+        document
+          .getElementsByClassName('awssld__box awssld--active')[0]
+          .getElementsByClassName('awssld__content')[0]
+          .getElementsByClassName('FlippyContainer-root')[0]
+          .getElementsByClassName('FlippyContainer')[0]
+          .getElementsByClassName('flippy-container')[0]
+          .click();
       } else if (e.key == 'ArrowDown') {
-        console.log('아래');
-        // setFlip(true);
-        document.getElementsByClassName('flippy-cardContainer')[0].click();
+        document
+          .getElementsByClassName('awssld__box awssld--active')[0]
+          .getElementsByClassName('awssld__content')[0]
+          .getElementsByClassName('FlippyContainer-root')[0]
+          .getElementsByClassName('FlippyContainer')[0]
+          .getElementsByClassName('flippy-container')[0]
+          .click();
       }
     };
 
     return () => {
       window.speechSynthesis.cancel();
     };
-  }, []);
+  });
 
   const speechWord = (e, word, num) => {
     cancel();
