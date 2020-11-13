@@ -246,7 +246,7 @@ const Book = ({ book }) => {
           ))}
         </SimpleBar>
       </Rodal>
-    </div >
+    </div>
   );
 };
 

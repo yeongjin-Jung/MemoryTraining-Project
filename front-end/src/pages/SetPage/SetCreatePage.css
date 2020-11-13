@@ -47,9 +47,9 @@
   border-bottom: 4px solid rgb(255, 217, 0) !important;
 }
 
-.div-add-card-form {
+/* .div-add-card-form {
   margin-top: 10vh !important;
-}
+} */
 
 textarea {
   resize: none;
@@ -94,7 +94,7 @@ textarea {
 }
 
 .create-set-title {
-  margin-bottom: 4%;
+  /* margin-bottom: 4%; */
   font-size: 2em;
   width: 70%;
   font-family: NanumBarunGothic;

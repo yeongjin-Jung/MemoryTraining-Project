@@ -1,18 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
+import axios from 'axios';
+import SERVER from '../../api/server';
+import * as _ from 'lodash';
 
 import { Form, Button } from 'react-bootstrap';
-import '../SetPage/SetCreatePage.css';
 import { FiPlus, FiTrash2, FiEdit2, FiSave } from 'react-icons/fi';
+import MaterialButton from '@material-ui/core/Button';
+import { withStyles } from '@material-ui/core/styles';
 
-import * as _ from 'lodash';
-import axios from 'axios';
-
-import { useLocation } from 'react-router-dom';
-import SERVER from '../../api/server';
-import server from '../../api/server';
 import './SetModifyPage.css';
-// import { TextField, InputAdornment } from "@material-ui/core"
-// import SearchIcon from "@material-ui/icons/Search"
 
 const SetModifyPage = (props) => {
   const [cards, setCards] = useState([]);
@@ -229,12 +225,16 @@ const SetModifyPage = (props) => {
         {/* <div style={{ display: 'flex' }}>
           <div style={{ width: '100%' }}> */}
         <div style={{ display: 'flex' }}>
-          <div style={{ width: '500px', alignSelf: 'center' }}>
+          <div style={{ width: '500px', alignSelf: 'flex-end' }}>
             <span className="CreateSetHeader-title">학습 세트 수정하기</span>
           </div>
           <div style={{ width: '100%', display: 'flex', justifyContent: 'flex-end' }}>
-            <Button
-              style={{ backgroundColor: 'skyblue', border: 'none' }}
+            <MaterialButton
+              variant="contained"
+              style={{ fontWeight: '800', margin: '0 0.5rem' }}
+              color={'primary'}
+              startIcon={<FiSave size="32" />}
+              // className={classes.button}
               onClick={() => {
                 const found = cards.find((card) => card.isEditing != undefined && card.isEditing == true);
                 if (found != undefined) {
@@ -302,11 +302,12 @@ const SetModifyPage = (props) => {
                     });
                 }
               }}
-            >
-              저장
-                  </Button>
-            <Button
-              variant="danger"
+            >세트 저장</MaterialButton>
+            <MaterialButton
+              variant="contained"
+              style={{ fontWeight: '800', margin: '0 0.5rem' }}
+              color={'secondary'}
+              startIcon={<FiTrash2 size="32" />}
               onClick={() => {
                 var result = window.confirm('정말 삭제하시겠습니까?');
                 if (result) {
@@ -316,76 +317,54 @@ const SetModifyPage = (props) => {
                     props.history.push('/sets');
                   });
                 } else {
+                  //취소
                 }
               }}
-            >
-              삭제
-                  </Button>
+            >세트 삭제</MaterialButton>
           </div>
         </div>
-        <div style={{ marginTop: '32px' }}>
+        <div className="draggable bg-color-white" style={{ marginTop: '10px', padding: '1.5rem' }}>
           <span className="CreateSetHeader-title">제목</span>
-          <Form.Control className="inputbox create-set-title" type="text" placeholder="제목을 입력하세요." ref={createSetTitle} defaultValue={props.location.state.book.title} />
-          {/* <TextField
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <SearchIcon />
-                </InputAdornment>
-              ),
-            }}
-          />
-          <TextField
-            variant="outlined"
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <SearchIcon style={{ color: 'white' }} />
-                </InputAdornment>
-              ),
-            }}
-          /> */}
+          <Form.Control className="inputbox create-set-title" type="text" style={{ borderRadius: 0 }} placeholder="제목을 입력하세요." ref={createSetTitle} defaultValue={props.location.state.book.title} />
           <br />
           <span className="CreateSetHeader-title">설명</span>
           <Form.Control
             className="inputbox create-set-description"
             as="textarea"
             placeholder="설명을 입력하세요."
-            style={{ width: '100%', height: '41px' }}
+            style={{ width: '100%', height: '41px', borderRadius: 0 }}
             onKeyUp={createSetDescriptionKeyUp}
             ref={createSetDescription}
             defaultValue={props.location.state.book.description}
           />
-          <div className="div-add-card-form" style={{ position: 'relative', width: '100%', height: '150px', marginTop: '2rem' }} ref={divAddCardForm}>
-            <span className="CreateSetHeader-title" style={{ paddingBottom: '2rem' }}>
-              카드 추가
-                  </span>
+          <div className="div-add-card-form" style={{ position: 'relative', width: '100%', height: '100px', marginTop: '60px' }} ref={divAddCardForm}>
+            <span className="CreateSetHeader-title">카드 추가</span>
             {/* <form id="input-form"> */}
             <div style={{ display: 'flex', width: '100%', marginTop: '20px' }}>
-              <Form.Control className="inputbox mx-3 word-input" as="textarea" placeholder="단어" style={{ width: '50%', height: '43px' }} onKeyUp={WordhandleKeyUp} ref={word} />
-              <Form.Control className="inputbox mx-3 meaning-input" as="textarea" placeholder="뜻" style={{ width: '50%', height: '43px' }} onKeyUp={MeaninghandleKeyUp} ref={meaning} />
-              <div>
-                <Button type="submit" value="Add" onClick={addCard}>
-                  <FiPlus size="24" />
-                </Button>
-              </div>
+              <Form.Control className="inputbox mx-3 word-input" as="textarea" placeholder="단어" style={{ width: '40%', height: '43px', borderRadius: 0 }} onKeyUp={WordhandleKeyUp} ref={word} />
+              <Form.Control className="inputbox mx-3 meaning-input" as="textarea" placeholder="뜻" style={{ width: '60%', height: '43px', borderRadius: 0 }} onKeyUp={MeaninghandleKeyUp} ref={meaning} />
+              <MaterialButton
+                variant="contained"
+                color={'primary'}
+                onClick={addCard}
+              ><FiPlus size="24" /></MaterialButton>
             </div>
-            {/* </form> */}
-            <div style={{ width: '100%', position: 'relative', marginTop: '100px' }}>
-              <div style={{ marginBottom: '2rem' }}>
-                <span className="CreateSetHeader-title">카드 목록</span>
-              </div>
+          </div>
+        </div>
+        {/* </form> */}
+        <div style={{ width: '100%', position: 'relative', marginTop: '30px' }}>
+          <div style={{ marginBottom: '10px' }}>
+            <span className="CreateSetHeader-title">카드 목록</span>
+          </div>
 
-              <div className="set-content" ref={contentRef}>
-                {cards
-                  .sort((a, b) => {
-                    return b.idx - a.idx;
-                  })
-                  .map((card) => (
-                    <Card cards={cards} card={card} key={card.idx} onDelete={onDelete} onEdit={onEdit} onSave={onSave} />
-                  ))}
-              </div>
-            </div>
+          <div className="set-content" ref={contentRef}>
+            {cards
+              .sort((a, b) => {
+                return b.idx - a.idx;
+              })
+              .map((card) => (
+                <Card cards={cards} card={card} key={card.idx} onDelete={onDelete} onEdit={onEdit} onSave={onSave} />
+              ))}
           </div>
         </div>
         {/* </div> */}
@@ -393,7 +372,7 @@ const SetModifyPage = (props) => {
         {/* </div> */}
       </div>
       {/* </div> */}
-    </div>
+    </div >
   );
 };
 
@@ -427,14 +406,19 @@ const Card = ({ cards, card, onDelete, onEdit, onSave }) => {
   };
 
   return (
-    <div className="added-card draggable bg-color-white" style={{ marginBottom: '10px' }}>
+    <div className="added-card draggable bg-color-white" style={{ marginBottom: '30px' }}>
       <div stlye={{ display: 'flex' }}>
         <div className="div-card-index" style={{ display: 'flex', borderBottom: '1px solid lightgrey', marginBottom: '1rem' }}>
-          <h3>{card.idx + 1}번 카드</h3>
+          <h3 style={{ alignSelf: 'center' }}>{card.idx + 1}번 카드</h3>
           {/* <div style={{ width: '100%', display: 'flex', justifyContent: 'flex-end' }}> */}
           <div style={{ marginLeft: 'auto' }}>
-            {card.isEditing && (
-              <Button
+
+            {/* 카드수정 및 저장버튼 삼항연산자 */}
+            {card.isEditing ?
+              <MaterialButton
+                variant="text"
+                style={{ fontWeight: '800', margin: '0 0.5rem' }}
+                color={'primary'}
                 onClick={() => {
                   console.log('cards : ', cards);
                   console.log('card : ', card);
@@ -452,54 +436,54 @@ const Card = ({ cards, card, onDelete, onEdit, onSave }) => {
                   card.meaning = modifymeaning.current.value;
                   onSave(card);
                 }}
-              >
-                <FiSave size="32" />
-              </Button>
-            )}
-            {!card.isEditing && (
-              <Button
+              ><FiSave size="32" />저장하기</MaterialButton>
+              :
+              <MaterialButton
+                variant="text"
+                style={{ fontWeight: '800' }}
+                color={'primary'}
                 onClick={() => {
                   console.log('edit button clicked.');
                   onEdit(card.idx);
                 }}
-              >
-                <FiEdit2 size="32" />
-              </Button>
-            )}
-            <Button
-              variant="danger"
+              ><FiEdit2 size="32" />수정하기</MaterialButton>
+            }
+            {/* 삼항연산자 끝 */}
+
+            {/* 카드삭제버튼 */}
+            <MaterialButton
+              variant="text"
+              style={{ fontWeight: '800' }}
+              color={'secondary'}
               onClick={() => {
                 onDelete(card.idx);
               }}
-            >
-              <FiTrash2 size="32" />
-            </Button>
+            ><FiTrash2 size="32" />삭제하기</MaterialButton>
           </div>
         </div>
 
-        <div style={{ display: 'flex', flexDirection: 'row', marginBottom: '2rem' }}>
+        <div style={{ display: 'flex', flexDirection: 'row', padding: '1rem' }}>
           <div className="mx-3" style={{ width: '40%' }}>
+            <span className="word">단어</span>
             {card.isEditing && (
-              <Form.Control className="inputbox" as="textarea" placeholder={card.word} ref={modifyword} defaultValue={card.word} style={{ fontSize: '20px' }} onKeyUp={handleModifyWord} />
+              <Form.Control className="inputbox" as="textarea" placeholder={card.word} ref={modifyword} defaultValue={card.word} style={{ fontSize: '20px', borderRadius: 0 }} onKeyUp={handleModifyWord} />
             )}
             {!card.isEditing && (
               <pre style={{ borderBottom: '5px solid black', wordBreak: 'break-all' }}>
                 <span style={{ fontSize: '20px' }}>{card.word}</span>
               </pre>
             )}
-
-            <span className="word">단어</span>
           </div>
-          <div className="mx-3" style={{ width: '40%' }}>
+          <div className="mx-3" style={{ width: '60%' }}>
+            <span className="descpription">뜻</span>
             {card.isEditing && (
-              <Form.Control className="inputbox" as="textarea" placeholder={card.meaning} ref={modifymeaning} defaultValue={card.meaning} style={{ fontSize: '20px' }} onKeyUp={handleModifyMeaning} />
+              <Form.Control className="inputbox" as="textarea" placeholder={card.meaning} ref={modifymeaning} defaultValue={card.meaning} style={{ fontSize: '20px', borderRadius: 0 }} onKeyUp={handleModifyMeaning} />
             )}
             {!card.isEditing && (
-              <pre style={{ borderBottom: '5px solid black', wordBreak: 'break-all' }}>
+              <pre style={{ borderBottom: '5px solid black', wordBreak: 'break-all', overflowX: 'hidden' }}>
                 <span style={{ fontSize: '20px' }}>{card.meaning}</span>
               </pre>
             )}
-            <span className="descpription">뜻</span>
           </div>
         </div>
       </div>

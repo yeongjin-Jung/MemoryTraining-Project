@@ -1,7 +1,7 @@
 .bg-color-white {
   border-radius: 10px;
   box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
-  background-color: rgb(255, 255, 255, 1);
+  background-color: rgba(255, 255, 255, 0.8);
 }
 .CreateSetHeader-title {
   font-weight: 700 !important;
