@@ -202,6 +202,11 @@ const Book = ({ book }) => {
           >
             {scrapFlag ? <>스크랩해제</> : <>스크랩</>}
           </MaterialButton>
+          {scrapFlag &&
+            <Link to={{ pathname: '/set-detail', state: { book: book } }}>
+              <MaterialButton variant="contained" style={{ fontWeight: '800' }}>자세히보기</MaterialButton>
+            </Link>
+          }
         </div>
       </div>
 
@@ -241,7 +246,7 @@ const Book = ({ book }) => {
           ))}
         </SimpleBar>
       </Rodal>
-    </div>
+    </div >
   );
 };
 
