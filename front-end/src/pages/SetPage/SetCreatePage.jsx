@@ -144,18 +144,25 @@ const SetCreatePage = (props) => {
                         console.log('book : ', book);
                         console.log('cards : ', cards);
 
+                        console.log('--------------------------------------------------');
+                        console.log('요청 보내는 cards : ', cards);
+                        console.log('--------------------------------------------------');
                         axios
                           // .post('http://127.0.0.1:8000/api/books/create/', {
                           .post(SERVER.BASE_URL + SERVER.ROUTES.create, {
                             title: createSetTitle.current.value,
                             description: createSetDescription.current.value,
-                            cards: cards,
+                            cards: cards.reverse(),
                           })
                           .then((res) => {
                             console.log('create axios res : ', res);
                             console.log('props.history : ', props.history);
                             alert(`[${res.data.title}] 세트가 생성되었습니다.`);
-                            props.history.push({ pathname: '/set-detail', state: { book: res.data } });
+                            let tmpData = {
+                              ...res.data,
+                              write_flag: 1,
+                            };
+                            props.history.push({ pathname: '/set-detail', state: { book: tmpData } });
                           });
                       }
                     }}
