@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 import { Form, Button } from 'react-bootstrap';
-import '../SetPage/SetCreatePage.css';
+import '../SetPage//SetPage.css';
+
 import { FiPlus, FiTrash2, FiEdit2, FiSave } from 'react-icons/fi';
 
 import * as _ from 'lodash';
@@ -11,8 +12,6 @@ import { useLocation } from 'react-router-dom';
 import SERVER from '../../api/server';
 import server from '../../api/server';
 import './SetModifyPage.css';
-// import { TextField, InputAdornment } from "@material-ui/core"
-// import SearchIcon from "@material-ui/icons/Search"
 
 const SetModifyPage = (props) => {
   const [cards, setCards] = useState([]);
@@ -222,177 +221,158 @@ const SetModifyPage = (props) => {
   };
 
   return (
-    <div className="container-fluid" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+    <div className="container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       <div className="set-modify-BackgroundColor"></div>
-      {/* <div className="set-header" ref={testRef} style={{ width: '80%', height: '250px' }}> */}
-      <div className="container" style={{ paddingTop: '15px' }}>
-        {/* <div style={{ display: 'flex' }}>
-          <div style={{ width: '100%' }}> */}
-        <div style={{ display: 'flex' }}>
-          <div style={{ width: '500px', alignSelf: 'center' }}>
-            <span className="CreateSetHeader-title">학습 세트 수정하기</span>
-          </div>
-          <div style={{ width: '100%', display: 'flex', justifyContent: 'flex-end' }}>
-            <Button
-              style={{ backgroundColor: 'skyblue', border: 'none' }}
-              onClick={() => {
-                const found = cards.find((card) => card.isEditing != undefined && card.isEditing == true);
-                if (found != undefined) {
-                  alert('수정중인 카드가 존재합니다. 수정을 마치고 저장해주세요.');
-                  return;
-                }
+      <div className="set-header" ref={testRef} style={{ width: '80%', height: '250px' }}>
+        <div className="" style={{ paddingTop: '1rem' }}>
+          <div style={{ display: 'flex' }}>
+            <div style={{ width: '100%' }}>
+              <div style={{ display: 'flex' }}>
+                <div style={{ width: '500px' }}>
+                  <span className="CreateSetHeader-title">학습 세트 수정하기</span>
+                </div>
+                <div style={{ width: '100%', display: 'flex', justifyContent: 'flex-end' }}>
+                  <Button
+                    style={{ backgroundColor: 'skyblue', border: 'none' }}
+                    onClick={() => {
+                      const found = cards.find((card) => card.isEditing != undefined && card.isEditing == true);
+                      if (found != undefined) {
+                        alert('수정중인 카드가 존재합니다. 수정을 마치고 저장해주세요.');
+                        return;
+                      }
 
-                console.log('save button clicked.');
-                console.log('createSetTitle.current.value : ', createSetTitle.current.value);
-                console.log('createSetDescription.current.value : ', createSetDescription.current.value);
+                      console.log('save button clicked.');
+                      console.log('createSetTitle.current.value : ', createSetTitle.current.value);
+                      console.log('createSetDescription.current.value : ', createSetDescription.current.value);
 
-                if (createSetTitle.current.value == '') {
-                  alert('제목을 입력해주세요');
-                } else if (createSetDescription.current.value == '') {
-                  alert('설명을 입력해주세요');
-                } else if (cards.length < 4) {
-                  alert('최소 4개의 카드를 추가해주세요');
-                } else {
-                  console.log('cards : ', cards);
-                  console.log('deleteCardList : ', deleteCardList);
-                  const book = {
-                    title: createSetTitle.current.value,
-                    description: createSetDescription.current.value,
-                  };
-                  console.log('book : ', book);
-                  console.log('cards : ', cards);
+                      if (createSetTitle.current.value == '') {
+                        alert('제목을 입력해주세요');
+                      } else if (createSetDescription.current.value == '') {
+                        alert('설명을 입력해주세요');
+                      } else if (cards.length < 4) {
+                        alert('최소 4개의 카드를 추가해주세요');
+                      } else {
+                        console.log('cards : ', cards);
+                        console.log('deleteCardList : ', deleteCardList);
+                        const book = {
+                          title: createSetTitle.current.value,
+                          description: createSetDescription.current.value,
+                        };
+                        console.log('book : ', book);
+                        console.log('cards : ', cards);
 
-                  // 세트 수정 axios
-                  axios
-                    .delete(SERVER.BASE_URL + SERVER.ROUTES.deleteCard, {
-                      data: {
-                        card_id: deleteCardList,
-                      },
-                    })
-                    .then((res) => {
-                      console.log('delete 카드 리스트 삭제 res : ', res);
+                        // 세트 수정 axios
+                        axios
+                          .delete(SERVER.BASE_URL + SERVER.ROUTES.deleteCard, {
+                            data: {
+                              card_id: deleteCardList,
+                            },
+                          })
+                          .then((res) => {
+                            console.log('delete 카드 리스트 삭제 res : ', res);
 
-                      axios.patch(SERVER.BASE_URL + SERVER.ROUTES.updateCard, { card_list: updateCardList }).then((res) => {
-                        console.log('patch 카드 리스트 수정 res : ', res);
+                            axios.patch(SERVER.BASE_URL + SERVER.ROUTES.updateCard, { card_list: updateCardList }).then((res) => {
+                              console.log('patch 카드 리스트 수정 res : ', res);
 
-                        axios.post(SERVER.BASE_URL + SERVER.ROUTES.createCard, { book_id: props.location.state.book.id, card_list: createCardList }).then((res) => {
-                          console.log('post 카드 리스트 추가 res : ', res);
+                              axios.post(SERVER.BASE_URL + SERVER.ROUTES.createCard, { book_id: props.location.state.book.id, card_list: createCardList }).then((res) => {
+                                console.log('post 카드 리스트 추가 res : ', res);
 
-                          console.log('props : ', props);
-                          console.log('주소 : ', SERVER.BASE_URL + SERVER.ROUTES.update + props.location.state.book.id + '/');
-                          axios
-                            .patch(SERVER.BASE_URL + SERVER.ROUTES.update + props.location.state.book.id + '/', {
-                              title: createSetTitle.current.value,
-                              description: createSetDescription.current.value,
-                            })
-                            .then((res) => {
-                              console.log('--------------------------------------------------------------------------------');
-                              console.log('patch 세트 제목, 설명 수정 res : ', res);
-                              alert(`[${props.location.state.book.title}] 세트가 수정되었습니다.`);
-                              let bookData = {
-                                ...res.data,
-                                write_flag: 1,
-                              };
+                                console.log('props : ', props);
+                                console.log('주소 : ', SERVER.BASE_URL + SERVER.ROUTES.update + props.location.state.book.id + '/');
+                                axios
+                                  .patch(SERVER.BASE_URL + SERVER.ROUTES.update + props.location.state.book.id + '/', {
+                                    title: createSetTitle.current.value,
+                                    description: createSetDescription.current.value,
+                                  })
+                                  .then((res) => {
+                                    console.log('--------------------------------------------------------------------------------');
+                                    console.log('patch 세트 제목, 설명 수정 res : ', res);
+                                    alert(`[${props.location.state.book.title}] 세트가 수정되었습니다.`);
+                                    let bookData = {
+                                      ...res.data,
+                                      write_flag: 1,
+                                    };
 
-                              console.log('bookData : ', bookData);
-                              props.history.push({ pathname: '/set-detail', state: { book: bookData } });
+                                    console.log('bookData : ', bookData);
+                                    props.history.push({ pathname: '/set-detail', state: { book: bookData } });
+                                  });
+                              });
                             });
+                          });
+                      }
+                    }}
+                  >
+                    저장
+                  </Button>
+                  <Button
+                    variant="danger"
+                    onClick={() => {
+                      var result = window.confirm('정말 삭제하시겠습니까?');
+                      if (result) {
+                        axios.delete(SERVER.BASE_URL + SERVER.ROUTES.delete + props.location.state.book.id).then((res) => {
+                          console.log(res);
+                          alert(`[${props.location.state.book.title}] 세트가 삭제되었습니다.`);
+                          props.history.push('/sets');
                         });
-                      });
-                    });
-                }
-              }}
-            >
-              저장
+                      } else {
+                      }
+                    }}
+                  >
+                    삭제
                   </Button>
-            <Button
-              variant="danger"
-              onClick={() => {
-                var result = window.confirm('정말 삭제하시겠습니까?');
-                if (result) {
-                  axios.delete(SERVER.BASE_URL + SERVER.ROUTES.delete + props.location.state.book.id).then((res) => {
-                    console.log(res);
-                    alert(`[${props.location.state.book.title}] 세트가 삭제되었습니다.`);
-                    props.history.push('/sets');
-                  });
-                } else {
-                }
-              }}
-            >
-              삭제
-                  </Button>
-          </div>
-        </div>
-        <div style={{ marginTop: '32px' }}>
-          <span className="CreateSetHeader-title">제목</span>
-          <Form.Control className="inputbox create-set-title" type="text" placeholder="제목을 입력하세요." ref={createSetTitle} defaultValue={props.location.state.book.title} />
-          {/* <TextField
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <SearchIcon />
-                </InputAdornment>
-              ),
-            }}
-          />
-          <TextField
-            variant="outlined"
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <SearchIcon style={{ color: 'white' }} />
-                </InputAdornment>
-              ),
-            }}
-          /> */}
-          <br />
-          <span className="CreateSetHeader-title">설명</span>
-          <Form.Control
-            className="inputbox create-set-description"
-            as="textarea"
-            placeholder="설명을 입력하세요."
-            style={{ width: '100%', height: '41px' }}
-            onKeyUp={createSetDescriptionKeyUp}
-            ref={createSetDescription}
-            defaultValue={props.location.state.book.description}
-          />
-          <div className="div-add-card-form" style={{ position: 'relative', width: '100%', height: '150px', marginTop: '2rem' }} ref={divAddCardForm}>
-            <span className="CreateSetHeader-title" style={{ paddingBottom: '2rem' }}>
-              카드 추가
+                </div>
+              </div>
+              <div style={{ marginTop: '2rem' }}>
+                <span className="CreateSetHeader-title">제목</span>
+                <Form.Control className="inputbox create-set-title" type="text" placeholder="제목을 입력하세요." ref={createSetTitle} defaultValue={props.location.state.book.title} />
+                <br />
+                <span className="CreateSetHeader-title">설명</span>
+                <Form.Control
+                  className="inputbox create-set-description"
+                  as="textarea"
+                  placeholder="설명을 입력하세요."
+                  style={{ width: '100%', height: '41px' }}
+                  onKeyUp={createSetDescriptionKeyUp}
+                  ref={createSetDescription}
+                  defaultValue={props.location.state.book.description}
+                />
+                <div className="div-add-card-form" style={{ position: 'relative', width: '100%', height: '150px', marginTop: '2rem' }} ref={divAddCardForm}>
+                  <span className="CreateSetHeader-title" style={{ paddingBottom: '2rem' }}>
+                    카드 추가
                   </span>
-            {/* <form id="input-form"> */}
-            <div style={{ display: 'flex', width: '100%', marginTop: '20px' }}>
-              <Form.Control className="inputbox mx-3 word-input" as="textarea" placeholder="단어" style={{ width: '50%', height: '43px' }} onKeyUp={WordhandleKeyUp} ref={word} />
-              <Form.Control className="inputbox mx-3 meaning-input" as="textarea" placeholder="뜻" style={{ width: '50%', height: '43px' }} onKeyUp={MeaninghandleKeyUp} ref={meaning} />
-              <div>
-                <Button type="submit" value="Add" onClick={addCard}>
-                  <FiPlus size="24" />
-                </Button>
-              </div>
-            </div>
-            {/* </form> */}
-            <div style={{ width: '100%', position: 'relative', marginTop: '100px' }}>
-              <div style={{ marginBottom: '2rem' }}>
-                <span className="CreateSetHeader-title">카드 목록</span>
-              </div>
+                  {/* <form id="input-form"> */}
+                  <div style={{ display: 'flex', width: '100%', marginTop: '20px' }}>
+                    <Form.Control className="inputbox mx-3 word-input" as="textarea" placeholder="단어" style={{ width: '50%', height: '43px' }} onKeyUp={WordhandleKeyUp} ref={word} />
+                    <Form.Control className="inputbox mx-3 meaning-input" as="textarea" placeholder="뜻" style={{ width: '50%', height: '43px' }} onKeyUp={MeaninghandleKeyUp} ref={meaning} />
+                    <div>
+                      <Button type="submit" value="Add" onClick={addCard}>
+                        <FiPlus />
+                      </Button>
+                    </div>
+                  </div>
+                  {/* </form> */}
+                  <div style={{ width: '100%', position: 'relative', marginTop: '2rem' }}>
+                    <div style={{ marginBottom: '2rem' }}>
+                      <span className="CreateSetHeader-title">카드 목록</span>
+                    </div>
 
-              <div className="set-content" ref={contentRef}>
-                {cards
-                  .sort((a, b) => {
-                    return b.idx - a.idx;
-                  })
-                  .map((card) => (
-                    <Card cards={cards} card={card} key={card.idx} onDelete={onDelete} onEdit={onEdit} onSave={onSave} />
-                  ))}
+                    <div className="set-content" ref={contentRef}>
+                      {cards
+                        .sort((a, b) => {
+                          return b.idx - a.idx;
+                        })
+                        .map((card) => (
+                          <Card cards={cards} card={card} key={card.idx} onDelete={onDelete} onEdit={onEdit} onSave={onSave} />
+                        ))}
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
+            {/* <div style={{ display: 'flex', justifyContent: 'flex-end', width: '10%' }}></div> */}
           </div>
         </div>
-        {/* </div> */}
-        {/* <div style={{ display: 'flex', justifyContent: 'flex-end', width: '10%' }}></div> */}
-        {/* </div> */}
       </div>
-      {/* </div> */}
     </div>
   );
 };
@@ -427,12 +407,11 @@ const Card = ({ cards, card, onDelete, onEdit, onSave }) => {
   };
 
   return (
-    <div className="added-card draggable bg-color-white" style={{ marginBottom: '10px' }}>
-      <div stlye={{ display: 'flex' }}>
+    <div className="added-card draggable" style={{ marginBottom: '10px' }}>
+      <div stlye={{ display: 'flex', backgroundColor: 'white' }}>
         <div className="div-card-index" style={{ display: 'flex', borderBottom: '1px solid lightgrey', marginBottom: '1rem' }}>
-          <h3>{card.idx + 1}번 카드</h3>
-          {/* <div style={{ width: '100%', display: 'flex', justifyContent: 'flex-end' }}> */}
-          <div style={{ marginLeft: 'auto' }}>
+          <h2>{card.idx + 1}</h2>
+          <div style={{ width: '100%', display: 'flex', justifyContent: 'flex-end' }}>
             {card.isEditing && (
               <Button
                 onClick={() => {

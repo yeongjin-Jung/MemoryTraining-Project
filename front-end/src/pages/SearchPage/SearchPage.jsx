@@ -7,7 +7,7 @@ import './SearchPage.css';
 import FadeIn from 'react-fade-in';
 import Rodal from 'rodal';
 import 'rodal/lib/rodal.css';
-import { FiExternalLink, FiCheckSquare } from 'react-icons/fi';
+import { FiExternalLink } from 'react-icons/fi';
 import axios from 'axios';
 import SERVER from '../../api/server';
 import SimpleBar from 'simplebar-react';

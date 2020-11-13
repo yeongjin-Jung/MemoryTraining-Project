@@ -5,9 +5,9 @@ import axios from 'axios';
 import SERVER from '../../api/server';
 import { AwesomeButton } from 'react-awesome-button';
 import '../../assets/css/back-btn-styles.css';
-import './SetPage.css';
+import './SetCreatePage.css';
 
-const SetPage = (props) => {
+const SetCreatePage = (props) => {
   const [cards, setCards] = useState([]);
 
   var testRef = useRef(null);
@@ -326,4 +326,4 @@ const Card = ({ cards, card, onDelete, onEdit, onSave }) => {
   );
 };
 
-export default SetPage;
+export default SetCreatePage;

@@ -10,7 +10,7 @@ export { default as RegisterPage } from './RegisterPage/RegisterPage';
 export { default as StudyPage } from './StudyPage/StudyPage';
 export { default as SearchPage } from './SearchPage/SearchPage';
 export { default as SetsPage } from './SetsPage/SetsPage';
-export { default as SetPage } from './SetPage/SetPage';
+export { default as SetCreatePage } from './SetPage/SetCreatePage';
 export { default as SetDetailPage } from './SetDetailPage/SetDetailPage';
 export { default as QuizPage } from './QuizPage/QuizPage';
 export { default as SetModifyPage } from './SetModifyPage/SetModifyPage';

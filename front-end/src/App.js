@@ -1,6 +1,6 @@
 /* eslint-disable */
 import React from 'react';
-import { Home, RegisterPage, LoginPage, StudyPage, SearchPage, SetsPage, SetPage, SetDetailPage, QuizPage, SetModifyPage, TestPaperPage, TestPaperPage_word, TestPaperPage_meaning } from './pages';
+import { Home, RegisterPage, LoginPage, StudyPage, SearchPage, SetsPage, SetCreatePage, SetDetailPage, QuizPage, SetModifyPage, TestPaperPage, TestPaperPage_word, TestPaperPage_meaning } from './pages';
 // import Auth from "./hoc/auth";
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 
@@ -49,7 +49,7 @@ const App = () => {
           <PrivateRoute path="/" exact component={Home} />
           <PrivateRoute path="/search" component={SearchPage} />
           <PrivateRoute path="/sets" component={SetsPage} />
-          <PrivateRoute path="/set-create" component={SetPage} />
+          <PrivateRoute path="/set-create" component={SetCreatePage} />
           <PrivateRoute path="/set-detail" component={SetDetailPage} />
           <PrivateRoute path="/study" component={StudyPage} />
           <PrivateRoute path="/quiz" component={QuizPage} />
