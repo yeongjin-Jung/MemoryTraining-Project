@@ -6,8 +6,8 @@
   margin: 20px 0 !important;
 }
 .set-modify-BackgroundColor {
-  max-height: 100%;
   max-width: 100%;
+  max-height: 100%;
   bottom: 0;
   left: 0;
   margin: auto;
@@ -16,5 +16,7 @@
   right: 0;
   top: 0;
   z-index: -1;
-  background-color: #c6f5ed;
+  background: linear-gradient(-45deg, #ddee9f, #fffedc, #63bfe0, #c6f5ea);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
 }
