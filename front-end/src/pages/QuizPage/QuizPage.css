@@ -448,3 +448,7 @@
     margin-right: 10vw;
   }
 }
+
+.aws-btn.aws-btn--third.aws-btn--visible.aws-btn--disabled.aws-bookmark-restart-btn > .aws-btn__wrapper {
+  background-color: darkgray;
+}
