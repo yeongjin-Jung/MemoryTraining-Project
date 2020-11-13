@@ -187,12 +187,12 @@ const Book = ({ book }) => {
             className={classes.button}
             onClick={(e) => {
               if (!scrapFlag) {
-                setScrapFlag(true)
+                setScrapFlag(true);
                 axios.post(SERVER.BASE_URL + SERVER.ROUTES.scrap, { book_id: book.id }).then((res) => {
                   console.log('scrap axios res : ', res);
                 });
               } else {
-                setScrapFlag(false)
+                setScrapFlag(false);
                 axios.delete(SERVER.BASE_URL + SERVER.ROUTES.unscrap, { data: { book_id: book.id } }).then((res) => {
                   console.log('unscrap axios res : ', res);
                 });
@@ -202,11 +202,13 @@ const Book = ({ book }) => {
           >
             {scrapFlag ? <>스크랩해제</> : <>스크랩</>}
           </MaterialButton>
-          {scrapFlag &&
+          {scrapFlag && (
             <Link to={{ pathname: '/set-detail', state: { book: book } }}>
-              <MaterialButton variant="contained" style={{ fontWeight: '800' }}>자세히보기</MaterialButton>
+              <MaterialButton variant="contained" style={{ fontWeight: '800' }}>
+                자세히보기
+              </MaterialButton>
             </Link>
-          }
+          )}
         </div>
       </div>
 
@@ -224,12 +226,12 @@ const Book = ({ book }) => {
               className={classes.button}
               onClick={(e) => {
                 if (!scrapFlag) {
-                  setScrapFlag(true)
+                  setScrapFlag(true);
                   axios.post(SERVER.BASE_URL + SERVER.ROUTES.scrap, { book_id: book.id }).then((res) => {
                     console.log('scrap axios res : ', res);
                   });
                 } else {
-                  setScrapFlag(false)
+                  setScrapFlag(false);
                   axios.delete(SERVER.BASE_URL + SERVER.ROUTES.unscrap, { data: { book_id: book.id } }).then((res) => {
                     console.log('unscrap axios res : ', res);
                   });

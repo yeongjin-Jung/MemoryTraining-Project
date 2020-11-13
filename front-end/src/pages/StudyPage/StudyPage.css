@@ -289,10 +289,17 @@
 }
 
 .aws-studyback-btn {
-  display: none;
-  position: absolute !important;
-  top: 13vh;
-  right: 11vw;
+  top: 3vh;
+  margin-right: auto;
+  margin-left: 70vw !important;
+}
+
+@media (max-width: 800px) {
+  .aws-studyback-btn {
+    top: 2.5vh;
+    margin-right: auto;
+    margin-left: 60vw !important;
+  }
 }
 
 .aws-studyback-btn span {

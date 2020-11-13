@@ -9,6 +9,8 @@ import { useDispatch } from 'react-redux';
 import { logoutUser } from '../../_actions/userAction';
 import SERVER from '../../api/server';
 import { Hint } from 'react-autocomplete-hint';
+import TextField from '@material-ui/core/TextField';
+import Autocomplete from '@material-ui/lab/Autocomplete';
 
 const MyNavbar = (props) => {
   // const [prevAllSet, setprevAllSet] = useState([]);
@@ -18,19 +20,6 @@ const MyNavbar = (props) => {
   const toggleButtonRef = useRef(null);
 
   const toggleSearch = async () => {
-    // if (newAllSet.length == 0) {
-    //   // console.log('toggleSearch called.');
-    //   await axios.get(SERVER.BASE_URL + SERVER.ROUTES.search).then((res) => {
-    //     setprevAllSet([]);
-    //     setnewAllSet([]);
-    //     console.log('all sets: ', res.data.length);
-
-    //     res.data.forEach((element) => {
-    //       prevAllSet.push(element.title);
-    //     });
-    //     setnewAllSet([...newAllSet, prevAllSet]);
-    //   });
-    // }
     setShowSearch(!showSearch);
   };
 
@@ -87,6 +76,7 @@ const MyNavbar = (props) => {
           </p>
         </Link>
       </Navbar.Brand>
+
       <Navbar.Toggle aria-controls="basic-navbar-nav" style={{ backgroundColor: 'rgba(255,255,255,1)' }} id="toggle-button" ref={toggleButtonRef} />
       <Navbar.Collapse id="basic-navbar-nav" ref={collapseRef}>
         <Nav className="container-fluid">
@@ -135,43 +125,52 @@ const Menu = ({ toggleSearch, toggleButtonRef, collapseRef }) => {
   );
 };
 
-const Search = ({ toggleSearch, toggleButtonRef, collapseRef, allSet }) => {
+const Search = ({ toggleSearch, toggleButtonRef, collapseRef }) => {
   const history = useHistory();
   const buttonRef = useRef(null);
   const inputRef = useRef(null);
 
+  const [allSet, setAllSet] = useState([]);
+
   useEffect(() => {
     inputRef.current.focus();
 
+    axios.get(SERVER.BASE_URL + SERVER.ROUTES.search).then((res) => {
+      console.log(res.data);
+      setAllSet(res.data);
+    });
     /**
      * Alert if clicked on outside of element
      */
-    function handleClickOutside(event) {
-      if (buttonRef.current && !buttonRef.current.contains(event.target) && !inputRef.current.contains(event.target)) {
-        // alert('You clicked outside of me!');
-        toggleSearch();
-      }
-    }
+    // function handleClickOutside(event) {
+    //   if (buttonRef.current && !buttonRef.current.contains(event.target) && !inputRef.current.contains(event.target)) {
+    //     // alert('You clicked outside of me!');
+    //     toggleSearch();
+    //   }
+    // }
     // Bind the event listener
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-      // Unbind the event listener on clean up
-    };
+    // document.addEventListener('mousedown', handleClickOutside);
+    // return () => {
+    //   document.removeEventListener('mousedown', handleClickOutside);
+    // Unbind the event listener on clean up
+    // };
   }, [buttonRef]);
 
   return (
     <>
       <div className="container-fluid search">
-        <InputGroup className="col-11" style={{ background: 'transparent' }}>
-          <FormControl
+        <InputGroup className="col-10" style={{ background: 'transparent' }}>
+          {/* <FormControl
             ref={inputRef}
             className="input-search"
             placeholder="검색하기"
             aria-label="Recipient's username"
             aria-describedby="basic-addon2"
             onChange={() => {
-              console.log(allSet);
+              axios.get(SERVER.BASE_URL + SERVER.ROUTES.search).then((res) => {
+                console.log(res.data);
+                setAllSet(res.data);
+              });
             }}
             onKeyPress={(event) => {
               if (event.key == 'Enter') {
@@ -187,9 +186,34 @@ const Search = ({ toggleSearch, toggleButtonRef, collapseRef, allSet }) => {
                 history.push({ pathname: '/search', state: { searchValue } });
               }
             }}
+          /> */}
+
+          <Autocomplete
+            id="combo-box-demo"
+            ref={inputRef}
+            options={allSet}
+            getOptionLabel={(option) => option.title}
+            style={{ width: '100%', backgroundColor: 'white', borderRadius: '4px' }}
+            renderInput={(params) => <TextField {...params} label="검색해주세요" variant="outlined" />} //variant="outlined"
+            onKeyPress={(event) => {
+              if (event.key == 'Enter') {
+                var cName = collapseRef.current.className;
+
+                if (cName.includes('show')) {
+                  toggleButtonRef.current.click();
+                }
+
+                toggleSearch();
+                // const searchValue = inputRef.current.value;
+                const searchValue = event.target.value;
+
+                inputRef.current.value = '';
+                history.push({ pathname: '/search', state: { searchValue } });
+              }
+            }}
           />
         </InputGroup>
-        <InputGroup.Append className="col-1">
+        <InputGroup.Append className="col-2">
           {/* <Button variant="outline-secondary" onClick={toggleSearch} style={{ marginLeft: '1px' }} ref={buttonRef}>
             <MdClose />
           </Button> */}

@@ -56,11 +56,21 @@
 .search {
   display: flex;
 }
+.search-title {
+  text-align: center;
+}
+
+@media (max-width: 991px) {
+  .search-title {
+    font-size: 22px !important;
+  }
+}
 
 @media (max-width: 991px) {
   .search {
     display: flex;
     flex-direction: row;
+    padding-top: 10px;
   }
 }
 
@@ -98,12 +108,40 @@
 @media (max-width: 990px) {
   .nav-search-close {
     padding: 0.2rem 0.5rem;
-    height: 38px;
+
+    width: 100%;
+    height: 100% !important;
   }
 }
+
+.MuiFormLabel-root.Mui-focused {
+  color: rgb(101, 101, 255) !important;
+  font-size: 17px;
+  font-weight: 800;
+  border-width: 10px;
+  background-color: rgb(160, 160, 160, 0);
+}
+
+.MuiInputLabel-outlined.MuiInputLabel-shrink {
+  transform: translate(14px, 2px) scale(0.8) !important;
+}
+
+.PrivateNotchedOutline-legendLabelled-158 .PrivateNotchedOutline-legendNotched-159 {
+  background-color: rgb(255, 200, 0);
+}
+
+.MuiOutlinedInput-notchedOutline legend {
+  display: none !important;
+}
+
 @media (max-width: 990px) {
-  .input-group-append {
-    padding-top: 9px;
-    padding-left: 0px;
+  .container-fluid {
+    padding-left: 0;
+    padding-right: 0;
   }
+}
+
+.input-group-append {
+  padding-left: 0;
+  padding-right: 0;
 }

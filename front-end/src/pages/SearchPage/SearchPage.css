@@ -396,7 +396,7 @@ h3 {
   box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
   display: flex;
   max-width: 100%;
-  margin: 20px;
+  margin: 15px;
   overflow: hidden;
   width: 80%;
 }
@@ -404,6 +404,7 @@ h3 {
 @media (max-width: 800px) {
   .course {
     width: 100%;
+    margin: 7px;
   }
 }
 
@@ -451,4 +452,8 @@ h3 {
   .search-empty {
     font-size: 2em;
   }
+}
+
+.card4:nth-child(1) button {
+  margin-left: 0 !important;
 }
