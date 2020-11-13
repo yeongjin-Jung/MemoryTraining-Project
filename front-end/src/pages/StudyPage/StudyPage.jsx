@@ -48,7 +48,6 @@ const StudyPage = (props) => {
   const cards = props.location.state.cardList;
   const book = props.location.state.book;
   const [cardList, setCardList] = useState(cards);
-  const [flip, setFlip] = useState(true);
 
   useEffect(() => {
     console.log('voices : ', voices);
@@ -60,12 +59,12 @@ const StudyPage = (props) => {
         document.getElementsByClassName('awssld__prev')[0].click();
       } else if (e.key == 'ArrowUp') {
         console.log('위');
-        setFlip(false);
-        // document.getElementsByClassName('flippy-cardContainer')[0].click();
+        // setFlip(false);
+        document.getElementsByClassName('flippy-cardContainer')[0].click();
       } else if (e.key == 'ArrowDown') {
         console.log('아래');
-        setFlip(true);
-        // document.getElementsByClassName('flippy-cardContainer')[0].click();
+        // setFlip(true);
+        document.getElementsByClassName('flippy-cardContainer')[0].click();
       }
     };
 
@@ -124,7 +123,7 @@ const StudyPage = (props) => {
         <AwesomeSlider className="slider" infinite={false} bullets={false} animation="openAnimation" cssModule={(CoreStyles, AwesomeSliderStyles)}>
           {cards.map((data, index) => (
             <div className="FlippyContainer-root" key={index}>
-              <Card data={data} handleCard={handleCard} book={book} speechWord={speechWord} speechMeaning={speechMeaning} flip={flip} />
+              <Card data={data} handleCard={handleCard} book={book} speechWord={speechWord} speechMeaning={speechMeaning} />
             </div>
           ))}
         </AwesomeSlider>
@@ -134,7 +133,7 @@ const StudyPage = (props) => {
   );
 };
 
-const Card = ({ data, handleCard, book, speechWord, speechMeaning, flip }) => {
+const Card = ({ data, handleCard, book, speechWord, speechMeaning }) => {
   const { cancel } = useSpeechSynthesis();
   const [card, setCard] = useState(data);
   const classes = useStyles();
@@ -162,7 +161,6 @@ const Card = ({ data, handleCard, book, speechWord, speechMeaning, flip }) => {
         flipOnHover={false} // default false
         flipOnClick={true} // default false
         flipDirection="vertical" // horizontal or vertical
-        isFlipped={flip}
       >
         <FrontSide className="FrontSide">
           <div className="bookmark-icon">
