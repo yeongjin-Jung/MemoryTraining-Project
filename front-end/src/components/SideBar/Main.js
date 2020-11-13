@@ -23,7 +23,9 @@ const Main = ({ collapsed, rtl, toggled, history, image, handleToggleSidebar, ha
 
   const getEntireCardList = async () => {
     await axios.get(SERVER.BASE_URL + SERVER.ROUTES.getEntireCards + book.id).then((res) => {
-      // console.log('getEntireCardList res: ', res);
+      console.log('--------------------------------------------------');
+      console.log('요청 받는 cards : ', res.data);
+      console.log('--------------------------------------------------');
       setEntireCardList(res.data);
     });
   };

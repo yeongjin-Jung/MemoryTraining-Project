@@ -7,7 +7,7 @@ import './SearchPage.css';
 import FadeIn from 'react-fade-in';
 import Rodal from 'rodal';
 import 'rodal/lib/rodal.css';
-import { FiExternalLink, FiCheckSquare } from 'react-icons/fi';
+import { FiExternalLink } from 'react-icons/fi';
 import axios from 'axios';
 import SERVER from '../../api/server';
 import SimpleBar from 'simplebar-react';
@@ -24,20 +24,32 @@ const useStyles = makeStyles((theme) => ({
 
 const SearchPage = (props) => {
   const [DropDownValue, setDropDownValue] = useState('name');
-  // const bookList = [];
-  const [bookList, setBookList] = useState([]);
+
+  // const [bookList, setBookList] = useState([]);
+  const [bookNameList, setBookNameList] = useState([]);
+  const [bookDateList, setBookDateList] = useState([]);
+
   const searchValue = props.location.state.searchValue;
   const [isLoading, setIsLoading] = useState(true);
 
   const getBookList = async () => {
     console.log('getBookList called.');
 
-    await axios.get(SERVER.BASE_URL + SERVER.ROUTES.search, { params: { keyword: searchValue } }).then((res) => {
-      console.log(res);
+    await axios.get(SERVER.BASE_URL + SERVER.ROUTES.search, { params: { keyword: searchValue, order: 'name' } }).then((res) => {
+      console.log('이름순 : ', res);
       let tmpBookList = [];
       tmpBookList = [...res.data];
       // console.log('tmpBookList : ', tmpBookList);
-      setBookList(tmpBookList);
+      setBookNameList(tmpBookList);
+      // setIsLoading(false);
+    });
+
+    await axios.get(SERVER.BASE_URL + SERVER.ROUTES.search, { params: { keyword: searchValue, order: 'date' } }).then((res) => {
+      console.log('최신순 : ', res);
+      let tmpBookList = [];
+      tmpBookList = [...res.data];
+      // console.log('tmpBookList : ', tmpBookList);
+      setBookDateList(tmpBookList);
       setIsLoading(false);
     });
   };
@@ -57,26 +69,6 @@ const SearchPage = (props) => {
     setDropDownValue(Value);
   };
 
-  // {
-  //   DropDownValue == 'name' &&
-  //     bookList.sort(function (a, b) {
-  //       // 오름차순
-  //       return a.title < b.title ? -1 : a.title > b.title ? 1 : 0;
-  //       // 광희, 명수, 재석, 형돈
-  //     });
-  // }
-
-  // const Moment = require('moment');
-
-  // {
-  //   DropDownValue == 'date' &&
-  //     bookList.sort(function (a, b) {
-  //       // 내림차순
-  //       return new Moment(a.date).format('YYYYMMDD') - new Moment(b.date).format('YYYYMMDD');
-  //       // 광희, 명수, 재석, 형돈
-  //     });
-  // }
-
   return (
     <div className="search-root" ref={refToTop}>
       <div className="Home-BackgroundColor"></div>
@@ -91,19 +83,21 @@ const SearchPage = (props) => {
           </Link>
         </div>
         {/* <div> */}
-        {!isLoading && bookList.length != 0 && (
+        {!isLoading && bookNameList.length != 0 && (
           <FadeIn className="FadeIn-container" duration={1000} delay={250} transitionDuration={1000}>
             {/* {bookList.length != 0 && bookList.map((book) => <Book book={book} key={book.id} />)} */}
-            {bookList.map((book) => (
+
+            {/* {bookList.map((book) => (
               <Book book={book} key={book.id} />
-            ))}
-            {/* {DropDownValue == 'date' && bookList.map((user) => <User user={user} key={user.id} />)} */}
-            {/* {DropDownValue == 'date' && bookList.filter((bookList) => bookList.title == 'liz').map((user) => <User user={user} key={user.id} />)} */}
-            {/* {DropDownValue == 'Scrap' && bookList.filter((bookList) => bookList.title != 'liz').map((user) => <User user={user} key={user.id} />)} */}
+            ))} */}
+
+            {DropDownValue == 'name' && bookNameList.map((book) => <Book book={book} key={book.id} />)}
+            {DropDownValue == 'date' && bookDateList.reverse().map((book) => <Book book={book} key={book.id} />)}
+
             {/* </div> */}
           </FadeIn>
         )}
-        {!isLoading && bookList.length == 0 && <div className="search-empty">검색 결과가 없습니다.</div>}
+        {!isLoading && bookNameList.length == 0 && <div className="search-empty">검색 결과가 없습니다.</div>}
       </div>
       <a
         onClick={() => {
@@ -123,7 +117,7 @@ const Book = ({ book }) => {
   const [show, bookListhow] = useState(false);
   const [cardList, setCardList] = useState([]);
   const buttonRef = useRef(null);
-  const [color, setColor] = useState(book.scrap_flag ? 'green' : 'black');
+  const [scrapFlag, setScrapFlag] = useState(book.scrap_flag ? true : false);
 
   const handleShow = () => {
     // console.log('handleShow called.');
@@ -185,53 +179,34 @@ const Book = ({ book }) => {
           </div>
         </div>
         <div>
-          {/* <Button
-            variant="light"
-            color={book.scrap_flag ? 'green' : 'black'}
-            onClick={(e) => {
-              if (color == 'black') {
-                console.log('color == black');
-                setColor('green');
-                axios.post(SERVER.BASE_URL + SERVER.ROUTES.scrap, { book_id: book.id }).then((res) => {
-                  console.log('scrap axios res : ', res);
-                });
-              } else {
-                console.log('color == green');
-                setColor('black');
-                axios.delete(SERVER.BASE_URL + SERVER.ROUTES.unscrap, { data: { book_id: book.id } }).then((res) => {
-                  console.log('unscrap axios res : ', res);
-                });
-              }
-              e.stopPropagation();
-            }}
-          >
-            {color == 'green' ? <FiCheckSquare size={30} color={color} /> : <FiExternalLink size={30} color={color} />}
-          </Button> */}
           <MaterialButton
             variant="contained"
+            style={{ fontWeight: '800' }}
+            color={scrapFlag ? 'secondary' : 'primary'}
+            startIcon={scrapFlag ? <DeleteIcon /> : <FiExternalLink />}
+            className={classes.button}
             onClick={(e) => {
-              if (color == 'black') {
-                console.log('color == black');
-                setColor('green');
+              if (!scrapFlag) {
+                setScrapFlag(true)
                 axios.post(SERVER.BASE_URL + SERVER.ROUTES.scrap, { book_id: book.id }).then((res) => {
                   console.log('scrap axios res : ', res);
                 });
               } else {
-                console.log('color == green');
-                setColor('black');
+                setScrapFlag(false)
                 axios.delete(SERVER.BASE_URL + SERVER.ROUTES.unscrap, { data: { book_id: book.id } }).then((res) => {
                   console.log('unscrap axios res : ', res);
                 });
               }
               e.stopPropagation();
             }}
-            style={{ marginRight: '5vw', fontWeight: '800' }}
-            color={color == 'green' ? 'secondary' : 'primary'}
-            startIcon={color == 'green' ? <DeleteIcon /> : ''}
-            className={classes.button}
           >
-            {color == 'green' ? <>스크랩해제</> : <><FiExternalLink size={20} style={{ marginRight: '10px' }} />스크랩</>}
+            {scrapFlag ? <>스크랩해제</> : <>스크랩</>}
           </MaterialButton>
+          {scrapFlag &&
+            <Link to={{ pathname: '/set-detail', state: { book: book } }}>
+              <MaterialButton variant="contained" style={{ fontWeight: '800' }}>자세히보기</MaterialButton>
+            </Link>
+          }
         </div>
       </div>
 
@@ -243,28 +218,26 @@ const Book = ({ book }) => {
             {/* </div> */}
             <MaterialButton
               variant="contained"
+              style={{ fontWeight: '800' }}
+              color={scrapFlag ? 'secondary' : 'primary'}
+              startIcon={scrapFlag ? <DeleteIcon /> : <FiExternalLink />}
+              className={classes.button}
               onClick={(e) => {
-                if (color == 'black') {
-                  console.log('color == black');
-                  setColor('green');
+                if (!scrapFlag) {
+                  setScrapFlag(true)
                   axios.post(SERVER.BASE_URL + SERVER.ROUTES.scrap, { book_id: book.id }).then((res) => {
                     console.log('scrap axios res : ', res);
                   });
                 } else {
-                  console.log('color == green');
-                  setColor('black');
+                  setScrapFlag(false)
                   axios.delete(SERVER.BASE_URL + SERVER.ROUTES.unscrap, { data: { book_id: book.id } }).then((res) => {
                     console.log('unscrap axios res : ', res);
                   });
                 }
                 e.stopPropagation();
               }}
-              style={{ fontWeight: '800' }}
-              color={color == 'green' ? 'secondary' : 'primary'}
-              startIcon={color == 'green' ? <DeleteIcon /> : ''}
-              className={classes.button}
             >
-              {color == 'green' ? <>스크랩해제</> : <><FiExternalLink size={20} style={{ marginRight: '10px' }} />스크랩</>}
+              {scrapFlag ? <>스크랩해제</> : <>스크랩</>}
             </MaterialButton>
           </div>
 
@@ -273,7 +246,7 @@ const Book = ({ book }) => {
           ))}
         </SimpleBar>
       </Rodal>
-    </div>
+    </div >
   );
 };
 
