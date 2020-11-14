@@ -11,8 +11,8 @@ body {
 }
 
 .memory-game {
-  width: 100%;
-  height: 300px;
+  width: 98%;
+  height: 100%;
   margin: auto;
   display: flex;
   flex-direction: row;
@@ -22,33 +22,118 @@ body {
   perspective: 1000px;
 }
 
-@media (max-width: 767px) {
+.memory-card {
+  /* width: calc(25% - 10px); */
+  width: 20%;
+  /* height: calc(33.333% - 10px); */
+  height: 30vw;
+  margin: 5px;
+  position: relative;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+  transform: scale(1);
+  transform-style: preserve-3d;
+  transition: transform 0.5s;
+}
+
+@media (max-width: 608px) {
   .memory-card {
-    /* width: calc(25% - 10px); */
-    width: 100px;
-    /* height: calc(33.333% - 10px); */
-    height: 100px;
-    margin: 5px;
-    position: relative;
-    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
-    transform: scale(1);
-    transform-style: preserve-3d;
-    transition: transform 0.5s;
+    height: 30vw;
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 609px) {
   .memory-card {
-    /* width: calc(25% - 10px); */
-    width: 130px;
-    /* height: calc(33.333% - 10px); */
-    height: 130px;
-    margin: 5px;
-    position: relative;
-    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
-    transform: scale(1);
-    transform-style: preserve-3d;
-    transition: transform 0.5s;
+    height: 28vw;
+  }
+}
+
+@media (min-width: 653px) {
+  .memory-card {
+    height: 26vw;
+  }
+}
+
+@media (min-width: 702px) {
+  .memory-card {
+    height: 24vw;
+  }
+}
+
+@media (min-width: 749px) {
+  .memory-card {
+    height: 23vw;
+  }
+}
+
+@media (min-width: 761px) {
+  .memory-card {
+    height: 23vw;
+  }
+}
+
+@media (min-width: 781px) {
+  .memory-card {
+    height: 22vw;
+  }
+}
+
+@media (min-width: 817px) {
+  .memory-card {
+    height: 21vw;
+  }
+}
+
+@media (min-width: 855px) {
+  .memory-card {
+    height: 20vw;
+  }
+}
+
+@media (min-width: 898px) {
+  .memory-card {
+    height: 19vw;
+  }
+}
+
+@media (min-width: 945px) {
+  .memory-card {
+    height: 18vw;
+  }
+}
+
+@media (min-width: 992px) {
+  .memory-card {
+    height: 17vw;
+  }
+}
+
+@media (min-width: 1042px) {
+  .memory-card {
+    height: 16vw;
+  }
+}
+
+@media (min-width: 1110px) {
+  .memory-card {
+    height: 15vw;
+  }
+}
+
+@media (min-width: 1181px) {
+  .memory-card {
+    height: 14vw;
+  }
+}
+
+@media (min-width: 1267px) {
+  .memory-card {
+    height: 13.6vw;
+  }
+}
+
+@media (min-width: 1290px) {
+  .memory-card {
+    height: 11vw;
   }
 }
 
@@ -57,15 +142,28 @@ body {
   transition: transform 0.2s;
 }
 
+.front-face-word {
+  background-color: #343148ff !important;
+  font-size: 1.2rem;
+  color: white;
+}
+
+.front-face-meaning {
+  background-color: #d7c49eff !important;
+  font-size: 1.2rem;
+  color: white;
+}
+
 .back-face-word {
-  background-color: red !important;
+  background-color: #343148ff !important;
 }
 
 .back-face-meaning {
-  background-color: orange !important;
+  background-color: #d7c49eff !important;
 }
 
-.front-face,
+.front-face-word,
+.front-face-meaning,
 .back-face-word,
 .back-face-meaning {
   width: 100%;
@@ -81,7 +179,11 @@ body {
   transform: rotateY(180deg);
 }
 
-.front-face {
+.front-face-word {
+  transform: rotateY(180deg);
+}
+
+.front-face-meaning {
   transform: rotateY(180deg);
 }
 

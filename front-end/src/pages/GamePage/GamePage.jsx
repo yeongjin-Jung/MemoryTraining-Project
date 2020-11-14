@@ -19,6 +19,7 @@ const GamePage = (props) => {
   let [firstCard, setFirstCard] = useState(null);
   let [secondCard, setSecondCard] = useState(null);
 
+  let [randList, setRandList] = useState([]);
   // console.log('game props : ', props);
   // console.log('cardList state : ', cardList);
 
@@ -28,13 +29,18 @@ const GamePage = (props) => {
     // 카드를 최대 8개까지만 추출하는 작업!
 
     let tmpCardList = [];
+    let cnt = 0;
     while (true) {
-      if (cardList.length == 0 || randCardList.length == 8) break;
+      if (cardList.length == 0 || tmpCardList.length == 6) break;
 
       let randIdx = parseInt(Math.random() * cardList.length);
       // console.log('randIdx : ', randIdx);
 
       let tmpCard = cardList[randIdx];
+      // console.log('tmpCard : ', tmpCard);
+      tmpCard.order1 = Math.floor(Math.random() * 12);
+      tmpCard.order2 = Math.floor(Math.random() * 12);
+
       cardList.splice(randIdx, 1);
 
       // console.log('splice 후 cardList 길이 : ', cardList.length);
@@ -43,42 +49,68 @@ const GamePage = (props) => {
     }
 
     setRandCardList(tmpCardList);
+
     // console.log('추출된 카드들 : ', randCardList);
+    let ttmpList = [];
+    for (var i = 0; i < tmpCardList.length; i++) {
+      ttmpList.push(Math.floor(Math.random() * tmpCardList.length));
+    }
+
+    // console.log('ttmpList : ', ttmpList);
+    setRandList(ttmpList);
   }, []);
 
   return (
-    <section className="memory-game">
+    <>
       <div className="CardTest-background"></div>
-      {randCardList.map((card) => (
-        <Card
-          card={card}
-          key={card.id}
-          hasFlippedCard={hasFlippedCard}
-          setHasFlippedCard={setHasFlippedCard}
-          firstCard={firstCard}
-          setFirstCard={setFirstCard}
-          secondCard={secondCard}
-          setSecondCard={setSecondCard}
-          lockBoard={lockBoard}
-          setLockBoard={setLockBoard}
-        />
-      ))}
-    </section>
+      <div className="" style={{ marginTop: '2vh', display: 'flex', justifyContent: 'center' }}>
+        <div className="" style={{ display: 'flex', justifyContent: 'space-around', width: '25vw', height: '10vh' }}>
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '10vw', height: '10vh' }}>
+            <div style={{ width: '20%', paddingBottom: '20%', backgroundColor: '#343148ff' }}></div>
+            &nbsp;
+            <span style={{ fontSize: '1.2rem' }}> : 단어</span>
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '10vw', height: '10vh' }}>
+            <div style={{ width: '20%', paddingBottom: '20%', backgroundColor: '#d7c49eff' }}></div>
+            &nbsp;
+            <span style={{ fontSize: '1.2rem' }}> : 뜻</span>
+          </div>
+        </div>
+      </div>
+      <section className="memory-game">
+        {randCardList.map((card) => (
+          <Card
+            card={card}
+            key={card.id}
+            hasFlippedCard={hasFlippedCard}
+            setHasFlippedCard={setHasFlippedCard}
+            firstCard={firstCard}
+            setFirstCard={setFirstCard}
+            secondCard={secondCard}
+            setSecondCard={setSecondCard}
+            lockBoard={lockBoard}
+            setLockBoard={setLockBoard}
+            idx={card.idx}
+            randList={randList}
+            order1={card.order1}
+            order2={card.order2}
+          />
+        ))}
+      </section>
+    </>
   );
 };
 
-const Card = ({ card, hasFlippedCard, setHasFlippedCard, firstCard, setFirstCard, secondCard, setSecondCard, lockBoard, setLockBoard }) => {
+const Card = ({ card, hasFlippedCard, setHasFlippedCard, firstCard, setFirstCard, secondCard, setSecondCard, lockBoard, setLockBoard, idx, randList, order1, order2 }) => {
   const wordRef = useRef(null);
   const meaningRef = useRef(null);
 
+  const [tmpFirstCard, setTmpFirstCard] = useState(firstCard);
   const [tmpSecondCard, setTmpSecondCard] = useState(secondCard);
 
-  const [match, setMatch] = useState(false);
-
   useEffect(() => {
-    // console.log('firstCard : ', firstCard);
-    // console.log('secondCard : ', secondCard);
-  }, [match]);
+    if (firstCard != null && tmpSecondCard != null) checkForMatch();
+  }, [tmpFirstCard, tmpSecondCard]);
 
   const unflipCards = () => {
     setLockBoard(true);
@@ -117,16 +149,18 @@ const Card = ({ card, hasFlippedCard, setHasFlippedCard, firstCard, setFirstCard
     if (lockBoard) return;
 
     if (ref == firstCard) {
-      console.log('둘이 같음.');
+      console.log('같은 div 두 번 누름.');
       return;
     }
 
+    console.log('flipCard 실행됨.');
     ref.current.classList.add('flip');
 
     if (!hasFlippedCard) {
       setHasFlippedCard(true);
       // firstCard = ref;
       setFirstCard(ref);
+      setTmpFirstCard(ref);
       // console.log('firstCard 선택됨. firstCard : ', firstCard);
 
       return;
@@ -136,14 +170,19 @@ const Card = ({ card, hasFlippedCard, setHasFlippedCard, firstCard, setFirstCard
     setTmpSecondCard(ref);
     // setHasFlippedCard(false);
 
-    checkForMatch();
+    // checkForMatch();
   };
 
   const resetBoard = () => {
     setHasFlippedCard(false);
     setLockBoard(false);
+
     setFirstCard(null);
+    setTmpFirstCard(null);
     setSecondCard(null);
+    setTmpSecondCard(null);
+
+    console.log('!!!!!!!!!!!!!!!!!!! resetBoard 실행됨');
 
     // [hasFlippedCard, lockBoard] = [false, false];
     // [firstCard, secondCard] = [null, null];
@@ -151,27 +190,56 @@ const Card = ({ card, hasFlippedCard, setHasFlippedCard, firstCard, setFirstCard
 
   const disableCards = () => {
     console.log('disableCards called.');
+
     // e.preventDefault();
     // e.stopPropagation();
 
-    firstCard.current.removeEventListener('click', flipCard);
-    secondCard.current.removeEventListener('click', flipCard);
+    // firstCard.current.removeEventListener('click', flipCard);
+    // tmpSecondCard.current.removeEventListener('click', flipCard);
+    console.log('firstCard : ', firstCard);
+    console.log('tmpFirstCard : ', tmpFirstCard);
+    let temp = firstCard;
+    console.log('temp : ', temp);
+
+    temp.current.disabled = true;
+    // temp.current.setAttribute('disabled', true);
+    console.log('tmpFirstCard : ', tmpFirstCard);
+    // tmpFirstCard.current.firstChild.disabled = true;
+    // firstCard.current.firstChild.disabled = true;
+
+    console.log('firstCard.current.firstChild : ', firstCard.current.firstChild);
+    firstCard.current.firstChild.setAttribute('disabled', true);
+    // firstCard.current.setAttribute('disabled', true);
+
+    console.log('tmpSecondCard : ', tmpSecondCard);
+
+    // tmpSecondCard.current.disabled = true;
+    tmpSecondCard.current.firstChild.setAttribute('disabled', true);
 
     resetBoard();
   };
 
   return (
     <>
-      <div className="memory-card" ref={wordRef} cardid={card.id}>
+      {/* <div className="memory-card" ref={wordRef} cardid={card.id} style={{ order: randList[idx - 1] }}> */}
+      <div className="memory-card" ref={wordRef} cardid={card.id} style={{ order: order1 }}>
         <div
-          className="front-face"
+          style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+          className="front-face-word"
           // src={iconReact}
           alt="React"
           onClick={() => {
-            flipCard(wordRef);
+            console.log('front clicked.');
+            console.log('wordRef.current : ', wordRef.current);
+            console.log('wordRef.current.firstChild : ', wordRef.current.firstChild);
+            console.log('wordRef.current.firstChild.getAttribute("disabled") : ', wordRef.current.firstChild.getAttribute('disabled'));
+            // if (!wordRef.current.firstChild.disabled) flipCard(wordRef);
+            if (!wordRef.current.firstChild.getAttribute('disabled')) {
+              flipCard(wordRef);
+            }
           }}
         >
-          단어 - {card.word}
+          {card.word}
         </div>
         <div
           className="back-face-word"
@@ -183,16 +251,21 @@ const Card = ({ card, hasFlippedCard, setHasFlippedCard, firstCard, setFirstCard
         ></div>
       </div>
 
-      <div className="memory-card" ref={meaningRef} cardid={card.id}>
+      {/* <div className="memory-card" ref={meaningRef} cardid={card.id} style={{ order: randList[idx] }}> */}
+      <div className="memory-card" ref={meaningRef} cardid={card.id} style={{ order: order2 }}>
         <div
-          className="front-face"
+          style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+          className="front-face-meaning"
           // src={iconReact}
           alt="React"
           onClick={() => {
-            flipCard(meaningRef);
+            // if (!meaningRef.current.disabled)
+            if (!meaningRef.current.firstChild.getAttribute('disabled')) {
+              flipCard(meaningRef);
+            }
           }}
         >
-          뜻 - {card.meaning}
+          {card.meaning}
         </div>
         <div
           className="back-face-meaning"
