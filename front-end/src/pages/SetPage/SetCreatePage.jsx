@@ -184,16 +184,14 @@ const SetCreatePage = (props) => {
             onKeyUp={createSetDescriptionKeyUp}
             ref={createSetDescription}
           />
-          <div className="div-add-card-form" style={{ position: 'relative', width: '100%', height: '100px', marginTop: '60px' }} ref={divAddCardForm}>
+          <div className="div-add-card-form" style={{ position: 'relative', width: '100%', marginTop: '60px' }} ref={divAddCardForm}>
             <span className="CreateSetHeader-title">카드 추가</span>
             <div style={{ display: 'flex', width: '100%', marginTop: '20px' }}>
               <Form.Control className="inputbox mx-3 word-input" as="textarea" placeholder="단어" style={{ width: '40%', height: '43px', borderRadius: 0 }} onKeyUp={WordhandleKeyUp} ref={word} />
               <Form.Control className="inputbox mx-3 meaning-input" as="textarea" placeholder="뜻" style={{ width: '60%', height: '43px', borderRadius: 0 }} onKeyUp={MeaninghandleKeyUp} ref={meaning} />
-              <MaterialButton
-                variant="contained"
-                color={'primary'}
-                onClick={addCard}
-              ><FiPlus size="24" /></MaterialButton>
+              <MaterialButton variant="contained" color={'primary'} style={{ height: '43px' }} onClick={addCard}>
+                <FiPlus size="24" />
+              </MaterialButton>
             </div>
           </div>
           {/* </form> */}
@@ -216,7 +214,7 @@ const SetCreatePage = (props) => {
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 

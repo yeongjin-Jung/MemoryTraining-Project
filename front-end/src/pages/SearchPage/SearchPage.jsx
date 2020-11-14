@@ -205,7 +205,7 @@ const Book = ({ book }) => {
           {scrapFlag && (
             <Link to={{ pathname: '/set-detail', state: { book: book } }}>
               <MaterialButton variant="contained" style={{ fontWeight: '800' }}>
-                자세히보기
+                학습하기
               </MaterialButton>
             </Link>
           )}

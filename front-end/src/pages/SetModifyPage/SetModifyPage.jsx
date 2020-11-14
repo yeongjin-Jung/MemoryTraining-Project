@@ -344,19 +344,12 @@ const SetModifyPage = (props) => {
             ref={createSetDescription}
             defaultValue={props.location.state.book.description}
           />
-          <div className="div-add-card-form" style={{ position: 'relative', width: '100%', height: '100px', marginTop: '60px' }} ref={divAddCardForm}>
+          <div className="div-add-card-form" style={{ position: 'relative', width: '100%', marginTop: '60px' }} ref={divAddCardForm}>
             <span className="CreateSetHeader-title">카드 추가</span>
             <div style={{ display: 'flex', width: '100%', marginTop: '20px' }}>
               <Form.Control className="inputbox mx-3 word-input" as="textarea" placeholder="단어" style={{ width: '40%', height: '43px', borderRadius: 0 }} onKeyUp={WordhandleKeyUp} ref={word} />
-              <Form.Control
-                className="inputbox mx-3 meaning-input"
-                as="textarea"
-                placeholder="뜻"
-                style={{ width: '60%', height: '43px', borderRadius: 0 }}
-                onKeyUp={MeaninghandleKeyUp}
-                ref={meaning}
-              />
-              <MaterialButton variant="contained" color={'primary'} onClick={addCard}>
+              <Form.Control className="inputbox mx-3 meaning-input" as="textarea" placeholder="뜻" style={{ width: '60%', height: '43px', borderRadius: 0 }} onKeyUp={MeaninghandleKeyUp} ref={meaning} />
+              <MaterialButton variant="contained" color={'primary'} style={{ height: '43px' }} onClick={addCard}>
                 <FiPlus size="24" />
               </MaterialButton>
             </div>
@@ -447,19 +440,19 @@ const Card = ({ cards, card, onDelete, onEdit, onSave }) => {
                 저장하기
               </MaterialButton>
             ) : (
-              <MaterialButton
-                variant="text"
-                style={{ fontWeight: '800' }}
-                color={'primary'}
-                onClick={() => {
-                  console.log('edit button clicked.');
-                  onEdit(card.idx);
-                }}
-              >
-                <FiEdit2 size="32" />
+                <MaterialButton
+                  variant="text"
+                  style={{ fontWeight: '800' }}
+                  color={'primary'}
+                  onClick={() => {
+                    console.log('edit button clicked.');
+                    onEdit(card.idx);
+                  }}
+                >
+                  <FiEdit2 size="32" />
                 수정하기
-              </MaterialButton>
-            )}
+                </MaterialButton>
+              )}
             {/* 삼항연산자 끝 */}
 
             {/* 카드삭제버튼 */}
