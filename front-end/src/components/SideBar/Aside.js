@@ -7,6 +7,8 @@ import iconMemorize from '../../assets/images/memorize.png';
 import iconQuiz from '../../assets/images/quiz.png';
 import iconTest from '../../assets/images/test.png';
 import iconSetting from '../../assets/images/setting.png';
+import iconGame from '../../assets/images/game.png';
+
 import axios from 'axios';
 import SERVER from '../../api/server';
 
@@ -128,7 +130,7 @@ const Aside = ({ book, image, collapsed, rtl, toggled, handleToggleSidebar, hist
               className="MenuItem"
               onClick={(e) => {
                 axios.delete(SERVER.BASE_URL + SERVER.ROUTES.unscrap, { data: { book_id: book.id } }).then((res) => {
-                  history.history.goBack(1)
+                  history.history.goBack(1);
                 });
                 e.stopPropagation();
               }}
@@ -137,6 +139,15 @@ const Aside = ({ book, image, collapsed, rtl, toggled, handleToggleSidebar, hist
               스크랩 해제
             </MenuItem>
           )}
+          <MenuItem
+            className="MenuItem"
+            onClick={() => {
+              history.history.push({ pathname: '/game', state: { cardList: entireCardList, book: book } });
+            }}
+            icon={<img src={iconGame} style={{ width: '40px', backgroundColor: 'white', borderRadius: '50%' }} />}
+          >
+            게임
+          </MenuItem>
         </Menu>
         {/* <Menu iconShape="circle">
           <SubMenu

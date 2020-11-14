@@ -1,6 +1,21 @@
 /* eslint-disable */
 import React from 'react';
-import { Home, RegisterPage, LoginPage, StudyPage, SearchPage, SetsPage, SetCreatePage, SetDetailPage, QuizPage, SetModifyPage, TestPaperPage, TestPaperPage_word, TestPaperPage_meaning } from './pages';
+import {
+  Home,
+  RegisterPage,
+  LoginPage,
+  StudyPage,
+  SearchPage,
+  SetsPage,
+  SetCreatePage,
+  SetDetailPage,
+  QuizPage,
+  SetModifyPage,
+  TestPaperPage,
+  TestPaperPage_word,
+  TestPaperPage_meaning,
+  GamePage,
+} from './pages';
 // import Auth from "./hoc/auth";
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 
@@ -57,6 +72,7 @@ const App = () => {
           <PrivateRoute path="/test-paper" component={TestPaperPage} />
           <PrivateRoute path="/test-only-word" component={TestPaperPage_word} />
           <PrivateRoute path="/test-only-meaning" component={TestPaperPage_meaning} />
+          <PrivateRoute path="/game" component={GamePage} />
         </Switch>
       </BrowserRouter>
     </Provider>

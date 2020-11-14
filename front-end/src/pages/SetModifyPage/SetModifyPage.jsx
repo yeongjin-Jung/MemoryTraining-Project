@@ -266,31 +266,31 @@ const SetModifyPage = (props) => {
                       },
                     })
                     .then((res) => {
-                      console.log('delete 카드 리스트 삭제 res : ', res);
+                      // console.log('delete 카드 리스트 삭제 res : ', res);
 
                       axios.patch(SERVER.BASE_URL + SERVER.ROUTES.updateCard, { card_list: updateCardList }).then((res) => {
-                        console.log('patch 카드 리스트 수정 res : ', res);
+                        // console.log('patch 카드 리스트 수정 res : ', res);
 
                         axios.post(SERVER.BASE_URL + SERVER.ROUTES.createCard, { book_id: props.location.state.book.id, card_list: createCardList }).then((res) => {
-                          console.log('post 카드 리스트 추가 res : ', res);
+                          // console.log('post 카드 리스트 추가 res : ', res);
 
-                          console.log('props : ', props);
-                          console.log('주소 : ', SERVER.BASE_URL + SERVER.ROUTES.update + props.location.state.book.id + '/');
+                          // console.log('props : ', props);
+                          // console.log('주소 : ', SERVER.BASE_URL + SERVER.ROUTES.update + props.location.state.book.id + '/');
                           axios
                             .patch(SERVER.BASE_URL + SERVER.ROUTES.update + props.location.state.book.id + '/', {
                               title: createSetTitle.current.value,
                               description: createSetDescription.current.value,
                             })
                             .then((res) => {
-                              console.log('--------------------------------------------------------------------------------');
-                              console.log('patch 세트 제목, 설명 수정 res : ', res);
+                              // console.log('--------------------------------------------------------------------------------');
+                              // console.log('patch 세트 제목, 설명 수정 res : ', res);
                               alert(`[${props.location.state.book.title}] 세트가 수정되었습니다.`);
                               let bookData = {
                                 ...res.data,
                                 write_flag: 1,
                               };
 
-                              console.log('bookData : ', bookData);
+                              // console.log('bookData : ', bookData);
                               props.history.push({ pathname: '/set-detail', state: { book: bookData } });
                             });
                         });
@@ -298,7 +298,9 @@ const SetModifyPage = (props) => {
                     });
                 }
               }}
-            >세트 저장</MaterialButton>
+            >
+              세트 저장
+            </MaterialButton>
             <MaterialButton
               variant="contained"
               style={{ fontWeight: '800', margin: '0 0.5rem' }}
@@ -316,12 +318,21 @@ const SetModifyPage = (props) => {
                   //취소
                 }
               }}
-            >세트 삭제</MaterialButton>
+            >
+              세트 삭제
+            </MaterialButton>
           </div>
         </div>
         <div className="draggable bg-color-white" style={{ marginTop: '10px', padding: '1.5rem' }}>
           <span className="CreateSetHeader-title">제목</span>
-          <Form.Control className="inputbox create-set-title" type="text" style={{ borderRadius: 0 }} placeholder="제목을 입력하세요." ref={createSetTitle} defaultValue={props.location.state.book.title} />
+          <Form.Control
+            className="inputbox create-set-title"
+            type="text"
+            style={{ borderRadius: 0 }}
+            placeholder="제목을 입력하세요."
+            ref={createSetTitle}
+            defaultValue={props.location.state.book.title}
+          />
           <br />
           <span className="CreateSetHeader-title">설명</span>
           <Form.Control
@@ -337,12 +348,17 @@ const SetModifyPage = (props) => {
             <span className="CreateSetHeader-title">카드 추가</span>
             <div style={{ display: 'flex', width: '100%', marginTop: '20px' }}>
               <Form.Control className="inputbox mx-3 word-input" as="textarea" placeholder="단어" style={{ width: '40%', height: '43px', borderRadius: 0 }} onKeyUp={WordhandleKeyUp} ref={word} />
-              <Form.Control className="inputbox mx-3 meaning-input" as="textarea" placeholder="뜻" style={{ width: '60%', height: '43px', borderRadius: 0 }} onKeyUp={MeaninghandleKeyUp} ref={meaning} />
-              <MaterialButton
-                variant="contained"
-                color={'primary'}
-                onClick={addCard}
-              ><FiPlus size="24" /></MaterialButton>
+              <Form.Control
+                className="inputbox mx-3 meaning-input"
+                as="textarea"
+                placeholder="뜻"
+                style={{ width: '60%', height: '43px', borderRadius: 0 }}
+                onKeyUp={MeaninghandleKeyUp}
+                ref={meaning}
+              />
+              <MaterialButton variant="contained" color={'primary'} onClick={addCard}>
+                <FiPlus size="24" />
+              </MaterialButton>
             </div>
           </div>
         </div>
@@ -363,7 +379,7 @@ const SetModifyPage = (props) => {
           </div>
         </div>
       </div>
-    </div >
+    </div>
   );
 };
 
@@ -403,9 +419,8 @@ const Card = ({ cards, card, onDelete, onEdit, onSave }) => {
           <h3 style={{ alignSelf: 'center' }}>{card.idx + 1}번 카드</h3>
           {/* <div style={{ width: '100%', display: 'flex', justifyContent: 'flex-end' }}> */}
           <div style={{ marginLeft: 'auto' }}>
-
             {/* 카드수정 및 저장버튼 삼항연산자 */}
-            {card.isEditing ?
+            {card.isEditing ? (
               <MaterialButton
                 variant="text"
                 style={{ fontWeight: '800' }}
@@ -427,8 +442,11 @@ const Card = ({ cards, card, onDelete, onEdit, onSave }) => {
                   card.meaning = modifymeaning.current.value;
                   onSave(card);
                 }}
-              ><FiSave size="32" />저장하기</MaterialButton>
-              :
+              >
+                <FiSave size="32" />
+                저장하기
+              </MaterialButton>
+            ) : (
               <MaterialButton
                 variant="text"
                 style={{ fontWeight: '800' }}
@@ -437,8 +455,11 @@ const Card = ({ cards, card, onDelete, onEdit, onSave }) => {
                   console.log('edit button clicked.');
                   onEdit(card.idx);
                 }}
-              ><FiEdit2 size="32" />수정하기</MaterialButton>
-            }
+              >
+                <FiEdit2 size="32" />
+                수정하기
+              </MaterialButton>
+            )}
             {/* 삼항연산자 끝 */}
 
             {/* 카드삭제버튼 */}
@@ -449,7 +470,10 @@ const Card = ({ cards, card, onDelete, onEdit, onSave }) => {
               onClick={() => {
                 onDelete(card.idx);
               }}
-            ><FiTrash2 size="32" />삭제하기</MaterialButton>
+            >
+              <FiTrash2 size="32" />
+              삭제하기
+            </MaterialButton>
           </div>
         </div>
 
@@ -457,7 +481,15 @@ const Card = ({ cards, card, onDelete, onEdit, onSave }) => {
           <div className="mx-3" style={{ width: '40%' }}>
             <span className="word">단어</span>
             {card.isEditing && (
-              <Form.Control className="inputbox" as="textarea" placeholder={card.word} ref={modifyword} defaultValue={card.word} style={{ fontSize: '20px', borderRadius: 0 }} onKeyUp={handleModifyWord} />
+              <Form.Control
+                className="inputbox"
+                as="textarea"
+                placeholder={card.word}
+                ref={modifyword}
+                defaultValue={card.word}
+                style={{ fontSize: '20px', borderRadius: 0 }}
+                onKeyUp={handleModifyWord}
+              />
             )}
             {!card.isEditing && (
               <pre style={{ borderBottom: '5px solid black', wordBreak: 'break-all' }}>
@@ -468,7 +500,15 @@ const Card = ({ cards, card, onDelete, onEdit, onSave }) => {
           <div className="mx-3" style={{ width: '60%' }}>
             <span className="descpription">뜻</span>
             {card.isEditing && (
-              <Form.Control className="inputbox" as="textarea" placeholder={card.meaning} ref={modifymeaning} defaultValue={card.meaning} style={{ fontSize: '20px', borderRadius: 0 }} onKeyUp={handleModifyMeaning} />
+              <Form.Control
+                className="inputbox"
+                as="textarea"
+                placeholder={card.meaning}
+                ref={modifymeaning}
+                defaultValue={card.meaning}
+                style={{ fontSize: '20px', borderRadius: 0 }}
+                onKeyUp={handleModifyMeaning}
+              />
             )}
             {!card.isEditing && (
               <pre style={{ borderBottom: '5px solid black', wordBreak: 'break-all', overflowX: 'hidden' }}>

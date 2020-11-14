@@ -17,3 +17,4 @@ export { default as SetModifyPage } from './SetModifyPage/SetModifyPage';
 export { default as TestPaperPage } from './TestPaperPage/TestPaperPage';
 export { default as TestPaperPage_word } from './TestPaperPage/TestPaperPage_word';
 export { default as TestPaperPage_meaning } from './TestPaperPage/TestPaperPage_meaning';
+export { default as GamePage } from './GamePage/GamePage';

@@ -1,0 +1,209 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  display: flex;
+  background: linear-gradient(-45deg, #ddee9f, #fffedc, #63bfe0, #c6f5ea);
+}
+
+.memory-game {
+  width: 98%;
+  height: 100%;
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+  flex-wrap: wrap;
+  perspective: 1000px;
+}
+
+.memory-card {
+  /* width: calc(25% - 10px); */
+  width: 20%;
+  /* height: calc(33.333% - 10px); */
+  height: 30vw;
+  margin: 5px;
+  position: relative;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+  transform: scale(1);
+  transform-style: preserve-3d;
+  transition: transform 0.5s;
+}
+
+@media (max-width: 608px) {
+  .memory-card {
+    height: 30vw;
+  }
+}
+
+@media (min-width: 609px) {
+  .memory-card {
+    height: 28vw;
+  }
+}
+
+@media (min-width: 653px) {
+  .memory-card {
+    height: 26vw;
+  }
+}
+
+@media (min-width: 702px) {
+  .memory-card {
+    height: 24vw;
+  }
+}
+
+@media (min-width: 749px) {
+  .memory-card {
+    height: 23vw;
+  }
+}
+
+@media (min-width: 761px) {
+  .memory-card {
+    height: 23vw;
+  }
+}
+
+@media (min-width: 781px) {
+  .memory-card {
+    height: 22vw;
+  }
+}
+
+@media (min-width: 817px) {
+  .memory-card {
+    height: 21vw;
+  }
+}
+
+@media (min-width: 855px) {
+  .memory-card {
+    height: 20vw;
+  }
+}
+
+@media (min-width: 898px) {
+  .memory-card {
+    height: 19vw;
+  }
+}
+
+@media (min-width: 945px) {
+  .memory-card {
+    height: 18vw;
+  }
+}
+
+@media (min-width: 992px) {
+  .memory-card {
+    height: 17vw;
+  }
+}
+
+@media (min-width: 1042px) {
+  .memory-card {
+    height: 16vw;
+  }
+}
+
+@media (min-width: 1110px) {
+  .memory-card {
+    height: 15vw;
+  }
+}
+
+@media (min-width: 1181px) {
+  .memory-card {
+    height: 14vw;
+  }
+}
+
+@media (min-width: 1267px) {
+  .memory-card {
+    height: 13.6vw;
+  }
+}
+
+@media (min-width: 1290px) {
+  .memory-card {
+    height: 11vw;
+  }
+}
+
+.memory-card:active {
+  transform: scale(0.97);
+  transition: transform 0.2s;
+}
+
+.front-face-word {
+  background-color: #343148ff !important;
+  font-size: 1.2rem;
+  color: white;
+}
+
+.front-face-meaning {
+  background-color: #d7c49eff !important;
+  font-size: 1.2rem;
+  color: white;
+}
+
+.back-face-word {
+  background-color: #343148ff !important;
+}
+
+.back-face-meaning {
+  background-color: #d7c49eff !important;
+}
+
+.front-face-word,
+.front-face-meaning,
+.back-face-word,
+.back-face-meaning {
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  position: absolute;
+  border-radius: 5px;
+  background: #fffedc;
+  backface-visibility: hidden;
+}
+
+.memory-card.flip {
+  transform: rotateY(180deg);
+}
+
+.front-face-word {
+  transform: rotateY(180deg);
+}
+
+.front-face-meaning {
+  transform: rotateY(180deg);
+}
+
+.CardTest-background {
+  max-width: 100%;
+  max-height: 100%;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  overflow: auto;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: -1;
+  background: linear-gradient(-45deg, #ddee9f, #fffedc, #63bfe0, #c6f5ea);
+  background-size: 400% 400%;
+}
+
+.aws-Quizback-btn {
+  position: absolute;
+  right: 10vw;
+  top: 13%;
+}
