@@ -4,6 +4,8 @@ import { AwesomeButton } from 'react-awesome-button';
 import './GamePage.css';
 import { useEffect } from 'react';
 
+import { Modal, Button } from 'react-bootstrap';
+
 const GamePage = (props) => {
   const [cardList, setCardList] = useState(props.location.state.cardList);
 
@@ -16,6 +18,12 @@ const GamePage = (props) => {
   const [randList, setRandList] = useState([]);
 
   const [flag, setFlag] = useState(true);
+  const [show, setShow] = useState(false);
+
+  let res = useRef(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   let globalCardList = useRef([]);
 
@@ -37,17 +45,26 @@ const GamePage = (props) => {
     console.log('matchCnt : ', matchCnt);
     console.log('randCardList.length : ', randCardList.length);
     if (matchCnt != 0 && randCardList.length * 2 == matchCnt) {
+      console.log('다맞춤.');
       setTimeout(() => {
-        let res = window.confirm('다시 하시겠습니까?');
-        if (res) {
-          setMatchCnt(0);
-          setRandCardList([]);
-          setRandList([]);
-          setFirstCard(null);
-          setSecondCard(null);
-          setFlag(true);
-        }
-      }, 1000);
+        handleShow();
+
+        setTimeout(() => {
+          console.log('res : ', res);
+          if (res.current) {
+            console.log('다시하기 예.');
+            setMatchCnt(0);
+            setRandCardList([]);
+            setRandList([]);
+            setFirstCard(null);
+            setSecondCard(null);
+            setFlag(true);
+          } else {
+            console.log('다시하기 아니오.');
+            props.history.push({ pathname: '/set-detail', state: { book: props.location.state.book } });
+          }
+        }, 5000);
+      }, 3000);
     }
   }, [matchCnt]);
 
@@ -90,6 +107,34 @@ const GamePage = (props) => {
   return (
     <>
       <div className="CardTest-background"></div>
+
+      <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
+        <Modal.Header closeButton>
+          <Modal.Title>Modal title</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>다시 하시겠습니까?</Modal.Body>
+        <Modal.Footer>
+          <Button
+            variant="secondary"
+            onClick={() => {
+              res = false;
+              handleClose();
+            }}
+          >
+            취소
+          </Button>
+          <Button
+            variant="primary"
+            onClick={() => {
+              res = true;
+              handleClose();
+            }}
+          >
+            확인
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
       {/* <AwesomeButton
         // style={{ marginTop: '1rem' }}
         className="aws-Quizback-btn"
@@ -115,12 +160,14 @@ const GamePage = (props) => {
       <div className="" style={{ marginTop: '2vh', display: 'flex', justifyContent: 'center' }}>
         <div className="" style={{ display: 'flex', justifyContent: 'space-around', width: '25vw', height: '10vh' }}>
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '10vw', height: '10vh' }}>
-            <div style={{ width: '20%', paddingBottom: '20%', backgroundColor: '#343148ff' }}></div>
+            {/* <div style={{ width: '20%', paddingBottom: '20%', backgroundColor: '#343148ff' }}></div> */}
+            <div style={{ width: '20%', paddingBottom: '20%', background: 'linear-gradient(45deg, #4099ff, #73b4ff)' }}></div>
             &nbsp;
             <span style={{ fontSize: '1.2rem' }}> : 단어</span>
           </div>
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '10vw', height: '10vh' }}>
-            <div style={{ width: '20%', paddingBottom: '20%', backgroundColor: '#d7c49eff' }}></div>
+            {/* <div style={{ width: '20%', paddingBottom: '20%', backgroundColor: '#d7c49eff' }}></div> */}
+            <div style={{ width: '20%', paddingBottom: '20%', background: 'linear-gradient(45deg, #ffb64d, #ffcb80)' }}></div>
             &nbsp;
             <span style={{ fontSize: '1.2rem' }}> : 뜻</span>
           </div>
@@ -145,6 +192,7 @@ const GamePage = (props) => {
             order2={card.order2}
             matchCnt={matchCnt}
             setMatchCnt={setMatchCnt}
+            show={show}
           />
         ))}
       </section>
@@ -152,12 +200,27 @@ const GamePage = (props) => {
   );
 };
 
-const Card = ({ card, hasFlippedCard, setHasFlippedCard, firstCard, setFirstCard, secondCard, setSecondCard, lockBoard, setLockBoard, order1, order2, matchCnt, setMatchCnt }) => {
+const Card = ({ card, hasFlippedCard, setHasFlippedCard, firstCard, setFirstCard, secondCard, setSecondCard, lockBoard, setLockBoard, order1, order2, matchCnt, setMatchCnt, show }) => {
   const wordRef = useRef(null);
   const meaningRef = useRef(null);
 
   const [tmpFirstCard, setTmpFirstCard] = useState(firstCard);
   const [tmpSecondCard, setTmpSecondCard] = useState(secondCard);
+
+  const [toggle, setToggle] = useState('');
+  const [disabled, setDisabled] = useState(true);
+
+  useEffect(() => {
+    if (!show) {
+      console.log('toggle.current : ', toggle.current);
+      setToggle('flip');
+      setTimeout(() => {
+        // toggle = '';
+        setToggle('');
+        setDisabled(false);
+      }, 5000);
+    }
+  }, []);
 
   useEffect(() => {
     if (firstCard != null && tmpSecondCard != null) checkForMatch();
@@ -178,7 +241,7 @@ const Card = ({ card, hasFlippedCard, setHasFlippedCard, firstCard, setFirstCard
       secondCard.current.classList.remove('flip');
       // setLockBoard(false);
       resetBoard();
-    }, 1500);
+    }, 1000);
   };
 
   const checkForMatch = () => {
@@ -282,22 +345,26 @@ const Card = ({ card, hasFlippedCard, setHasFlippedCard, firstCard, setFirstCard
   return (
     <>
       {/* <div className="memory-card" ref={wordRef} cardid={card.id} style={{ order: randList[idx - 1] }}> */}
-      <div className="memory-card" ref={wordRef} cardid={card.id} style={{ order: order1 }}>
+      <div className={`memory-card ${toggle}`} ref={wordRef} cardid={card.id} style={{ order: order1 }}>
         <div
           style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
           className="front-face-word"
           // src={iconReact}
           alt="React"
           onClick={() => {
-            console.log('front clicked.');
-            console.log('wordRef.current : ', wordRef.current);
-            console.log('wordRef.current.firstChild : ', wordRef.current.firstChild);
-            console.log('wordRef.current.firstChild.getAttribute("disabled") : ', wordRef.current.firstChild.getAttribute('disabled'));
-            // if (!wordRef.current.firstChild.disabled) flipCard(wordRef);
-            if (!wordRef.current.firstChild.getAttribute('disabled')) {
+            // console.log('front clicked.');
+            // console.log('wordRef.current : ', wordRef.current);
+            // console.log('wordRef.current.firstChild : ', wordRef.current.firstChild);
+            // console.log('wordRef.current.firstChild.getAttribute("disabled") : ', wordRef.current.firstChild.getAttribute('disabled'));
+            // console.log('typeof wordRef.current.firstChild.getAttribute("disabled") : ', typeof wordRef.current.firstChild.getAttribute('disabled'));
+            console.log('!wordRef.current.firstChild.hasAttribute("disabled") : ', !wordRef.current.firstChild.hasAttribute('disabled'));
+            // if (!wordRef.current.firstChild.getAttribute('disabled')) {
+            if (!wordRef.current.firstChild.hasAttribute('disabled') && !wordRef.current.firstChild.getAttribute('disabled')) {
+              console.log('!wordRef.current.firstChild.hasAttribute("disabled") : ', !wordRef.current.firstChild.hasAttribute('disabled'));
               flipCard(wordRef);
             }
           }}
+          disabled={disabled}
         >
           {card.word}
         </div>
@@ -306,24 +373,40 @@ const Card = ({ card, hasFlippedCard, setHasFlippedCard, firstCard, setFirstCard
           // src={iconReact}
           alt="React"
           onClick={() => {
-            flipCard(wordRef);
+            // console.log('back clicked.');
+            // console.log('wordRef.current : ', wordRef.current);
+            // console.log('wordRef.current.firstChild : ', wordRef.current.firstChild);
+            // console.log('wordRef.current.firstChild.getAttribute("disabled") : ', wordRef.current.firstChild.getAttribute('disabled'));
+            // console.log('typeof wordRef.current.firstChild.getAttribute("disabled") : ', typeof wordRef.current.firstChild.getAttribute('disabled'));
+            console.log('!wordRef.current.firstChild.hasAttribute("disabled") : ', !wordRef.current.firstChild.hasAttribute('disabled'));
+            // if (!wordRef.current.firstChild.getAttribute('disabled')) {
+            if (!wordRef.current.firstChild.hasAttribute('disabled') && !wordRef.current.firstChild.getAttribute('disabled')) {
+              console.log('!wordRef.current.firstChild.hasAttribute("disabled") : ', !wordRef.current.firstChild.hasAttribute('disabled'));
+              flipCard(wordRef);
+            }
           }}
+          disabled={disabled}
         ></div>
       </div>
 
       {/* <div className="memory-card" ref={meaningRef} cardid={card.id} style={{ order: randList[idx] }}> */}
-      <div className="memory-card" ref={meaningRef} cardid={card.id} style={{ order: order2 }}>
+      <div className={`memory-card ${toggle}`} ref={meaningRef} cardid={card.id} style={{ order: order2 }}>
         <div
           style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
           className="front-face-meaning"
           // src={iconReact}
           alt="React"
           onClick={() => {
-            // if (!meaningRef.current.disabled)
-            if (!meaningRef.current.firstChild.getAttribute('disabled')) {
+            // console.log('front clicked.');
+            // console.log('meaningRef.current : ', meaningRef.current);
+            // console.log('meaningRef.current.firstChild : ', meaningRef.current.firstChild);
+            // console.log('typeof meaningRef.current.firstChild.getAttribute("disabled") : ', typeof meaningRef.current.firstChild.getAttribute('disabled'));
+            // console.log('meaningRef.current.firstChild.hasAttribute("disabled") : ', meaningRef.current.firstChild.hasAttribute('disabled'));
+            if (!meaningRef.current.firstChild.hasAttribute('disabled') && !meaningRef.current.firstChild.getAttribute('disabled')) {
               flipCard(meaningRef);
             }
           }}
+          disabled={disabled}
         >
           {card.meaning}
         </div>
@@ -332,8 +415,16 @@ const Card = ({ card, hasFlippedCard, setHasFlippedCard, firstCard, setFirstCard
           // src={iconReact}
           alt="React"
           onClick={() => {
-            flipCard(meaningRef);
+            // console.log('front clicked.');
+            // console.log('meaningRef.current : ', meaningRef.current);
+            // console.log('meaningRef.current.firstChild : ', meaningRef.current.firstChild);
+            // console.log('typeof meaningRef.current.firstChild.getAttribute("disabled") : ', typeof meaningRef.current.firstChild.getAttribute('disabled'));
+            // console.log('meaningRef.current.firstChild.hasAttribute("disabled") : ', meaningRef.current.firstChild.hasAttribute('disabled'));
+            if (!meaningRef.current.firstChild.hasAttribute('disabled') && !meaningRef.current.firstChild.getAttribute('disabled')) {
+              flipCard(meaningRef);
+            }
           }}
+          disabled={disabled}
         ></div>
       </div>
     </>
