@@ -225,7 +225,7 @@ const CardTestPage = (props) => {
               {/* <div className="align-right"> */}
               <div className="container-fluid button-group" style={{}}>
                 <AwesomeButton className="aws-scrapback-btn one" type="bookmark-restart" onPress={handleAllToUnbookmarked}>
-                  <span>모두 북마크 해제</span>
+                  <span>북마크 전체 해제</span>
                 </AwesomeButton>
                 {/* <Button onClick={handleWrongAnswerToBookmark}>틀린 문제 모두 스크랩하기</Button> */}
                 <AwesomeButton className="aws-scrapback-btn two" type="testfinish" onPress={handleWrongAnswerToBookmark}>

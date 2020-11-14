@@ -4,8 +4,8 @@ import SERVER from '../../api/server';
 
 import { Form } from 'react-bootstrap';
 import { FiPlus, FiTrash2, FiEdit2, FiSave } from 'react-icons/fi';
+import { BiListPlus } from 'react-icons/bi'
 import MaterialButton from '@material-ui/core/Button';
-import Divider from '@material-ui/core/Divider';
 
 import '../../assets/css/back-btn-styles.css';
 import './SetCreatePage.css';
@@ -119,7 +119,7 @@ const SetCreatePage = (props) => {
               variant="contained"
               style={{ fontWeight: '800', margin: '0 0.5rem' }}
               color={'primary'}
-              startIcon={<FiSave size="32" />}
+              startIcon={<BiListPlus size="32" />}
               // className={classes.button}
               onClick={() => {
                 const found = cards.find((card) => card.isEditing != undefined && card.isEditing == true);
@@ -168,7 +168,7 @@ const SetCreatePage = (props) => {
                     });
                 }
               }}
-            >저장</MaterialButton>
+            >세트 만들기</MaterialButton>
           </div>
         </div>
         <div className="draggable bg-color-white" style={{ marginTop: '10px', padding: '1.5rem' }}>

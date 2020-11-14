@@ -104,7 +104,15 @@ const Aside = ({ book, image, collapsed, rtl, toggled, handleToggleSidebar, hist
               북마크
             </MenuItem>
           </SubMenu>
-
+          <MenuItem
+            className="MenuItem"
+            onClick={() => {
+              history.history.push({ pathname: '/game', state: { cardList: entireCardList, book: book } });
+            }}
+            icon={<img src={iconGame} style={{ width: '40px', backgroundColor: 'white', borderRadius: '50%' }} />}
+          >
+            게임
+          </MenuItem>
           <MenuItem
             className="MenuItem testpaper-btn"
             onClick={() => {
@@ -139,15 +147,6 @@ const Aside = ({ book, image, collapsed, rtl, toggled, handleToggleSidebar, hist
               스크랩 해제
             </MenuItem>
           )}
-          <MenuItem
-            className="MenuItem"
-            onClick={() => {
-              history.history.push({ pathname: '/game', state: { cardList: entireCardList, book: book } });
-            }}
-            icon={<img src={iconGame} style={{ width: '40px', backgroundColor: 'white', borderRadius: '50%' }} />}
-          >
-            게임
-          </MenuItem>
         </Menu>
         {/* <Menu iconShape="circle">
           <SubMenu
