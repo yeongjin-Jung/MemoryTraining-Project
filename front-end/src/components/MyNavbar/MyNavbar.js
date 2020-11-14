@@ -11,6 +11,13 @@ import SERVER from '../../api/server';
 import { Hint } from 'react-autocomplete-hint';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
+function sleep(delay = 0) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, delay);
+  });
+}
 
 const MyNavbar = (props) => {
   // const [prevAllSet, setprevAllSet] = useState([]);
@@ -131,30 +138,49 @@ const Search = ({ toggleSearch, toggleButtonRef, collapseRef }) => {
   const inputRef = useRef(null);
 
   const [allSet, setAllSet] = useState([]);
+  
+  const [open, setOpen] = useState(false);
+  const loading = open && allSet.length === 0;
+
+
+  // useEffect(() => {
+  //   inputRef.current.focus();
+
+  //   axios.get(SERVER.BASE_URL + SERVER.ROUTES.search).then((res) => {
+  //     console.log(res.data);
+  //     setAllSet(res.data);
+  //   });
+  // }, [buttonRef]);
 
   useEffect(() => {
-    inputRef.current.focus();
+    let active = true;
 
-    axios.get(SERVER.BASE_URL + SERVER.ROUTES.search).then((res) => {
-      console.log(res.data);
-      setAllSet(res.data);
-    });
-    /**
-     * Alert if clicked on outside of element
-     */
-    // function handleClickOutside(event) {
-    //   if (buttonRef.current && !buttonRef.current.contains(event.target) && !inputRef.current.contains(event.target)) {
-    //     // alert('You clicked outside of me!');
-    //     toggleSearch();
-    //   }
-    // }
-    // Bind the event listener
-    // document.addEventListener('mousedown', handleClickOutside);
-    // return () => {
-    //   document.removeEventListener('mousedown', handleClickOutside);
-    // Unbind the event listener on clean up
-    // };
-  }, [buttonRef]);
+    if (!loading) {
+      return undefined;
+    }
+
+    (async () => {
+      const response = await axios.get(SERVER.BASE_URL + SERVER.ROUTES.search);
+      await sleep(1e3); // For demo purposes.
+      // const countries = await response.json();
+
+      if (active) {
+        // console.log(response)
+        setAllSet(response.data);
+        // setAllSet(Object.keys(response).map((key) => response[key].item[0]));
+      }
+    })();
+
+    return () => {
+      active = false;
+    };
+  }, [loading]);
+
+  useEffect(() => {
+    if (!open) {
+      setAllSet([]);
+    }
+  }, [open]);
 
   return (
     <>
@@ -189,12 +215,34 @@ const Search = ({ toggleSearch, toggleButtonRef, collapseRef }) => {
           /> */}
 
           <Autocomplete
-            id="combo-box-demo"
-            ref={inputRef}
-            options={allSet}
-            getOptionLabel={(option) => option.title}
+            id="asynchronous-demo"
             style={{ width: '100%', backgroundColor: 'white', borderRadius: '4px' }}
-            renderInput={(params) => <TextField {...params} label="검색해주세요" variant="outlined" />} //variant="outlined"
+            ref={inputRef}
+            open={open}
+            onOpen={() => {
+              setOpen(true);
+            }}
+            onClose={() => {
+              setOpen(false);
+            }}
+            getOptionSelected={(aset, value) => aset.id === value.id}
+            getOptionLabel={(aset) => aset.title}
+            options={allSet}
+            loading={loading}
+            renderInput={(params) => (
+              <TextField {...params} label="세트를 검색해보세요" variant="outlined"
+                InputProps={{
+                  ...params.InputProps,
+                  endAdornment: (
+                    <>
+                      {loading ? <CircularProgress color="inherit" size={20} /> : null}
+                      {params.InputProps.endAdornment}
+                    </>
+                  ),
+                }}
+              />
+            )}
+            
             onKeyPress={(event) => {
               if (event.key == 'Enter') {
                 var cName = collapseRef.current.className;
