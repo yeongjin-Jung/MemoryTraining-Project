@@ -17,6 +17,7 @@ import './StudyPage.css';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Flag from 'react-country-flags';
+import { useLayoutEffect } from 'react';
 
 const ref = React.createRef();
 const useStyles = makeStyles({
@@ -78,6 +79,10 @@ const StudyPage = (props) => {
       window.speechSynthesis.cancel();
     };
   }, []);
+
+  useEffect(() => {
+    console.log(document.getElementsByClassName('awssld__container')[0].childNodes[0].className);
+  });
 
   const speechWord = (e, word, num) => {
     cancel();

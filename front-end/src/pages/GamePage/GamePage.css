@@ -207,3 +207,17 @@ body {
   right: 10vw;
   top: 13%;
 }
+
+.aws-game-btn {
+  top: 7vh;
+  margin-right: auto;
+  margin-left: 80vw !important;
+}
+
+@media (max-width: 800px) {
+  .aws-game-btn {
+    top: 7vh;
+    margin-right: auto;
+    margin-left: 68vw !important;
+  }
+}

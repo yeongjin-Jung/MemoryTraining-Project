@@ -62,7 +62,7 @@ const GamePage = (props) => {
   return (
     <>
       <div className="CardTest-background"></div>
-      <AwesomeButton
+      {/* <AwesomeButton
         // style={{ marginTop: '1rem' }}
         className="aws-Quizback-btn"
         type="primary"
@@ -71,7 +71,19 @@ const GamePage = (props) => {
         }}
       >
         <span>돌아가기</span>
+      </AwesomeButton> */}
+
+      <AwesomeButton
+        className="aws-game-btn"
+        type="primary"
+        style={{ width: '100px', marginRight: '10px' }}
+        onPress={() => {
+          props.history.push({ pathname: '/set-detail', state: { book: props.location.state.book } });
+        }}
+      >
+        <span>뒤로가기</span>
       </AwesomeButton>
+
       <div className="" style={{ marginTop: '2vh', display: 'flex', justifyContent: 'center' }}>
         <div className="" style={{ display: 'flex', justifyContent: 'space-around', width: '25vw', height: '10vh' }}>
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '10vw', height: '10vh' }}>
