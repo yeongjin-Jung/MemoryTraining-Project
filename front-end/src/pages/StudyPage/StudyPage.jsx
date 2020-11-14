@@ -77,7 +77,7 @@ const StudyPage = (props) => {
     return () => {
       window.speechSynthesis.cancel();
     };
-  });
+  }, []);
 
   const speechWord = (e, word, num) => {
     cancel();
