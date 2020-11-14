@@ -6,41 +6,68 @@ import { useEffect } from 'react';
 
 const GamePage = (props) => {
   const [cardList, setCardList] = useState(props.location.state.cardList);
-  // const [cardList, setCardList] = useState([]);
 
-  let [randCardList, setRandCardList] = useState([]);
-  let [hasFlippedCard, setHasFlippedCard] = useState(false);
-  let [lockBoard, setLockBoard] = useState(false);
+  const [matchCnt, setMatchCnt] = useState(0);
+  const [randCardList, setRandCardList] = useState([]);
+  const [hasFlippedCard, setHasFlippedCard] = useState(false);
+  const [lockBoard, setLockBoard] = useState(false);
+  const [firstCard, setFirstCard] = useState(null);
+  const [secondCard, setSecondCard] = useState(null);
+  const [randList, setRandList] = useState([]);
 
-  // let firstCard = useRef(null);
-  // let secondCard = useRef(null);
+  const [flag, setFlag] = useState(true);
 
-  let [firstCard, setFirstCard] = useState(null);
-  let [secondCard, setSecondCard] = useState(null);
-
-  let [randList, setRandList] = useState([]);
-  // console.log('game props : ', props);
-  // console.log('cardList state : ', cardList);
+  let globalCardList = useRef([]);
 
   useEffect(() => {
-    // console.log('카드 길이 : ', cardList.length);
+    if (flag == true) {
+      setCardList(props.location.state.cardList);
 
-    // 카드를 최대 8개까지만 추출하는 작업!
+      globalCardList = [...cardList];
+      console.log('globalCardList 대입 후 : ', globalCardList);
+      setCards();
+    }
+  }, [flag]);
 
+  useEffect(() => {
+    console.log('randCardList : ', randCardList);
+  }, [randCardList]);
+
+  useEffect(() => {
+    console.log('matchCnt : ', matchCnt);
+    console.log('randCardList.length : ', randCardList.length);
+    if (matchCnt != 0 && randCardList.length * 2 == matchCnt) {
+      setTimeout(() => {
+        let res = window.confirm('다시 하시겠습니까?');
+        if (res) {
+          setMatchCnt(0);
+          setRandCardList([]);
+          setRandList([]);
+          setFirstCard(null);
+          setSecondCard(null);
+          setFlag(true);
+        }
+      }, 1000);
+    }
+  }, [matchCnt]);
+
+  const setCards = () => {
     let tmpCardList = [];
-    let cnt = 0;
-    while (true) {
-      if (cardList.length == 0 || tmpCardList.length == 6) break;
 
-      let randIdx = parseInt(Math.random() * cardList.length);
+    // console.log('setCards function called. globalCardList : ', globalCardList);
+
+    while (true) {
+      if (globalCardList.length == 0 || tmpCardList.length == 6) break;
+
+      let randIdx = parseInt(Math.random() * globalCardList.length);
       // console.log('randIdx : ', randIdx);
 
-      let tmpCard = cardList[randIdx];
+      let tmpCard = globalCardList[randIdx];
       // console.log('tmpCard : ', tmpCard);
       tmpCard.order1 = Math.floor(Math.random() * 12);
       tmpCard.order2 = Math.floor(Math.random() * 12);
 
-      cardList.splice(randIdx, 1);
+      globalCardList.splice(randIdx, 1);
 
       // console.log('splice 후 cardList 길이 : ', cardList.length);
 
@@ -57,7 +84,8 @@ const GamePage = (props) => {
 
     // console.log('ttmpList : ', ttmpList);
     setRandList(ttmpList);
-  }, []);
+    setFlag(false);
+  };
 
   return (
     <>
@@ -115,6 +143,8 @@ const GamePage = (props) => {
             randList={randList}
             order1={card.order1}
             order2={card.order2}
+            matchCnt={matchCnt}
+            setMatchCnt={setMatchCnt}
           />
         ))}
       </section>
@@ -122,14 +152,12 @@ const GamePage = (props) => {
   );
 };
 
-const Card = ({ card, hasFlippedCard, setHasFlippedCard, firstCard, setFirstCard, secondCard, setSecondCard, lockBoard, setLockBoard, idx, randList, order1, order2 }) => {
+const Card = ({ card, hasFlippedCard, setHasFlippedCard, firstCard, setFirstCard, secondCard, setSecondCard, lockBoard, setLockBoard, order1, order2, matchCnt, setMatchCnt }) => {
   const wordRef = useRef(null);
   const meaningRef = useRef(null);
 
   const [tmpFirstCard, setTmpFirstCard] = useState(firstCard);
   const [tmpSecondCard, setTmpSecondCard] = useState(secondCard);
-
-  const [matchCnt, setMatchCnt] = useState(0);
 
   useEffect(() => {
     if (firstCard != null && tmpSecondCard != null) checkForMatch();
@@ -168,6 +196,8 @@ const Card = ({ card, hasFlippedCard, setHasFlippedCard, firstCard, setFirstCard
       console.log('같다');
       // setMatchCnt((prev) => prev + 1);
       disableCards();
+
+      setMatchCnt((prev) => prev + 1);
 
       return;
     }
