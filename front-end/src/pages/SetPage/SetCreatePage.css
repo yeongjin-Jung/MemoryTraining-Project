@@ -6,9 +6,19 @@
 .CreateSetHeader-title {
   font-weight: 700 !important;
   line-height: 1.2 !important;
-  margin: 20px 0 !important;
+  /* margin: 20px 0 !important; */
   font-size: 2.4em !important;
   font-family: NanumBarunGothic;
+}
+
+@media (max-width: 575px) {
+  .btn-save .span-save {
+    display: none;
+  }
+
+  .btn-trash .span-trash {
+    display: none;
+  }
 }
 
 @media (max-width: 800px) {
