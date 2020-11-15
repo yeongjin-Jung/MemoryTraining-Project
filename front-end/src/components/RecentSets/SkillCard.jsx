@@ -28,7 +28,7 @@ function SkillCard(props) {
 				<ul className="skill-card__knowledge">
 					<li className="book-description">설명 : {props.book[props.index].description}</li>
 					<li>
-						생성된 날짜 : <Moment format="YYYY/MM/DD">{props.book[props.index].created_at}</Moment>
+						생성된 날짜 : {props.book[props.index].created_at}
 					</li>
 				</ul>
 			</section>
