@@ -109,11 +109,9 @@ const SetCreatePage = (props) => {
     <div className="container-fluid" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       <div className="set-create-BackgroundColor"></div>
       <div className="container" style={{ paddingTop: '15px' }}>
-        <div style={{ display: 'flex', alignItems: 'flex-end' }}>
-          <div style={{ width: '500px' }}>
-            <span className="CreateSetHeader-title">학습 세트 만들기</span>
-          </div>
-          <div style={{ width: '100%', display: 'flex', justifyContent: 'flex-end' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', width: '100%' }}>
+          <span className="CreateSetHeader-title">학습 세트 만들기</span>
+          <div>
             <MaterialButton
               // className="aws-setsave-btn"
               variant="contained"
