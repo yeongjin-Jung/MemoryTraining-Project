@@ -221,7 +221,7 @@ const SetModifyPage = (props) => {
       <div className="set-modify-BackgroundColor"></div>
       <div className="container" style={{ paddingTop: '15px' }}>
         <div style={{ display: 'flex' }}>
-          <div style={{ width: '500px', alignSelf: 'flex-end' }}>
+          <div style={{ width: '60%', alignSelf: 'flex-end' }}>
             <span className="CreateSetHeader-title">학습 세트 수정하기</span>
           </div>
           <div style={{ width: '100%', display: 'flex', justifyContent: 'flex-end' }}>
@@ -229,8 +229,9 @@ const SetModifyPage = (props) => {
               variant="contained"
               style={{ fontWeight: '800', margin: '0 0.5rem' }}
               color={'primary'}
-              startIcon={<FiSave size="32" />}
+              // startIcon={<FiSave size="32" />}
               // className={classes.button}
+              className="btn-save"
               onClick={() => {
                 const found = cards.find((card) => card.isEditing != undefined && card.isEditing == true);
                 if (found != undefined) {
@@ -299,13 +300,15 @@ const SetModifyPage = (props) => {
                 }
               }}
             >
-              세트 저장
+              <FiSave size="32" />
+              <span className="span-save">세트 저장</span>
             </MaterialButton>
             <MaterialButton
               variant="contained"
               style={{ fontWeight: '800', margin: '0 0.5rem' }}
               color={'secondary'}
-              startIcon={<FiTrash2 size="32" />}
+              // startIcon={<FiTrash2 size="32" />}
+              className="btn-trash"
               onClick={() => {
                 var result = window.confirm('정말 삭제하시겠습니까?');
                 if (result) {
@@ -319,7 +322,8 @@ const SetModifyPage = (props) => {
                 }
               }}
             >
-              세트 삭제
+              <FiTrash2 size="32" />
+              <span className="span-trash">세트 삭제</span>
             </MaterialButton>
           </div>
         </div>
@@ -348,7 +352,14 @@ const SetModifyPage = (props) => {
             <span className="CreateSetHeader-title">카드 추가</span>
             <div style={{ display: 'flex', width: '100%', marginTop: '20px' }}>
               <Form.Control className="inputbox mx-3 word-input" as="textarea" placeholder="단어" style={{ width: '40%', height: '43px', borderRadius: 0 }} onKeyUp={WordhandleKeyUp} ref={word} />
-              <Form.Control className="inputbox mx-3 meaning-input" as="textarea" placeholder="뜻" style={{ width: '60%', height: '43px', borderRadius: 0 }} onKeyUp={MeaninghandleKeyUp} ref={meaning} />
+              <Form.Control
+                className="inputbox mx-3 meaning-input"
+                as="textarea"
+                placeholder="뜻"
+                style={{ width: '60%', height: '43px', borderRadius: 0 }}
+                onKeyUp={MeaninghandleKeyUp}
+                ref={meaning}
+              />
               <MaterialButton variant="contained" color={'primary'} style={{ height: '43px' }} onClick={addCard}>
                 <FiPlus size="24" />
               </MaterialButton>
@@ -440,19 +451,19 @@ const Card = ({ cards, card, onDelete, onEdit, onSave }) => {
                 저장하기
               </MaterialButton>
             ) : (
-                <MaterialButton
-                  variant="text"
-                  style={{ fontWeight: '800' }}
-                  color={'primary'}
-                  onClick={() => {
-                    console.log('edit button clicked.');
-                    onEdit(card.idx);
-                  }}
-                >
-                  <FiEdit2 size="32" />
+              <MaterialButton
+                variant="text"
+                style={{ fontWeight: '800' }}
+                color={'primary'}
+                onClick={() => {
+                  console.log('edit button clicked.');
+                  onEdit(card.idx);
+                }}
+              >
+                <FiEdit2 size="32" />
                 수정하기
-                </MaterialButton>
-              )}
+              </MaterialButton>
+            )}
             {/* 삼항연산자 끝 */}
 
             {/* 카드삭제버튼 */}

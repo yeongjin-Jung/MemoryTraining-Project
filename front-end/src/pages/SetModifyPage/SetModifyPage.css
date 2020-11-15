@@ -25,3 +25,13 @@
   background-size: 400% 400%;
   animation: gradient 15s ease infinite;
 }
+
+@media (max-width: 575px) {
+  .btn-save .span-save {
+    display: none;
+  }
+
+  .btn-trash .span-trash {
+    display: none;
+  }
+}
