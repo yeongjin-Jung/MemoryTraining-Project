@@ -16,7 +16,27 @@ import './Aside.css';
 const Aside = ({ book, image, collapsed, rtl, toggled, handleToggleSidebar, history, entireCardList, bookmarkedCardList, entireQuizList, bookmarkedQuizList }) => {
   const intl = useIntl();
 
+  const device_check = () => {
+    // 디바이스 종류 설정
+    var pc_device = "win16|win32|win64|mac|macintel";
+ 
+    // 접속한 디바이스 환경
+    var this_device = navigator.platform;
+    var mobileRestrictions = document.getElementById('MobileRestrictions')
+    if ( this_device ) {
+ 
+      if ( pc_device.indexOf(navigator.platform.toLowerCase()) < 0 ) {
+          // console.log('MOBILE');
+          mobileRestrictions.classList.add('mobile-notest')
+      } else {
+          // console.log('PC');
+      }
+ 
+    }
+  }
+
   useEffect(() => {
+    device_check();
     //수정 console.log('Aside useEffect called.');
     //수정 console.log('book : ', book);
   }, []);
@@ -113,6 +133,7 @@ const Aside = ({ book, image, collapsed, rtl, toggled, handleToggleSidebar, hist
             게임
           </MenuItem>
           <MenuItem
+            id="MobileRestrictions"
             className="MenuItem testpaper-btn"
             onClick={() => {
               history.history.push({ pathname: '/test-paper', state: { cardList: entireCardList, book: book, case: 'case1' } });
