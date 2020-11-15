@@ -32,7 +32,8 @@ body {
   box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
   transform: scale(1);
   transform-style: preserve-3d;
-  transition: transform 0.5s;
+  transition: transform 0.75s;
+  transition-timing-function: linear;
 }
 
 @media (max-width: 608px) {
@@ -133,46 +134,70 @@ body {
 
 @media (min-width: 1290px) {
   .memory-card {
-    height: 11vw;
+    height: 10vw;
   }
 }
 
 .memory-card:active {
-  transform: scale(0.97);
+  /* transform: scale(0.97); */
+  transform: scale(1);
   transition: transform 0.2s;
 }
 
 .front-face-word {
-  background-color: #343148ff !important;
+  /* background-color: #497461 !important; */
+  background: linear-gradient(45deg, #4099ff, #73b4ff);
   font-size: 1.2rem;
   color: white;
 }
 
 .front-face-meaning {
-  background-color: #d7c49eff !important;
+  /* background-color: #b66b43 !important; */
+  background: linear-gradient(45deg, #ffb64d, #ffcb80);
   font-size: 1.2rem;
   color: white;
 }
 
 .back-face-word {
-  background-color: #343148ff !important;
+  /* background-color: #343148ff !important; */
+  /* background: repeating-linear-gradient(45deg, #497461, #497461 30px, #335345 30px, #335345 60px); */
+  background: linear-gradient(45deg, #4099ff, #73b4ff);
+
+  /* background: #ffd89b;
+  background: -webkit-linear-gradient(to right, #19547b, #ffd89b);
+  background: linear-gradient(to right, #19547b, #ffd89b);  */
+
+  /* background: #1f4037;
+  background: -webkit-linear-gradient(to right, #99f2c8, #1f4037);
+  background: linear-gradient(to right, #99f2c8, #1f4037); */
 }
 
 .back-face-meaning {
-  background-color: #d7c49eff !important;
+  /* background-color: #d7c49eff !important; */
+  /* background: repeating-linear-gradient(45deg, #b66b43, #b66b43 30px, #8d4e2c 30px, #8d4e2c 60px); */
+  background: linear-gradient(45deg, #ffb64d, #ffcb80);
+
+  /* background: #0f2027;
+  background: -webkit-linear-gradient(to right, #2c5364, #203a43, #0f2027);
+  background: linear-gradient(to right, #2c5364, #203a43, #0f2027); */
+
+  /* background: #fc4a1a;
+  background: -webkit-linear-gradient(to right, #f7b733, #fc4a1a);
+  background: linear-gradient(to right, #f7b733, #fc4a1a); */
 }
 
 .front-face-word,
 .front-face-meaning,
 .back-face-word,
 .back-face-meaning {
+  cursor: pointer;
   width: 100%;
   height: 100%;
   padding: 20px;
   position: absolute;
   border-radius: 5px;
-  background: #fffedc;
-  backface-visibility: hidden;
+  /* background: #fffedc; */
+  /* backface-visibility: hidden; */
 }
 
 .memory-card.flip {
