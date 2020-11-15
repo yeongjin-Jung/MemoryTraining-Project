@@ -23,9 +23,9 @@ const LoginPage = (props) => {
   const [Password, setPassword] = useState('');
 
   useEffect(() => {
-    console.log('LoginPage.jsx useEffect called.');
-    console.log('props : ', props);
-    // console.log('isLoggedIn : ', isLoggedIn);
+    //수정 console.log('LoginPage.jsx useEffect called.');
+    //수정 console.log('props : ', props);
+    // //수정 console.log('isLoggedIn : ', isLoggedIn);
   });
 
   const onEmailHandler = (e) => {
@@ -36,7 +36,7 @@ const LoginPage = (props) => {
   };
 
   const onSubmitHandler = (e) => {
-    console.log('로그인 버튼 누름.');
+    //수정 console.log('로그인 버튼 누름.');
     e.preventDefault();
 
     if (localStorage.getItem('Authorization') != null) {
@@ -60,7 +60,7 @@ const LoginPage = (props) => {
         { withCredentials: true },
       )
       .then(function (response) {
-        console.log(response);
+        //수정 console.log(response);
         if (response.status == 200) {
           localStorage.setItem('Authorization', 'JWT ' + response.data.token);
           alert('로그인이 정상적으로 완료되었습니다');
@@ -70,7 +70,7 @@ const LoginPage = (props) => {
       })
       .catch(function (error) {
         alert('가입하지 않은 아이디이거나, 잘못된 비밀번호입니다');
-        // console.log(error);
+        // //수정 console.log(error);
       });
   };
   const redirectToRegister = () => {

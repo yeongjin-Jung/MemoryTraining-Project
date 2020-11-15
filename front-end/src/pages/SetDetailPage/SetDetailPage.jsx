@@ -14,10 +14,10 @@ const SetDetailPage = (props) => {
   const [book, setBook] = useState({});
 
   useEffect(() => {
-    // console.log('SetDetailPage useEffect called.');
-    // console.log('location.state : ', location.state);
-    // console.log('props', props);
-    // console.log('props.history', props.history);
+    // //수정 console.log('SetDetailPage useEffect called.');
+    // //수정 console.log('location.state : ', location.state);
+    // //수정 console.log('props', props);
+    // //수정 console.log('props.history', props.history);
   });
 
   return (

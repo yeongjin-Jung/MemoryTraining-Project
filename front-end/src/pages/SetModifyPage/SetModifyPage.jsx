@@ -24,40 +24,40 @@ const SetModifyPage = (props) => {
   const createSetDescription = useRef(null);
 
   useEffect(() => {
-    console.log('SetModifyPage useEffect called.');
-    console.log('SetModifyPage props : ', props);
-    console.log('SetModifyPage props.location.state : ', props.location.state);
+    //수정 console.log('SetModifyPage useEffect called.');
+    //수정 console.log('SetModifyPage props : ', props);
+    //수정 console.log('SetModifyPage props.location.state : ', props.location.state);
 
     for (var i = 0; i < props.location.state.cardList.length; i++) {
       props.location.state.cardList[i].idx = i;
     }
 
-    console.log('props.location.state.cardList : ', props.location.state.cardList);
+    //수정 console.log('props.location.state.cardList : ', props.location.state.cardList);
 
     setCards(props.location.state.cardList);
   }, []);
 
   useEffect(() => {
-    console.log('cards : ', cards);
-    console.log('deleteCardList : ', deleteCardList);
-    console.log('updateCardList : ', updateCardList);
-    console.log('createCardList : ', createCardList);
+    //수정 console.log('cards : ', cards);
+    //수정 console.log('deleteCardList : ', deleteCardList);
+    //수정 console.log('updateCardList : ', updateCardList);
+    //수정 console.log('createCardList : ', createCardList);
   });
 
   const onDelete = (idx) => {
-    console.log(`onDelete called. idx : ${idx}`);
-    console.log('cards : ', cards);
+    //수정 console.log(`onDelete called. idx : ${idx}`);
+    //수정 console.log('cards : ', cards);
 
     var index = cards.findIndex((i) => i.idx == idx);
-    console.log('index : ', index);
-    console.log('cards[index] : ', cards[index]);
+    //수정 console.log('index : ', index);
+    //수정 console.log('cards[index] : ', cards[index]);
 
     let foundForUpdate = updateCardList.find((element) => element.id == cards[index].id);
-    console.log('foundForUpdate : ', foundForUpdate);
+    //수정 console.log('foundForUpdate : ', foundForUpdate);
 
     if (foundForUpdate != undefined) {
       let idx = updateCardList.findIndex((i) => i.id == foundForUpdate.id);
-      console.log('idx : ', idx);
+      //수정 console.log('idx : ', idx);
 
       let tmpUpdateCardList = [...updateCardList];
       tmpUpdateCardList.splice(idx, 1);
@@ -65,10 +65,10 @@ const SetModifyPage = (props) => {
     }
 
     let foundForCreate = createCardList.find((element) => element.idx == idx);
-    console.log('foundForCreate : ', foundForCreate);
+    //수정 console.log('foundForCreate : ', foundForCreate);
 
     if (foundForCreate != undefined) {
-      console.log('foundForCreate idx : ', foundForCreate.idx);
+      //수정 console.log('foundForCreate idx : ', foundForCreate.idx);
       let iidx = createCardList.findIndex((e) => e.idx == foundForCreate.idx);
       let tmpCreateCardList = [...createCardList];
       tmpCreateCardList.splice(iidx, 1);
@@ -101,7 +101,7 @@ const SetModifyPage = (props) => {
   };
 
   const onEdit = (idx) => {
-    console.log(`onEdit button clicked. idx is ${idx}`);
+    //수정 console.log(`onEdit button clicked. idx is ${idx}`);
 
     let tmpCards = [...cards];
     var index = cards.findIndex((i) => i.idx == idx);
@@ -111,15 +111,15 @@ const SetModifyPage = (props) => {
   };
 
   const onSave = (card) => {
-    console.log(`onSave button clicked. idx is ${card.idx}`);
+    //수정 console.log(`onSave button clicked. idx is ${card.idx}`);
     let tmpCards = [...cards];
     var index = cards.findIndex((i) => i.idx == card.idx);
 
-    // console.log('index : ', index);
-    // console.log('cards[index] : ', cards[index]);
+    // //수정 console.log('index : ', index);
+    // //수정 console.log('cards[index] : ', cards[index]);
 
     const found = updateCardList.find((element) => element.id == cards[index].id);
-    // console.log('found : ', found);
+    // //수정 console.log('found : ', found);
 
     if (found == undefined) {
       let newObj = {
@@ -128,14 +128,14 @@ const SetModifyPage = (props) => {
         meaning: cards[index].meaning,
       };
 
-      // console.log('newObj : ', newObj);
+      // //수정 console.log('newObj : ', newObj);
       // 원래 있던 카드면 수정.
       if (newObj.id != undefined) setUpdateCardList([...updateCardList, newObj]);
       // 원래 있던 카드가 아니면, createList를 index값으로 찾아가서 수정.
       else {
-        console.log('원래 있던 카드가 아님!');
+        //수정 console.log('원래 있던 카드가 아님!');
         let iidx = cards[index].idx;
-        console.log(`바꾸려는 index는 ${iidx}임!`);
+        //수정 console.log(`바꾸려는 index는 ${iidx}임!`);
         let tmpCreateCardList = [...createCardList];
         let iiidx = createCardList.findIndex((e) => e.idx == iidx);
 
@@ -237,9 +237,9 @@ const SetModifyPage = (props) => {
                   return;
                 }
 
-                console.log('save button clicked.');
-                console.log('createSetTitle.current.value : ', createSetTitle.current.value);
-                console.log('createSetDescription.current.value : ', createSetDescription.current.value);
+                //수정 console.log('save button clicked.');
+                //수정 console.log('createSetTitle.current.value : ', createSetTitle.current.value);
+                //수정 console.log('createSetDescription.current.value : ', createSetDescription.current.value);
 
                 if (createSetTitle.current.value == '') {
                   alert('제목을 입력해주세요');
@@ -248,14 +248,14 @@ const SetModifyPage = (props) => {
                 } else if (cards.length < 4) {
                   alert('최소 4개의 카드를 추가해주세요');
                 } else {
-                  console.log('cards : ', cards);
-                  console.log('deleteCardList : ', deleteCardList);
+                  //수정 console.log('cards : ', cards);
+                  //수정 console.log('deleteCardList : ', deleteCardList);
                   const book = {
                     title: createSetTitle.current.value,
                     description: createSetDescription.current.value,
                   };
-                  console.log('book : ', book);
-                  console.log('cards : ', cards);
+                  //수정 console.log('book : ', book);
+                  //수정 console.log('cards : ', cards);
 
                   // 세트 수정 axios
                   axios
@@ -265,31 +265,31 @@ const SetModifyPage = (props) => {
                       },
                     })
                     .then((res) => {
-                      // console.log('delete 카드 리스트 삭제 res : ', res);
+                      // //수정 console.log('delete 카드 리스트 삭제 res : ', res);
 
                       axios.patch(SERVER.BASE_URL + SERVER.ROUTES.updateCard, { card_list: updateCardList }).then((res) => {
-                        // console.log('patch 카드 리스트 수정 res : ', res);
+                        // //수정 console.log('patch 카드 리스트 수정 res : ', res);
 
                         axios.post(SERVER.BASE_URL + SERVER.ROUTES.createCard, { book_id: props.location.state.book.id, card_list: createCardList }).then((res) => {
-                          // console.log('post 카드 리스트 추가 res : ', res);
+                          // //수정 console.log('post 카드 리스트 추가 res : ', res);
 
-                          // console.log('props : ', props);
-                          // console.log('주소 : ', SERVER.BASE_URL + SERVER.ROUTES.update + props.location.state.book.id + '/');
+                          // //수정 console.log('props : ', props);
+                          // //수정 console.log('주소 : ', SERVER.BASE_URL + SERVER.ROUTES.update + props.location.state.book.id + '/');
                           axios
                             .patch(SERVER.BASE_URL + SERVER.ROUTES.update + props.location.state.book.id + '/', {
                               title: createSetTitle.current.value,
                               description: createSetDescription.current.value,
                             })
                             .then((res) => {
-                              // console.log('--------------------------------------------------------------------------------');
-                              // console.log('patch 세트 제목, 설명 수정 res : ', res);
+                              // //수정 console.log('--------------------------------------------------------------------------------');
+                              // //수정 console.log('patch 세트 제목, 설명 수정 res : ', res);
                               alert(`[${props.location.state.book.title}] 세트가 수정되었습니다.`);
                               let bookData = {
                                 ...res.data,
                                 write_flag: 1,
                               };
 
-                              // console.log('bookData : ', bookData);
+                              // //수정 console.log('bookData : ', bookData);
                               props.history.push({ pathname: '/set-detail', state: { book: bookData } });
                             });
                         });
@@ -311,7 +311,7 @@ const SetModifyPage = (props) => {
                 var result = window.confirm('정말 삭제하시겠습니까?');
                 if (result) {
                   axios.delete(SERVER.BASE_URL + SERVER.ROUTES.delete + props.location.state.book.id).then((res) => {
-                    console.log(res);
+                    //수정 console.log(res);
                     alert(`[${props.location.state.book.title}] 세트가 삭제되었습니다.`);
                     props.history.push('/sets');
                   });
@@ -390,11 +390,11 @@ const Card = ({ cards, card, onDelete, onEdit, onSave }) => {
   var modifymeaning = useRef(null);
 
   useEffect(() => {
-    // console.log('useEffect() called.');
-    // console.log(modifyword);
+    // //수정 console.log('useEffect() called.');
+    // //수정 console.log(modifyword);
 
     if (modifymeaning.current != null) {
-      console.log(modifymeaning.current.value);
+      //수정 console.log(modifymeaning.current.value);
 
       modifyword.current.style.height = '5px';
       modifyword.current.style.height = modifyword.current.scrollHeight + 'px';
@@ -428,9 +428,9 @@ const Card = ({ cards, card, onDelete, onEdit, onSave }) => {
                 style={{ fontWeight: '800' }}
                 color={'primary'}
                 onClick={() => {
-                  console.log('cards : ', cards);
-                  console.log('card : ', card);
-                  console.log('card.idx : ', card.idx);
+                  //수정 console.log('cards : ', cards);
+                  //수정 console.log('card : ', card);
+                  //수정 console.log('card.idx : ', card.idx);
 
                   const found = cards.find((ccard) => ccard.idx != card.idx && (ccard.word == modifyword.current.value || ccard.meaning == modifymeaning.current.value));
                   if (found != undefined) {
@@ -438,8 +438,8 @@ const Card = ({ cards, card, onDelete, onEdit, onSave }) => {
                     return;
                   }
 
-                  console.log(modifyword.current.value);
-                  console.log(modifymeaning.current.value);
+                  //수정 console.log(modifyword.current.value);
+                  //수정 console.log(modifymeaning.current.value);
                   card.word = modifyword.current.value;
                   card.meaning = modifymeaning.current.value;
                   onSave(card);
@@ -454,7 +454,7 @@ const Card = ({ cards, card, onDelete, onEdit, onSave }) => {
                   style={{ fontWeight: '800' }}
                   color={'primary'}
                   onClick={() => {
-                    console.log('edit button clicked.');
+                    //수정 console.log('edit button clicked.');
                     onEdit(card.idx);
                   }}
                 >

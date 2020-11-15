@@ -4,8 +4,8 @@ const Question = (props) => {
   const { state } = useContext(QuizContext);
   const { currentQuestion, quizs } = state;
   const question = quizs[currentQuestion];
-  // console.log(currentQuestion);
-  // console.log(quizs);
+  // //수정 console.log(currentQuestion);
+  // //수정 console.log(quizs);
   return <p>{question.question}</p>;
 };
 

@@ -3,7 +3,7 @@ import { RecentSets, HomeTitle } from '../../components';
 import './Home.css';
 
 const Home = (props) => {
-  // console.log('Home', props)
+  // //수정 console.log('Home', props)
   return (
     <>
       <div className="Home-BackgroundColor"></div>

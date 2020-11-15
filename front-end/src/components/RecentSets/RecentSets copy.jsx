@@ -15,8 +15,8 @@ const RecentSets = (props) => {
   const [bookList, setBookList] = useState([]);
 
   useEffect(() => {
-    console.log('bookList =>', bookList);
-    console.log('props =>', props);
+    //수정 console.log('bookList =>', bookList);
+    //수정 console.log('props =>', props);
   }, []);
 
   const renderComponent = () => {

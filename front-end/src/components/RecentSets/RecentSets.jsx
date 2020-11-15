@@ -11,7 +11,7 @@ import { IoIosCreate } from 'react-icons/io';
 import SkillCard from './SkillCard';
 
 const RecentSets = (props) => {
-  // console.log('Recent', props)
+  // //수정 console.log('Recent', props)
   const [bookList, setBookList] = useState(null);
 
   useEffect(() => {

@@ -19,16 +19,16 @@ import SERVER from '../../api/server';
 
 const CardTestPage = (props) => {
   let quizs = props.history.location.state.quizList;
-  // console.log('props.history.location.state : ', props.history.location.state);
+  // //수정 console.log('props.history.location.state : ', props.history.location.state);
   // const [btnFlag, setBtnFlag] = useState(true);
   let btnFlag = useRef(false);
   useRef;
   useEffect(() => {
     dispatch({ type: 'RESET_QUIZ' });
-    // console.log('quizs =>', quizs);
-    // console.log('book=>', book);
+    // //수정 console.log('quizs =>', quizs);
+    // //수정 console.log('book=>', book);
 
-    console.log('QuizTestPage.jsx useEffect called.');
+    //수정 console.log('QuizTestPage.jsx useEffect called.');
   }, []);
 
   // const [noBookmarkedCards, setNoBookmarkedCards] = useState(false);
@@ -48,12 +48,12 @@ const CardTestPage = (props) => {
 
   const checkIfNoBookmarkCards = () => {
     const found = state.quizs.find((quiz) => quiz.card.bookmark_flag == 1);
-    console.log('found : ', found);
+    //수정 console.log('found : ', found);
 
     // 북마크 된 카드들이 하나도 없을 때
     if (found == undefined) {
       // setNoBookmarkedCards(true);
-      console.log('NO BOOKMARKED CARDS');
+      //수정 console.log('NO BOOKMARKED CARDS');
       btnFlag = false;
     }
 
@@ -61,7 +61,7 @@ const CardTestPage = (props) => {
     else {
       // setNoBookmarkedCards(false);
       // setBtnFlag(true);
-      console.log('YES BOOKMARKED CARDS');
+      //수정 console.log('YES BOOKMARKED CARDS');
       btnFlag = true;
     }
   };
@@ -70,7 +70,7 @@ const CardTestPage = (props) => {
 
   const handleWrongAnswerToBookmark = () => {
     answers.map((answer) => {
-      console.log('answer : ', answer);
+      //수정 console.log('answer : ', answer);
     });
 
     dispatch({ type: 'SET_ALL_WRONG_ANSWERS_TO_BOOKMARKED', book: props.history.location.state.book });
@@ -88,8 +88,8 @@ const CardTestPage = (props) => {
   };
 
   const renderResultMark = (question, answer) => {
-    console.log('question 입니다 :', question);
-    console.log('answer 입니다 : ', answer);
+    //수정 console.log('question 입니다 :', question);
+    //수정 console.log('answer 입니다 : ', answer);
 
     if (question.answer === answer.answer) {
       return (
@@ -122,11 +122,11 @@ const CardTestPage = (props) => {
             {question.card.bookmark_flag == 0 && (
               <BsBookmark
                 onClick={() => {
-                  console.log('BOOKMARK BUTTON CLICKED.');
+                  //수정 console.log('BOOKMARK BUTTON CLICKED.');
 
                   axios.post(SERVER.BASE_URL + SERVER.ROUTES.bookmark, { book_id: props.history.location.state.book.id, card_id: question.card.id }).then((res) => {
-                    console.log('BOOKMARK ACTIVATED.');
-                    console.log(res);
+                    //수정 console.log('BOOKMARK ACTIVATED.');
+                    //수정 console.log(res);
 
                     dispatch({ type: TOGGLE_BOOKMARK_FLAG, quizIdx: question.no - 1 });
                   });
@@ -138,10 +138,10 @@ const CardTestPage = (props) => {
             {question.card.bookmark_flag == 1 && (
               <FcBookmark
                 onClick={() => {
-                  console.log('BOOKMARK DEACTIVATED.');
+                  //수정 console.log('BOOKMARK DEACTIVATED.');
 
                   axios.delete(SERVER.BASE_URL + SERVER.ROUTES.unbookmark, { data: { book_id: props.history.location.state.book.id, card_id: question.card.id } }).then((res) => {
-                    console.log(res);
+                    //수정 console.log(res);
 
                     dispatch({ type: TOGGLE_BOOKMARK_FLAG, quizIdx: question.no - 1 });
                     checkIfNoBookmarkCards();
@@ -164,22 +164,22 @@ const CardTestPage = (props) => {
         },
       })
       .then((res) => {
-        // console.log('getBookmarkedQuizList quiz: ', res);
+        // //수정 console.log('getBookmarkedQuizList quiz: ', res);
         // setBookmarkedQuizList(res.data);
-        console.log('res.data : ', res.data);
+        //수정 console.log('res.data : ', res.data);
         newQuizs = [...res.data];
       });
   };
 
   const restart = async () => {
     await getBookmarkedQuizList();
-    console.log('new quizs : ', newQuizs);
+    //수정 console.log('new quizs : ', newQuizs);
 
     dispatch({ type: SET_BOOKMARKED_QUIZ, newQuizs: newQuizs });
   };
 
   const next = () => {
-    console.log('currentQuestion : ', currentQuestion);
+    //수정 console.log('currentQuestion : ', currentQuestion);
     const answer = {
       card: question.card,
       questionId: question.no,
@@ -207,9 +207,9 @@ const CardTestPage = (props) => {
   };
 
   if (showResults) {
-    console.log('answers : ', answers);
+    //수정 console.log('answers : ', answers);
     checkIfNoBookmarkCards();
-    // console.log('wrongAnswersIdx : ', wrongAnswersIdx);
+    // //수정 console.log('wrongAnswersIdx : ', wrongAnswersIdx);
 
     renderResultData();
 
@@ -255,8 +255,8 @@ const CardTestPage = (props) => {
                 {/* <button
                   className="restart-btn"
                   onClick={() => {
-                    console.log('돌아가기 button clicked.');
-                    console.log('props : ', props);
+                    //수정 console.log('돌아가기 button clicked.');
+                    //수정 console.log('props : ', props);
                     props.history.push({ pathname: '/set-detail', state: { book: props.location.state.book } });
                   }}
                 >
@@ -267,8 +267,8 @@ const CardTestPage = (props) => {
                   className="aws-testfinish-btn"
                   type="testfinish"
                   onPress={() => {
-                    console.log('돌아가기 button clicked.');
-                    console.log('props : ', props);
+                    //수정 console.log('돌아가기 button clicked.');
+                    //수정 console.log('props : ', props);
                     props.history.push({ pathname: '/set-detail', state: { book: props.location.state.book } });
                   }}
                 >

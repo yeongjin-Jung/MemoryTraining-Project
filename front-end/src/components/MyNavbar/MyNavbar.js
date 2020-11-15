@@ -40,7 +40,7 @@ const MyNavbar = (props) => {
     //useDispatch와 logout 액션이 두가지 필요하다
     // dispatch(logoutUser())
     //   .then((res) => {
-    //     console.log(res);
+    //     //수정 console.log(res);
     //     if (res.payload.status == 200) {
     //       localStorage.removeItem('Authorization');
     //       props.history.push('/login');
@@ -52,7 +52,7 @@ const MyNavbar = (props) => {
     //   alert('로그아웃에 실패하였습니다');
     // }
     // })
-    // .catch((err) => console.log(err));
+    // .catch((err) => //수정 console.log(err));
     const token = localStorage.getItem('Authorization');
     const config = {
       Authorization: token,
@@ -60,16 +60,16 @@ const MyNavbar = (props) => {
     axios
       .post(SERVER.BASE_URL + SERVER.ROUTES.logout, null, { withCredentials: true })
       .then(function (response) {
-        console.log(response);
+        //수정 console.log(response);
         if (response.status == 200) {
           localStorage.removeItem('Authorization');
           props.history.push('/login');
         } else {
-          console.log(response.statusText);
+          //수정 console.log(response.statusText);
         }
       })
       .catch(function (error) {
-        console.log(error);
+        //수정 console.log(error);
       });
     localStorage.removeItem('Authorization');
   };
@@ -147,7 +147,7 @@ const Search = ({ toggleSearch, toggleButtonRef, collapseRef }) => {
   //   inputRef.current.focus();
 
   //   axios.get(SERVER.BASE_URL + SERVER.ROUTES.search).then((res) => {
-  //     console.log(res.data);
+  //     //수정 console.log(res.data);
   //     setAllSet(res.data);
   //   });
   // }, [buttonRef]);
@@ -165,7 +165,7 @@ const Search = ({ toggleSearch, toggleButtonRef, collapseRef }) => {
       // const countries = await response.json();
 
       if (active) {
-        // console.log(response)
+        // //수정 console.log(response)
         setAllSet(response.data);
         // setAllSet(Object.keys(response).map((key) => response[key].item[0]));
       }
@@ -194,7 +194,7 @@ const Search = ({ toggleSearch, toggleButtonRef, collapseRef }) => {
             aria-describedby="basic-addon2"
             onChange={() => {
               axios.get(SERVER.BASE_URL + SERVER.ROUTES.search).then((res) => {
-                console.log(res.data);
+                //수정 console.log(res.data);
                 setAllSet(res.data);
               });
             }}

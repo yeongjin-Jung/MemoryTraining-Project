@@ -34,13 +34,13 @@ const SetsPage = (props) => {
   };
 
   const getBookList = async () => {
-    console.log('getBookList called.');
+    //수정 console.log('getBookList called.');
 
     await axios.get(SERVER.BASE_URL + SERVER.ROUTES.myset).then((res) => {
-      console.log(res);
+      //수정 console.log(res);
       let tmpBookList = [];
       tmpBookList = [...res.data];
-      // console.log('tmpBookList : ', tmpBookList);
+      // //수정 console.log('tmpBookList : ', tmpBookList);
       setBookList(tmpBookList);
       setIsLoading(false);
     });
@@ -93,11 +93,11 @@ function Book({ book, history, getBookList }) {
   const classes = useStyles();
   const unscrapHandler = (e) => {
     axios.delete(SERVER.BASE_URL + SERVER.ROUTES.unscrap, { data: { book_id: book.id } }).then((res) => {
-      console.log(res);
+      //수정 console.log(res);
       getBookList();
     });
     e.stopPropagation();
-    console.log(e);
+    //수정 console.log(e);
   };
 
   return (
@@ -105,9 +105,9 @@ function Book({ book, history, getBookList }) {
       <a
         className="card4"
         onClick={() => {
-          console.log(`${book.id} clicked.`);
-          // console.log('history : ', history);
-          console.log('book : ', book);
+          //수정 console.log(`${book.id} clicked.`);
+          // //수정 console.log('history : ', history);
+          //수정 console.log('book : ', book);
           history.push({ pathname: '/set-detail', state: { book: book } });
         }}
       >
@@ -141,7 +141,7 @@ function Book({ book, history, getBookList }) {
             //   style={{ zIndex: '1' }}
             //   onClick={(e) => {
             //     axios.delete(SERVER.BASE_URL + SERVER.ROUTES.unscrap, { data: { book_id: book.id } }).then((res) => {
-            //       console.log(res);
+            //       //수정 console.log(res);
             //       getBookList();
             //     });
             //     e.stopPropagation();
@@ -155,11 +155,11 @@ function Book({ book, history, getBookList }) {
             //   type="secondary"
             //   onPress={(e) => {
             //     axios.delete(SERVER.BASE_URL + SERVER.ROUTES.unscrap, { data: { book_id: book.id } }).then((res) => {
-            //       console.log(res);
+            //       //수정 console.log(res);
             //       getBookList();
             //     });
             //     e.stopPropagation();
-            //     console.log(e);
+            //     //수정 console.log(e);
             //   }}
             // >
             //   <span>스크랩해제</span>

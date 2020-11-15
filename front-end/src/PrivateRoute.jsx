@@ -6,10 +6,10 @@ import { connect } from 'react-redux';
 
 const PrivateRoute = ({ component: Component, isLoggedIn, ...rest }) => {
   useEffect(() => {
-    // console.log('PrivateRoute.jsx useEffect called.');
-    // console.log('...rest : ', { ...rest });
-    // console.log('isLoggedIn : ', isLoggedIn);
-    // console.log('typeof isLoggedIn : ', typeof isLoggedIn);
+    // //수정 console.log('PrivateRoute.jsx useEffect called.');
+    // //수정 console.log('...rest : ', { ...rest });
+    // //수정 console.log('isLoggedIn : ', isLoggedIn);
+    // //수정 console.log('typeof isLoggedIn : ', typeof isLoggedIn);
   });
 
   return (

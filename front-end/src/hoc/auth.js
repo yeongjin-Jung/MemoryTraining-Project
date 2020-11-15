@@ -12,8 +12,8 @@ export default function (Componet, option, adminRoute = null) {
     //useEffect를 사용해서 초기 검증을 실행해준다
     useEffect(() => {
       dispatch(authUser()).then((res) => {
-        console.log(res);
-        console.log('HOC 테스트');
+        //수정 console.log(res);
+        //수정 console.log('HOC 테스트');
       });
     }, []);
 

@@ -81,7 +81,7 @@ const StudyPage = (props) => {
   }, []);
 
   useEffect(() => {
-    console.log(document.getElementsByClassName('awssld__container')[0].childNodes[0].className);
+    //수정 console.log(document.getElementsByClassName('awssld__container')[0].childNodes[0].className);
   });
 
   const speechWord = (e, word, num) => {
@@ -174,19 +174,19 @@ const Card = ({ data, handleCard, book, speechWord, speechMeaning }) => {
           <div className="bookmark-icon">
             <button
               onClick={(e) => {
-                console.log('bookmark button clicked.');
+                //수정 console.log('bookmark button clicked.');
 
                 // 북마크가 안되어있는 상태라면 -> 북마크 활성화
                 if (!card.bookmark_flag) {
                   axios.post(SERVER.BASE_URL + SERVER.ROUTES.bookmark, { book_id: book.id, card_id: card.id }).then((res) => {
-                    console.log(res);
+                    //수정 console.log(res);
                   });
                 }
 
                 // 북마크가 되있는 상태라면 -> 북마크 해제
                 else {
                   axios.delete(SERVER.BASE_URL + SERVER.ROUTES.unbookmark, { data: { book_id: book.id, card_id: card.id } }).then((res) => {
-                    console.log(res);
+                    //수정 console.log(res);
                   });
                 }
 
@@ -233,19 +233,19 @@ const Card = ({ data, handleCard, book, speechWord, speechMeaning }) => {
           <div className="bookmark-icon">
             <button
               onClick={(e) => {
-                console.log('bookmark button clicked.');
+                //수정 console.log('bookmark button clicked.');
 
                 // 북마크가 안되어있는 상태라면 -> 북마크 활성화
                 if (!card.bookmark_flag) {
                   axios.post(SERVER.BASE_URL + SERVER.ROUTES.bookmark, { book_id: book.id, card_id: card.id }).then((res) => {
-                    console.log(res);
+                    //수정 console.log(res);
                   });
                 }
 
                 // 북마크가 되있는 상태라면 -> 북마크 해제
                 else {
                   axios.delete(SERVER.BASE_URL + SERVER.ROUTES.unbookmark, { data: { book_id: book.id, card_id: card.id } }).then((res) => {
-                    console.log(res);
+                    //수정 console.log(res);
                   });
                 }
 

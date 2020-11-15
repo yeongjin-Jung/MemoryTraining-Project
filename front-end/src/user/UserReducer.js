@@ -3,14 +3,14 @@ import { LOGIN, LOGOUT } from './types';
 const UserReducer = (state = { isLoggedIn: 'false' }, action) => {
   switch (action.type) {
     case LOGIN:
-      console.log('REDUCER LOGIN CALLED.');
+      //수정 console.log('REDUCER LOGIN CALLED.');
       return {
         ...state,
         isLoggedIn: 'true',
       };
 
     case LOGOUT:
-      console.log('REDUCER LOGOUT CALLED.');
+      //수정 console.log('REDUCER LOGOUT CALLED.');
       return {
         ...state,
         isLoggedIn: 'false',

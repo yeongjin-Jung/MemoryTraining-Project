@@ -22,8 +22,8 @@ const SetCreatePage = (props) => {
   var createSetDescription = useRef(null);
 
   const onDelete = (idx) => {
-    console.log(`onDelete called. idx : ${idx}`);
-    console.log('cards : ', cards);
+    //수정 console.log(`onDelete called. idx : ${idx}`);
+    //수정 console.log('cards : ', cards);
     var index = cards.findIndex((i) => i.idx == idx);
     cards.splice(index, 1);
 
@@ -36,7 +36,7 @@ const SetCreatePage = (props) => {
   };
 
   const onEdit = (idx) => {
-    console.log(`onEdit button clicked. idx is ${idx}`);
+    //수정 console.log(`onEdit button clicked. idx is ${idx}`);
 
     let tmpCards = [...cards];
     var index = cards.findIndex((i) => i.idx == idx);
@@ -46,7 +46,7 @@ const SetCreatePage = (props) => {
   };
 
   const onSave = (card) => {
-    console.log(`onSave button clicked. idx is ${card.idx}`);
+    //수정 console.log(`onSave button clicked. idx is ${card.idx}`);
     let tmpCards = [...cards];
     var index = cards.findIndex((i) => i.idx == card.idx);
 
@@ -126,9 +126,9 @@ const SetCreatePage = (props) => {
                   return;
                 }
 
-                console.log('save button clicked.');
-                console.log('createSetTitle.current.value : ', createSetTitle.current.value);
-                console.log('createSetDescription.current.value : ', createSetDescription.current.value);
+                //수정 console.log('save button clicked.');
+                //수정 console.log('createSetTitle.current.value : ', createSetTitle.current.value);
+                //수정 console.log('createSetDescription.current.value : ', createSetDescription.current.value);
 
                 if (createSetTitle.current.value == '') {
                   alert('제목을 입력해주세요.');
@@ -137,17 +137,17 @@ const SetCreatePage = (props) => {
                 } else if (cards.length < 4) {
                   alert('최소 4개의 카드를 추가해주세요.');
                 } else {
-                  console.log('cards : ', cards);
+                  //수정 console.log('cards : ', cards);
                   const book = {
                     title: createSetTitle.current.value,
                     description: createSetDescription.current.value,
                   };
-                  console.log('book : ', book);
-                  console.log('cards : ', cards);
+                  //수정 console.log('book : ', book);
+                  //수정 console.log('cards : ', cards);
 
-                  console.log('--------------------------------------------------');
-                  console.log('요청 보내는 cards : ', cards);
-                  console.log('--------------------------------------------------');
+                  //수정 console.log('--------------------------------------------------');
+                  //수정 console.log('요청 보내는 cards : ', cards);
+                  //수정 console.log('--------------------------------------------------');
                   axios
                     .post(SERVER.BASE_URL + SERVER.ROUTES.create, {
                       title: createSetTitle.current.value,
@@ -155,8 +155,8 @@ const SetCreatePage = (props) => {
                       cards: cards.reverse(),
                     })
                     .then((res) => {
-                      console.log('create axios res : ', res);
-                      console.log('props.history : ', props.history);
+                      //수정 console.log('create axios res : ', res);
+                      //수정 console.log('props.history : ', props.history);
                       alert(`[${res.data.title}] 세트가 생성되었습니다.`);
                       let tmpData = {
                         ...res.data,
@@ -221,11 +221,11 @@ const Card = ({ cards, card, onDelete, onEdit, onSave }) => {
   var modifymeaning = useRef(null);
 
   useEffect(() => {
-    // console.log('useEffect() called.');
-    // console.log(modifyword);
+    // //수정 console.log('useEffect() called.');
+    // //수정 console.log(modifyword);
 
     if (modifymeaning.current != null) {
-      console.log(modifymeaning.current.value);
+      //수정 console.log(modifymeaning.current.value);
 
       modifyword.current.style.height = '5px';
       modifyword.current.style.height = modifyword.current.scrollHeight + 'px';
@@ -265,8 +265,8 @@ const Card = ({ cards, card, onDelete, onEdit, onSave }) => {
                     return;
                   }
 
-                  console.log(modifyword.current.value);
-                  console.log(modifymeaning.current.value);
+                  //수정 console.log(modifyword.current.value);
+                  //수정 console.log(modifymeaning.current.value);
                   card.word = modifyword.current.value;
                   card.meaning = modifymeaning.current.value;
                   onSave(card);
@@ -278,7 +278,7 @@ const Card = ({ cards, card, onDelete, onEdit, onSave }) => {
                 style={{ fontWeight: '800' }}
                 color={'primary'}
                 onClick={() => {
-                  console.log('edit button clicked.');
+                  //수정 console.log('edit button clicked.');
                   onEdit(card.idx);
                 }}
               ><FiEdit2 size="32" />수정</MaterialButton>

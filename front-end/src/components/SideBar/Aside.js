@@ -18,16 +18,16 @@ const Aside = ({ book, image, collapsed, rtl, toggled, handleToggleSidebar, hist
   const intl = useIntl();
 
   useEffect(() => {
-    console.log('Aside useEffect called.');
-    console.log('book : ', book);
+    //수정 console.log('Aside useEffect called.');
+    //수정 console.log('book : ', book);
   }, []);
 
   useEffect(() => {
-    // console.log('entireCardList : ', entireCardList);
-    console.log('Aside.js useEffect called');
-    console.log('bookmarkedCardList : ', bookmarkedCardList);
-    console.log('entireQuizList : ', entireQuizList);
-    console.log('bookmarkedQuizList : ', bookmarkedQuizList);
+    // //수정 console.log('entireCardList : ', entireCardList);
+    //수정 console.log('Aside.js useEffect called');
+    //수정 console.log('bookmarkedCardList : ', bookmarkedCardList);
+    //수정 console.log('entireQuizList : ', entireQuizList);
+    //수정 console.log('bookmarkedQuizList : ', bookmarkedQuizList);
   });
 
   return (

@@ -23,9 +23,9 @@ const Main = ({ collapsed, rtl, toggled, history, image, handleToggleSidebar, ha
 
   const getEntireCardList = async () => {
     await axios.get(SERVER.BASE_URL + SERVER.ROUTES.getEntireCards + book.id).then((res) => {
-      console.log('--------------------------------------------------');
-      console.log('요청 받는 cards : ', res.data);
-      console.log('--------------------------------------------------');
+      //수정 console.log('--------------------------------------------------');
+      //수정 console.log('요청 받는 cards : ', res.data);
+      //수정 console.log('--------------------------------------------------');
       setEntireCardList(res.data);
     });
   };
@@ -38,14 +38,14 @@ const Main = ({ collapsed, rtl, toggled, history, image, handleToggleSidebar, ha
         },
       })
       .then((res) => {
-        // console.log('getBookmarkedCardList res: ', res);
+        // //수정 console.log('getBookmarkedCardList res: ', res);
         setBookmarkedCardList(res.data);
       });
   };
 
   const getEntireQuizList = async () => {
     await axios.get(SERVER.BASE_URL + SERVER.ROUTES.getEntireQuizs + book.id).then((res) => {
-      // console.log('RES getEntireQuizList: ', res);
+      // //수정 console.log('RES getEntireQuizList: ', res);
       setEntireQuizList(res.data);
     });
   };
@@ -58,13 +58,13 @@ const Main = ({ collapsed, rtl, toggled, history, image, handleToggleSidebar, ha
         },
       })
       .then((res) => {
-        // console.log('getBookmarkedQuizList quiz: ', res);
+        // //수정 console.log('getBookmarkedQuizList quiz: ', res);
         setBookmarkedQuizList(res.data);
       });
   };
 
   useEffect(() => {
-    console.log('Main.js useEffect called.');
+    //수정 console.log('Main.js useEffect called.');
     getEntireCardList();
     getBookmarkedCardList();
     getEntireQuizList();
@@ -121,12 +121,12 @@ const Card = ({ book, card, getBookmarkedCardList, getEntireQuizList, getBookmar
   const [color, setColor] = useState(card.bookmark_flag ? 'red' : 'black');
 
   useEffect(() => {
-    // console.log('useEffect -> color : ', color);
+    // //수정 console.log('useEffect -> color : ', color);
   });
 
   const handleBookmark = async () => {
     await axios.post(SERVER.BASE_URL + SERVER.ROUTES.bookmark, { book_id: book.id, card_id: card.id }).then((res) => {
-      console.log(res);
+      //수정 console.log(res);
       getBookmarkedCardList();
       getEntireQuizList();
       getBookmarkedQuizList();
@@ -135,7 +135,7 @@ const Card = ({ book, card, getBookmarkedCardList, getEntireQuizList, getBookmar
 
   const handleUnBookmark = async () => {
     await axios.delete(SERVER.BASE_URL + SERVER.ROUTES.unbookmark, { data: { book_id: book.id, card_id: card.id } }).then((res) => {
-      console.log(res);
+      //수정 console.log(res);
       getBookmarkedCardList();
       getEntireQuizList();
       getBookmarkedQuizList();
@@ -151,23 +151,23 @@ const Card = ({ book, card, getBookmarkedCardList, getEntireQuizList, getBookmar
               className=""
               onClick={() => {
                 if (color == 'black') {
-                  // console.log('bookmark.');
+                  // //수정 console.log('bookmark.');
                   setColor('red');
-                  // console.log('book.id : ', book.id);
-                  // console.log('card.id : ', card.id);
+                  // //수정 console.log('book.id : ', book.id);
+                  // //수정 console.log('card.id : ', card.id);
                   // axios.post(SERVER.BASE_URL + SERVER.ROUTES.bookmark, { book_id: book.id, card_id: card.id }).then((res) => {
-                  //   console.log(res);
+                  //   //수정 console.log(res);
                   //   getBookmarkedCardList();
                   //   getBookmarkedQuizList();
                   // });
                   handleBookmark();
                 } else {
-                  // console.log('unbookmark.');
+                  // //수정 console.log('unbookmark.');
                   setColor('black');
-                  // console.log('book.id : ', book.id);
-                  // console.log('card.id : ', card.id);
+                  // //수정 console.log('book.id : ', book.id);
+                  // //수정 console.log('card.id : ', card.id);
                   // axios.delete(SERVER.BASE_URL + SERVER.ROUTES.unbookmark, { data: { book_id: book.id, card_id: card.id } }).then((res) => {
-                  //   console.log(res);
+                  //   //수정 console.log(res);
                   //   getBookmarkedCardList();
                   //   getBookmarkedQuizList();
                   // });

@@ -67,8 +67,8 @@ function RegisterPage(props) {
     }
 
     if (Password === ConfirmPasword) {
-      console.log(Name);
-      console.log(Email);
+      //수정 console.log(Name);
+      //수정 console.log(Email);
 
       const body = {
         email: Email,
@@ -77,7 +77,7 @@ function RegisterPage(props) {
         password: Password,
       };
       // dispatch(registerUser(body)).then((res) => {
-      //   console.log(res);
+      //   //수정 console.log(res);
       //   alert('가입이 정상적으로 완료되었습니다');
       //   props.history.push('/login');
       // });
@@ -93,12 +93,12 @@ function RegisterPage(props) {
           { withCredentials: true },
         )
         .then(function (response) {
-          console.log(response);
+          //수정 console.log(response);
           alert('가입이 정상적으로 완료되었습니다');
           props.history.push('/login');
         })
         .catch(function (error) {
-          console.log(error);
+          //수정 console.log(error);
         });
     } else {
       setPasswordError(true);

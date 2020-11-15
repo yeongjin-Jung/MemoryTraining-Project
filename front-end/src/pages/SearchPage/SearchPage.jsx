@@ -33,22 +33,22 @@ const SearchPage = (props) => {
   const [isLoading, setIsLoading] = useState(true);
 
   const getBookList = async () => {
-    console.log('getBookList called.');
+    //수정 console.log('getBookList called.');
 
     await axios.get(SERVER.BASE_URL + SERVER.ROUTES.search, { params: { keyword: searchValue, order: 'name' } }).then((res) => {
-      console.log('이름순 : ', res);
+      //수정 console.log('이름순 : ', res);
       let tmpBookList = [];
       tmpBookList = [...res.data];
-      // console.log('tmpBookList : ', tmpBookList);
+      // //수정 console.log('tmpBookList : ', tmpBookList);
       setBookNameList(tmpBookList);
       // setIsLoading(false);
     });
 
     await axios.get(SERVER.BASE_URL + SERVER.ROUTES.search, { params: { keyword: searchValue, order: 'date' } }).then((res) => {
-      console.log('최신순 : ', res);
+      //수정 console.log('최신순 : ', res);
       let tmpBookList = [];
       tmpBookList = [...res.data];
-      // console.log('tmpBookList : ', tmpBookList);
+      // //수정 console.log('tmpBookList : ', tmpBookList);
       setBookDateList(tmpBookList);
       setIsLoading(false);
     });
@@ -59,8 +59,8 @@ const SearchPage = (props) => {
   }, []);
 
   useEffect(() => {
-    console.log('searchValue 바뀜.');
-    console.log('searchValue : ', searchValue);
+    //수정 console.log('searchValue 바뀜.');
+    //수정 console.log('searchValue : ', searchValue);
     getBookList();
   }, [searchValue]);
 
@@ -120,33 +120,33 @@ const Book = ({ book }) => {
   const [scrapFlag, setScrapFlag] = useState(book.scrap_flag ? true : false);
 
   const handleShow = () => {
-    // console.log('handleShow called.');
-    // console.log('before : ', show);
+    // //수정 console.log('handleShow called.');
+    // //수정 console.log('before : ', show);
     bookListhow(true);
-    // console.log('after : ', show);
+    // //수정 console.log('after : ', show);
   };
 
   const handleClose = () => {
-    // console.log('handleClose called.');
-    // console.log('before : ', show);
+    // //수정 console.log('handleClose called.');
+    // //수정 console.log('before : ', show);
     bookListhow(false);
-    // console.log('after : ', show);
+    // //수정 console.log('after : ', show);
   };
 
   const getCardList = async () => {
-    console.log('getBookList called.');
+    //수정 console.log('getBookList called.');
     // await axios.get(`http://127.0.0.1:8000/api/books/${book.id}`).then((res) => {
     await axios.get(SERVER.BASE_URL + SERVER.ROUTES.getEntireCards + book.id).then((res) => {
-      console.log(res);
+      //수정 console.log(res);
       let tmpCardList = [];
       tmpCardList = [...res.data];
-      console.log('tmpCardList : ', tmpCardList);
+      //수정 console.log('tmpCardList : ', tmpCardList);
       setCardList(tmpCardList);
     });
   };
 
   useEffect(() => {
-    console.log('Book component useEffect called.');
+    //수정 console.log('Book component useEffect called.');
   });
 
   useEffect(() => {
@@ -189,12 +189,12 @@ const Book = ({ book }) => {
               if (!scrapFlag) {
                 setScrapFlag(true);
                 axios.post(SERVER.BASE_URL + SERVER.ROUTES.scrap, { book_id: book.id }).then((res) => {
-                  console.log('scrap axios res : ', res);
+                  //수정 console.log('scrap axios res : ', res);
                 });
               } else {
                 setScrapFlag(false);
                 axios.delete(SERVER.BASE_URL + SERVER.ROUTES.unscrap, { data: { book_id: book.id } }).then((res) => {
-                  console.log('unscrap axios res : ', res);
+                  //수정 console.log('unscrap axios res : ', res);
                 });
               }
               e.stopPropagation();
@@ -228,12 +228,12 @@ const Book = ({ book }) => {
                 if (!scrapFlag) {
                   setScrapFlag(true);
                   axios.post(SERVER.BASE_URL + SERVER.ROUTES.scrap, { book_id: book.id }).then((res) => {
-                    console.log('scrap axios res : ', res);
+                    //수정 console.log('scrap axios res : ', res);
                   });
                 } else {
                   setScrapFlag(false);
                   axios.delete(SERVER.BASE_URL + SERVER.ROUTES.unscrap, { data: { book_id: book.id } }).then((res) => {
-                    console.log('unscrap axios res : ', res);
+                    //수정 console.log('unscrap axios res : ', res);
                   });
                 }
                 e.stopPropagation();

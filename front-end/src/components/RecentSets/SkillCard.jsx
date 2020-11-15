@@ -4,7 +4,7 @@ import Marquee from 'react-double-marquee';
 import backImg from '../../assets/images/logo_transparent.png';
 
 function SkillCard(props) {
-	// console.log('Skill', props)
+	// //수정 console.log('Skill', props)
 	return (
 		<div
 			className="skill-card"

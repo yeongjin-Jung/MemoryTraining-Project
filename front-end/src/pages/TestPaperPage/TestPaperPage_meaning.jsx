@@ -82,7 +82,7 @@ const TestPaperPage2 = (props) => {
   const book = props.location.state.book;
 
   useEffect(() => {
-    console.log(props);
+    //수정 console.log(props);
   });
 
   if (cards != null) {

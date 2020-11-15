@@ -32,7 +32,7 @@ const GamePage = (props) => {
     setTimerID(null);
 
     if (res.current != null && res.current) {
-      console.log('다시하기 예.');
+      //수정 console.log('다시하기 예.');
       setMatchCnt(0);
       setRandCardList([]);
       setRandList([]);
@@ -40,7 +40,7 @@ const GamePage = (props) => {
       setSecondCard(null);
       setFlag(true);
     } else if (res.current != null && !res.current) {
-      console.log('다시하기 아니오.');
+      //수정 console.log('다시하기 아니오.');
       props.history.push({ pathname: '/set-detail', state: { book: props.location.state.book } });
     }
   };
@@ -52,32 +52,32 @@ const GamePage = (props) => {
       setCardList(props.location.state.cardList);
 
       globalCardList = [...cardList];
-      console.log('globalCardList 대입 후 : ', globalCardList);
+      //수정 console.log('globalCardList 대입 후 : ', globalCardList);
       setCards();
     }
   }, [flag]);
 
   useEffect(() => {
-    console.log('randCardList : ', randCardList);
+    //수정 console.log('randCardList : ', randCardList);
   }, [randCardList]);
 
   const check = () => {
-    console.log('1초마다 interval 도는중...');
-    // console.log('res.current : ', res.current);
+    //수정 console.log('1초마다 interval 도는중...');
+    // //수정 console.log('res.current : ', res.current);
     res = null;
   };
 
   useEffect(() => {
-    console.log('matchCnt : ', matchCnt);
-    console.log('randCardList.length : ', randCardList.length);
+    //수정 console.log('matchCnt : ', matchCnt);
+    //수정 console.log('randCardList.length : ', randCardList.length);
     if (matchCnt != 0 && randCardList.length * 2 == matchCnt) {
-      console.log('다맞춤.');
+      //수정 console.log('다맞춤.');
       handleShow();
       check();
 
       let tmid = setInterval(check, 1000);
 
-      console.log('tmid : ', tmid);
+      //수정 console.log('tmid : ', tmid);
       setTimerID(tmid);
     }
   }, [matchCnt]);
@@ -92,35 +92,35 @@ const GamePage = (props) => {
   const setCards = () => {
     let tmpCardList = [];
 
-    // console.log('setCards function called. globalCardList : ', globalCardList);
+    // //수정 console.log('setCards function called. globalCardList : ', globalCardList);
 
     while (true) {
       if (globalCardList.length == 0 || tmpCardList.length == 6) break;
 
       let randIdx = parseInt(Math.random() * globalCardList.length);
-      // console.log('randIdx : ', randIdx);
+      // //수정 console.log('randIdx : ', randIdx);
 
       let tmpCard = globalCardList[randIdx];
-      // console.log('tmpCard : ', tmpCard);
+      // //수정 console.log('tmpCard : ', tmpCard);
       tmpCard.order1 = Math.floor(Math.random() * 12);
       tmpCard.order2 = Math.floor(Math.random() * 12);
 
       globalCardList.splice(randIdx, 1);
 
-      // console.log('splice 후 cardList 길이 : ', cardList.length);
+      // //수정 console.log('splice 후 cardList 길이 : ', cardList.length);
 
       tmpCardList.push(tmpCard);
     }
 
     setRandCardList(tmpCardList);
 
-    // console.log('추출된 카드들 : ', randCardList);
+    // //수정 console.log('추출된 카드들 : ', randCardList);
     let ttmpList = [];
     for (var i = 0; i < tmpCardList.length; i++) {
       ttmpList.push(Math.floor(Math.random() * tmpCardList.length));
     }
 
-    // console.log('ttmpList : ', ttmpList);
+    // //수정 console.log('ttmpList : ', ttmpList);
     setRandList(ttmpList);
     setFlag(false);
   };
@@ -138,7 +138,7 @@ const GamePage = (props) => {
             type="button"
             className="float-right"
             onClick={() => {
-              // console.log('custom x button clicked.');
+              // //수정 console.log('custom x button clicked.');
               handleClose(false);
             }}
           >
@@ -245,7 +245,7 @@ const Card = ({ card, hasFlippedCard, setHasFlippedCard, firstCard, setFirstCard
 
   useEffect(() => {
     if (!show) {
-      console.log('toggle.current : ', toggle.current);
+      //수정 console.log('toggle.current : ', toggle.current);
       setToggle('flip');
       setTimeout(() => {
         // toggle = '';
@@ -260,14 +260,14 @@ const Card = ({ card, hasFlippedCard, setHasFlippedCard, firstCard, setFirstCard
   }, [tmpFirstCard, tmpSecondCard]);
 
   useEffect(() => {
-    console.log('matchCnt : ', matchCnt);
+    //수정 console.log('matchCnt : ', matchCnt);
   }, [matchCnt]);
 
   const unflipCards = () => {
     setLockBoard(true);
-    console.log('--------------------------------------------------');
-    console.log('unflipCards called.');
-    console.log('--------------------------------------------------');
+    //수정 console.log('--------------------------------------------------');
+    //수정 console.log('unflipCards called.');
+    //수정 console.log('--------------------------------------------------');
 
     setTimeout(() => {
       firstCard.current.classList.remove('flip');
@@ -278,18 +278,18 @@ const Card = ({ card, hasFlippedCard, setHasFlippedCard, firstCard, setFirstCard
   };
 
   const checkForMatch = () => {
-    console.log('-----------------------------------------------');
-    console.log('checkForMatch called.');
-    console.log('-----------------------------------------------');
+    //수정 console.log('-----------------------------------------------');
+    //수정 console.log('checkForMatch called.');
+    //수정 console.log('-----------------------------------------------');
 
-    console.log('firstCard의 card id : ', firstCard.current.getAttribute('cardid'));
-    console.log('secondCard의 card id : ', tmpSecondCard.current.getAttribute('cardid'));
+    //수정 console.log('firstCard의 card id : ', firstCard.current.getAttribute('cardid'));
+    //수정 console.log('secondCard의 card id : ', tmpSecondCard.current.getAttribute('cardid'));
 
-    console.log('둘이 같냐? ', firstCard.current.getAttribute('cardid') == tmpSecondCard.current.getAttribute('cardid'));
+    //수정 console.log('둘이 같냐? ', firstCard.current.getAttribute('cardid') == tmpSecondCard.current.getAttribute('cardid'));
 
     if (firstCard.current.getAttribute('cardid') == tmpSecondCard.current.getAttribute('cardid')) {
       setMatchCnt((prev) => prev + 1);
-      console.log('같다');
+      //수정 console.log('같다');
       // setMatchCnt((prev) => prev + 1);
       disableCards();
 
@@ -305,11 +305,11 @@ const Card = ({ card, hasFlippedCard, setHasFlippedCard, firstCard, setFirstCard
     if (lockBoard) return;
 
     if (ref == firstCard) {
-      console.log('같은 div 두 번 누름.');
+      //수정 console.log('같은 div 두 번 누름.');
       return;
     }
 
-    console.log('flipCard 실행됨.');
+    //수정 console.log('flipCard 실행됨.');
     ref.current.classList.add('flip');
 
     if (!hasFlippedCard) {
@@ -317,7 +317,7 @@ const Card = ({ card, hasFlippedCard, setHasFlippedCard, firstCard, setFirstCard
       // firstCard = ref;
       setFirstCard(ref);
       setTmpFirstCard(ref);
-      // console.log('firstCard 선택됨. firstCard : ', firstCard);
+      // //수정 console.log('firstCard 선택됨. firstCard : ', firstCard);
 
       return;
     }
@@ -338,36 +338,36 @@ const Card = ({ card, hasFlippedCard, setHasFlippedCard, firstCard, setFirstCard
     setSecondCard(null);
     setTmpSecondCard(null);
 
-    console.log('!!!!!!!!!!!!!!!!!!! resetBoard 실행됨');
+    //수정 console.log('!!!!!!!!!!!!!!!!!!! resetBoard 실행됨');
 
     // [hasFlippedCard, lockBoard] = [false, false];
     // [firstCard, secondCard] = [null, null];
   };
 
   const disableCards = () => {
-    console.log('disableCards called.');
+    //수정 console.log('disableCards called.');
 
     // e.preventDefault();
     // e.stopPropagation();
 
     // firstCard.current.removeEventListener('click', flipCard);
     // tmpSecondCard.current.removeEventListener('click', flipCard);
-    console.log('firstCard : ', firstCard);
-    console.log('tmpFirstCard : ', tmpFirstCard);
+    //수정 console.log('firstCard : ', firstCard);
+    //수정 console.log('tmpFirstCard : ', tmpFirstCard);
     let temp = firstCard;
-    console.log('temp : ', temp);
+    //수정 console.log('temp : ', temp);
 
     temp.current.disabled = true;
     // temp.current.setAttribute('disabled', true);
-    console.log('tmpFirstCard : ', tmpFirstCard);
+    //수정 console.log('tmpFirstCard : ', tmpFirstCard);
     // tmpFirstCard.current.firstChild.disabled = true;
     // firstCard.current.firstChild.disabled = true;
 
-    console.log('firstCard.current.firstChild : ', firstCard.current.firstChild);
+    //수정 console.log('firstCard.current.firstChild : ', firstCard.current.firstChild);
     firstCard.current.firstChild.setAttribute('disabled', true);
     // firstCard.current.setAttribute('disabled', true);
 
-    console.log('tmpSecondCard : ', tmpSecondCard);
+    //수정 console.log('tmpSecondCard : ', tmpSecondCard);
 
     // tmpSecondCard.current.disabled = true;
     tmpSecondCard.current.firstChild.setAttribute('disabled', true);
@@ -385,15 +385,15 @@ const Card = ({ card, hasFlippedCard, setHasFlippedCard, firstCard, setFirstCard
           // src={iconReact}
           alt="React"
           onClick={() => {
-            // console.log('front clicked.');
-            // console.log('wordRef.current : ', wordRef.current);
-            // console.log('wordRef.current.firstChild : ', wordRef.current.firstChild);
-            // console.log('wordRef.current.firstChild.getAttribute("disabled") : ', wordRef.current.firstChild.getAttribute('disabled'));
-            // console.log('typeof wordRef.current.firstChild.getAttribute("disabled") : ', typeof wordRef.current.firstChild.getAttribute('disabled'));
-            console.log('!wordRef.current.firstChild.hasAttribute("disabled") : ', !wordRef.current.firstChild.hasAttribute('disabled'));
+            // //수정 console.log('front clicked.');
+            // //수정 console.log('wordRef.current : ', wordRef.current);
+            // //수정 console.log('wordRef.current.firstChild : ', wordRef.current.firstChild);
+            // //수정 console.log('wordRef.current.firstChild.getAttribute("disabled") : ', wordRef.current.firstChild.getAttribute('disabled'));
+            // //수정 console.log('typeof wordRef.current.firstChild.getAttribute("disabled") : ', typeof wordRef.current.firstChild.getAttribute('disabled'));
+            //수정 console.log('!wordRef.current.firstChild.hasAttribute("disabled") : ', !wordRef.current.firstChild.hasAttribute('disabled'));
             // if (!wordRef.current.firstChild.getAttribute('disabled')) {
             if (!wordRef.current.firstChild.hasAttribute('disabled') && !wordRef.current.firstChild.getAttribute('disabled')) {
-              console.log('!wordRef.current.firstChild.hasAttribute("disabled") : ', !wordRef.current.firstChild.hasAttribute('disabled'));
+              //수정 console.log('!wordRef.current.firstChild.hasAttribute("disabled") : ', !wordRef.current.firstChild.hasAttribute('disabled'));
               flipCard(wordRef);
             }
           }}
@@ -406,15 +406,15 @@ const Card = ({ card, hasFlippedCard, setHasFlippedCard, firstCard, setFirstCard
           // src={iconReact}
           alt="React"
           onClick={() => {
-            // console.log('back clicked.');
-            // console.log('wordRef.current : ', wordRef.current);
-            // console.log('wordRef.current.firstChild : ', wordRef.current.firstChild);
-            // console.log('wordRef.current.firstChild.getAttribute("disabled") : ', wordRef.current.firstChild.getAttribute('disabled'));
-            // console.log('typeof wordRef.current.firstChild.getAttribute("disabled") : ', typeof wordRef.current.firstChild.getAttribute('disabled'));
-            console.log('!wordRef.current.firstChild.hasAttribute("disabled") : ', !wordRef.current.firstChild.hasAttribute('disabled'));
+            // //수정 console.log('back clicked.');
+            // //수정 console.log('wordRef.current : ', wordRef.current);
+            // //수정 console.log('wordRef.current.firstChild : ', wordRef.current.firstChild);
+            // //수정 console.log('wordRef.current.firstChild.getAttribute("disabled") : ', wordRef.current.firstChild.getAttribute('disabled'));
+            // //수정 console.log('typeof wordRef.current.firstChild.getAttribute("disabled") : ', typeof wordRef.current.firstChild.getAttribute('disabled'));
+            //수정 console.log('!wordRef.current.firstChild.hasAttribute("disabled") : ', !wordRef.current.firstChild.hasAttribute('disabled'));
             // if (!wordRef.current.firstChild.getAttribute('disabled')) {
             if (!wordRef.current.firstChild.hasAttribute('disabled') && !wordRef.current.firstChild.getAttribute('disabled')) {
-              console.log('!wordRef.current.firstChild.hasAttribute("disabled") : ', !wordRef.current.firstChild.hasAttribute('disabled'));
+              //수정 console.log('!wordRef.current.firstChild.hasAttribute("disabled") : ', !wordRef.current.firstChild.hasAttribute('disabled'));
               flipCard(wordRef);
             }
           }}
@@ -430,11 +430,11 @@ const Card = ({ card, hasFlippedCard, setHasFlippedCard, firstCard, setFirstCard
           // src={iconReact}
           alt="React"
           onClick={() => {
-            // console.log('front clicked.');
-            // console.log('meaningRef.current : ', meaningRef.current);
-            // console.log('meaningRef.current.firstChild : ', meaningRef.current.firstChild);
-            // console.log('typeof meaningRef.current.firstChild.getAttribute("disabled") : ', typeof meaningRef.current.firstChild.getAttribute('disabled'));
-            // console.log('meaningRef.current.firstChild.hasAttribute("disabled") : ', meaningRef.current.firstChild.hasAttribute('disabled'));
+            // //수정 console.log('front clicked.');
+            // //수정 console.log('meaningRef.current : ', meaningRef.current);
+            // //수정 console.log('meaningRef.current.firstChild : ', meaningRef.current.firstChild);
+            // //수정 console.log('typeof meaningRef.current.firstChild.getAttribute("disabled") : ', typeof meaningRef.current.firstChild.getAttribute('disabled'));
+            // //수정 console.log('meaningRef.current.firstChild.hasAttribute("disabled") : ', meaningRef.current.firstChild.hasAttribute('disabled'));
             if (!meaningRef.current.firstChild.hasAttribute('disabled') && !meaningRef.current.firstChild.getAttribute('disabled')) {
               flipCard(meaningRef);
             }
@@ -448,11 +448,11 @@ const Card = ({ card, hasFlippedCard, setHasFlippedCard, firstCard, setFirstCard
           // src={iconReact}
           alt="React"
           onClick={() => {
-            // console.log('front clicked.');
-            // console.log('meaningRef.current : ', meaningRef.current);
-            // console.log('meaningRef.current.firstChild : ', meaningRef.current.firstChild);
-            // console.log('typeof meaningRef.current.firstChild.getAttribute("disabled") : ', typeof meaningRef.current.firstChild.getAttribute('disabled'));
-            // console.log('meaningRef.current.firstChild.hasAttribute("disabled") : ', meaningRef.current.firstChild.hasAttribute('disabled'));
+            // //수정 console.log('front clicked.');
+            // //수정 console.log('meaningRef.current : ', meaningRef.current);
+            // //수정 console.log('meaningRef.current.firstChild : ', meaningRef.current.firstChild);
+            // //수정 console.log('typeof meaningRef.current.firstChild.getAttribute("disabled") : ', typeof meaningRef.current.firstChild.getAttribute('disabled'));
+            // //수정 console.log('meaningRef.current.firstChild.hasAttribute("disabled") : ', meaningRef.current.firstChild.hasAttribute('disabled'));
             if (!meaningRef.current.firstChild.hasAttribute('disabled') && !meaningRef.current.firstChild.getAttribute('disabled')) {
               flipCard(meaningRef);
             }

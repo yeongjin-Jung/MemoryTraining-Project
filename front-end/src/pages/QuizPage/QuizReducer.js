@@ -24,7 +24,7 @@ const handleBookmarked = async (action) => {
       },
     })
     .then((res) => {
-      console.log('!REDUCER 안에서의 res: ', res);
+      //수정 console.log('!REDUCER 안에서의 res: ', res);
       tmpQuizs = [...res.data];
       return tmpQuizs;
     });
@@ -68,9 +68,9 @@ function quizReducer(state, action) {
       };
 
     case TOGGLE_BOOKMARK_FLAG:
-      console.log('TOGGLE_BOOKMARK_FLAG called.');
-      console.log('state의 quizs : ', state.quizs);
-      console.log('quizIdx : ', action.quizIdx);
+      //수정 console.log('TOGGLE_BOOKMARK_FLAG called.');
+      //수정 console.log('state의 quizs : ', state.quizs);
+      //수정 console.log('quizIdx : ', action.quizIdx);
 
       let quizs = state.quizs;
       let tmp = [...quizs];
@@ -82,8 +82,8 @@ function quizReducer(state, action) {
       };
 
     case SET_ALL_WRONG_ANSWERS_TO_BOOKMARKED:
-      console.log('state : ', state);
-      console.log('state.answers : ', state.answers);
+      //수정 console.log('state : ', state);
+      //수정 console.log('state.answers : ', state.answers);
       // let answers = state.answers;
 
       let quizs2 = state.quizs;
@@ -94,8 +94,8 @@ function quizReducer(state, action) {
           tmp2[answer.questionId - 1].card.bookmark_flag = !tmp2[answer.questionId - 1].card.bookmark_flag;
 
           axios.post(SERVER.BASE_URL + SERVER.ROUTES.bookmark, { book_id: action.book.id, card_id: answer.card.id }).then((res) => {
-            console.log('BOOKMARK ACTIVATED.');
-            console.log(res);
+            //수정 console.log('BOOKMARK ACTIVATED.');
+            //수정 console.log(res);
           });
         }
       });
@@ -106,20 +106,20 @@ function quizReducer(state, action) {
       };
 
     case SET_ALL_TO_UNBOOKMARKED:
-      console.log('SET_ALL_TO_UNBOOKMARKED called.');
+      //수정 console.log('SET_ALL_TO_UNBOOKMARKED called.');
 
       let quiz3 = state.quizs;
       let tmp3 = [...quiz3];
-      console.log('tmp3 : ', tmp3);
+      //수정 console.log('tmp3 : ', tmp3);
 
       state.answers.map((answer) => {
         if (tmp3[answer.questionId - 1].card.bookmark_flag == 1) {
           tmp3[answer.questionId - 1].card.bookmark_flag = 0;
 
           axios.delete(SERVER.BASE_URL + SERVER.ROUTES.unbookmark, { data: { book_id: action.book.id, card_id: answer.card.id } }).then((res) => {
-            console.log('UNBOOKMARK ACTIVATED.');
+            //수정 console.log('UNBOOKMARK ACTIVATED.');
             // quiz.card.bookmark_flag = 0;
-            console.log(res);
+            //수정 console.log(res);
           });
         }
       });
@@ -129,12 +129,12 @@ function quizReducer(state, action) {
       };
 
     // tmp3.map((quiz) => {
-    //   console.log('quiz : ', quiz);
+    //   //수정 console.log('quiz : ', quiz);
     //   if (quiz.card.bookmark_flag == 1) {
     //     axios.delete(SERVER.BASE_URL + SERVER.ROUTES.unbookmark, { data: { book_id: action.book.id, card_id: quiz.card.id } }).then((res) => {
-    //       console.log('UNBOOKMARK ACTIVATED.');
+    //       //수정 console.log('UNBOOKMARK ACTIVATED.');
     //       quiz.card.bookmark_flag = 0;
-    //       console.log(res);
+    //       //수정 console.log(res);
     //     });
     //   }
     // });
