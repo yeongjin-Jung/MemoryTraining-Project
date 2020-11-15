@@ -20,10 +20,30 @@ const GamePage = (props) => {
   const [flag, setFlag] = useState(true);
   const [show, setShow] = useState(false);
 
-  let res = useRef(false);
+  const [timerID, setTimerID] = useState(null);
 
-  const handleClose = () => setShow(false);
+  let res = useRef(null);
+
   const handleShow = () => setShow(true);
+  const handleClose = (param) => {
+    res.current = param;
+    setShow(false);
+    clearInterval(timerID);
+    setTimerID(null);
+
+    if (res.current != null && res.current) {
+      console.log('다시하기 예.');
+      setMatchCnt(0);
+      setRandCardList([]);
+      setRandList([]);
+      setFirstCard(null);
+      setSecondCard(null);
+      setFlag(true);
+    } else if (res.current != null && !res.current) {
+      console.log('다시하기 아니오.');
+      props.history.push({ pathname: '/set-detail', state: { book: props.location.state.book } });
+    }
+  };
 
   let globalCardList = useRef([]);
 
@@ -41,32 +61,33 @@ const GamePage = (props) => {
     console.log('randCardList : ', randCardList);
   }, [randCardList]);
 
+  const check = () => {
+    console.log('1초마다 interval 도는중...');
+    // console.log('res.current : ', res.current);
+    res = null;
+  };
+
   useEffect(() => {
     console.log('matchCnt : ', matchCnt);
     console.log('randCardList.length : ', randCardList.length);
     if (matchCnt != 0 && randCardList.length * 2 == matchCnt) {
       console.log('다맞춤.');
-      setTimeout(() => {
-        handleShow();
+      handleShow();
+      check();
 
-        setTimeout(() => {
-          console.log('res : ', res);
-          if (res.current) {
-            console.log('다시하기 예.');
-            setMatchCnt(0);
-            setRandCardList([]);
-            setRandList([]);
-            setFirstCard(null);
-            setSecondCard(null);
-            setFlag(true);
-          } else {
-            console.log('다시하기 아니오.');
-            props.history.push({ pathname: '/set-detail', state: { book: props.location.state.book } });
-          }
-        }, 5000);
-      }, 3000);
+      let tmid = setInterval(check, 1000);
+
+      console.log('tmid : ', tmid);
+      setTimerID(tmid);
     }
   }, [matchCnt]);
+
+  // useEffect(() => {
+  //   if (timerID != null) {
+  //     clearInterval(timerID);
+  //     setTimerID(null);
+  //   }
+  // }, [timerID]);
 
   const setCards = () => {
     let tmpCardList = [];
@@ -108,29 +129,41 @@ const GamePage = (props) => {
     <>
       <div className="CardTest-background"></div>
 
-      <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
-        <Modal.Header closeButton>
-          <Modal.Title>Modal title</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>다시 하시겠습니까?</Modal.Body>
-        <Modal.Footer>
-          <Button
-            variant="secondary"
+      <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false} centered>
+        <Modal.Header style={{ borderBottom: 'none' }}>
+          <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+            <Modal.Title style={{ justifyContent: 'center' }}>다시 하시겠습니까?</Modal.Title>
+          </div>
+          <button
+            type="button"
+            className="float-right"
             onClick={() => {
-              res = false;
-              handleClose();
+              // console.log('custom x button clicked.');
+              handleClose(false);
             }}
           >
-            취소
-          </Button>
+            <span aria-hidden="true">x</span>
+            <span className="sr-only">Close</span>
+          </button>
+        </Modal.Header>
+        <Modal.Footer style={{ display: 'flex', justifyContent: 'center' }}>
           <Button
             variant="primary"
             onClick={() => {
-              res = true;
-              handleClose();
+              // res.current = true;
+              handleClose(true);
             }}
           >
-            확인
+            예
+          </Button>
+          <Button
+            variant="danger"
+            onClick={() => {
+              // res.current = false;
+              handleClose(false);
+            }}
+          >
+            아니요
           </Button>
         </Modal.Footer>
       </Modal>
