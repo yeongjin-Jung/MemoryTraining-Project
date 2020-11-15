@@ -13,5 +13,5 @@ export const request = (method, url, data) => {
       //수정 console.log('res', res);
       return res.data;
     })
-    .catch((err) => //수정 console.log(err));
+    .catch((err) => console.error(err));
 };
