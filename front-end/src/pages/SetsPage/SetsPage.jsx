@@ -6,7 +6,6 @@ import { DropDown } from '../../components';
 import FadeIn from 'react-fade-in';
 import axios from 'axios';
 import SERVER from '../../api/server';
-import { AwesomeButton } from 'react-awesome-button';
 import './unscrap-btn-styles.css';
 import './SetsPage.css';
 import 'animate.css';
@@ -14,8 +13,6 @@ import 'animate.css';
 import MaterialButton from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import DeleteIcon from '@material-ui/icons/Delete';
-import Icon from '@material-ui/core/Icon';
-import { useSpeechSynthesis } from 'react-speech-kit';
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -136,34 +133,6 @@ function Book({ book, history, getBookList }) {
             >
               스크랩해제
             </MaterialButton>
-            // <Button
-            //   className="set-unscrap-btn"
-            //   style={{ zIndex: '1' }}
-            //   onClick={(e) => {
-            //     axios.delete(SERVER.BASE_URL + SERVER.ROUTES.unscrap, { data: { book_id: book.id } }).then((res) => {
-            //       //수정 console.log(res);
-            //       getBookList();
-            //     });
-            //     e.stopPropagation();
-            //   }}
-            // >
-            //   <span>스크랩 해제</span>
-            // </Button>
-
-            // <AwesomeButton
-            //   className="aws-unscrap-btn"
-            //   type="secondary"
-            //   onPress={(e) => {
-            //     axios.delete(SERVER.BASE_URL + SERVER.ROUTES.unscrap, { data: { book_id: book.id } }).then((res) => {
-            //       //수정 console.log(res);
-            //       getBookList();
-            //     });
-            //     e.stopPropagation();
-            //     //수정 console.log(e);
-            //   }}
-            // >
-            //   <span>스크랩해제</span>
-            // </AwesomeButton>
           )}
         </div>
       </a>

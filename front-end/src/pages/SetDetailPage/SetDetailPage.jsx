@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { IntlProvider } from 'react-intl';
-import './SetDetailPage.css';
+import { useLocation } from 'react-router-dom';
 import Layout from '../../components/SideBar/Layout';
 import messages from '../../components/SideBar/messages';
+import './SetDetailPage.css';
 import '../../components/SideBar/sidebar.scss';
-import { useEffect } from 'react';
 
-import { useLocation } from 'react-router-dom';
 
 const SetDetailPage = (props) => {
   const [locale, setLocale] = useState('en');

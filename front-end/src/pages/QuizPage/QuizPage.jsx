@@ -9,8 +9,6 @@ import QuizContext from './QuizContext';
 import { AwesomeButton } from 'react-awesome-button';
 import '../../assets/css/back-btn-styles.css';
 import './QuizPage.css';
-
-import { Button } from 'react-bootstrap';
 import { BsBookmark } from 'react-icons/bs';
 import { FcBookmark } from 'react-icons/fc';
 

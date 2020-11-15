@@ -19,7 +19,6 @@ import {
 // import Auth from "./hoc/auth";
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 
-// import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import PrivateRoute from './PrivateRoute';
 

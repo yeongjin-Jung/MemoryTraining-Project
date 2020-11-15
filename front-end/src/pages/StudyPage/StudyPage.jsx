@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import AwesomeSlider from 'react-awesome-slider';
-import { Link } from 'react-router-dom';
 import CoreStyles from '../StudyPage/styles.scss';
 import AwesomeSliderStyles from 'react-awesome-slider/src/styled/open-animation/open-animation.scss';
 import Flippy, { FrontSide, BackSide } from 'react-flippy';
@@ -15,9 +14,7 @@ import 'react-sweet-progress/lib/style.css';
 import '../../assets/css/back-btn-styles.css';
 import './StudyPage.css';
 import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
 import Flag from 'react-country-flags';
-import { useLayoutEffect } from 'react';
 
 const ref = React.createRef();
 const useStyles = makeStyles({

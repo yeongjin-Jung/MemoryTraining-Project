@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useIntl } from 'react-intl';
 import { ProSidebar, Menu, MenuItem, SubMenu, SidebarHeader, SidebarFooter, SidebarContent } from 'react-pro-sidebar';
 import sidebarBg from '../../assets/bg1.jpg';
-import { Link } from 'react-router-dom';
 import iconMemorize from '../../assets/images/memorize.png';
 import iconQuiz from '../../assets/images/quiz.png';
 import iconTest from '../../assets/images/test.png';

@@ -1,10 +1,8 @@
-import React, { useState, useRef } from 'react';
-
-import { AwesomeButton } from 'react-awesome-button';
-import './GamePage.css';
-import { useEffect } from 'react';
-
+import React, { useState, useEffect, useRef } from 'react';
 import { Modal, Button } from 'react-bootstrap';
+import { AwesomeButton } from 'react-awesome-button';
+
+import './GamePage.css';
 
 const GamePage = (props) => {
   const [cardList, setCardList] = useState(props.location.state.cardList);

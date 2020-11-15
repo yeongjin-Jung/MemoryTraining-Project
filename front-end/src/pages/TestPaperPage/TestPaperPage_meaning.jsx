@@ -1,13 +1,10 @@
 /* eslint-disable */
 
 import React, { useEffect } from 'react';
-import { useState } from 'react';
 import './TestPaperPage.css';
 import { Document, Page, Text, View, Font, StyleSheet } from '@react-pdf/renderer';
 import { PDFViewer } from '@react-pdf/renderer';
-import { Button } from 'react-bootstrap';
 import Nanum from './fonts/Nanum.ttf';
-import { useHistory } from 'react-router-dom';
 
 Font.register({
   family: 'Nanum',

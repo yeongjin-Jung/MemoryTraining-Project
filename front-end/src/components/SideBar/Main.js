@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useIntl } from 'react-intl';
-import Switch from 'react-switch';
-import { FaHeart, FaBars } from 'react-icons/fa';
+import { FaBars } from 'react-icons/fa';
 
 import { FcBookmark } from 'react-icons/fc';
-import { FaBookmark } from 'react-icons/fa';
 import { BsBookmark } from 'react-icons/bs';
 import axios from 'axios';
 import SERVER from '../../api/server';

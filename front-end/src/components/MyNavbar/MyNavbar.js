@@ -1,14 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Navbar, Nav, NavDropdown, Form, FormControl, Button, InputGroup } from 'react-bootstrap';
+import { Navbar, Nav, Form, Button, InputGroup } from 'react-bootstrap';
 import { Link, useHistory } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 import { MdClose } from 'react-icons/md';
 import './MyNavbar.css';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import { logoutUser } from '../../_actions/userAction';
 import SERVER from '../../api/server';
-import { Hint } from 'react-autocomplete-hint';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import CircularProgress from '@material-ui/core/CircularProgress';
