@@ -81,7 +81,7 @@ Web Speech API 중 SpeechSynthesis(=TTS)를 적용한 `react-speech-kit`이라�
 
 # 기술 스택
 
-![stack](/uploads/87161c299327e1a442a5b0324478be07/stack.png)
+![stack](/uploads/019f4630460cb507456fe49f735fe90f/stack.png)
 Frontend는 React.js 라이브러리, Backend는 Django 프레임워크와 더불어 mySQL 사용했으며
 
 이 모든 것을 AWS EC2 환경의 서버를 통해 배포했습니다.
