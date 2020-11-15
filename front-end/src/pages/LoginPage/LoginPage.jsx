@@ -99,7 +99,7 @@ const LoginPage = (props) => {
             </div>
 
             <div className="wrap-input100 " data-validate="Enter password">
-              <input className="input100" type="password" name="password" value={Password} placeholder="Password" onChange={onPasswordHanlder} />
+              <input className="input100" type="password" name="password" value={Password} autoComplete="off" placeholder="Password" onChange={onPasswordHanlder} />
               <span className="focus-input100" data-placeholder="&#xf191;"></span>
             </div>
 
