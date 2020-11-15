@@ -191,18 +191,18 @@ const GamePage = (props) => {
       </AwesomeButton>
 
       <div className="" style={{ marginTop: '2vh', display: 'flex', justifyContent: 'center' }}>
-        <div className="" style={{ display: 'flex', justifyContent: 'space-around', width: '25vw', height: '10vh' }}>
-          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '10vw', height: '10vh' }}>
+        <div className="" style={{ display: 'flex', justifyContent: 'space-around', width: '40vw', height: '10vw' }}>
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '30vw', height: '10vw' }}>
             {/* <div style={{ width: '20%', paddingBottom: '20%', backgroundColor: '#343148ff' }}></div> */}
             <div style={{ width: '20%', paddingBottom: '20%', background: 'linear-gradient(45deg, #4099ff, #73b4ff)' }}></div>
             &nbsp;
-            <span style={{ fontSize: '1.2rem' }}> : 단어</span>
+            <span className="header-word"> : 단어</span>
           </div>
-          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '10vw', height: '10vh' }}>
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '30vw', height: '10vw' }}>
             {/* <div style={{ width: '20%', paddingBottom: '20%', backgroundColor: '#d7c49eff' }}></div> */}
             <div style={{ width: '20%', paddingBottom: '20%', background: 'linear-gradient(45deg, #ffb64d, #ffcb80)' }}></div>
             &nbsp;
-            <span style={{ fontSize: '1.2rem' }}> : 뜻</span>
+            <span className="header-meaning"> : 뜻</span>
           </div>
         </div>
       </div>

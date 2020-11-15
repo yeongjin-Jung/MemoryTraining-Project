@@ -36,7 +36,31 @@ body {
   transition-timing-function: linear;
 }
 
-@media (max-width: 608px) {
+@media (min-width: 320px) {
+  .memory-card {
+    height: 40vw;
+  }
+}
+
+@media (min-width: 495px) {
+  .memory-card {
+    height: 38vw;
+  }
+}
+
+@media (min-width: 520px) {
+  .memory-card {
+    height: 36vw;
+  }
+}
+
+@media (min-width: 549px) {
+  .memory-card {
+    height: 34vw;
+  }
+}
+
+@media (min-width: 608px) {
   .memory-card {
     height: 30vw;
   }
@@ -120,7 +144,7 @@ body {
   }
 }
 
-@media (min-width: 1181px) {
+@media (min-width: 1160px) {
   .memory-card {
     height: 14vw;
   }
@@ -245,4 +269,12 @@ body {
     margin-right: auto;
     margin-left: 68vw !important;
   }
+}
+
+.header-word {
+  font-size: 1.5vw;
+}
+
+.header-meaning {
+  font-size: 1.5vw;
 }
