@@ -485,7 +485,7 @@ const Card = ({ cards, card, onDelete, onEdit, onSave }) => {
               />
             )}
             {!card.isEditing && (
-              <pre style={{ borderBottom: '5px solid black', wordBreak: 'break-all' }}>
+              <pre style={{ borderBottom: '5px solid black', wordBreak: 'break-all', overflowX: 'hidden', whiteSpace: 'pre-wrap' }}>
                 <span style={{ fontSize: '20px' }}>{card.word}</span>
               </pre>
             )}
@@ -504,7 +504,7 @@ const Card = ({ cards, card, onDelete, onEdit, onSave }) => {
               />
             )}
             {!card.isEditing && (
-              <pre style={{ borderBottom: '5px solid black', wordBreak: 'break-all', overflowX: 'hidden' }}>
+              <pre style={{ borderBottom: '5px solid black', wordBreak: 'break-all', overflowX: 'hidden', whiteSpace: 'pre-wrap' }}>
                 <span style={{ fontSize: '20px' }}>{card.meaning}</span>
               </pre>
             )}

@@ -304,7 +304,7 @@ const Card = ({ cards, card, onDelete, onEdit, onSave }) => {
               <Form.Control className="inputbox" as="textarea" placeholder={card.word} ref={modifyword} defaultValue={card.word} style={{ fontSize: '20px', borderRadius: 0 }} onKeyUp={handleModifyWord} />
             )}
             {!card.isEditing && (
-              <pre style={{ borderBottom: '5px solid black', wordBreak: 'break-all' }}>
+              <pre style={{ borderBottom: '5px solid black', wordBreak: 'break-all', overflowX: 'hidden', whiteSpace: 'pre-wrap' }}>
                 <span style={{ fontSize: '20px' }}>{card.word}</span>
               </pre>
             )}
@@ -315,7 +315,7 @@ const Card = ({ cards, card, onDelete, onEdit, onSave }) => {
               <Form.Control className="inputbox" as="textarea" placeholder={card.meaning} ref={modifymeaning} defaultValue={card.meaning} style={{ fontSize: '20px', borderRadius: 0 }} onKeyUp={handleModifyMeaning} />
             )}
             {!card.isEditing && (
-              <pre style={{ borderBottom: '5px solid black', wordBreak: 'break-all', overflowX: 'hidden' }}>
+              <pre style={{ borderBottom: '5px solid black', wordBreak: 'break-all', overflowX: 'hidden', whiteSpace: 'pre-wrap' }}>
                 <span style={{ fontSize: '20px' }}>{card.meaning}</span>
               </pre>
             )}
