@@ -17,7 +17,7 @@
   background-color: orange;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 1024px) {
   .testpaper-btn {
     display: none;
   }
