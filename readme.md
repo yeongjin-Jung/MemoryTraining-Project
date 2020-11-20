@@ -41,7 +41,7 @@ Web Speech API 중 SpeechSynthesis(=TTS)를 적용한 `react-speech-kit`이라�
 한국어, 영어, 중국어 3개 국어의 음성으로 읽어주는 기능을 제공합니다.
 
 > 你吃饭了吗 : 밥 먹었니?
-> ![word](/uploads/943993c13af376809ce4aa857acca7e4/word.png)
+![word](https://user-images.githubusercontent.com/53737175/99741126-be2e2400-2b13-11eb-9efa-9283f5bd151a.png)
 > <br>
 
 ## 카드 뒤집기 게임 :spades:
@@ -53,7 +53,7 @@ Web Speech API 중 SpeechSynthesis(=TTS)를 적용한 `react-speech-kit`이라�
 최대 6쌍의 카드들을 매칭시켜보면서 재미와 학습 두 마리 토끼를 동시에 잡아보세요~
 
 > 매 번 카드와 그 순서가 랜덤으로 뒤바뀝니다. 순식간에 다맞춘다면, 단어들은 이미 당신의 머릿속에!
-> ![game](/uploads/d01d96bffd17f4b5424ed10bc0e464e1/game.png)
+![game](https://user-images.githubusercontent.com/53737175/99741135-bff7e780-2b13-11eb-9ade-76b521f3d8b6.png)
 > <br>
 
 ## 시험지 제공 :page_facing_up:
@@ -69,7 +69,7 @@ Web Speech API 중 SpeechSynthesis(=TTS)를 적용한 `react-speech-kit`이라�
 직접 손으로 써가면서 자신의 기억력을 복기해보세요.
 
 > 선생님들이 사용한다면? 학생들에게 손쉽게 시험지를 나눠줄 수 있어요~
-> ![test](/uploads/db1f7bf89bd3a1c00e6d6eb453beed96/test.png)
+![test](https://user-images.githubusercontent.com/53737175/99741144-c1291480-2b13-11eb-88ec-8fd44990bece.png)
 > <br>
 
 # 서비스 이용 방법
@@ -77,12 +77,12 @@ Web Speech API 중 SpeechSynthesis(=TTS)를 적용한 `react-speech-kit`이라�
 1. 먼저 회원가입을 해주세요.(https://memorytraining.cf/register)
 2. 그 다음 상단의 **검색** 또는 **내 세트**를 통해 세트를 스크랩해오거나, 직접 만들어 주세요.
 3. 스크랩하거나 직접 만든 세트를 클릭하면, 위의 기능들을 이용하실 수 있답니다! :stuck_out_tongue_winking_eye:
-   ![set](/uploads/469ce1f14c35b06ebd347ef490b5bf70/set.PNG)
+![set](https://user-images.githubusercontent.com/53737175/99741148-c25a4180-2b13-11eb-9de8-09eaa307a277.PNG)
    <br>
 
 # 기술 스택
 
-![stack](/uploads/019f4630460cb507456fe49f735fe90f/stack.png)
+![stack](https://user-images.githubusercontent.com/53737175/99741151-c4240500-2b13-11eb-9e85-4daa28ab3261.png)
 Frontend는 React.js 라이브러리, Backend는 Django 프레임워크와 더불어 mySQL 사용했으며
 
 이 모든 것을 AWS EC2 환경의 서버를 통해 배포했습니다.
@@ -91,7 +91,7 @@ Frontend는 React.js 라이브러리, Backend는 Django 프레임워크와 더�
 
 # 팀원 소개
 
-![team](/uploads/45a7ca145e1dfa7ec2bbf111a2966a82/team.png)
+![team](https://user-images.githubusercontent.com/53737175/99741155-c5edc880-2b13-11eb-8e08-ba95962e1947.png)
 두 번 연속 같은 팀이 되워준 팀원들.
 
 모두 고생하셨습니다~~~ :heart_eyes: :tada: :clap:
