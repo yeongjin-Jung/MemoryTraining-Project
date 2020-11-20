@@ -1,6 +1,7 @@
 # 암기의 정석 바로가기(:arrow_right: https://memorytraining.cf :arrow_left:)
 
-![home](/uploads/913e4353373e10a2ff2099c5986c375a/home.PNG)
+![home](https://user-images.githubusercontent.com/53737175/99741088-a787cd00-2b13-11eb-82e6-74c0473f9eb9.PNG)
+
 
 <br>
 <br>
